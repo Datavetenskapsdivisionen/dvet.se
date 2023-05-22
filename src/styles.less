@@ -1,178 +1,224 @@
 @import "/assets/variables.less";
 @import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
 
+body {
+    margin: 0;
+    padding: 0;
+}
+
+#app div div {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
 header {
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  position: relative;
-  overflow: hidden;
-  min-height: 80px;
-  #logo {
-    padding: 0 10px;
+    margin: 0;
+    padding: 0;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
     justify-content: center;
-    a {
-      display: inline-block;
-      font-family: "Press Start 2P", cursive;
-      font-size: 1.4rem;
-      color: white;
-      font-weight: 950;
-      padding: 0.25em 0.2em 0.12em 0.25em;
-      text-transform: uppercase;
-      text-decoration: none;
-      background: @black;
-    }
-  }
-  #subheader {
-    background: @black;
-    color: @white;
-    padding: 3px 5px;
-    font-size: 0.8rem;
-    font-family: "Press Start 2P", cursive;
-    text-transform: uppercase;
-  }
-  .header-bg-grid {
-    z-index: -1;
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    top: 0;
-    max-height: 12rem;
+    position: relative;
     overflow: hidden;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, 20px);
-    grid-auto-rows: 20px;
-    grid-auto-flow: dense;
-  }
+    min-height: 80px;
+
+    #logo {
+        padding: 0 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+
+        a {
+            display: inline-block;
+            font-family: "Press Start 2P", cursive;
+            font-size: 1.4rem;
+            color: white;
+            font-weight: 950;
+            padding: 0.25em 0.2em 0.12em 0.25em;
+            text-transform: uppercase;
+            text-decoration: none;
+            background: @black;
+        }
+    }
+
+    #subheader {
+        background: @black;
+        color: @white;
+        padding: 3px 5px;
+        font-size: 0.8rem;
+        font-family: "Press Start 2P", cursive;
+        text-transform: uppercase;
+    }
+
+    .header-bg-grid {
+        z-index: -1;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 0;
+        max-height: 12rem;
+        overflow: hidden;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, 20px);
+        grid-auto-rows: 20px;
+        grid-auto-flow: dense;
+    }
 }
+
 .v2 {
-  grid-row: span 2;
+    grid-row: span 2;
 }
+
 .v3 {
-  grid-row: span 3;
+    grid-row: span 3;
 }
+
 .h2 {
-  grid-column: span 2;
+    grid-column: span 2;
 }
+
 .h3 {
-  grid-column: span 3;
+    grid-column: span 3;
 }
+
 .c1 {
-  background: @blue-1;
+    background: @blue-1;
 }
+
 .c2 {
-  background: @blue-2;
+    background: @blue-2;
 }
+
 .c3 {
-  background: @blue-3;
+    background: @blue-3;
 }
+
 .c4 {
-  background: @blue-4;
+    background: @blue-4;
 }
+
 .c5 {
-  background: @yellow;
+    background: @yellow;
 }
+
 .c6 {
-  background: @skin;
+    background: @skin;
 }
+
 .c7 {
-  background: @red;
+    background: @red;
 }
+
 .c8 {
-  background: @black;
+    background: @black;
 }
 
 nav {
-  font-family: "Press Start 2P", cursive;
-  font-size: 9px;
-  background: @black;
-  padding-bottom: 5px;
-  min-height: 60px;
-  padding: 5px 10px 0;
-  display: flex;
-  justify-content: center;
-  position: relative;
-  div {
+    font-family: "Press Start 2P", cursive;
+    font-size: 9px;
+    background: @black;
+    padding-bottom: 5px;
+    min-height: 60px;
+    padding: 5px 10px 0;
     display: flex;
-    width: @width;
-  }
-}
-@media (max-width: 767px) {
-  nav {
-    justify-content: flex-start;
+    justify-content: center;
+    position: relative;
+
     div {
-      flex-direction: column;
+        display: flex;
+        width: @width;
     }
-  }
 }
-@media (min-width: 768px) {
-  .nav__link {
-    margin-left: 10px;
-  }
-  .nav__link:hover:nth-child(1) {
-    border-color: @red;
-  }
-  .nav__link:hover:nth-child(2) {
-    border-color: @yellow;
-  }
-  .nav__link:hover:nth-child(3) {
-    border-color: @blue-2;
-  }
-  .nav__link:hover:nth-child(4) {
-    border-color: @skin;
-  }
-  .nav__link:hover:nth-child(5) {
-    border-color: @cyan;
-  }
-  .nav__link:hover:nth-child(6) {
-    border-color: @white;
-  }
-}
-.nav__link {
-  display: flex;
-  padding: 20px 20px 15px;
-  text-decoration: none;
-  color: white;
-  text-transform: uppercase;
-  white-space: nowrap;
-  border-bottom: 5px solid transparent;
-}
-.nav__link.active--exact:nth-child(1) {
-  border-color: @red;
-}
-.nav__link.active--exact:nth-child(2) {
-  border-color: @yellow;
-}
-.nav__link.active--exact:nth-child(3) {
-  border-color: @blue-2;
-}
-.nav__link.active--exact:nth-child(4) {
-  border-color: @skin;
-}
-.nav__link.active--exact:nth-child(5) {
-  border-color: @cyan;
-}
-.nav__link.active--exact:nth-child(6) {
-  border-color: @white;
-}
-.nav__link:hover {
-  background: rgba(255, 255, 255, 0.05);
+
+@media (max-width: 767px) {
+    nav {
+        justify-content: flex-start;
+
+        div {
+            flex-direction: column;
+        }
+    }
 }
 
 @media (min-width: 768px) {
-  header {
-    align-items: center;
-    #logo {
-      width: @width;
-      a {
-        font-size: 2rem;
-      }
+    .nav__link {
+        margin-left: 10px;
     }
-  }
+
+    .nav__link:hover:nth-child(1) {
+        border-color: @red;
+    }
+
+    .nav__link:hover:nth-child(2) {
+        border-color: @yellow;
+    }
+
+    .nav__link:hover:nth-child(3) {
+        border-color: @blue-2;
+    }
+
+    .nav__link:hover:nth-child(4) {
+        border-color: @skin;
+    }
+
+    .nav__link:hover:nth-child(5) {
+        border-color: @cyan;
+    }
+
+    .nav__link:hover:nth-child(6) {
+        border-color: @white;
+    }
+}
+
+.nav__link {
+    display: flex;
+    padding: 20px 20px 15px;
+    text-decoration: none;
+    color: white;
+    text-transform: uppercase;
+    white-space: nowrap;
+    border-bottom: 5px solid transparent;
+}
+
+.nav__link.active--exact:nth-child(1) {
+    border-color: @red;
+}
+
+.nav__link.active--exact:nth-child(2) {
+    border-color: @yellow;
+}
+
+.nav__link.active--exact:nth-child(3) {
+    border-color: @blue-2;
+}
+
+.nav__link.active--exact:nth-child(4) {
+    border-color: @skin;
+}
+
+.nav__link.active--exact:nth-child(5) {
+    border-color: @cyan;
+}
+
+.nav__link.active--exact:nth-child(6) {
+    border-color: @white;
+}
+
+.nav__link:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+@media (min-width: 768px) {
+    header {
+        align-items: center;
+
+        #logo {
+            width: @width;
+
+            a {
+                font-size: 2rem;
+            }
+        }
+    }
 }
