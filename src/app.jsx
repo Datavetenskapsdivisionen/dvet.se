@@ -3,6 +3,7 @@ import Toolbar from "./components/toolbar";
 import "./styles.less";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import Navbar from "./components/navbar/navbar";
+import Footer from "./components/navbar/footer";
 import ContactPage from "./components/contact-page";
 import DocumentPage from "./components/documents-page";
 import AboutPage from "./components/about-page";
@@ -15,7 +16,7 @@ const App = () => {
       <Toolbar />
       <Router>
         <Navbar />
-        <div>
+        <main>
           <Routes>
             <Route exact path="/" element={<HomePage />} />
             <Route exact path="/about" element={<AboutPage />} />
@@ -23,8 +24,9 @@ const App = () => {
             <Route exact path="/documents" element={<DocumentPage />} />
             <Route exact path="/contact" element={<ContactPage />} />
           </Routes>
-        </div>
+        </main>
       </Router>
+      <Footer />
     </div>
   );
 };

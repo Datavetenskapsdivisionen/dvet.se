@@ -4,11 +4,39 @@
 body {
     margin: 0;
     padding: 0;
+    min-height: 100vh;
+}
+
+#app {
+    min-height: 100vh;
+    position: relative;
+
+    >div {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+
+        >main {
+            flex: 1;
+        }
+    }
 }
 
 .page {
     padding-left: 20px;
     padding-right: 20px;
+}
+
+footer {
+    font-family: "Press Start 2P";
+    font-size: 7px;
+    background: #161616;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #e9e9e9;
+    position: relative;
 }
 
 header {
