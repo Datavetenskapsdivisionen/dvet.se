@@ -17,10 +17,10 @@ const App = () => {
         <Navbar />
         <div>
           <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/about" element={<AboutPage />} />
-            <Route path="/committees" element={<CommitteePage />} />
-            <Route path="/documents" element={<DocumentPage />} />
+            <Route exact path="/" element={<HomePage />} />
+            <Route exact path="/about" element={<AboutPage />} />
+            <Route exact path="/committees" element={<CommitteePage />} />
+            <Route exact path="/documents" element={<DocumentPage />} />
             <Route exact path="/contact" element={<ContactPage />} />
           </Routes>
         </div>

@@ -1,7 +1,7 @@
 import React from "react";
 
 const me = () => (
-  <div>
+  <div className="page">
     <h1>Documents</h1>
   </div>
 );
