@@ -10,7 +10,6 @@ import Mega6Logo from "../../assets/committee-logos/mega6-logo.png";
 
 const me = () => (
   <div className="page">
-    <h1>Kommittéer</h1>
     <ReactMarkdown children={text}></ReactMarkdown>
     <div className="committee-holder">
       <CommitteeBadge uri="/committees/dvrk" name="DVRK" logo={DVRKLogo} color="#1e1e1e" />
