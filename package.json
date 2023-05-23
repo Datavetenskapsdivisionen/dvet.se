@@ -2,7 +2,7 @@
   "name": "dvet.se",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/server.js",
   "scripts": {
     "start": "node src/server.js",
     "dev": "webpack serve --hot --open",
