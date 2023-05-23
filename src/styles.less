@@ -1,10 +1,19 @@
 @import "/assets/variables.less";
 @import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
 
 body {
     margin: 0;
     padding: 0;
     min-height: 100vh;
+}
+
+
+main {
+    flex: 1;
+    max-width: 768px;
+    margin: 10px auto;
+    width: 100%;
 }
 
 #app {
@@ -15,16 +24,17 @@ body {
         min-height: 100vh;
         display: flex;
         flex-direction: column;
-
-        >main {
-            flex: 1;
-        }
     }
 }
 
 .page {
     padding-left: 20px;
     padding-right: 20px;
+
+    * {
+        font-family: 'Open Sans', sans-serif;
+        color: #161616;
+    }
 }
 
 footer {
