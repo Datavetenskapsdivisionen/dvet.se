@@ -14,9 +14,9 @@ const me = () => (
   <div className="page">
     <ReactMarkdown children={text} rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}></ReactMarkdown>
     <div className="committee-holder">
-      <CommitteeBadge uri="/committees/dvrk" name="DVRK" logo={DVRKLogo} color="#1e1e1e" />
+      <CommitteeBadge uri="http://dvrk.dvet.se" name="DVRK" logo={DVRKLogo} color="#1e1e1e" />
       <CommitteeBadge uri="/committees/boardofstudies" name="Studienämnd" />
-      <CommitteeBadge uri="/committees/mega6" name="Mega6" logo={Mega6Logo} color="#434afa" />
+      <CommitteeBadge uri="/committees/mega6" name="Mega6" logo={Mega6Logo} color="#434AFA" />
       <CommitteeBadge uri="/committees/concats" imageText={ConCatsText} logo={ConCatsLogo} />
       <CommitteeBadge uri="/committees/femmepp" name="Femme++" />
       <CommitteeBadge uri="/committees/dit1337" name="DIT1337" />
