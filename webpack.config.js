@@ -5,7 +5,7 @@ module.exports = {
   entry: "./src/index.js",
   mode: "development",
   output: {
-    filename: "bundle.[hash].js",
+    filename: "bundle.[fullhash].js",
     path: path.resolve(__dirname, "dist"),
     publicPath: "/",
   },
@@ -33,6 +33,10 @@ module.exports = {
       {
         test: /\.png|svg|jpg|gif$/,
         use: ["file-loader"],
+      },
+      {
+        test: /\.md$/i,
+        use: ["raw-loader"],
       },
       {
         test: /\.less$/,
