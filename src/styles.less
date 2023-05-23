@@ -14,49 +14,84 @@ body {
     gap: 40px;
     justify-content: center;
     align-content: center;
+    justify-items: center;
 
     @media (max-width: 900px) {
         grid-template-columns: 1fr;
     }
-}
 
-.committee-badge {
-    margin: 10px;
-    background-color: red;
-    min-width: 380px;
-    max-width: 380px;
-    width: 100%;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    overflow: hidden;
-    margin: auto;
-
-    >div {
-        width: 100%;
-        overflow: hidden;
-        background-color: green;
-        box-sizing: border-box;
-
-        >h1 {
-            font-family: "Press Start 2P";
-            color: white;
-            text-align: center;
-            word-wrap: break-word;
-        }
+    @media (min-width: 1300px) {
+        grid-template-columns: 1fr 1fr 1fr;
     }
 
-    .image-holder {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 300px;
-        height: 300px;
 
-        >img {
-            //height: 256px;
-            width: 256px;
+    .committee-badge:hover {
+        box-shadow: 0px 0px 31px 1px rgba(0, 0, 0, 0.75);
+    }
+
+    .committee-badge {
+        box-shadow: 0px 0px 7px 1px rgba(0, 0, 0, 0.75);
+        transition-duration: 0.25s;
+        margin: 10px;
+        background-color: #161616;
+        min-width: 380px;
+        max-width: 380px;
+        width: 100%;
+        cursor: pointer;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        overflow: hidden;
+        margin: auto;
+
+        * {
+            user-select: none;
+        }
+
+
+        >div {
+            width: 100%;
+            overflow: hidden;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        .text-holder {
+            box-shadow: 0px -15px 56px 4px rgba(0, 0, 0, 0.75);
+            //box-shadow: 0px -25px 56px 4px rgba(0, 0, 0, 0.75);
+            //box-shadow: 0px -25px 41px -30px rgba(71, 71, 71, 0.87);
+            background-color: #161616;
+
+            >h1 {
+                font-family: "Press Start 2P";
+                color: white;
+                word-wrap: break-word;
+                margin-top: 24px;
+                margin-bottom: 24px;
+            }
+
+            >img {
+                margin: auto;
+                height: 34px;
+                image-rendering: crisp-edges;
+                margin-top: 24px;
+                margin-bottom: 24px;
+            }
+        }
+
+        .image-holder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 300px;
+            height: 300px;
+
+            >img {
+                //height: 256px;
+                width: 256px;
+                image-rendering: crisp-edges;
+            }
         }
     }
 }

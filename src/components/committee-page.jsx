@@ -5,19 +5,21 @@ import CommitteeBadge from "./widgets/committee-badge";
 
 import DVRKLogo from "../../assets/committee-logos/dvrk-logo.png";
 import ConCatsLogo from "../../assets/committee-logos/concats-logo.png";
+import ConCatsText from "../../assets/committee-logos/concats-text-alt.png";
 import Mega6Logo from "../../assets/committee-logos/mega6-logo.png";
 
 const me = () => (
   <div className="page">
-    <h1>Kommitteer</h1>
+    <h1>Kommittéer</h1>
     <ReactMarkdown children={text}></ReactMarkdown>
     <div className="committee-holder">
-      <CommitteeBadge name="DVRK" logo={DVRKLogo} />
-      <CommitteeBadge name="Studienämnd" />
-      <CommitteeBadge name="Mega6" logo={Mega6Logo} />
-      <CommitteeBadge name="ConCats" logo={ConCatsLogo} />
-      <CommitteeBadge name="DIT1337" />
-      <CommitteeBadge name="DVArm" />
+      <CommitteeBadge uri="/committees/dvrk" name="DVRK" logo={DVRKLogo} color="#1e1e1e" />
+      <CommitteeBadge uri="/committees/boardofstudies" name="Studienämnd" />
+      <CommitteeBadge uri="/committees/mega6" name="Mega6" logo={Mega6Logo} color="lightgreen" />
+      <CommitteeBadge uri="/committees/concats" imageText={ConCatsText} logo={ConCatsLogo} />
+      <CommitteeBadge uri="/committees/femmepp" name="Femme++" />
+      <CommitteeBadge uri="/committees/dit1337" name="DIT1337" />
+      <CommitteeBadge uri="/committees/dvarm" name="DVArm" />
     </div>
   </div>
 );
