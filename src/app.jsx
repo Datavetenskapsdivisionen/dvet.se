@@ -9,6 +9,7 @@ import DocumentPage from "./components/documents-page";
 import AboutPage from "./components/about-page";
 import HomePage from "./components/home-page";
 import CommitteePage from "./components/committee-page";
+import WIP from "./components/widgets/wip";
 
 const App = () => {
   return (
@@ -27,6 +28,7 @@ const App = () => {
         </main>
       </Router>
       <Footer />
+      <WIP />
     </div>
   );
 };

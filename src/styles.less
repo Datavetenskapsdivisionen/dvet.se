@@ -8,6 +8,28 @@ body {
     min-height: 100vh;
 }
 
+.wip-tag {
+    position: absolute;
+    z-index: 100000000;
+    overflow: hidden;
+    right: 0;
+
+    div {
+        font-family: "Press Start 2P";
+        color: white;
+        background-color: red;
+        padding-top: 76px;
+        padding-left: 140px;
+        padding-right: 200px;
+        margin-right: -220px;
+        display: flex;
+        flex-direction: column;
+        justify-content: end;
+
+        rotate: 45deg;
+    }
+}
+
 .committee-holder {
     display: grid;
     grid-template-columns: auto auto;
