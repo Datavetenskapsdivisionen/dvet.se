@@ -20,7 +20,7 @@ const me = () => (
       <CommitteeBadge uri="/committees/mega6" name="Mega6" logo={Mega6Logo} color="#434AFA" />
       <CommitteeBadge uri="/committees/concats" imageText={ConCatsText} logo={ConCatsLogo} />
       <CommitteeBadge uri="/committees/femmepp" name="Femme++" />
-      <CommitteeBadge uri="/committees/dit1337" name="DIT1337" />
+      <CommitteeBadge uri="/committees/dv_ops" name="DV_Ops" />
       <CommitteeBadge uri="/committees/dvarm" name="DVArm" />
       <CommitteeBadge uri="/committees/mega7" name="Mega7" logo={Mega7Logo} />
     </div>
