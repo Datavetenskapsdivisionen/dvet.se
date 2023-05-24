@@ -9,6 +9,7 @@ import DocumentPage from "./components/documents-page";
 import AboutPage from "./components/about-page";
 import HomePage from "./components/home-page";
 import CommitteePage from "./components/committee-page";
+import ToolsPage from "./components/tools-page";
 import WIP from "./components/widgets/wip";
 
 const App = () => {
@@ -22,6 +23,7 @@ const App = () => {
             <Route exact path="/" element={<HomePage />} />
             <Route exact path="/about" element={<AboutPage />} />
             <Route exact path="/committees" element={<CommitteePage />} />
+            <Route exact path="/tools" element={<ToolsPage />} />
             <Route exact path="/documents" element={<DocumentPage />} />
             <Route exact path="/contact" element={<ContactPage />} />
           </Routes>

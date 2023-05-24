@@ -15,6 +15,10 @@ const navbar = () => {
           Om Oss
         </Link>
 
+        <Link className="nav__link" to="/tools">
+          Verktyg
+        </Link>
+
         <Link className="nav__link" to="/documents">
           Dokument
         </Link>
