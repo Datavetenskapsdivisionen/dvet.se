@@ -9,6 +9,7 @@ import DVRKLogo from "../../assets/committee-logos/dvrk-logo.png";
 import ConCatsLogo from "../../assets/committee-logos/concats-logo.png";
 import ConCatsText from "../../assets/committee-logos/concats-text-alt.png";
 import Mega6Logo from "../../assets/committee-logos/mega6-logo.png";
+import Mega7Logo from "../../assets/committee-logos/mega7-logo.png";
 
 const me = () => (
   <div className="page">
@@ -21,6 +22,7 @@ const me = () => (
       <CommitteeBadge uri="/committees/femmepp" name="Femme++" />
       <CommitteeBadge uri="/committees/dit1337" name="DIT1337" />
       <CommitteeBadge uri="/committees/dvarm" name="DVArm" />
+      <CommitteeBadge uri="/committees/mega7" name="Mega7" logo={Mega7Logo} />
     </div>
   </div>
 );
