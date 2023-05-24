@@ -40,7 +40,7 @@ const me = (props) => {
     React.useEffect(() => {
         getCsvObject().then((res) => setState(res));
     }, [getCsvObject]);
-    return <div class="schedule-holder">
+    return <div className="schedule-holder">
         <button onClick={() => {
             const events = Array.from(document.getElementsByClassName("passed"));
             if (!oldVisible) {
