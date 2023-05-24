@@ -35,7 +35,7 @@ module.exports = {
         use: ["file-loader"],
       },
       {
-        test: /\.md$/i,
+        test: /\.md|csv$/,
         use: ["raw-loader"],
       },
       {

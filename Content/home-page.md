@@ -1,8 +1,6 @@
 # Välkommen!
 
-<div style="border: solid 3px black; text-align: center;">
-    <h1>INSERT INFO OM MOTTAGNING</h1>
-</div>
+
 
 ## Prenumerera på utskick
 

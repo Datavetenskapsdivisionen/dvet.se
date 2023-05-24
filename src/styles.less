@@ -8,6 +8,43 @@ body {
     min-height: 100vh;
 }
 
+.hidden {
+    display: none;
+}
+
+.schedule-holder {
+    text-align: center;
+
+    button {
+        margin-bottom: 10px;
+    }
+
+    .kickoff-schedule {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 5px;
+
+        .schedule-item {
+            text-align: center;
+            border: 1px solid #161616;
+            width: 300px;
+        }
+
+        .active {
+            background-color: lightgreen;
+        }
+
+        .passed {
+            background-color: lightcoral;
+        }
+
+        .upcoming {
+            background-color: lightcyan;
+        }
+    }
+}
+
 .info-buttons-list {
     border: #161616 3px solid;
     text-align: center;

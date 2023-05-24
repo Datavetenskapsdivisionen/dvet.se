@@ -4,10 +4,13 @@ import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import text from "../../Content/home-page.md";
 import InfoButton from "./widgets/info-button.jsx";
+import KickoffSchedule from "./widgets/kickoff-schedule";
 
 const me = () => (
     <div className="page">
+        <KickoffSchedule />
         <ReactMarkdown children={text} rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}></ReactMarkdown>
+
         <div className="info-buttons-list">
             <h1>Helpful tools </h1>
             <div>
