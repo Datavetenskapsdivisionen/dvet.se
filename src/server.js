@@ -13,6 +13,16 @@ app.get("/committees", callback);
 app.get("/about", callback);
 app.get("/documents", callback);
 app.get("/contact", callback);
+app.get("/tools", callback);
+app.get("/committees/the-board", callback);
+app.get("/committees/dvrk", callback);
+app.get("/committees/board-of-studies", callback);
+app.get("/committees/mega6", callback);
+app.get("/committees/concats", callback);
+app.get("/committees/femmepp", callback);
+app.get("/committees/dv_ops", callback);
+app.get("/committees/dvarm", callback);
+app.get("/committees/mega7", callback);
 
 
 const port = process.env.PORT || 8080;

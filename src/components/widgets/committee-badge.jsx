@@ -1,5 +1,6 @@
 import React from "react";
 import ReactMarkdown from "react-markdown";
+import { useNavigate } from "react-router-dom";
 
 const text = (img, text, fontSize) => {
     if (img == null) {
@@ -17,8 +18,10 @@ const style = (color) => {
     }
 };
 
-const me = (props) => (
-    <div className="committee-badge" style={style(props.color)} onClick={() => window.open(props.uri, "_self")}>
+const me = (props) => {
+    const nav = useNavigate();
+
+    return <div className="committee-badge" style={style(props.color)} onClick={() => nav(props.uri)}>
         <div className="image-holder">
             <img src={props.logo} alt="I am an image" draggable="false" />
         </div>
@@ -26,7 +29,7 @@ const me = (props) => (
             {text(props.imageText, props.name, props.fontSize)}
         </div>
         <ReactMarkdown></ReactMarkdown>
-    </div >
-);
+    </div >;
+};
 
 export default me;

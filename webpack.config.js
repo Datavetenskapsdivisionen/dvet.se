@@ -46,7 +46,12 @@ module.exports = {
           { loader: "less-loader" },
         ],
       },
-
+      {
+        test: /\.svg$/,
+        use: [
+          { loader: "svg-url-loader"},
+        ],
+      },
       {
         test: /\.jsx?$/,
         loader: "babel-loader",
