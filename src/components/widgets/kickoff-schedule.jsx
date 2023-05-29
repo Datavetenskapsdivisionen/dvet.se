@@ -1,6 +1,8 @@
 import React from "react";
 import csvFile from "../../../Content/kickoff-schedule.csv";
 import csv from "csvtojson";
+import Modal from "react-modal";
+
 
 const isToday = (date) => {
     const today = new Date();
@@ -11,7 +13,7 @@ const isToday = (date) => {
 
 const hasPassed = (date) => (date < new Date());
 
-const getCsvObject = async () => {
+const getCsvObject = async (openModal, setModalData) => {
     const res = await csv().fromString(csvFile);
     const data = res.map(o => {
         const date = new Date(Date.parse(o["Datum"]));
@@ -23,11 +25,18 @@ const getCsvObject = async () => {
         } else {
             className += " upcoming";
         }
-        return <div className={className}>
+
+        if (o["beskrivning"]) className += " clickable";
+        const action = (o["beskrivning"]) ? () => {
+            setModalData([o["Aktivitet"], o["beskrivning"], o["Datum"], o["Arrangör"]]);
+            openModal();
+        } : () => { };
+
+        return <div className={className} onClick={action}>
             <h3>{o["Datum"]}</h3>
             <h3>{o["Aktivitet"]}</h3>
             <h4>{o["Arrangör"]}</h4>
-            <h4>{o["beskrivning"]}</h4>
+            {/*  */}
         </div>;
     });
     return <div className="kickoff-schedule">{data}</div>;
@@ -36,10 +45,19 @@ const getCsvObject = async () => {
 let oldVisible = false;
 
 const me = (props) => {
+    let subtitle;
+    const [modalIsOpen, setIsOpen] = React.useState(false);
+    const openModal = () => setIsOpen(true);
+    const afterOpenModal = () => { };
+    const closeModal = () => setIsOpen(false);
+
+    const [[modalTitle, modalContent, modalWhen, modalWho], setModalData] = React.useState(["event", "about", "2020", "whom"]);
+
     const [csv, setState] = React.useState(0);
     React.useEffect(() => {
-        getCsvObject().then((res) => setState(res));
+        getCsvObject(openModal, setModalData).then((res) => setState(res));
     }, [getCsvObject]);
+
     return <div className="schedule-holder">
         <button onClick={() => {
             const events = Array.from(document.getElementsByClassName("passed"));
@@ -53,6 +71,22 @@ const me = (props) => {
             }
         }}>Toggla tidigare event</button>
         {csv}
+        <Modal
+            isOpen={modalIsOpen}
+            onAfterOpen={afterOpenModal}
+            onRequestClose={closeModal}
+            //style={customStyles}
+            contentLabel="Example Modal"
+            appElement={document.getElementById("app")}
+            className="schedule-modal"
+            overlayClassName="schedule-modal-overlay"
+        >
+            <h2 ref={(_subtitle) => (subtitle = _subtitle)}>{modalTitle}</h2>
+            <p>{modalContent}</p>
+            <p>När: {modalWhen}</p>
+            <p>Vilka hostar: {modalWho}</p>
+            <button onClick={closeModal} className="close-button">X</button>
+        </Modal>
     </div>;
 };
 

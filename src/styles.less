@@ -8,6 +8,56 @@ body {
     min-height: 100vh;
 }
 
+.schedule-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #161616AA;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.schedule-modal {
+    position: absolute;
+    background-color: white;
+    padding: 20px;
+    width: 40%;
+
+    @media (max-width: 1100px) {
+        width: 450px;
+    }
+
+    @media (max-width: 540px) {
+        width: 80%;
+    }
+
+    h2 {
+        color: black;
+        font-family: "Press Start 2P";
+    }
+
+    p {
+        font-family: 'Open Sans', sans-serif;
+        color: #161616;
+    }
+
+    .close-button {
+        font-family: "Press Start 2P";
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        border: none;
+        font-size: 2em;
+        padding: 5px 5px 0px 8px;
+        cursor: pointer;
+    }
+
+    //transform: translate(-50%, -50%);
+}
+
 .hidden {
     display: none;
 }
@@ -26,9 +76,11 @@ body {
         gap: 5px;
 
         .schedule-item {
+            position: relative;
             text-align: center;
             border: 1px solid #161616;
             width: 300px;
+            overflow: hidden;
         }
 
         .active {
@@ -41,6 +93,23 @@ body {
 
         .upcoming {
             background-color: lightcyan;
+        }
+
+        .clickable {
+            cursor: pointer;
+        }
+
+        .clickable::after {
+            font-family: "Press Start 2P";
+            content: "Info!";
+            rotate: 45deg;
+            background-color: red;
+            padding: 40px 40px 10px 50px;
+            color: white;
+            position: absolute;
+            right: -60px;
+            top: -10px;
+            border-bottom: 1px solid #161616;
         }
     }
 }
