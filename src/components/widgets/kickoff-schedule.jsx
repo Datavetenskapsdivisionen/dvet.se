@@ -58,7 +58,9 @@ const me = (props) => {
         getCsvObject(openModal, setModalData).then((res) => setState(res));
     }, [getCsvObject]);
 
-    return <div className="schedule-holder">
+    const month = new Date().getMonth() + 1;
+
+    return month >= 6 && month < 9 ? <div className="schedule-holder">
         <button onClick={() => {
             const events = Array.from(document.getElementsByClassName("passed"));
             if (!oldVisible) {
@@ -87,7 +89,7 @@ const me = (props) => {
             <p>Vilka hostar: {modalWho}</p>
             <button onClick={closeModal} className="close-button">X</button>
         </Modal>
-    </div>;
+    </div> : null;
 };
 
 export default me;

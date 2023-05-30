@@ -5,13 +5,14 @@ import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import Navbar from "./components/navbar/navbar";
 import Footer from "./components/navbar/footer";
 import ContactPage from "./components/contact-page";
+import DVRKPage from "./components/dvrk-page";
 import DocumentPage from "./components/documents-page";
 import AboutPage from "./components/about-page";
 import HomePage from "./components/home-page";
 import CommitteePage from "./components/committee-page";
 import ToolsPage from "./components/tools-page";
 import WIP from "./components/widgets/wip";
-import IndivualCommitteePage from "./components/indivual-committee-page";
+import IndividualCommitteePage from "./components/individual-committee-page";
 
 const App = () => {
   return (
@@ -29,24 +30,24 @@ const App = () => {
             <Route exact path="/contact" element={<ContactPage />} />
 
             <Route exact path="/committees/the-board" element={
-              <IndivualCommitteePage text={require("../Content/committees/the-board.md")["default"]} />
+              <IndividualCommitteePage text={require("../Content/committees/the-board.md")["default"]} />
             } />
             <Route exact path="/committees/dvrk" element={
-              <IndivualCommitteePage text={require("../Content/committees/dvrk.md")["default"]} />
+              <DVRKPage />
             } /><Route exact path="/committees/board-of-studies" element={
-              <IndivualCommitteePage text={require("../Content/committees/board-of-studies.md")["default"]} />
+              <IndividualCommitteePage text={require("../Content/committees/board-of-studies.md")["default"]} />
             } /><Route exact path="/committees/mega6" element={
-              <IndivualCommitteePage text={require("../Content/committees/mega6.md")["default"]} />
+              <IndividualCommitteePage text={require("../Content/committees/mega6.md")["default"]} />
             } /><Route exact path="/committees/concats" element={
-              <IndivualCommitteePage text={require("../Content/committees/concats.md")["default"]} />
+              <IndividualCommitteePage text={require("../Content/committees/concats.md")["default"]} />
             } /><Route exact path="/committees/femmepp" element={
-              <IndivualCommitteePage text={require("../Content/committees/femmepp.md")["default"]} />
+              <IndividualCommitteePage text={require("../Content/committees/femmepp.md")["default"]} />
             } /><Route exact path="/committees/dv_ops" element={
-              <IndivualCommitteePage text={require("../Content/committees/dv_ops.md")["default"]} />
+              <IndividualCommitteePage text={require("../Content/committees/dv_ops.md")["default"]} />
             } /><Route exact path="/committees/dvarm" element={
-              <IndivualCommitteePage text={require("../Content/committees/dvarm.md")["default"]} />
+              <IndividualCommitteePage text={require("../Content/committees/dvarm.md")["default"]} />
             } /><Route exact path="/committees/mega7" element={
-              <IndivualCommitteePage text={require("../Content/committees/mega7.md")["default"]} />
+              <IndividualCommitteePage text={require("../Content/committees/mega7.md")["default"]} />
             } />
           </Routes>
         </main>
