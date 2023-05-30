@@ -59,7 +59,7 @@ body {
 }
 
 .hidden {
-    display: none;
+    display: none !important;
 }
 
 .schedule-holder {
@@ -81,6 +81,17 @@ body {
             border: 1px solid #161616;
             width: 300px;
             overflow: hidden;
+            display: grid;
+            grid-template-rows: auto auto auto;
+
+            >* {
+                margin: 10px;
+            }
+
+            h3:first-of-type {
+                font-family: "Press Start 2P";
+                color: #161616;
+            }
         }
 
         .active {
@@ -107,8 +118,9 @@ body {
             padding: 40px 40px 10px 50px;
             color: white;
             position: absolute;
-            right: -60px;
-            top: -10px;
+            right: -58px;
+            top: -20px;
+            font-size: 0.75em;
             border-bottom: 1px solid #161616;
         }
     }

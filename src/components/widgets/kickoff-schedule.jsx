@@ -33,9 +33,9 @@ const getCsvObject = async (openModal, setModalData) => {
         } : () => { };
 
         return <div className={className} onClick={action}>
-            <h3>{o["Datum"]}</h3>
-            <h3>{o["Aktivitet"]}</h3>
-            <h4>{o["Arrangör"]}</h4>
+            <h3>{o["Arrangör"]}</h3>
+            <p>{o["Aktivitet"]}</p>
+            <h4>{o["Datum"]}</h4>
             {/*  */}
         </div>;
     });
