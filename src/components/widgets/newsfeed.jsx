@@ -82,9 +82,11 @@ const me = (props) => {
     return <div className="news-holder">
         <h2>Nyheter</h2>
         <div>{content}</div>
-        <button onClick={
-            () => window.open("https://github.com/Datavetenskapsdivisionen/posts/issues")
-        }>Se mer</button>
+        <div className="center">
+            <button onClick={
+                () => window.open("https://github.com/Datavetenskapsdivisionen/posts/issues")
+            }>Se äldre nyheter</button>
+        </div>
     </div >;
 };
 
