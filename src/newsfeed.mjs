@@ -27,4 +27,3 @@ const me = async (req, res) => {
 };
 
 export default me;
-//  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
