@@ -56,28 +56,16 @@ code {
         background-color: white;
         border-radius: 10px;
         display: grid;
-        grid-template-columns: 52px 1fr;
-        grid-template-rows: auto auto auto;
         box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.75);
         padding: 10px;
 
         img {
             width: 48px;
-            grid-column: 1;
-            grid-row-end: span 2;
             border-radius: 100%;
             box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.5);
         }
 
-        h3 {
-            grid-column: 2;
-            grid-row: 1;
-            margin: 4px;
-        }
-
         .content {
-            grid-column: 2;
-            grid-row: 2;
             margin: 6px;
             word-wrap: break-word;
             position: relative;
@@ -85,54 +73,105 @@ code {
             padding-left: 10px;
             padding-right: 10px;
             border-radius: 10px;
-            overflow: hidden;
         }
 
-        // .not-clicked::after {
-        //     content: "";
-        //     position: absolute;
-        //     top: 0;
-        //     left: 0;
-        //     width: 100%;
-        //     //height: 48px;
-        //     background: rgb(255, 255, 255);
-        //     background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.37299771167048057) 9%, rgba(255, 255, 255, 1) 100%);
-        // }
-
-        >span:nth-of-type(2) {
-            grid-column: 2;
-            text-align: right;
-        }
-
-        >span:nth-of-type(1) {
-            grid-column: 2;
-            grid-row: 1;
-            text-align: right;
+        .reaction {
+            border: #d3d3d3 1px solid;
+            font-size: 16px;
+            padding: 2px;
+            padding-left: 6px;
+            padding-right: 6px;
+            background-color: #e9e9e9;
+            border-radius: 32px;
+            color: #595959;
+            transition-duration: 250ms;
+            cursor: pointer;
         }
 
         .reactions {
-            position: absolute;
-            bottom: 0;
-            left: 0;
             display: flex;
-            column-gap: 3px;
+            gap: 3px;
             margin: 4px;
-
-            .reaction {
-                border: #d3d3d3 1px solid;
-                font-size: 16px;
-                padding: 2px;
-                padding-left: 6px;
-                padding-right: 6px;
-                background-color: #e9e9e9;
-                border-radius: 32px;
-                color: #595959;
-                transition-duration: 250ms;
-                cursor: pointer;
-            }
+            flex-wrap: wrap;
 
             >.reaction:hover {
                 background-color: #c5c5c5;
+            }
+        }
+
+        @media (min-width: 775px) {
+            grid-template-columns: 52px 1fr;
+            grid-template-rows: auto auto auto;
+
+            img {
+                grid-column: 1;
+                grid-row-end: span 2;
+            }
+
+            h3 {
+                grid-column: 2;
+                grid-row: 1;
+                margin: 4px;
+            }
+
+            .content {
+                grid-column: 2;
+                grid-row: 2;
+            }
+
+            >span:nth-of-type(2) {
+                grid-column: 2;
+                text-align: right;
+            }
+
+            >span:nth-of-type(1) {
+                grid-column: 2;
+                grid-row: 1;
+                text-align: right;
+            }
+
+            .reactions {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+            }
+        }
+
+        @media (max-width: 775px) {
+            grid-template-columns: 52px 1fr;
+            grid-template-rows: auto auto auto;
+
+            img {
+                grid-column: 1;
+                grid-row: 1;
+            }
+
+            h3 {
+                grid-column: 2;
+                grid-row: 1;
+                margin: 4px;
+                padding-top: 4px;
+            }
+
+            >span:nth-of-type(2) {
+                grid-column: 2;
+                text-align: right;
+            }
+
+            >span:nth-of-type(1) {
+                grid-column: span 2;
+                grid-row: 4;
+                text-align: right;
+                padding-top: 11px;
+            }
+
+            .content {
+                grid-column: span 2;
+                grid-row: span 2;
+            }
+
+            .reactions {
+                grid-column: span 2;
             }
         }
     }
