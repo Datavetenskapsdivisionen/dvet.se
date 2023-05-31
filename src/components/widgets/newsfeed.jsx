@@ -4,7 +4,7 @@ import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 
 const fetchNews = () => (
-    fetch("/newsfeed")
+    fetch("http://localhost:8080/newsfeed")
         .then(res => res.json())
         .catch(e => ({
             error: "failed to fetch news"
@@ -65,7 +65,7 @@ const createElements = (data) => {
             </div>
         </div >;
     });
-    return <div>{titles}</div>;
+    return <div class="news">{titles}</div>;
 };
 
 const me = (props) => {
@@ -81,7 +81,7 @@ const me = (props) => {
 
     return <div className="news-holder">
         <h2>Nyheter</h2>
-        <div>{content}</div>
+        {content}
         <div className="center">
             <button onClick={
                 () => window.open("https://github.com/Datavetenskapsdivisionen/posts/issues")
