@@ -4,10 +4,11 @@ const blog = new GithubBlog({
     repo: "Datavetenskapsdivisionen/posts",
     token: process.env.GITHUB_TOKEN,
 });
-let posts = await blog.getPosts({
+const fetchPosts = async () => await blog.getPosts({
     query: { type: "post", state: "published" },
     pager: { limit: 10, offset: 0 },
 });
+let posts = await fetchPosts();
 
 let lastTime = new Date();
 
@@ -16,10 +17,7 @@ const me = async (req, res) => {
     const minutes = (diff / 1000) / 60;
     if (minutes >= 1) {
         lastTime = new Date();
-        posts = await blog.getPosts({
-            query: { type: "post", state: "published" },
-            pager: { limit: 10, offset: 0 },
-        });
+        posts = await fetchPosts();
     }
     posts.lastTime = minutes;
     res.json(posts);
