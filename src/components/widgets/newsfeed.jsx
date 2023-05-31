@@ -45,7 +45,9 @@ const createElements = (data) => {
                         >{emoji} {count}</div>
                         : null;
                 });
-        return <div className="news-item">
+        const postId = "post-" + e.id;
+
+        return <div className="news-item" id={postId} >
             <img draggable="false" src={avatar} alt="avatar" />
             <span>{time}</span>
             <h3>{title}</h3>
