@@ -4,7 +4,7 @@ import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 
 const fetchNews = () => (
-    fetch("http://localhost:8080/newsfeed")
+    fetch("/newsfeed")
         .then(res => res.json())
         .catch(e => ({
             error: "failed to fetch news"
@@ -27,7 +27,7 @@ const stringToEmoji = (s) => {
 };
 
 const createElements = (data) => {
-    console.log(data);
+    if (data.error) return <p>Kunde inte hämta nyheter!</p>;
     const titles = data.map(e => {
         const title = e.title;
         const avatar = e.user.avatar_url;
