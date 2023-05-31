@@ -9,17 +9,17 @@ const fetchName = async (login) => {
 
 let posts = {};
 const fetchPosts = async () => {
-    const onSuccess = (r) => {
+    const onSuccess = async (r) => {
         const data = r.data.filter(e => (
             e.labels.filter(e => e.name == "state:published" || e.name == "type:post").length == 2
             && e.state == "open"
         ));
 
-        data.forEach(async e => {
+        await Promise.all(data.map(async e => {
             e.reactions = Object.entries(e.reactions)
                 .filter(([e, _]) => e != "url" && e != "total_count");
             e.user.name = await fetchName(e.user.login);
-        });
+        }));
         posts = data;
     };
 
