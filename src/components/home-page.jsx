@@ -5,13 +5,15 @@ import rehypeRaw from "rehype-raw";
 import text from "../../Content/home-page.md";
 import InfoButton from "./widgets/info-button.jsx";
 import KickoffInfoButton from "./widgets/kickoff-info-button";
+import NewsFeed from "./widgets/newsfeed";
 
 const me = () => (
     <div className="page">
         <KickoffInfoButton />
         <ReactMarkdown children={text} rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}></ReactMarkdown>
 
-        <div className="info-buttons-list">
+        <NewsFeed />
+        {/* <div className="info-buttons-list">
             <h1>Helpful tools </h1>
             <div>
                 <InfoButton name="Food" image="https://placebear.com/g/200/200" uri="https://placebear.com/g/200/200" />
@@ -21,7 +23,7 @@ const me = () => (
                 <InfoButton name="Lights" image="https://placebear.com/g/200/200" uri="http://192.168.1.247:8080/" />
                 <InfoButton name="" image="https://placebear.com/g/200/200" uri="https://placebear.com/g/200/200" />
             </div>
-        </div>
+        </div> */}
     </div>
 );
 
