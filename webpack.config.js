@@ -1,11 +1,25 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
+const TerserPlugin = require('terser-webpack-plugin');
+const CompressionPlugin = require("compression-webpack-plugin");
+
 
 module.exports = {
   entry: "./src/index.js",
   mode: "development",
+  optimization: {
+    chunkIds: "size",
+    minimizer: [
+      new TerserPlugin({
+        parallel: true,
+        terserOptions: {
+          compress: true,
+        },
+      }),
+    ]
+  },
   output: {
-    filename: "bundle.[fullhash].js",
+    filename: "bundle.js",
     path: path.resolve(__dirname, "dist"),
     publicPath: "/",
   },
@@ -14,6 +28,7 @@ module.exports = {
       template: "./src/index.html",
       favicon: "./assets/favicon.png",
     }),
+    new CompressionPlugin()
   ],
   resolve: {
     modules: [__dirname, "src", "node_modules"],
@@ -49,7 +64,7 @@ module.exports = {
       {
         test: /\.svg$/,
         use: [
-          { loader: "svg-url-loader"},
+          { loader: "svg-url-loader" },
         ],
       },
       {

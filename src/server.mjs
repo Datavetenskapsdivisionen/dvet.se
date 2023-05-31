@@ -1,5 +1,6 @@
 import express from "express";
 import path from "path";
+import expressStaticGzip from "express-static-gzip";
 
 const app = express();
 
@@ -9,7 +10,7 @@ const callback = (req, res) => {
 
 import newsfeed from "./newsfeed.mjs";
 
-app.use(express.static("dist"));
+app.use(expressStaticGzip("dist"));
 app.get("/", callback);
 app.get("/committees", callback);
 app.get("/about", callback);
