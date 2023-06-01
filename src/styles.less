@@ -45,6 +45,10 @@ code {
 .news-holder {
     padding-bottom: 20px;
 
+    * {
+        transition-duration: 100ms;
+    }
+
     .news {
         display: flex;
         flex-direction: column;
@@ -57,7 +61,6 @@ code {
         border-radius: 10px;
         display: grid;
         box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.75);
-        padding: 10px;
 
         img {
             width: 48px;
@@ -66,13 +69,11 @@ code {
         }
 
         .content {
-            margin: 6px;
             word-wrap: break-word;
             position: relative;
             background-color: #f0f0f0;
             padding-left: 10px;
             padding-right: 10px;
-            border-radius: 10px;
         }
 
         .reaction {
@@ -102,6 +103,7 @@ code {
         @media (min-width: 775px) {
             grid-template-columns: 52px 1fr;
             grid-template-rows: auto auto auto;
+            padding: 10px;
 
             img {
                 grid-column: 1;
@@ -115,8 +117,10 @@ code {
             }
 
             .content {
+                margin: 6px;
                 grid-column: 2;
                 grid-row: 2;
+                border-radius: 10px;
             }
 
             >span:nth-of-type(2) {
@@ -144,18 +148,21 @@ code {
             img {
                 grid-column: 1;
                 grid-row: 1;
+                margin: 10px;
             }
 
             h3 {
                 grid-column: 2;
                 grid-row: 1;
-                margin: 4px;
-                padding-top: 4px;
+                padding-top: 12px;
+                padding-left: 10px;
+                margin: 10px;
             }
 
             >span:nth-of-type(2) {
                 grid-column: 2;
                 text-align: right;
+                margin-right: 10px;
             }
 
             >span:nth-of-type(1) {
@@ -163,6 +170,7 @@ code {
                 grid-row: 4;
                 text-align: right;
                 padding-top: 11px;
+                margin-right: 10px;
             }
 
             .content {
@@ -498,10 +506,20 @@ main {
 }
 
 .page {
-    padding-left: 20px;
-    padding-right: 20px;
+    transition-duration: 250ms;
 
-    font-family: 'Open Sans', sans-serif;
+    @media (max-width: 775px) {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+    @media (min-width: 775px) {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    font-family: 'Open Sans',
+    sans-serif;
     color: #161616;
 }
 
@@ -526,6 +544,7 @@ header {
     position: relative;
     overflow: hidden;
     min-height: 80px;
+
 
     #logo {
         padding: 0 10px;
@@ -621,7 +640,8 @@ header {
 }
 
 nav {
-    font-family: "Press Start 2P", cursive;
+    font-family: "Press Start 2P",
+        cursive;
     font-size: 9px;
     background: @black;
     padding-bottom: 5px;
