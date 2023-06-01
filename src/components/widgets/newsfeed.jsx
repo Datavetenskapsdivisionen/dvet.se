@@ -48,7 +48,7 @@ const createElements = (data) => {
         const postId = "post-" + e.id;
 
         return <div className="news-item" id={postId} >
-            <img draggable="false" src={avatar} alt="avatar" />
+            <img draggable="false" className="avatar" src={avatar} alt="avatar" />
             <span>{time}</span>
             <h3>{title}</h3>
             <div className="content">

@@ -78,7 +78,11 @@ code {
         display: grid;
         box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.75);
 
-        img {
+        img:not(.avatar) {
+            display: block;
+        }
+
+        .avatar {
             width: 48px;
             border-radius: 100%;
             box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.5);
@@ -121,7 +125,7 @@ code {
             grid-template-rows: auto auto auto;
             padding: 10px;
 
-            img {
+            .avatar {
                 grid-column: 1;
                 grid-row-end: span 2;
             }
@@ -161,7 +165,7 @@ code {
             grid-template-columns: 52px 1fr;
             grid-template-rows: auto auto auto;
 
-            img {
+            .avatar {
                 grid-column: 1;
                 grid-row: 1;
                 margin: 10px;
