@@ -11,7 +11,7 @@ import AboutPage from "./components/about-page";
 import HomePage from "./components/home-page";
 import CommitteePage from "./components/committee-page";
 import ToolsPage from "./components/tools-page";
-import WIP from "./components/widgets/wip";
+// import WIP from "./components/widgets/wip";
 import IndividualCommitteePage from "./components/individual-committee-page";
 
 const App = () => {
@@ -53,7 +53,7 @@ const App = () => {
         </main>
       </Router>
       <Footer />
-      <WIP />
+      {/* <WIP /> */}
     </div>
   );
 };
