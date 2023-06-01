@@ -1,5 +1,5 @@
 @import "/assets/variables.less";
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&family=Open+Sans&family=Press+Start+2P&display=swap');
+@import (css) url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&family=Open+Sans&family=Press+Start+2P&display=swap');
 
 body {
     margin: 0;
@@ -43,6 +43,22 @@ code {
 }
 
 .news-holder {
+    .rss-button {
+        display: inline-block;
+        padding: 0;
+        margin: 10px;
+        line-height: 0;
+        cursor: pointer;
+        border: none;
+        transform: translate(0, 4px);
+
+        img {
+            filter: grayscale(1);
+            height: 1em;
+            width: 1em;
+        }
+    }
+
     padding-bottom: 20px;
 
     * {

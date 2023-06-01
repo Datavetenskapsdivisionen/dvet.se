@@ -82,7 +82,15 @@ const me = (props) => {
         data;
 
     return <div className="news-holder">
-        <h2>Nyheter</h2>
+        <h2>
+            Nyheter
+            <a class="rss-button" href="/newsfeed?type=rss" target="_blank">
+                <img
+                    src="https://wp-assets.rss.com/blog/wp-content/uploads/2019/10/10111557/social_style_3_rss-512-1.png"
+                    draggable="false"
+                />
+            </a>
+        </h2>
         {content}
         <div className="center">
             <button onClick={
