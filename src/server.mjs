@@ -10,10 +10,9 @@ const callback = (req, res) => {
 
 import { newsfeed } from "./newsfeed.mjs";
 import { postHook } from "./githookhandle.mjs";
-import bodyParser from "body-parser";
 
 app.use(expressStaticGzip("dist"));
-app.use(bodyParser.text());
+app.use(express.json());
 app.get("/", callback);
 app.get("/committees", callback);
 app.get("/about", callback);

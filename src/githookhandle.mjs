@@ -49,10 +49,10 @@ const verifySignature = (ver, data) => {
 const postHook = async (req, res) => {
     const signature = req.get("X-Hub-Signature-256");
     const body = req.body;
-    const ok = verifySignature(signature, body);
+    const ok = verifySignature(signature, JSON.stringify(body));
     console.log("signature: " + ok);
     if (ok) {
-        handleHook(JSON.parse(req.body));
+        handleHook(req.body);
     }
     res.status(200);
     res.send("");
