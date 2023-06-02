@@ -41,9 +41,23 @@ const handleHook = async (hookData) => {
     }
 };
 
+const verifySignature = (ver, data) => {
+    const secret = process.env.WEBHOOK_SECRET;
+    const body = fs.readFileSync("test-data/body.json");
+    const hmac = crypto.createHmac("sha256", secret);
+    hmac.write(data);
+    const output = "sha256" + hmac.digest("hex");
+    return ver == output;
+};
+
 const postHook = async (req, res) => {
     const signature = req.get("X-Hub-Signature-256");
-    console.log("dump: " + signature);
+    const body = req.body;
+    const ok = verifySignature(signature, body);
+    console.log("signature: " + ok);
+    if (ok) {
+        handleHook(JSON.parse(req.body));
+    }
     res.status(200);
     res.send("");
 };
