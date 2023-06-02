@@ -1,14 +1,7 @@
-import { Octokit } from "octokit";
 import RSS from "rss";
+import { octokit, fetchName } from "./octokit.mjs";
 
-const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
-
-const fetchName = async (login) => {
-    const res = await octokit.rest.users.getByUsername({ username: login });
-    return res.data.name ? res.data.name : login;
-};
-
-let posts = {};
+let posts = [];
 const fetchPosts = async () => {
     const onSuccess = async (r) => {
         const data = r.data.filter(e => (
@@ -45,7 +38,6 @@ const fetchRSS = async () => {
             description: "Diverse nytt från Datavetenskap på GU",
             site_url: "https://dvet.se"
         });
-
     posts.forEach(e => {
         feed.item({
             title: e.title,
@@ -63,7 +55,7 @@ await fetchRSS();
 
 let lastTime = new Date();
 
-const me = async (req, res) => {
+const newsfeed = async (req, res) => {
     const diff = Math.abs(new Date() - lastTime);
     const minutes = (diff / 1000) / 60;
     if (minutes >= 1) {
@@ -79,4 +71,4 @@ const me = async (req, res) => {
     }
 };
 
-export default me;
+export { newsfeed };

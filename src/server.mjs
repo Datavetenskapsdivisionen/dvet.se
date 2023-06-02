@@ -8,7 +8,7 @@ const callback = (req, res) => {
     res.sendFile(path.join(__dirname, "../dist/index.html"));
 };
 
-import newsfeed from "./newsfeed.mjs";
+import { newsfeed } from "./newsfeed.mjs";
 
 app.use(expressStaticGzip("dist"));
 app.get("/", callback);
