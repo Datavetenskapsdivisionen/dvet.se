@@ -43,6 +43,7 @@ const handleHook = async (hookData) => {
 
 const postHook = async (req, res) => {
     const signature = req.get("X-Hub-Signature-256");
+    console.log("dump: " + signature);
     res.json({ data: signature });
 };
 
