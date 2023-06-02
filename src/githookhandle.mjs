@@ -42,7 +42,7 @@ const verifySignature = (ver, data) => {
     const secret = process.env.WEBHOOK_SECRET;
     const hmac = crypto.createHmac("sha256", secret);
     hmac.write(data);
-    const output = "sha256" + hmac.digest("hex");
+    const output = "sha256=" + hmac.digest("hex");
     return ver == output;
 };
 
