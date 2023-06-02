@@ -1,9 +1,6 @@
-import fs from "fs";
 import { octokit, fetchName } from "./octokit.mjs";
 import crypto, { sign } from "crypto";
 
-const data = fs.readFileSync("test-data/label2.json");
-const parsed = JSON.parse(data);
 
 
 const webhookUrl = process.env.WEBHOOK_URL;
@@ -43,7 +40,6 @@ const handleHook = async (hookData) => {
 
 const verifySignature = (ver, data) => {
     const secret = process.env.WEBHOOK_SECRET;
-    const body = fs.readFileSync("test-data/body.json");
     const hmac = crypto.createHmac("sha256", secret);
     hmac.write(data);
     const output = "sha256" + hmac.digest("hex");
