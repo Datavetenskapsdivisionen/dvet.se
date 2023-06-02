@@ -28,7 +28,7 @@ app.get("/committees/dv_ops", callback);
 app.get("/committees/dvarm", callback);
 app.get("/committees/mega7", callback);
 app.get("/newsfeed", newsfeed);
-app.get("/postHook", postHook);
+app.post("/postHook", postHook);
 
 
 const port = process.env.PORT || 8080;
