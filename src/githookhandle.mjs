@@ -1,6 +1,6 @@
 import fs from "fs";
 import { octokit, fetchName } from "./octokit.mjs";
-import crypto from "crypto";
+import crypto, { sign } from "crypto";
 
 const data = fs.readFileSync("test-data/label2.json");
 const parsed = JSON.parse(data);
@@ -41,12 +41,18 @@ const handleHook = async (hookData) => {
     }
 };
 
-//handleHook(parsed);
-const signature = "sha256=8b402678a8bf75bcf49e4b4cb8e1c13121c1681e52620fa62190277e6900e8dc";
-const secret = process.env.WEBHOOK_SECRET;
-const body = fs.readFileSync("test-data/signed.json");
-const hmac = crypto.createHmac("sha256", secret);
-hmac.write(body);
-hmac.end();
+const postHook = async (req, res) => {
+    const signature = req.get("X-Hub-Signature-256");
+    res.json({ data: signature });
+};
 
-console.log(Buffer.from(hmac.digest('hex')).toString('base64'));
+export { postHook };
+
+//handleHook(parsed);
+//const signature = "95c768a87f675104eb751e97bfd69005e919979da7c22448a0455ff8c3bbfedd";
+//const secret = process.env.WEBHOOK_SECRET;
+//const body = fs.readFileSync("test-data/body.json");
+//const hmac = crypto.createHmac("sha256", secret);
+//hmac.write(body);
+//console.log(hmac.digest("hex"));
+//console.log(signature);

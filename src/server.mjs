@@ -9,6 +9,7 @@ const callback = (req, res) => {
 };
 
 import { newsfeed } from "./newsfeed.mjs";
+import { postHook } from "./githookhandle.mjs";
 
 app.use(expressStaticGzip("dist"));
 app.get("/", callback);
@@ -27,6 +28,7 @@ app.get("/committees/dv_ops", callback);
 app.get("/committees/dvarm", callback);
 app.get("/committees/mega7", callback);
 app.get("/newsfeed", newsfeed);
+app.get("/postHook", postHook);
 
 
 const port = process.env.PORT || 8080;
