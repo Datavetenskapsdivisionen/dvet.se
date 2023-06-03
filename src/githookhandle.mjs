@@ -22,7 +22,7 @@ const handleHook = async (hookData) => {
             const body = issue.body;
 
             const content = {
-                content: "# [" + title + "](url)\n" + body,
+                content: "# " + title + "\n" + body + "\n\nLink: <" + url + ">",
                 username: name,
                 avatar_url: avatar,
                 embeds: [],
