@@ -1,5 +1,5 @@
 import { octokit, fetchName } from "./octokit.mjs";
-import crypto, { sign } from "crypto";
+import crypto from "crypto";
 
 
 
@@ -12,6 +12,7 @@ const handleHook = async (hookData) => {
         const filtered = names.filter(n =>
             n == "state:published"
             || n == "type:post"
+            || n == "state:discordPublished"
         );
         if (filtered.length == 2 && issue.state == "open") {
             const user = hookData.sender.login;
@@ -36,9 +37,19 @@ const handleHook = async (hookData) => {
                     'Content-Type': 'application/json'
                 }),
             })
+                .then(_ => markAsPosted(issue.number))
                 .catch(e => console.error("Failed to send out webhook notice: " + e));
         }
     }
+};
+
+const markAsPosted = (issueNumber) => {
+    octokit.rest.issues.addLabels({
+        owner: "Datavetenskapsdivisionen",
+        repo: "posts",
+        issue_number: issueNumber,
+        labels: ["state:discordPublished"]
+    });
 };
 
 const verifySignature = (ver, data) => {
