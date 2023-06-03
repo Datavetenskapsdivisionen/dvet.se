@@ -9,7 +9,10 @@ const handleHook = async (hookData) => {
     if (hookData.issue && hookData.action == "labeled") {
         const issue = hookData.issue;
         const names = issue.labels.map(e => e.name);
-        const filtered = names.filter(n => n == "state:published" || n == "type:post");
+        const filtered = names.filter(n =>
+            n == "state:published"
+            || n == "type:post"
+        );
         if (filtered.length == 2 && issue.state == "open") {
             const user = hookData.sender.login;
             const name = await fetchName(user);
@@ -19,11 +22,12 @@ const handleHook = async (hookData) => {
             const body = issue.body;
 
             const content = {
-                content: body,
+                content: "# " + title + "\n" + body + "\n\n" + url,
                 username: name,
                 avatar_url: avatar,
                 embeds: [],
             };
+
 
             fetch(webhookUrl, {
                 method: "POST",
@@ -32,7 +36,6 @@ const handleHook = async (hookData) => {
                     'Content-Type': 'application/json'
                 }),
             })
-                .then(_ => console.log("Successfully sent out webhook notice"))
                 .catch(e => console.error("Failed to send out webhook notice: " + e));
         }
     }
