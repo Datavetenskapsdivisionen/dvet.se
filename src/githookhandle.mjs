@@ -17,7 +17,7 @@ const handleHook = async (hookData) => {
         if (discordPublished.length == 0 && filtered.length == 2 && issue.state == "open") {
             const user = issue.user.login;
             const name = await fetchName(user);
-            const avatar = hookData.sender.avatar_url;
+            const avatar = issue.user.avatar_url;
             const url = issue.html_url;
             const title = issue.title;
             const body = issue.body;
@@ -30,7 +30,7 @@ const handleHook = async (hookData) => {
             //const images = imageNames.map((e, i) => [e, imagesUrls[i]]);
 
             const content = {
-                content: parsed + "\n-- " + name + " \[[link to post](" + url + ")\]",
+                content: parsed + "\n-- " + name + " \[[link to post](<" + url + ">)\]",
                 username: title,
                 avatar_url: avatar,
                 embeds: imagesUrls.map(u => {
