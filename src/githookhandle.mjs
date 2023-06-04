@@ -28,15 +28,17 @@ const handleHook = async (hookData) => {
                 avatar_url: avatar,
                 embeds: [],
             };
-
-
-            fetch(webhookUrl, {
+            const packet = {
                 method: "POST",
                 body: JSON.stringify(content),
                 headers: new Headers({
                     'Content-Type': 'application/json'
                 }),
-            })
+            };
+            console.log("Packet: " + JSON.stringify(packet));
+
+
+            fetch(webhookUrl, packet)
                 .then(_ => markAsPosted(issue.number))
                 .catch(e => console.error("Failed to send out webhook notice: " + e));
         }
