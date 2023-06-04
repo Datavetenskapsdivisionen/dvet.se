@@ -10,9 +10,11 @@ const handleHook = async (hookData) => {
         const filtered = names.filter(n =>
             n == "state:published"
             || n == "type:post"
-            || n == "state:discordPublished"
         );
-        if (filtered.length == 2 && issue.state == "open") {
+        const discordPublished = names.filter(n =>
+            n == "state:discordPublished"
+        );
+        if (discordPublished.length == 0 && filtered.length == 2 && issue.state == "open") {
             const user = hookData.sender.login;
             const name = await fetchName(user);
             const avatar = hookData.sender.avatar_url;
