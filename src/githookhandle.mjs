@@ -28,7 +28,7 @@ const handleHook = async (hookData) => {
             //const images = imageNames.map((e, i) => [e, imagesUrls[i]]);
 
             const content = {
-                content: parsed + "\n-- " + name + "![link to post](" + url + ")",
+                content: parsed + "\n-- " + name + " \[[link to post](" + url + ")\]",
                 username: title,
                 avatar_url: avatar,
                 embeds: imagesUrls.map(u => {
