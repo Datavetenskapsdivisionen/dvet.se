@@ -1,8 +1,6 @@
 import { octokit, fetchName } from "./octokit.mjs";
 import crypto from "crypto";
 
-
-
 const webhookUrl = process.env.WEBHOOK_URL;
 
 const handleHook = async (hookData) => {
@@ -22,11 +20,25 @@ const handleHook = async (hookData) => {
             const title = issue.title;
             const body = issue.body;
 
+
+            const imageRegex = /!\[(.+)\]\((.+)\)\n?/g;
+            const parsed = body.replace(imageRegex, "");
+            //const imageNames = [...body.matchAll(imageRegex)].map(e => e[1]);
+            const imagesUrls = [...body.matchAll(imageRegex)].map(e => e[2]);
+            //const images = imageNames.map((e, i) => [e, imagesUrls[i]]);
+
             const content = {
-                content: "# " + title + "\n" + body + "\n\nLink: <" + url + ">",
-                username: name,
+                content: parsed + "\n-- " + name + "![link to post](" + url + ")",
+                username: title,
                 avatar_url: avatar,
-                embeds: [],
+                embeds: imagesUrls.map(u => {
+                    return {
+                        color: 16107105,
+                        image: {
+                            url: u
+                        }
+                    };
+                }),
             };
             const packet = {
                 method: "POST",
@@ -35,8 +47,6 @@ const handleHook = async (hookData) => {
                     'Content-Type': 'application/json'
                 }),
             };
-            console.log("Packet: " + JSON.stringify(packet));
-
 
             fetch(webhookUrl, packet)
                 .then(_ => markAsPosted(issue.number))
@@ -74,3 +84,41 @@ const postHook = async (req, res) => {
 };
 
 export { postHook };
+
+
+// const testString = `Vill du vara med o fixa all cool IT i Monaden och på Divisionen? Vill predika om just din favvo distro? Vill du kanske ha ett LAN? Eller varför inte fixa WIFIt i Monaden?!
+
+// ASPA DV_Ops
+
+// Skriv till timheterjag#8722 på Discord
+
+// ![image info](https://placebear.com/g/200/200)
+
+// -- timheterjag ([länk till inlägg](<https://github.com/Datavetenskapsdivisionen/posts/issues/2>))
+// `;
+
+
+// const testJson = {
+//     content: parsed,
+//     username: "ASPA DV_OPS",
+//     avatar_url: "https://avatars.githubusercontent.com/u/18292102?s=80&v=4",
+//     embeds: images.map(([n, u]) => {
+//         return {
+//             color: 16107105,
+//             image: {
+//                 url: u
+//             }
+//         };
+//     })
+// };
+
+// const testPacket = {
+//     method: "POST",
+//     body: JSON.stringify(testJson),
+//     headers: new Headers({
+//         'Content-Type': 'application/json'
+//     }),
+// };
+// await fetch(webhookUrl, testPacket)
+//     .catch(e => console.error(e))
+//     .then(res => console.log("sent packet: " + JSON.stringify(res)));
