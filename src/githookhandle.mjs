@@ -15,7 +15,7 @@ const handleHook = async (hookData) => {
             n == "state:discordPublished"
         );
         if (discordPublished.length == 0 && filtered.length == 2 && issue.state == "open") {
-            const user = hookData.sender.login;
+            const user = issue.user.login;
             const name = await fetchName(user);
             const avatar = hookData.sender.avatar_url;
             const url = issue.html_url;
