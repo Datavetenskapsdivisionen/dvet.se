@@ -7,11 +7,12 @@ import KickoffSchedule from "./widgets/kickoff-schedule";
 import "./../dvrk-styles.less";
 import { Route, Link } from "react-router-dom";
 import DVRKLogo from "../../../assets/committee-logos/dvrk-logo.png";
-
+import DURKMAN from "../../../assets/dvrk.jpg";
+const DURKMAN_URL = "url(" + new String(DURKMAN) + ")";
 
 const DVRKbar = () => (
     <>
-        <header className="dvrk-header">
+        <header className="dvrk-header" style={{ backgroundImage: DURKMAN_URL }}>
             <div className="header-text">
                 <span>DVRK</span>
                 <img draggable="false" src={DVRKLogo} />
