@@ -34,19 +34,26 @@ const App = () => {
             } />
             <Route exact path="/committees/dvrk" element={
               <DVRKPage />
-            } /><Route exact path="/committees/board-of-studies" element={
+            } />
+            <Route exact path="/committees/board-of-studies" element={
               <IndividualCommitteePage text={require("../../content/committees/board-of-studies.md")["default"]} />
-            } /><Route exact path="/committees/mega6" element={
+            } />
+            <Route exact path="/committees/mega6" element={
               <IndividualCommitteePage text={require("../../content/committees/mega6.md")["default"]} />
-            } /><Route exact path="/committees/concats" element={
+            } />
+            <Route exact path="/committees/concats" element={
               <IndividualCommitteePage text={require("../../content/committees/concats.md")["default"]} />
-            } /><Route exact path="/committees/femmepp" element={
+            } />
+            <Route exact path="/committees/femmepp" element={
               <IndividualCommitteePage text={require("../../content/committees/femmepp.md")["default"]} />
-            } /><Route exact path="/committees/dv_ops" element={
+            } />
+            <Route exact path="/committees/dv_ops" element={
               <IndividualCommitteePage text={require("../../content/committees/dv_ops.md")["default"]} />
-            } /><Route exact path="/committees/dvarm" element={
+            } />
+            <Route exact path="/committees/dvarm" element={
               <IndividualCommitteePage text={require("../../content/committees/dvarm.md")["default"]} />
-            } /><Route exact path="/committees/mega7" element={
+            } />
+            <Route exact path="/committees/mega7" element={
               <IndividualCommitteePage text={require("../../content/committees/mega7.md")["default"]} />
             } />
           </Routes>
