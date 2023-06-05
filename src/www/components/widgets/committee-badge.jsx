@@ -20,7 +20,7 @@ const style = (color) => {
 
 const me = (props) => {
     const nav = useNavigate();
-    const clickAction = props.uri ? () => nav(props.uri) : () => window.open(props.link);
+    const clickAction = props.uri ? () => { nav(props.uri); window.scrollTo(0, 0); } : () => window.open(props.link);
 
     return <div className="committee-badge" style={style(props.color)} onClick={clickAction}>
         <div className="image-holder">
