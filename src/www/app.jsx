@@ -1,11 +1,11 @@
 import React from "react";
 import Toolbar from "./components/toolbar";
 import "./styles.less";
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Outlet } from "react-router-dom";
 import Navbar from "./components/navbar/navbar";
 import Footer from "./components/navbar/footer";
 import ContactPage from "./components/contact-page";
-import DVRKPage from "./components/dvrk-page";
+import DVRKRoute from "./components/dvrk-page";
 import DocumentPage from "./components/documents-page";
 import AboutPage from "./components/about-page";
 import HomePage from "./components/home-page";
@@ -17,11 +17,18 @@ import IndividualCommitteePage from "./components/individual-committee-page";
 const App = () => {
   return (
     <div>
-      <Toolbar />
       <Router>
-        <Navbar />
-        <main>
-          <Routes>
+        <Routes>
+          {DVRKRoute()}
+          <Route element={
+            <>
+              <Toolbar />
+              <Navbar />
+              <main>
+                <Outlet />
+              </main>
+            </>
+          }>
             <Route exact path="/" element={<HomePage />} />
             <Route exact path="/about" element={<AboutPage />} />
             <Route exact path="/committees" element={<CommitteePage />} />
@@ -31,9 +38,6 @@ const App = () => {
 
             <Route exact path="/committees/the-board" element={
               <IndividualCommitteePage text={require("../../content/committees/the-board.md")["default"]} />
-            } />
-            <Route exact path="/committees/dvrk" element={
-              <DVRKPage />
             } />
             <Route exact path="/committees/board-of-studies" element={
               <IndividualCommitteePage text={require("../../content/committees/board-of-studies.md")["default"]} />
@@ -56,8 +60,8 @@ const App = () => {
             <Route exact path="/committees/mega7" element={
               <IndividualCommitteePage text={require("../../content/committees/mega7.md")["default"]} />
             } />
-          </Routes>
-        </main>
+          </Route>
+        </Routes>
       </Router>
       <Footer />
       {/* <WIP /> */}

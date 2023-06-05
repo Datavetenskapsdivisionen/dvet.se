@@ -25,6 +25,8 @@ app.get("/contact", callback);
 app.get("/tools", callback);
 app.get("/committees/the-board", callback);
 app.get("/committees/dvrk", callback);
+app.get("/committees/dvrk/schedule", callback);
+app.get("/committees/dvrk/content", callback);
 app.get("/committees/board-of-studies", callback);
 app.get("/committees/mega6", callback);
 app.get("/committees/concats", callback);

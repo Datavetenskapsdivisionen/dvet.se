@@ -1,0 +1,66 @@
+@import (css) url('https://fonts.googleapis.com/css2?family=Arimo:ital@1&display=swap');
+
+.dvrk-page {
+    transition-duration: 250ms;
+
+    @media (max-width: 775px) {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+    @media (min-width: 775px) {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    font-family: 'Open Sans',
+    sans-serif;
+    color: #161616;
+}
+
+
+.dvrk-header {
+    background-image: url(https://placebear.com/1600/800);
+    background-size: cover;
+    background-position: center;
+    font-family: 'Arimo', sans-serif;
+    box-shadow: 0px -200px 48px -186px rgba(22, 22, 22, 1) inset;
+    position: relative;
+
+    .header-text {
+        padding-bottom: 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        backdrop-filter: blur(4px);
+
+        @media (min-width:950px) {
+            span {
+                font-size: 20em;
+            }
+
+            img {
+                max-height: 12em;
+                margin-top: -12em;
+            }
+        }
+
+        @media (max-width:950px) {
+            span {
+                font-size: 34vw;
+            }
+
+            img {
+                max-height: 22vw;
+                margin-top: -20vw;
+            }
+        }
+
+        span {
+            color: white;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+    }
+}
