@@ -1,5 +1,5 @@
 import React from "react";
-import csvFile from "../../../Content/kickoff-schedule.csv";
+import csvFile from "../../../../content/kickoff-schedule.csv";
 import csv from "csvtojson";
 import Modal from "react-modal";
 

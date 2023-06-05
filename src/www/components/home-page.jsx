@@ -2,7 +2,7 @@ import React from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
-import text from "../../Content/home-page.md";
+import text from "../../../content/home-page.md";
 import InfoButton from "./widgets/info-button.jsx";
 import KickoffInfoButton from "./widgets/kickoff-info-button";
 import NewsFeed from "./widgets/newsfeed";

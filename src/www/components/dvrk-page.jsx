@@ -2,7 +2,7 @@ import React from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
-import text from "../../Content/committees/dvrk.md";
+import text from "../../../content/committees/dvrk.md";
 import KickoffSchedule from "./widgets/kickoff-schedule";
 
 const me = () => (

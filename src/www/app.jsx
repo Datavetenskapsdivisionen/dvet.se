@@ -30,24 +30,24 @@ const App = () => {
             <Route exact path="/contact" element={<ContactPage />} />
 
             <Route exact path="/committees/the-board" element={
-              <IndividualCommitteePage text={require("../Content/committees/the-board.md")["default"]} />
+              <IndividualCommitteePage text={require("../../content/committees/the-board.md")["default"]} />
             } />
             <Route exact path="/committees/dvrk" element={
               <DVRKPage />
             } /><Route exact path="/committees/board-of-studies" element={
-              <IndividualCommitteePage text={require("../Content/committees/board-of-studies.md")["default"]} />
+              <IndividualCommitteePage text={require("../../content/committees/board-of-studies.md")["default"]} />
             } /><Route exact path="/committees/mega6" element={
-              <IndividualCommitteePage text={require("../Content/committees/mega6.md")["default"]} />
+              <IndividualCommitteePage text={require("../../content/committees/mega6.md")["default"]} />
             } /><Route exact path="/committees/concats" element={
-              <IndividualCommitteePage text={require("../Content/committees/concats.md")["default"]} />
+              <IndividualCommitteePage text={require("../../content/committees/concats.md")["default"]} />
             } /><Route exact path="/committees/femmepp" element={
-              <IndividualCommitteePage text={require("../Content/committees/femmepp.md")["default"]} />
+              <IndividualCommitteePage text={require("../../content/committees/femmepp.md")["default"]} />
             } /><Route exact path="/committees/dv_ops" element={
-              <IndividualCommitteePage text={require("../Content/committees/dv_ops.md")["default"]} />
+              <IndividualCommitteePage text={require("../../content/committees/dv_ops.md")["default"]} />
             } /><Route exact path="/committees/dvarm" element={
-              <IndividualCommitteePage text={require("../Content/committees/dvarm.md")["default"]} />
+              <IndividualCommitteePage text={require("../../content/committees/dvarm.md")["default"]} />
             } /><Route exact path="/committees/mega7" element={
-              <IndividualCommitteePage text={require("../Content/committees/mega7.md")["default"]} />
+              <IndividualCommitteePage text={require("../../content/committees/mega7.md")["default"]} />
             } />
           </Routes>
         </main>

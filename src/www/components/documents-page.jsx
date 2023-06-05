@@ -2,7 +2,7 @@ import React from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
-import text from "../../Content/tools-page.md";
+import text from "../../../content/documents-page.md";
 
 const me = () => (
   <div className="page">

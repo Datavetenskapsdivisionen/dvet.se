@@ -5,7 +5,7 @@ const CompressionPlugin = require("compression-webpack-plugin");
 
 
 module.exports = {
-  entry: "./src/index.js",
+  entry: "./src/www/index.js",
   mode: "development",
   optimization: {
     chunkIds: "size",
@@ -25,7 +25,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "./src/index.html",
+      template: "./src/www/index.html",
       favicon: "./assets/favicon.png",
     }),
     new CompressionPlugin()
