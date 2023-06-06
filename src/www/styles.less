@@ -11,6 +11,52 @@ code {
     font-family: 'IBM Plex Mono', monospace;
 }
 
+.photo-holder {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+
+    .item {
+        border: 1px #161616 solid;
+        border-radius: 10px;
+        overflow: hidden;
+        cursor: pointer;
+        max-width: 160px;
+        max-height: 130px;
+
+        span {
+            max-width: 150px;
+            display: block;
+            padding: 5px;
+            user-select: none;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            margin-top: -5px;
+        }
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .preview-holder {
+        position: relative;
+
+        .overlay {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .preview {
+            user-select: none;
+            pointer-events: none;
+        }
+    }
+}
+
 .loading {
     text-align: center;
 }

@@ -117,6 +117,9 @@ const buildTree = async (files) => {
         });
         files = rest;
 
+        root.children = root.children
+            .sort((a, b) => a.mimeType == "application/vnd.google-apps.folder" ? -1 : 1);
+
         root.children.forEach(c => {
             if (c.children)
                 iter(c, files);
@@ -145,7 +148,7 @@ const getPhotos = async (req, res) => {
 
     const diff = Math.abs(new Date() - lastTime);
     const minutes = (diff / 1000) / 60;
-    if (minutes >= 5) {
+    if (minutes >= 0) {
         lastTime = new Date();
         await syncPhotos();
     }

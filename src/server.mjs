@@ -25,6 +25,7 @@ app.get("/about", callback);
 app.get("/documents", callback);
 app.get("/contact", callback);
 app.get("/tools", callback);
+app.get("/photos", callback);
 app.get("/committees/the-board", callback);
 app.get("/committees/dvrk", callback);
 app.get("/committees/dvrk/schedule", callback);
