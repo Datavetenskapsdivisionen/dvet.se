@@ -79,6 +79,7 @@ const listFiles = async (authClient) => {
         includeTeamDriveItems: true,
         supportsAllDrives: true,
         supportsTeamDrives: true,
+        orderBy: "createdTime desc",
         fields: "nextPageToken, files(id, name, parents, mimeType, kind)",
     });
     const files = res.data.files;
