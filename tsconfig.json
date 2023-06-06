@@ -4,16 +4,10 @@
         "module": "CommonJS",
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
-        "strict": false,
+        "strict": true,
+        "noImplicitAny": true,
         "skipLibCheck": true,
         "outDir": "dist"
-    },
-    "ts-node": {
-        "compilerOptions": {
-            "target": "ES2022",
-            "esModuleInterop": true,
-            "module": "CommonJS"
-        }
     },
     "include": [
         "src/server.ts"

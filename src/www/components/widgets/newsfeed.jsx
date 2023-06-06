@@ -27,8 +27,8 @@ const stringToEmoji = (s) => {
 };
 
 const createElements = (data) => {
-    if (data.error) return <p>Kunde inte hämta nyheter!</p>;
-    const titles = data.data.map(e => {
+    if (data.kind == "Error") return <p>Kunde inte hämta nyheter!</p>;
+    const titles = data.posts.map(e => {
         const title = e.title;
         const avatar = e.user.avatar_url;
         const author = e.user.name;

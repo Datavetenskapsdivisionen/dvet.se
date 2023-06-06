@@ -1,11 +1,17 @@
 import { octokit, fetchName } from "./octokit";
 import crypto from "crypto";
+import { Request, Response } from "express";
+import { IssuesLabeledEvent } from "@octokit/webhooks-types";
 
-const webhookUrl = process.env.WEBHOOK_URL;
 
-const handleHook = async (hookData) => {
-    if (hookData.issue && hookData.action == "labeled") {
-        const issue = hookData.issue;
+const webhookUrl = process.env.WEBHOOK_URL ?
+    process.env.WEBHOOK_URL : process.exit(1);
+const webhookSecret = process.env.WEBHOOK_SECRET ?
+    process.env.WEBHOOK_SECRET : process.exit(1);
+
+const handleHook = async (hookData: IssuesLabeledEvent) => {
+    const issue = hookData.issue;
+    if (issue.labels) {
         const names = issue.labels.map(e => e.name);
         const filtered = names.filter(n =>
             n == "state:published"
@@ -20,8 +26,7 @@ const handleHook = async (hookData) => {
             const avatar = issue.user.avatar_url;
             const url = issue.html_url;
             const title = issue.title;
-            const body = issue.body;
-
+            const body = issue.body ? issue.body : "";
 
             const imageRegex = /!\[(.+)\]\((.+)\)\n?/g;
             const parsed = body.replace(imageRegex, "");
@@ -57,7 +62,7 @@ const handleHook = async (hookData) => {
     }
 };
 
-const markAsPosted = (issueNumber) => {
+const markAsPosted = (issueNumber: number) => {
     octokit.rest.issues.addLabels({
         owner: "Datavetenskapsdivisionen",
         repo: "posts",
@@ -66,22 +71,26 @@ const markAsPosted = (issueNumber) => {
     });
 };
 
-const verifySignature = (ver, data) => {
-    const secret = process.env.WEBHOOK_SECRET;
-    const hmac = crypto.createHmac("sha256", secret);
+const verifySignature = (ver: string, data: string) => {
+    const hmac = crypto.createHmac("sha256", webhookSecret);
     hmac.write(data);
     const output = "sha256=" + hmac.digest("hex");
     return ver == output;
 };
 
-const postHook = async (req, res) => {
+const postHook = async (req: Request, res: Response) => {
     const signature = req.get("X-Hub-Signature-256");
-    const body = req.body;
-    const ok = verifySignature(signature, JSON.stringify(body));
-    if (ok) {
-        handleHook(req.body);
+    if (signature) {
+        const body = req.body;
+        const ok = verifySignature(signature, JSON.stringify(body));
+        if (ok && req.body.issue && req.body.action == "labeled") {
+            handleHook(req.body);
+            res.status(200);
+            res.send("");
+            return;
+        }
     }
-    res.status(200);
+    res.status(401);
     res.send("");
 };
 

@@ -1,21 +1,44 @@
 import RSS from "rss";
 import { octokit, fetchName } from "./octokit";
+import { Request, Response } from "express";
+import { Endpoints } from "@octokit/types";
 
+type ListIssuesForRepos = Endpoints["GET /repos/{owner}/{repo}/issues"]["response"];
+type Issue = ListIssuesForRepos["data"][0];
+type Label = ListIssuesForRepos["data"][0]["labels"][0];
 
-let posts = { data: [], error: null };
+interface Posts {
+    kind: "posts";
+    posts: Issue[];
+}
+interface Error {
+    kind: "error";
+    error: any;
+}
+type PostData = Posts | Error;
+
+let posts: PostData = { kind: "posts", posts: [] };
 const fetchPosts = async () => {
-    const onSuccess = async (r) => {
-        const data = r.data.filter(e => (
-            e.labels.filter(e => e.name == "state:published" || e.name == "type:post").length == 2
+    const onSuccess = async (r: ListIssuesForRepos) => {
+        const data = r.data.filter((e: Issue) => (
+            e.labels.filter(
+                (e: Label) =>
+                    (typeof e !== "string") ?
+                        e.name == "state:published" || e.name == "type:post"
+                        : false
+            ).length == 2
             && e.state == "open"
         ));
 
-        await Promise.all(data.map(async e => {
-            e.reactions = Object.entries(e.reactions)
-                .filter(([e, _]) => e != "url" && e != "total_count");
+        // I want to switch away from any here but I can't be bothered
+        await Promise.all(data.map(async (e: any) => {
+            if (e.reactions) {
+                e.reactions = Object.entries(e.reactions)
+                    .filter(([e, _]) => e != "url" && e != "total_count");
+            }
             e.user.name = await fetchName(e.user.login);
         }));
-        posts = { data: data, error: null };
+        posts = { kind: "posts", posts: data };
     };
 
     await octokit.rest.issues.listForRepo({
@@ -24,7 +47,7 @@ const fetchPosts = async () => {
         per_page: 100,
     })
         .then(onSuccess)
-        .catch(e => posts = { data: null, error: e });
+        .catch(e => posts = { kind: "error", error: e });
 };
 /*await*/ fetchPosts();
 
@@ -37,23 +60,23 @@ const fetchRSS = async () => {
             description: "Diverse nytt från Datavetenskap på GU",
             site_url: "https://dvet.se"
         });
-    if (posts.error) {
+    if (posts.kind === "error") {
         feed.item({
             title: "Error",
             description: JSON.stringify(posts.error),
             url: "https://dvet.se/",
-            guid: 0,
+            guid: "0",
             author: "Error",
             date: "1970-01-01"
         });
     } else {
-        posts.data.forEach(e => {
+        posts.posts.forEach(e => {
             feed.item({
                 title: e.title,
-                description: e.body,
+                description: e.body ? e.body : "",
                 url: "https://dvet.se/#post-" + e.id,
-                guid: e.id,
-                author: e.user.name,
+                guid: e.id ? `${e.id}` : "-1",
+                author: e.user ? (e.user.name ? e.user.name : "unknown") : "unknown",
                 date: e.created_at
             });
         });
@@ -65,7 +88,7 @@ const fetchRSS = async () => {
 
 let lastTime = new Date();
 
-const newsfeed = async (req, res) => {
+const newsFeed = async (req: Request, res: Response) => {
     const diff = Math.abs(new Date().getTime() - lastTime.getTime());
     const minutes = (diff / 1000) / 60;
     if (minutes >= 1) {
@@ -81,4 +104,4 @@ const newsfeed = async (req, res) => {
     }
 };
 
-export { newsfeed };
+export { newsFeed, PostData, Error, Posts };

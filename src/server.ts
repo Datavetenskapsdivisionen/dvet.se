@@ -1,14 +1,15 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import path from "path";
 import expressStaticGzip from "express-static-gzip";
+import "dotenv/config";
 
 const app = express();
 
-const callback = (req, res) => {
+const callback = (req: Request, res: Response) => {
     res.sendFile(path.join(__dirname, "../dist/www/index.html"));
 };
 
-import { newsfeed } from "./newsfeed";
+import { newsFeed } from "./newsfeed";
 import { postHook } from "./githookhandle";
 
 app.use(expressStaticGzip(path.join(__dirname, "../dist/www/"), {}));
@@ -30,7 +31,7 @@ app.get("/committees/femmepp", callback);
 app.get("/committees/dv_ops", callback);
 app.get("/committees/dvarm", callback);
 app.get("/committees/mega7", callback);
-app.get("/newsfeed", newsfeed);
+app.get("/newsfeed", newsFeed);
 app.post("/postHook", postHook);
 
 
