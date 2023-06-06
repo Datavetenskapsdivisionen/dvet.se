@@ -15,6 +15,7 @@ const callback = (req, res) => {
 
 import { newsfeed } from "./newsfeed.mjs";
 import { postHook } from "./githookhandle.mjs";
+import getPhotos from "./photos.mjs";
 
 app.use(expressStaticGzip("dist"));
 app.use(express.json());
@@ -36,6 +37,7 @@ app.get("/committees/dv_ops", callback);
 app.get("/committees/dvarm", callback);
 app.get("/committees/mega7", callback);
 app.get("/newsfeed", newsfeed);
+app.get("/getPhotos", getPhotos);
 app.post("/postHook", postHook);
 
 
