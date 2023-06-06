@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        "target": "ES2022",
+        "module": "CommonJS",
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "strict": false,
+        "skipLibCheck": true,
+        "outDir": "dist"
+    },
+    "ts-node": {
+        "compilerOptions": {
+            "target": "ES2022",
+            "esModuleInterop": true,
+            "module": "CommonJS"
+        }
+    },
+    "include": [
+        "src/server.ts"
+    ]
+}

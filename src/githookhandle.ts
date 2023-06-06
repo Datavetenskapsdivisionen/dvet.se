@@ -1,4 +1,4 @@
-import { octokit, fetchName } from "./octokit.mjs";
+import { octokit, fetchName } from "./octokit";
 import crypto from "crypto";
 
 const webhookUrl = process.env.WEBHOOK_URL;

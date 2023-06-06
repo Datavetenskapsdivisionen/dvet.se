@@ -1,7 +1,8 @@
 import RSS from "rss";
-import { octokit, fetchName } from "./octokit.mjs";
+import { octokit, fetchName } from "./octokit";
 
-let posts = [];
+
+let posts = { data: [], error: null };
 const fetchPosts = async () => {
     const onSuccess = async (r) => {
         const data = r.data.filter(e => (
@@ -14,20 +15,18 @@ const fetchPosts = async () => {
                 .filter(([e, _]) => e != "url" && e != "total_count");
             e.user.name = await fetchName(e.user.login);
         }));
-        posts = data;
+        posts = { data: data, error: null };
     };
 
-    return await
-        octokit.rest.issues.listForRepo(
-            {
-                owner: "Datavetenskapsdivisionen",
-                repo: "posts",
-                per_page: 100,
-            })
-            .then(onSuccess)
-            .catch(e => posts = { error: e });
+    await octokit.rest.issues.listForRepo({
+        owner: "Datavetenskapsdivisionen",
+        repo: "posts",
+        per_page: 100,
+    })
+        .then(onSuccess)
+        .catch(e => posts = { data: null, error: e });
 };
-await fetchPosts();
+/*await*/ fetchPosts();
 
 let rss = "";
 const fetchRSS = async () => {
@@ -38,25 +37,36 @@ const fetchRSS = async () => {
             description: "Diverse nytt från Datavetenskap på GU",
             site_url: "https://dvet.se"
         });
-    posts.forEach(e => {
+    if (posts.error) {
         feed.item({
-            title: e.title,
-            description: e.body,
-            url: "https://dvet.se/#post-" + e.id,
-            guid: e.id,
-            author: e.user.name,
-            date: e.created_at
+            title: "Error",
+            description: JSON.stringify(posts.error),
+            url: "https://dvet.se/",
+            guid: 0,
+            author: "Error",
+            date: "1970-01-01"
         });
-    });
+    } else {
+        posts.data.forEach(e => {
+            feed.item({
+                title: e.title,
+                description: e.body,
+                url: "https://dvet.se/#post-" + e.id,
+                guid: e.id,
+                author: e.user.name,
+                date: e.created_at
+            });
+        });
+    }
 
     rss = feed.xml({ indent: true });
 };
-await fetchRSS();
+/*await*/ fetchRSS();
 
 let lastTime = new Date();
 
 const newsfeed = async (req, res) => {
-    const diff = Math.abs(new Date() - lastTime);
+    const diff = Math.abs(new Date().getTime() - lastTime.getTime());
     const minutes = (diff / 1000) / 60;
     if (minutes >= 1) {
         lastTime = new Date();

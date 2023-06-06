@@ -1,21 +1,17 @@
 import express from "express";
 import path from "path";
 import expressStaticGzip from "express-static-gzip";
-import { fileURLToPath } from "url";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 const app = express();
 
 const callback = (req, res) => {
-    res.sendFile(path.join(__dirname, "../dist/index.html"));
+    res.sendFile(path.join(__dirname, "../dist/www/index.html"));
 };
 
-import { newsfeed } from "./newsfeed.mjs";
-import { postHook } from "./githookhandle.mjs";
+import { newsfeed } from "./newsfeed";
+import { postHook } from "./githookhandle";
 
-app.use(expressStaticGzip("dist"));
+app.use(expressStaticGzip(path.join(__dirname, "../dist/www/"), {}));
 app.use(express.json());
 app.get("/", callback);
 app.get("/committees", callback);
