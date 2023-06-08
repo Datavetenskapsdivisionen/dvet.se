@@ -4,6 +4,7 @@ import { useSearchParams } from "react-router-dom";
 
 
 const createElements = (data, searchParams, setSearchParams) => {
+    if (data.error) return [<></>, data.error];
     const location = searchParams.get("location");
     const path = location ? location.split("%2F").filter(r => r) : [];
     const updatePath = () => {
