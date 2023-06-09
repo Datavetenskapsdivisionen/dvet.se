@@ -149,7 +149,7 @@ const getPhotos = async (req, res) => {
 
     const diff = Math.abs(new Date() - lastTime);
     const minutes = (diff / 1000) / 60;
-    if (minutes >= 0) {
+    if (minutes >= 5) {
         lastTime = new Date();
         await syncPhotos();
     }
