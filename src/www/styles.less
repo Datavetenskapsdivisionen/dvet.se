@@ -121,18 +121,52 @@ code {
     .news-item {
         position: relative;
         background-color: white;
-        border-radius: 10px;
+        border-radius: 0px 0px 10px 10px;
         display: grid;
-        box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.75);
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto;
+        box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.5);
+        background-color: #e6e6e6;
 
-        img:not(.avatar) {
-            display: block;
+        .top {
+            background-color: #161616;
+            display: grid;
+            align-items: center;
+            grid-template-columns: 48px auto auto;
+            padding: 10px;
+
+            .avatar {
+                width: 48px;
+                border-radius: 100%;
+                box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.5);
+            }
+
+            h3 {
+                margin: 0;
+                margin-left: 1em;
+                color: white;
+                font-family: "Press Start 2P";
+                font-size: 1em;
+            }
+
+            span {
+                font-family: 'IBM Plex Mono', monospace;
+                text-align: right;
+                color: white;
+            }
         }
 
-        .avatar {
-            width: 48px;
-            border-radius: 100%;
-            box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.5);
+        .bottom {
+            display: grid;
+            grid-template-columns: 1fr auto;
+
+            >span {
+                text-align: right;
+                padding-right: 8px;
+                padding-left: 8px;
+                font-size: 1em;
+                margin-top: 0.5em;
+            }
         }
 
         .content {
@@ -141,6 +175,12 @@ code {
             background-color: #f0f0f0;
             padding-left: 10px;
             padding-right: 10px;
+
+            img {
+                display: block;
+            }
+
+            box-shadow: 0px 1px 1px -1px rgba(0, 0, 0, 0.2);
         }
 
         .reaction {
@@ -164,89 +204,6 @@ code {
 
             >.reaction:hover {
                 background-color: #c5c5c5;
-            }
-        }
-
-        @media (min-width: 775px) {
-            grid-template-columns: 52px 1fr;
-            grid-template-rows: auto auto auto;
-            padding: 10px;
-
-            .avatar {
-                grid-column: 1;
-                grid-row-end: span 2;
-            }
-
-            h3 {
-                grid-column: 2;
-                grid-row: 1;
-                margin: 4px;
-            }
-
-            .content {
-                margin: 6px;
-                grid-column: 2;
-                grid-row: 2;
-                border-radius: 10px;
-            }
-
-            >span:nth-of-type(2) {
-                grid-column: 2;
-                text-align: right;
-            }
-
-            >span:nth-of-type(1) {
-                grid-column: 2;
-                grid-row: 1;
-                text-align: right;
-            }
-
-            .reactions {
-                position: absolute;
-                bottom: 0;
-                left: 0;
-            }
-        }
-
-        @media (max-width: 775px) {
-            grid-template-columns: 52px 1fr;
-            grid-template-rows: auto auto auto;
-
-            .avatar {
-                grid-column: 1;
-                grid-row: 1;
-                margin: 10px;
-            }
-
-            h3 {
-                grid-column: 2;
-                grid-row: 1;
-                padding-top: 12px;
-                padding-left: 10px;
-                margin: 10px;
-            }
-
-            >span:nth-of-type(2) {
-                grid-column: 2;
-                text-align: right;
-                margin-right: 10px;
-            }
-
-            >span:nth-of-type(1) {
-                grid-column: span 2;
-                grid-row: 4;
-                text-align: right;
-                padding-top: 11px;
-                margin-right: 10px;
-            }
-
-            .content {
-                grid-column: span 2;
-                grid-row: span 2;
-            }
-
-            .reactions {
-                grid-column: span 2;
             }
         }
     }
