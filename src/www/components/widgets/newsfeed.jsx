@@ -4,7 +4,7 @@ import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 
 const fetchNews = () => (
-    fetch("http://localhost:8080/newsfeed")
+    fetch("/newsfeed")
         .then(res => res.json())
         .catch(e => ({
             error: "failed to fetch news"
