@@ -68,7 +68,7 @@ const createElements = (data) => {
                     {reactions}
                     <div className="reaction"
                         onClick={() => window.open(e.html_url)}
-                    >☺</div>
+                    >&nbsp;+&nbsp;</div>
                     <div className="reaction"
                         onClick={() => window.open(e.html_url)} >
                         {commentAmount} kommentarer
