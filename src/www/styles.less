@@ -326,24 +326,36 @@ code {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        gap: 5px;
+        gap: 10px;
 
         .schedule-item {
             position: relative;
             text-align: center;
-            border: 1px solid #161616;
+            box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.5);
             width: 300px;
             overflow: hidden;
             display: grid;
-            grid-template-rows: auto auto auto;
+            grid-template-rows: 2.5em auto auto;
 
             >* {
                 margin: 10px;
             }
 
-            h3:first-of-type {
+            h4 {
+                font-family: 'IBM Plex Mono', monospace;
+                // background-color: #161616;
+                // margin: 0;
+                // padding: 1px;
+                // color: white;
+            }
+
+            h3 {
                 font-family: "Press Start 2P";
                 color: #161616;
+                padding: 10px;
+                margin: 0;
+                background-color: #161616;
+                color: white;
             }
         }
 
@@ -374,7 +386,7 @@ code {
             right: -58px;
             top: -20px;
             font-size: 0.75em;
-            border-bottom: 1px solid #161616;
+            box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.5);
         }
     }
 }
