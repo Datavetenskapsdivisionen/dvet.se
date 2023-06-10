@@ -32,7 +32,14 @@ const createElements = (data) => {
         const title = e.title;
         const avatar = e.user.avatar_url;
         const author = e.user.name;
-        const time = new Date(e.created_at).toLocaleString("en-GB");
+        const time = new Date(e.created_at)
+            .toLocaleString("en-GB", {
+                year: "2-digit",
+                month: "2-digit",
+                day: "2-digit",
+                hour: "2-digit",
+                minute: "2-digit"
+            });
         const body = e.body;
         const commentAmount = e.comments;
         const reactions =
@@ -48,26 +55,30 @@ const createElements = (data) => {
         const postId = "post-" + e.id;
 
         return <div className="news-item" id={postId} >
-            <img draggable="false" className="avatar" src={avatar} alt="avatar" />
-            <span>{time}</span>
-            <h3>{title}</h3>
+            <div className="top">
+                <img draggable="false" className="avatar" src={avatar} alt="avatar" />
+                <h3>{title}</h3>
+                <span>{time}</span>
+            </div>
             <div className="content">
                 <ReactMarkdown children={body} rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}></ReactMarkdown>
             </div>
-            <span>- {author}</span>
-            <div className="reactions">
-                {reactions}
-                <div className="reaction"
-                    onClick={() => window.open(e.html_url)}
-                >☺</div>
-                <div className="reaction"
-                    onClick={() => window.open(e.html_url)} >
-                    {commentAmount} kommentarer
+            <div className="bottom">
+                <div className="reactions">
+                    {reactions}
+                    <div className="reaction"
+                        onClick={() => window.open(e.html_url)}
+                    >☺</div>
+                    <div className="reaction"
+                        onClick={() => window.open(e.html_url)} >
+                        {commentAmount} kommentarer
+                    </div>
                 </div>
+                <span>- {author}</span>
             </div>
         </div >;
     });
-    return <div class="news">{titles}</div>;
+    return <div className="news">{titles}</div>;
 };
 
 const me = (props) => {
@@ -84,7 +95,7 @@ const me = (props) => {
     return <div className="news-holder">
         <h2>
             Nyheter
-            <a class="rss-button" href="/newsfeed?type=rss" target="_blank">
+            <a className="rss-button" href="/newsfeed?type=rss" target="_blank">
                 <img
                     src="https://wp-assets.rss.com/blog/wp-content/uploads/2019/10/10111557/social_style_3_rss-512-1.png"
                     draggable="false"
