@@ -27,7 +27,7 @@ const createElements = (data, searchParams, setSearchParams) => {
                 updatePath();
             }}
         >
-            <svg xmlns="http://www.w3.org/2000/svg" height="90" viewBox="-5 0 24 24" width="160"><path d="M0 0h24v24H0z" fill="none" />
+            <svg xmlns="http://www.w3.org/2000/svg" height="99" viewBox="-5 0 24 24" width="160"><path d="M0 0h24v24H0z" fill="none" />
                 <path d="M11.67 3.87L9.9 2.1 0 12l9.9 9.9 1.77-1.77L3.54 12z" />
             </svg>
             <span>Backa</span>
@@ -41,7 +41,7 @@ const createElements = (data, searchParams, setSearchParams) => {
                     path.push(c.id);
                     updatePath();
                 }}>
-                <svg xmlns="http://www.w3.org/2000/svg" height="90" viewBox="0 0 24 24" width="160">
+                <svg xmlns="http://www.w3.org/2000/svg" height="99" viewBox="0 0 24 24" width="160">
                     <path d="M0 0h24v24H0z" fill="none" />
                     <path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z" />
                 </svg>
@@ -72,7 +72,7 @@ const createElements = (data, searchParams, setSearchParams) => {
 
 
 const fetchImageData = () => (
-    fetch("getPhotos")
+    fetch("/getPhotos")
         .then(res => res.json())
         .catch(e => ({
             error: "failed to fetch images"

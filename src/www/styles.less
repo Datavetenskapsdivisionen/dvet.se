@@ -16,10 +16,15 @@ code {
     flex-wrap: wrap;
     gap: 20px;
     justify-content: space-around;
+    transition-duration: 100ms;
+
+    * {
+        transition-duration: inherit;
+    }
 
     .item {
-        border: 1px #161616 solid;
-        border-radius: 10px;
+        box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.5);
+        // border-radius: 10px;
         overflow: hidden;
         cursor: pointer;
         max-width: 160px;
@@ -27,14 +32,20 @@ code {
 
         span {
             max-width: 150px;
+            width: 140px;
             display: block;
             padding: 5px;
+            padding-left: 10px;
+            padding-right: 10px;
             user-select: none;
             white-space: nowrap;
             text-overflow: ellipsis;
             overflow: hidden;
             white-space: nowrap;
             margin-top: -5px;
+            background-color: #161616;
+            text-align: center;
+            color: white;
         }
 
         display: flex;
