@@ -18,7 +18,9 @@ import { postHook } from "./githookhandle.mjs";
 import getPhotos from "./photos.mjs";
 import killerBean from "./killerbean.mjs";
 
-app.use(expressStaticGzip("dist"));
+app.use(expressStaticGzip("dist", {
+    serveStatic: { maxAge: 60 * 1000 }
+}));
 app.use(express.json());
 app.get("/", callback);
 app.get("/committees", callback);
