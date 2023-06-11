@@ -16,6 +16,7 @@ const callback = (req, res) => {
 import { newsfeed } from "./newsfeed.mjs";
 import { postHook } from "./githookhandle.mjs";
 import getPhotos from "./photos.mjs";
+import killerBean from "./killerbean.mjs";
 
 app.use(expressStaticGzip("dist"));
 app.use(express.json());
@@ -40,6 +41,7 @@ app.get("/committees/mega7", callback);
 app.get("/newsfeed", newsfeed);
 app.get("/getPhotos", getPhotos);
 app.post("/postHook", postHook);
+app.post("/killerBean", killerBean);
 
 
 const port = process.env.PORT || 8080;
