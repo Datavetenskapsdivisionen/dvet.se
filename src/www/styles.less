@@ -765,26 +765,9 @@ nav {
 
     div {
         display: flex;
+        flex-wrap: wrap;
         width: @width;
         justify-content: center;
-    }
-
-    @media (max-width: 767px) {
-        justify-content: flex-start;
-
-        div {
-            flex-direction: row;
-            justify-content: inherit;
-        }
-    }
-
-    @media (max-width: 540px) {
-        justify-content: flex-start;
-        padding-bottom: 10px;
-
-        div {
-            flex-direction: column;
-        }
     }
 }
 
