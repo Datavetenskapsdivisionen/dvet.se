@@ -3,15 +3,13 @@ name: Trigger curl on merge to master
 on:
   push:
     branches:
-      - master
+      - testbranch
 
 jobs:
   curl:
     runs-on: ubuntu-latest
-    
+    environment: production
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
 
       - name: Execute curl command
         run: curl -X POST -H "X-Dvet-Token:DEPLOY_TOKEN" https://www.dvet.se/killerbean -f
