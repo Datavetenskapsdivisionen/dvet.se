@@ -797,7 +797,7 @@ nav {
     justify-content: center;
     position: relative;
 
-    div {
+    >div {
         display: flex;
         flex-wrap: wrap;
         width: @width;
@@ -843,6 +843,52 @@ nav {
     text-transform: uppercase;
     white-space: nowrap;
     border-bottom: 5px solid transparent;
+}
+
+.nav__dropdown_parent {
+    cursor: pointer;
+    margin-left: 10px;
+
+    * {
+        text-transform: uppercase;
+    }
+
+    .Dropdown-arrow {
+        transform: translate(4px, 12px);
+        // border-color: white transparent transparent !important;
+    }
+
+    .nav__dropdown {
+        cursor: pointer;
+        padding: 24px 20px 20px 20px;
+        position: relative !important;
+        color: white;
+        height: 100%;
+        width: 100%;
+        background-color: transparent !important;
+        border: none !important;
+
+        .placeholder {
+            color: white;
+
+            span {
+                display: none;
+            }
+        }
+
+        .placeholder::after {
+            display: inline;
+            content: "Dokument";
+            font-size: 1em;
+        }
+
+    }
+
+    border-bottom: 5px solid transparent;
+}
+
+.nav__dropdown_parent:hover {
+    border-color: @cyan;
 }
 
 .nav__link.active--exact:nth-child(1) {

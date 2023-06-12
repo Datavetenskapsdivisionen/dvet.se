@@ -17,6 +17,7 @@ import { newsfeed } from "./newsfeed.mjs";
 import { postHook } from "./githookhandle.mjs";
 import getPhotos from "./photos.mjs";
 import killerBean from "./killerbean.mjs";
+import { call } from "file-loader";
 
 app.use(expressStaticGzip("dist", {
     serveStatic: { maxAge: 60 * 1000 }
@@ -33,6 +34,7 @@ app.get("/committees/the-board", callback);
 app.get("/committees/dvrk", callback);
 app.get("/committees/dvrk/schedule", callback);
 app.get("/committees/dvrk/content", callback);
+app.get("/committees/dvrk/form", callback);
 app.get("/committees/board-of-studies", callback);
 app.get("/committees/mega6", callback);
 app.get("/committees/concats", callback);
@@ -40,6 +42,8 @@ app.get("/committees/femmepp", callback);
 app.get("/committees/dv_ops", callback);
 app.get("/committees/dvarm", callback);
 app.get("/committees/mega7", callback);
+app.get("/committees/dvrk/bachelor", callback);
+app.get("/committees/dvrk/master", callback);
 app.get("/newsfeed", newsfeed);
 app.get("/getPhotos", getPhotos);
 app.post("/postHook", postHook);
