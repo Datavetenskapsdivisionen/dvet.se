@@ -16,5 +16,5 @@ jobs:
      - name: Execute curl command
        run: |
           curl -X POST \
-            -H "X-Dvet-Token: ${{ secrets.DEPLOY_TOKEN }}" \
+            -H "X-Dvet-Token: ${{ secrets.DEPLOY_TOKEN_MASTER }}" \
             https://www.dvet.se/killerbean -f
