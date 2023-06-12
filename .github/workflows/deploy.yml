@@ -10,9 +10,11 @@ jobs:
     runs-on: ubuntu-latest
     environment: Production
     steps:
+     - name: Checkout repository
+       uses: actions/checkout@v2
 
-      - name: Execute curl command
-        run: |
+     - name: Execute curl command
+       run: |
           curl -X POST \
             -H "X-Dvet-Token: ${{ secrets.DEPLOY_TOKEN }}" \
             https://www.dvet.se/killerbean -f
