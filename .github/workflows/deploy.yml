@@ -12,4 +12,7 @@ jobs:
     steps:
 
       - name: Execute curl command
-        run: curl -X POST -H "X-Dvet-Token:DEPLOY_TOKEN" https://www.dvet.se/killerbean -f
+        run: |
+          curl -X POST \
+            -H "X-Dvet-Token: ${{ secrets.DEPLOY_TOKEN }}" \
+            https://www.dvet.se/killerbean -f
