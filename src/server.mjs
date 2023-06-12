@@ -17,7 +17,6 @@ import { newsfeed } from "./newsfeed.mjs";
 import { postHook } from "./githookhandle.mjs";
 import getPhotos from "./photos.mjs";
 import killerBean from "./killerbean.mjs";
-import { call } from "file-loader";
 
 app.use(expressStaticGzip("dist", {
     serveStatic: { maxAge: 60 * 1000 }
