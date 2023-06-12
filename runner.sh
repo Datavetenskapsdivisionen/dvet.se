@@ -2,8 +2,8 @@
 
 while : 
 do
-    git pull
-    npm install
-    npm run build
+    git pull || true
+    npm install || true
+    npm run build || true
     npm start
 done
