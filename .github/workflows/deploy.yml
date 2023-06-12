@@ -1,4 +1,4 @@
-name: Trigger curl on merge to master
+name: deploy
 
 on:
   push:
