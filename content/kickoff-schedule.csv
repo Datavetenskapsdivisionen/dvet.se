@@ -1,26 +1,26 @@
 Datum,Aktivitet,Arrangör,Starttid,Sluttid,Antal arbetare från arrangör,Antal arbetare som behövs,Differans mellan antal arbetare som behövs och antal som arbetar,Puffar (personer som hjälper till utanför arrangerande kommitté),notering,beskrivning
-2022-08-15,Grillning och lära- känna-aktiviteter för kandidatstudenter,DVRK,11:00,15:00,2,alla,,,,
-2022-08-16,Lunch,DVRK,11:30,14:00,,,,,,
-2023-05-24,Chillmiddag,Femme++,18:00,23:00,2,4,2,"Alva, Josefin",,"Cozy dinner with Femme++ where we get to know each other and hang out! BYOB, note that this event is only available for women, nonbinary people or trans people"
-2023-05-25,Slottsskogshäng,DVRK,18:00,23:00,,,,,,
-2023-05-26,Quiz i Monaden,Styrelsen,18:00,20:00,4,4,0,,,Fun quiz and a chill time in Monaden! Come and meet the regime of DV and answer their tricky questions!
-2023-05-27,Brädspelskväll,ConCats,18:00,22:00,1,1,0,,,"A fun and cozy board game night in Monaden where snacks and alcohol free drinks are provided, BYOB. Come and hang out, play some games and have fun with us in Concats!"
-2023-05-28,Övningssittning,Mega6,18:00,02:00,5,9,4,"Tekla ofc😎, Samuel 🥕, Josefin, Alva","Faddrar behövs till prepp (möblera), servering och städning",
-2023-05-29,Onlinespelkväll,Concats,19:00,23:00,1,1,0,,,"An online game night that started during the pandemic but continued because it was a lot of fun! You sit at home on your own computer and play coop online games, you decide what games you want to play but usually we play games like gartic phone, scribble, golf it and jackbox party packs!"
-2023-05-30,Pubrunda + Stadsvandring,Mega6,17:00,01:00,5,2,0,,,
-2023-05-31,Räknestuga + Hjälp med python uppgifter,,,,,,,,,
-2023-06-01,Baguettelunch,DVRK,11:30,13:00,,,,,,
-2023-06-02,Grillning och lära- känna-aktiviteter för masterstudenter,DVRK,,,,,,,,
-2023-06-03,Tentafrukost,ConCats,07:00,08:15,2,4,2,,,"An early morning breakfast to prep you for the exam at 08.30. There will be lots of different foods, both vegan and non-vegan so come and eat away the nerves."
-2023-06-04,ET-raj!,Mega6,18:00,02:00,5,2,0,,,
-2023-06-05,Pubrunda,Femme++,18:00,01:00,2,2,0,,,"A night of bar hopping, will probably be available to a limited amount of people so that there is space available at the bars, No free drinks provided, but an exploration of some cozy and/or cheap bars and lots of good conversation will hopefully be had!"
-2023-06-06,Slaget om IT,Göta,,,,,,,,
-2023-06-07,GHC workshop,,,,,,,,,
-2023-06-08,Brädspelskväll,Concats,18:00,00:00,1,2,1,,,"A fun and cozy board game night in Monaden where snacks and alcohol free drinks are provided, BYOB. Come and hang out, play some games and have fun with us in Concats!"
-2023-06-09,Aktivitetsdag i slottskogen,ConCats,13:00,17:00,2,4,2,,Vi vill ha hjälp att bära saker dit och tillbaka från Monaden men man får gärna vara med under dagen också om man vill!,"A fun outing in Slottskogen where we will play games like capture the flag, Kubb (a.k.a. bowler), a swedish baseball version.(a.k.a. rounders)  "
-2023-06-10,Sittning,Mega6,18:00,02:00,4,8,4,"Samish, Mirandish",,
-2023-06-11,Tacomiddag för masterstudenter,DVRK,,,2,,,,,
-2023-06-12,Pubrunda,Mega6,17:00,01:00,5,2,0,,,
-2023-06-13,Grillkväll slottskogen,Concats,17:00,23:00,2,4,2,,,"An evening barbeque where food and non-alcoholic drinks will be provided, nearing the end of the intro we'll just chill and chat and eat. Might be held in Monaden depending on the weather. "
-2023-06-14,UV-fest,Mega6,20:00,02:00,5,7,2,Emmie 🖌,Behöver folk som vill måla facepaint!! ,
-2023-06-15,Finsittning,DVRK,,,,,,,,
+2022-06-06,Grillning och lära- känna-aktiviteter för kandidatstudenter,DVRK,11:00,15:00,2,alla,,,,
+2022-06-07,Lunch,DVRK,11:30,14:00,,,,,,
+2023-06-08,Chillmiddag,Femme++,18:00,23:00,2,4,2,"Alva, Josefin",,"Cozy dinner with Femme++ where we get to know each other and hang out! BYOB, note that this event is only available for women, nonbinary people or trans people"
+2023-06-09,Slottsskogshäng,DVRK,18:00,23:00,,,,,,
+2023-06-10,Quiz i Monaden,Styrelsen,18:00,20:00,4,4,0,,,Fun quiz and a chill time in Monaden! Come and meet the regime of DV and answer their tricky questions!
+2023-06-11,Brädspelskväll,ConCats,18:00,22:00,1,1,0,,,"A fun and cozy board game night in Monaden where snacks and alcohol free drinks are provided, BYOB. Come and hang out, play some games and have fun with us in Concats!"
+2023-06-12,Övningssittning,Mega6,18:00,02:00,5,9,4,"Tekla ofc😎, Samuel 🥕, Josefin, Alva","Faddrar behövs till prepp (möblera), servering och städning",
+2023-06-13,Onlinespelkväll,Concats,19:00,23:00,1,1,0,,,"An online game night that started during the pandemic but continued because it was a lot of fun! You sit at home on your own computer and play coop online games, you decide what games you want to play but usually we play games like gartic phone, scribble, golf it and jackbox party packs!"
+2023-06-14,Pubrunda + Stadsvandring,Mega6,17:00,01:00,5,2,0,,,
+2023-06-15,Räknestuga + Hjälp med python uppgifter,,,,,,,,,
+2023-06-16,Baguettelunch,DVRK,11:30,13:00,,,,,,
+2023-06-17,Grillning och lära- känna-aktiviteter för masterstudenter,DVRK,,,,,,,,
+2023-06-18,Tentafrukost,ConCats,07:00,08:15,2,4,2,,,"An early morning breakfast to prep you for the exam at 08.30. There will be lots of different foods, both vegan and non-vegan so come and eat away the nerves."
+2023-06-19,ET-raj!,Mega6,18:00,02:00,5,2,0,,,
+2023-06-20,Pubrunda,Femme++,18:00,01:00,2,2,0,,,"A night of bar hopping, will probably be available to a limited amount of people so that there is space available at the bars, No free drinks provided, but an exploration of some cozy and/or cheap bars and lots of good conversation will hopefully be had!"
+2023-06-21,Slaget om IT,Göta,,,,,,,,
+2023-06-22,GHC workshop,,,,,,,,,
+2023-06-23,Brädspelskväll,Concats,18:00,00:00,1,2,1,,,"A fun and cozy board game night in Monaden where snacks and alcohol free drinks are provided, BYOB. Come and hang out, play some games and have fun with us in Concats!"
+2023-06-24,Aktivitetsdag i slottskogen,ConCats,13:00,17:00,2,4,2,,Vi vill ha hjälp att bära saker dit och tillbaka från Monaden men man får gärna vara med under dagen också om man vill!,"A fun outing in Slottskogen where we will play games like capture the flag, Kubb (a.k.a. bowler), a swedish baseball version.(a.k.a. rounders)  "
+2023-06-25,Sittning,Mega6,18:00,02:00,4,8,4,"Samish, Mirandish",,
+2023-06-26,Tacomiddag för masterstudenter,DVRK,,,2,,,,,
+2023-06-27,Pubrunda,Mega6,17:00,01:00,5,2,0,,,
+2023-06-28,Grillkväll slottskogen,Concats,17:00,23:00,2,4,2,,,"An evening barbeque where food and non-alcoholic drinks will be provided, nearing the end of the intro we'll just chill and chat and eat. Might be held in Monaden depending on the weather. "
+2023-06-29,UV-fest,Mega6,20:00,02:00,5,7,2,Emmie 🖌,Behöver folk som vill måla facepaint!! ,
+2023-06-30,Finsittning,DVRK,,,,,,,,

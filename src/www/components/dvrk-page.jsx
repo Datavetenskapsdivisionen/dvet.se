@@ -45,7 +45,7 @@ const MainPage = () => (
 
 const SchedulePage = () => (
     <>
-        <KickoffSchedule />
+        <KickoffSchedule full={true} />
     </>
 );
 
