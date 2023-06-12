@@ -34,7 +34,7 @@ const fetchRSS = async () => {
     let feed = new RSS(
         {
             title: "DV Nyheter",
-            feed_url: "https://dvet.se/newsfeed?type=rss",
+            feed_url: "https://www.dvet.se/newsfeed?type=rss",
             description: "Diverse nytt från Datavetenskap på GU",
             site_url: "https://dvet.se"
         });
