@@ -42,7 +42,7 @@ const fetchRSS = async () => {
         feed.item({
             title: e.title,
             description: e.body,
-            url: "https://dvet.se/#post-" + e.id,
+            url: "https://www.dvet.se/#post-" + e.id,
             guid: e.id,
             author: e.user.name,
             date: e.created_at

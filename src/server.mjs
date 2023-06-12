@@ -32,7 +32,7 @@ app.get("/photos", callback);
 app.get("/committees/the-board", callback);
 app.get("/committees/dvrk", callback);
 app.get("/committees/dvrk/schedule", callback);
-app.get("/committees/dvrk/content", callback);
+app.get("/committees/dvrk/contact", callback);
 app.get("/committees/dvrk/form", callback);
 app.get("/committees/board-of-studies", callback);
 app.get("/committees/mega6", callback);
