@@ -1,0 +1,17 @@
+name: Trigger curl on merge to master
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  curl:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Execute curl command
+        run: curl -X POST -H "X-Dvet-Token:DEPLOY_TOKEN" https://www.dvet.se/killerbean -f
