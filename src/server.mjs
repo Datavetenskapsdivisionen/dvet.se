@@ -16,6 +16,7 @@ const callback = (req, res) => {
 import { newsfeed } from "./newsfeed.mjs";
 import { postHook } from "./githookhandle.mjs";
 import getPhotos from "./photos.mjs";
+import getEvents from "./events.mjs";
 import killerBean from "./killerbean.mjs";
 
 app.use(expressStaticGzip("dist", {
@@ -45,6 +46,7 @@ app.get("/committees/dvrk/bachelor", callback);
 app.get("/committees/dvrk/master", callback);
 app.get("/newsfeed", newsfeed);
 app.get("/getPhotos", getPhotos);
+app.get("/getEvents", getEvents);
 app.post("/postHook", postHook);
 app.post("/killerBean", killerBean);
 
