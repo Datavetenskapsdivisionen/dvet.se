@@ -22,11 +22,18 @@ const me = (props) => {
     const nav = useNavigate();
     const clickAction = props.uri ? () => { nav(props.uri); window.scrollTo(0, 0); } : () => window.open(props.link);
 
+    let textholder = "text-holder"
+    let imageholder = "image-holder"
+    if (props.DVops === true){
+        textholder += " dvOps-holder"
+        imageholder += " dvOps-holder"
+    }
+
     return <div className="committee-badge" style={style(props.color)} onClick={clickAction}>
-        <div className="image-holder">
+        <div className= {imageholder}>
             <img src={props.logo} alt="I am an image" draggable="false" />
         </div>
-        <div className="text-holder">
+        <div className={textholder}>
             {text(props.imageText, props.name, props.fontSize)}
         </div>
         <ReactMarkdown></ReactMarkdown>
