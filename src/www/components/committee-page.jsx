@@ -13,7 +13,7 @@ import Mega7Logo from "../../../assets/committee-logos/mega7-logo.png";
 import TheBoardLogo from "../../../assets/externallogohemlet.svg";
 import BoardOfStudies from "../../../assets/committee-logos/board-of-studies-logo.png";
 import FemmePPLogo from "../../../assets/committee-logos/femmepp-logo.png";
-import DV_OpsLogo from "../../../assets/committee-logos/dv_ops-logo.png";
+import DV_OpsLogo from "../../../assets/committee-logos/dv_ops-logo.svg";
 import DVArmLogo from "../../../assets/committee-logos/dvarm-logo.png";
 
 const me = () => (
@@ -26,7 +26,7 @@ const me = () => (
       <CommitteeBadge uri="/committees/mega6" name="Mega6" logo={Mega6Logo} color="#434AFA" />
       <CommitteeBadge uri="/committees/concats" imageText={ConCatsText} logo={ConCatsLogo} />
       <CommitteeBadge uri="/committees/femmepp" name="Femme++" logo={FemmePPLogo} />
-      <CommitteeBadge uri="/committees/dv_ops" name="DV_Ops" logo={DV_OpsLogo} />
+      <CommitteeBadge uri="/committees/dv_ops" name="DV_Ops" logo={DV_OpsLogo} DVops = {true}/>
       <CommitteeBadge uri="/committees/dvarm" name="DVArm" logo={DVArmLogo} />
       <CommitteeBadge uri="/committees/mega7" name="Mega7" logo={Mega7Logo} />
     </div>
