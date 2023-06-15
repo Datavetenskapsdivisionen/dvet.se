@@ -114,7 +114,7 @@ const me = (props) => {
 
     const [[modalTitle, modalContent, modalWhen, modalWho, modalWhere], setModalData] = React.useState(["event", "about", "2020", "whom", "where"]);
 
-    const [csv, setState] = React.useState(0);
+    const [csv, setState] = React.useState(<div class="loading"></div>);
     React.useEffect(() => {
         getCsvObject(props.full, openModal, setModalData).then((res) => setState(res));
     }, [getCsvObject]);
