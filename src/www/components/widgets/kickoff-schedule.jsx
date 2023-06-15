@@ -12,7 +12,7 @@ const isToday = (date) => {
 const hasPassed = (date) => (date < new Date());
 
 const EVENT_LIMIT = 5;
-const getCsvObject = async (full, openModal, setModalData) => {
+const getEventData = async (full, openModal, setModalData) => {
     const json = await (await fetch("/getKickOffEvents")).json();
     let filterCount = 0;
     let data = json
@@ -83,7 +83,7 @@ const getCsvObject = async (full, openModal, setModalData) => {
                 <h3>{summary}</h3>
                 <h4>{dateElem}</h4>
                 <h4>{location}</h4>
-                <p>Arrangörer: {committee}</p>
+                <p>Arrangör: {committee}</p>
             </div>;
         });
     if (!full && filterCount >= EVENT_LIMIT) {
@@ -116,8 +116,8 @@ const me = (props) => {
 
     const [csv, setState] = React.useState(<div class="loading"></div>);
     React.useEffect(() => {
-        getCsvObject(props.full, openModal, setModalData).then((res) => setState(res));
-    }, [getCsvObject]);
+        getEventData(props.full, openModal, setModalData).then((res) => setState(res));
+    }, [getEventData]);
 
     // const backButton = (props.full == true) ?
     //     <button onClick={() => {
