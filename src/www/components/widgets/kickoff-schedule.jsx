@@ -13,7 +13,7 @@ const hasPassed = (date) => (date < new Date());
 
 const EVENT_LIMIT = 5;
 const getCsvObject = async (full, openModal, setModalData) => {
-    const json = await (await fetch("http://localhost:8080/getKickOffEvents")).json();
+    const json = await (await fetch("/getKickOffEvents")).json();
     let filterCount = 0;
     let data = json
         .filter(o => {
