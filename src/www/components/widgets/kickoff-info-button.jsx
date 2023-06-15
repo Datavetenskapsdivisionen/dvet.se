@@ -6,7 +6,7 @@ const me = () => {
     //const action = () => window.open("https://dvrk.dvet.se");
     const nav = useNavigate();
     const action = () => nav("/committees/dvrk");
-    return month >= 6 && month < 9 ? <button className="kickoff-info-button" onClick={action}>
+    return month >= 6 && month <= 9 ? <button className="kickoff-info-button" onClick={action}>
         <p>Letar du efter mottagningsinfo?</p>
         <p>Tryck här!</p>
     </button> : null;

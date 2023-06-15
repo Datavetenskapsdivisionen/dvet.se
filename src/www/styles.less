@@ -116,6 +116,7 @@ code {
             width: 1em;
             transition-duration: 165ms;
         }
+
         img:hover {
             filter: grayscale(0);
         }
@@ -342,8 +343,9 @@ code {
             box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 1);
             width: 300px;
             overflow: hidden;
-            display: grid;
-            grid-template-rows: 2.5em auto auto;
+            display: flex;
+            flex-direction: column;
+            grid-template-rows: auto auto auto;
 
             >* {
                 margin: 10px;
@@ -351,19 +353,20 @@ code {
 
             h4 {
                 font-family: 'IBM Plex Mono', monospace;
-                // background-color: #161616;
-                // margin: 0;
-                // padding: 1px;
-                // color: white;
             }
 
             h3 {
+                min-height: 3em;
+                display: inline-block;
                 font-family: "Press Start 2P";
-                color: #161616;
                 padding: 10px;
                 margin: 0;
                 background-color: #161616;
                 color: white;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 1em;
             }
         }
 
@@ -385,6 +388,7 @@ code {
             animation-name: pulsate;
             animation-duration: 2s;
             animation-iteration-count: infinite;
+            animation-timing-function: linear;
 
             * {
                 user-select: none;
@@ -396,7 +400,7 @@ code {
                 }
 
                 25% {
-                    transform: rotate(0.5deg);
+                    transform: rotate(1deg);
                 }
 
                 50% {
@@ -404,7 +408,7 @@ code {
                 }
 
                 75% {
-                    transform: rotate(-0.5deg);
+                    transform: rotate(-1deg);
                 }
 
                 100% {
@@ -636,40 +640,49 @@ code {
                 margin-bottom: 24px;
             }
         }
-        .dvOps-holder:hover{
-            >img{
+
+        .dvOps-holder:hover {
+            >img {
                 animation: spin 0.6s linear infinite;
             }
         }
-        .dvOps-holder{
+
+        .dvOps-holder {
             >h1 {
                 color: tomato;
                 animation: colors 2s ease infinite;
             }
-            
+
             @keyframes colors {
-                0%{
-                    color:#ff0000 ;
+                0% {
+                    color: #ff0000;
                 }
-                14.28%{
-                    color:#ffa500 ;
+
+                14.28% {
+                    color: #ffa500;
                 }
-                28.56%{
+
+                28.56% {
                     color: #ffff00;
                 }
-                43%{
+
+                43% {
                     color: #008000;
                 }
-                57%{
+
+                57% {
                     color: #0000ff;
                 }
-                71%{
+
+                71% {
                     color: #4b0082;
                 }
-                85%{
+
+                85% {
                     color: #ee82ee;
                 }
-                100%{
+
+                100% {
                     color: #ff0000;
                 }
             }
