@@ -1,19 +1,13 @@
 import { authorize } from "./googleApi.mjs";
 import { google } from "googleapis";
 
-const EVENTS = "1E35HVlMfHw9wKmfgHr982yGe_lIyTQxMhd-jNh2uIOg";
 
-const listFields = async (authClient) => {
-    const sheet = google.sheets({ version: "v4", auth: authClient });
-    const res = await sheet.spreadsheets.values.get({
-        spreadsheetId: EVENTS,
+const getEventsFromSheet = async (auth) => {
+    const sheet = google.sheets({ version: "v4", auth: auth });
+    const data = await sheet.spreadsheets.values.get({
+        spreadsheetId: "1E35HVlMfHw9wKmfgHr982yGe_lIyTQxMhd-jNh2uIOg",
         range: "Formulärsvar 1!A1:L",
     });
-    return res;
-};
-
-const getEvents = async () => authorize().then(async c => {
-    const data = await listFields(c);
     let values = data.data.values;
     let headers = values[0];
     values.shift();
@@ -28,19 +22,35 @@ const getEvents = async () => authorize().then(async c => {
     values.sort((a, b) => a.FullTime - b.FullTime);
 
     return values;
-}).catch(console.error);
+};
 
-let events = {};
+const getKickOffCalender = async (auth) => {
+    const calendar = google.calendar({ version: "v3", auth });
+    const res = await calendar.events.list({
+        calendarId: "c_18d270d79e0911aa0be7a499c2190b616bbebf8462b3936d67cf4966757db7cb@group.calendar.google.com",
+        timeMin: new Date().toISOString(),
+        maxResults: 100,
+        singleEvents: true,
+        orderBy: "startTime",
+    });
+    const events = res.data.items;
+    return events;
+};
+
+let sheetEvents = {};
+let kickOffEvents = [];
 const syncEvents = async () => {
-    authorize().then(async c => {
-        const data = await getEvents();
-        events = data;
+    authorize().then(async auth => {
+        const data = await getEventsFromSheet(auth);
+        sheetEvents = data;
+        const kickOff = await getKickOffCalender(auth);
+        kickOffEvents = kickOff;
     }).catch(console.error);
 };
 await syncEvents();
 
 let lastTime = new Date();
-const me = async (req, res) => {
+const getSheetEvents = async (req, res) => {
     if (process.env.ENABLE_DRIVE != "true") {
         res.json({ error: "Event API is down!" });
         return;
@@ -51,6 +61,21 @@ const me = async (req, res) => {
         lastTime = new Date();
         await syncEvents();
     }
-    res.json(events);
+    res.json(sheetEvents);
 };
-export default me;
+
+const getKickOffEvents = async (req, res) => {
+    if (process.env.ENABLE_DRIVE != "true") {
+        res.json({ error: "Event API is down!" });
+        return;
+    }
+    const diff = Math.abs(new Date() - lastTime);
+    const minutes = (diff / 1000) / 60;
+    if (minutes >= 5) {
+        lastTime = new Date();
+        await syncEvents();
+    }
+    res.json(kickOffEvents);
+};
+
+export { getSheetEvents, getKickOffEvents };
