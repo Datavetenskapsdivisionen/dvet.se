@@ -62,7 +62,7 @@ const getEventData = async (full, openModal, setModalData) => {
             className += " upcoming";
         }
 
-        const lastParentheses = /\((\w+|[0,9]|\+|å|ä|ö|Å|Ä|Ö| |&|\.|!|\t)+\)$/;
+        const lastParentheses = /\((\w+|[0,9]|\+|å|ä|ö|Å|Ä|Ö| |&|\.|!|\t)+\)( *$)/;
         const committee = o.summary.match(lastParentheses)
             ? o.summary.match(lastParentheses)[0].slice(1, -1)
             : "DVD";
