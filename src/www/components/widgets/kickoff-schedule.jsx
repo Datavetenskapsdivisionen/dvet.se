@@ -62,11 +62,11 @@ const getEventData = async (full, openModal, setModalData) => {
             className += " upcoming";
         }
 
-        const lastParanthases = /\((\w+|[0,9]|\+|å|ä|ö| |&|\.|!|\t)+\)$/;
-        const committee = o.summary.match(lastParanthases)
-            ? o.summary.match(lastParanthases)[0].slice(1, -1)
+        const lastParentheses = /\((\w+|[0,9]|\+|å|ä|ö|Å|Ä|Ö| |&|\.|!|\t)+\)$/;
+        const committee = o.summary.match(lastParentheses)
+            ? o.summary.match(lastParentheses)[0].slice(1, -1)
             : "DVD";
-        const summary = o.summary.replace(lastParanthases, "");
+        const summary = o.summary.replace(lastParentheses, "");
 
         const location = o.location
             ? o.location.split(",").slice(0, 2).join(", ")
