@@ -51,6 +51,14 @@ app.get("/getKickoffEvents", getKickOffEvents);
 app.post("/postHook", postHook);
 app.post("/killerBean", killerBean);
 
+app.get("/recceguiden", (req, res) => servePdf(req, res, "assets/kick-off/recceguiden.pdf"));
+app.get("/masterguide", (req, res) => servePdf(req, res, "assets/kick-off/masterguiden.pdf"));
+
+const servePdf = (req, res, pdf) => {
+    const filePath = path.join(process.cwd(), pdf);
+    res.sendFile(filePath);
+};
+
 
 const port = process.env.PORT || 8080;
 console.log("Server starting at: http://localhost:" + port);

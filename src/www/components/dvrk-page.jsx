@@ -89,7 +89,7 @@ const IframePage = (props) => (
         <iframe
             src={props.url}
             frameborder="0"
-            style={{ width: "100%", height: "512px" }}
+            style={{ width: "100%", height: "90vh" }}
         >
         </iframe>
     </>
@@ -129,7 +129,7 @@ const dvrkRoute = () => (
         <Route exact path="/committees/dvrk/bachelor" element={
             <ContentHolder element={
                 <IframePage
-                    url="https://drive.google.com/file/d/1ZwFMOY8R5qs2EAfeGlwL2mN0aHnqT21E/preview"
+                    url="/recceguiden"
                     title="Recceguiden för kandidater!"
                 />
             } />
@@ -137,7 +137,7 @@ const dvrkRoute = () => (
         <Route exact path="/committees/dvrk/master" element={
             <ContentHolder element={
                 <IframePage
-                    url="https://drive.google.com/file/d/1ZwFMOY8R5qs2EAfeGlwL2mN0aHnqT21E/preview"
+                    url="/masterguide"
                     title="Receptionguide for master students!"
                 />
             } />
