@@ -14,79 +14,78 @@ const hasPassed = (date) => (date < new Date());
 const EVENT_LIMIT = 5;
 const getEventData = async (full, openModal, setModalData) => {
     const json = await (await fetch("/getKickOffEvents")).json();
-    let filterCount = 0;
     let data = json
-        .filter(o => {
-            if (full === true) return true;
-            const date = new Date(Date.parse(o["Datum"]));
-            if (isToday(date)) {
-                filterCount += 1;
-                return true;
-            } else if (hasPassed(date)) {
-                return false;
-            } else {
-                filterCount += 1;
-                if (filterCount < EVENT_LIMIT)
-                    return true;
-                else return false;
-            }
-        })
         .map(o => {
-            const dateData = {
+            o.dateData = {
                 start: new Date(Date.parse(o.start.date ? o.start.date : o.start.dateTime)),
                 end: new Date(Date.parse(o.end.date ? o.end.date : o.end.dateTime)),
                 isDay: o.start.dateTime == null && o.end.dateTime == null
             };
-            const dateElem = dateData.isDay
-                ? <>
-                    <span>{dateData.start.toLocaleDateString("se-SE")}</span>
-                    {/* <br /> */}
-                    <span>&nbsp;</span>
-                </>
-                : <>
-                    <span>{dateData.start.toLocaleDateString("se-SE")}</span>
-                    &nbsp;|
-                    <span>
-                        {`
-                            ${dateData.start.toLocaleTimeString("se-SE", { hour: "2-digit", minute: "2-digit" })} - 
-                            ${dateData.end.toLocaleTimeString("se-SE", { hour: "2-digit", minute: "2-digit" })}
-                        `}
-                    </span>
-                </>;
-            const date = dateData.end;
-            let className = "schedule-item";
-            if (isToday(date)) {
-                className += " active";
-            } else if (hasPassed(date)) {
-                className += " passed hidden";
+            return o;
+        })
+        .filter(o => {
+            if (full === true) return true;
+            if (isToday(o.dateData.start)) {
+                return true;
+            } else if (hasPassed(o.dateData.start)) {
+                return false;
             } else {
-                className += " upcoming";
+                return true;
             }
-
-            const lastParanthases = /\((\w+|[0,9]|\+|å|ä|ö| |&|\.|!|\t)+\)$/;
-            const committee = o.summary.match(lastParanthases)
-                ? o.summary.match(lastParanthases)[0].slice(1, -1)
-                : "DVD";
-            const summary = o.summary.replace(lastParanthases, "");
-
-            const location = o.location
-                ? o.location.split(",").slice(0, 2).join(", ")
-                : <>&nbsp;</>;
-
-            if (o.description) className += " clickable";
-            const action = (o.description) ? () => {
-                setModalData([summary, o.description, dateElem, committee, location]);
-                openModal();
-            } : () => { };
-
-            return <div className={className} onClick={action}>
-                <h3>{summary}</h3>
-                <h4>{dateElem}</h4>
-                <h4>{location}</h4>
-                <p>Arrangör: {committee}</p>
-            </div>;
         });
-    if (!full && filterCount >= EVENT_LIMIT) {
+    if (full !== true) {
+        data = data.slice(0, EVENT_LIMIT);
+    }
+    data = data.map(o => {
+        const dateElem = o.dateData.isDay
+            ? <>
+                <span>{o.dateData.start.toLocaleDateString("se-SE")}</span>
+                {/* <br /> */}
+                <span>&nbsp;</span>
+            </>
+            : <>
+                <span>{o.dateData.start.toLocaleDateString("se-SE")}</span>
+                &nbsp;|
+                <span>
+                    {`
+                            ${o.dateData.start.toLocaleTimeString("se-SE", { hour: "2-digit", minute: "2-digit" })} - 
+                            ${o.dateData.end.toLocaleTimeString("se-SE", { hour: "2-digit", minute: "2-digit" })}
+                        `}
+                </span>
+            </>;
+        let className = "schedule-item";
+        if (isToday(o.dateData.start)) {
+            className += " active";
+        } else if (hasPassed(o.dateData.start)) {
+            className += " passed";
+        } else {
+            className += " upcoming";
+        }
+
+        const lastParanthases = /\((\w+|[0,9]|\+|å|ä|ö| |&|\.|!|\t)+\)$/;
+        const committee = o.summary.match(lastParanthases)
+            ? o.summary.match(lastParanthases)[0].slice(1, -1)
+            : "DVD";
+        const summary = o.summary.replace(lastParanthases, "");
+
+        const location = o.location
+            ? o.location.split(",").slice(0, 2).join(", ")
+            : <>&nbsp;</>;
+
+        if (o.description) className += " clickable";
+        const action = (o.description) ? () => {
+            setModalData([summary, o.description, dateElem, committee, location]);
+            openModal();
+        } : () => { };
+
+        return <div className={className} onClick={action}>
+            <h3>{summary}</h3>
+            <h4>{dateElem}</h4>
+            <h4>{location}</h4>
+            <p>Arrangör: {committee}</p>
+        </div>;
+    });
+    if (full !== true) {
         data.push(
             <div
                 className="schedule-item upcoming-button"
@@ -114,7 +113,7 @@ const me = (props) => {
 
     const [[modalTitle, modalContent, modalWhen, modalWho, modalWhere], setModalData] = React.useState(["event", "about", "2020", "whom", "where"]);
 
-    const [csv, setState] = React.useState(<div class="loading"></div>);
+    const [csv, setState] = React.useState(<div className="loading"></div>);
     React.useEffect(() => {
         getEventData(props.full, openModal, setModalData).then((res) => setState(res));
     }, [getEventData]);

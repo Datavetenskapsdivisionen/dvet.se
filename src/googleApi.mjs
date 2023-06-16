@@ -70,5 +70,6 @@ const authorize = async () => {
     }
     return client;
 };
+await authorize();
 
 export { authorize };

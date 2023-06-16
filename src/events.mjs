@@ -47,9 +47,8 @@ const syncEvents = async () => {
         kickOffEvents = kickOff;
     }).catch(console.error);
 };
-await syncEvents();
 
-let lastTime = new Date();
+let lastTime = Number.MAX_VALUE;
 const getSheetEvents = async (req, res) => {
     if (process.env.ENABLE_DRIVE != "true") {
         res.json({ error: "Event API is down!" });

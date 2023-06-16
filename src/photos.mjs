@@ -72,9 +72,8 @@ const syncPhotos = () => {
             photos = await buildTree(await listFiles(c));
         }).catch(console.error);
 };
-await syncPhotos();
 
-let lastTime = new Date();
+let lastTime = Number.MAX_VALUE;
 const getPhotos = async (req, res) => {
     if (process.env.ENABLE_DRIVE != "true") {
         res.json({ error: "Image API is down!" });
