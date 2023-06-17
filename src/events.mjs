@@ -69,7 +69,10 @@ const getSheetEvents = async (req, res) => {
 };
 
 const getKickOffEvents = async (req, res) => {
-    getter(req, res, () => kickOffEvents);
+    getter(req, res, () => {
+        console.log(req.query.type);
+        return kickOffEvents;
+    });
 };
 
 export { getSheetEvents, getKickOffEvents };
