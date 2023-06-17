@@ -16,11 +16,8 @@ const getEventData = async (full, openModal, setModalData) => {
     const json = await (await fetch("/getKickOffEvents")).json();
     let data = json
         .map(o => {
-            o.dateData = {
-                start: new Date(Date.parse(o.start.date ? o.start.date : o.start.dateTime)),
-                end: new Date(Date.parse(o.end.date ? o.end.date : o.end.dateTime)),
-                isDay: o.start.dateTime == null && o.end.dateTime == null
-            };
+            o.dateData.start = new Date(Date.parse(o.dateData.start));
+            o.dateData.end = new Date(Date.parse(o.dateData.end));
             return o;
         })
         .filter(o => {

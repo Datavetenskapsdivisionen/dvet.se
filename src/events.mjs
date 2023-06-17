@@ -46,6 +46,13 @@ const getKickOffCalender = async (auth) => {
         } else {
             o.group = "all";
         }
+        o.dateData = {
+            start: new Date(Date.parse(o.start.date ? o.start.date : o.start.dateTime)),
+            end: new Date(Date.parse(o.end.date ? o.end.date : o.end.dateTime)),
+            isDay: o.start.dateTime == null && o.end.dateTime == null
+        };
+        delete o.start;
+        delete o.end;
         o.committee = o.summary.match(committeeRegex)
             ? o.summary.match(committeeRegex)[0].slice(1, -1)
             : "DVD";
