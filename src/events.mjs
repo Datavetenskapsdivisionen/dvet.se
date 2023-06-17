@@ -48,8 +48,9 @@ const syncEvents = async () => {
     }).catch(console.error);
 };
 
-let lastTime = Number.MAX_VALUE;
-const getSheetEvents = async (req, res) => {
+let lastTime = new Date(Date.parse("2100-01-01"));
+
+const getter = async (req, res, getter) => {
     if (process.env.ENABLE_DRIVE != "true") {
         res.json({ error: "Event API is down!" });
         return;
@@ -60,21 +61,15 @@ const getSheetEvents = async (req, res) => {
         lastTime = new Date();
         await syncEvents();
     }
-    res.json(sheetEvents);
+    res.json(getter());
+};
+
+const getSheetEvents = async (req, res) => {
+    getter(req, res, () => sheetEvents);
 };
 
 const getKickOffEvents = async (req, res) => {
-    if (process.env.ENABLE_DRIVE != "true") {
-        res.json({ error: "Event API is down!" });
-        return;
-    }
-    const diff = Math.abs(new Date() - lastTime);
-    const minutes = (diff / 1000) / 60;
-    if (minutes >= 5) {
-        lastTime = new Date();
-        await syncEvents();
-    }
-    res.json(kickOffEvents);
+    getter(req, res, () => kickOffEvents);
 };
 
 export { getSheetEvents, getKickOffEvents };
