@@ -67,7 +67,7 @@ const getKickOffCalender = async (auth) => {
 let sheetEvents = {};
 let kickOffEvents = [];
 const syncEvents = async () => {
-    authorize().then(async auth => {
+    await authorize().then(async auth => {
         sheetEvents = await getEventsFromSheet(auth);
         kickOffEvents = await getKickOffCalender(auth);
     }).catch(console.error);
@@ -84,9 +84,8 @@ const getter = async (req, res, getter) => {
     const minutes = (diff / 1000) / 60;
     if (minutes >= 5) {
         lastTime = new Date();
-        await syncEvents();
-    }
-    res.json(getter());
+        syncEvents().then(() => res.json(getter()));
+    } else res.json(getter());
 };
 
 const getSheetEvents = async (req, res) => {
@@ -97,10 +96,10 @@ const getKickOffEvents = async (req, res) => {
     getter(req, res, () => {
         const query = req.query.type;
         if (query === "bachelor") {
-
+            return kickOffEvents;
         }
         else if (query === "master") {
-
+            return kickOffEvents;
         }
         else return kickOffEvents;
     });
