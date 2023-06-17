@@ -26,7 +26,7 @@
 
     .committee-page-image {
         display: grid;
-        grid-template-rows: 240px auto;
+        grid-template-rows: auto auto;
         min-width: 300px;
         background-color: #161616;
         overflow: hidden;
@@ -37,13 +37,16 @@
         justify-content: center;
         align-items: center;
     }
+    .committee-page-image div img {
+        width: 300px;
+    }
     .committee-page-image span {
         color: white;
         text-align: center;
         font-size: 1.4em;
         line-height: 1.4em;
         padding: 10px;
-        box-shadow: 0px -15px 56px 4px rgba(0, 0, 0, 0.75);
+        box-shadow: 0px -15px 56px 4px rgba(255, 255, 255, 0.25);
         font-family: "Press Start 2P";
     }
 </style>
@@ -93,7 +96,7 @@
     </div>
     <div class="committee-page-image">
         <div>
-            <img src="https://media.discordapp.net/attachments/1032731948575117382/1119330293300596756/BraveDown.Com-another-one-VZ-THXE-fIs.gif" />
+            <img src="https://cdn.discordapp.com/attachments/532842577162928129/1119725792365133864/105577611.png" />
         </div>
         <span>Styrelsen</span>
     </div>
