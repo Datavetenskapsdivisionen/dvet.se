@@ -102,11 +102,11 @@ const getSheetEvents = async (req, res) => {
 const getKickOffEvents = async (req, res) => {
     getter(req, res, () => {
         const query = req.query.type;
-        if (query === "bachelor") {
-            return kickOffEvents;
-        }
-        else if (query === "master") {
-            return kickOffEvents;
+        if (query) {
+            return kickOffEvents.filter(
+                e => e.group.includes(query)
+                    || e.group.length == 0
+            );
         }
         else return kickOffEvents;
     });
