@@ -1,7 +1,6 @@
 import { authorize } from "./googleApi.mjs";
 import { google } from "googleapis";
 
-
 const getEventsFromSheet = async (auth) => {
     const sheet = google.sheets({ version: "v4", auth: auth });
     const data = await sheet.spreadsheets.values.get({
@@ -32,20 +31,24 @@ const getKickOffCalender = async (auth) => {
         singleEvents: true,
         orderBy: "startTime",
     });
-    const committeeRegex = /\((\w+|[0,9]|\+|å|ä|ö|Å|Ä|Ö| |&|\.|!|\t)+\)( *$)/;
-    const group = /\[(\w+|[0,9]|\+|å|ä|ö|Å|Ä|Ö| |&|\.|!|\t)+\]/;
+    const committeeRegex = /\((\w+|[0,9]|\+|å|ä|ö|Å|Ä|Ö| |&|\.|!|\t)+\)( *$)/g;
+    const groupRegex = /\[(\w+|[0,9]|\+|å|ä|ö|Å|Ä|Ö| |&|\.|!|\t)+\]/g;
     const events = res.data.items.map(o => {
         //TODO Replace this with a more general approach once testing data is available
-        if (o.summary.includes("[Kandidat]")
-            && o.summary.includes("[Master]")) {
-            o.group = "all";
-        } else if (o.summary.includes("[Kandidat]")) {
-            o.group = "bachelor";
-        } else if (o.summary.includes("[Master]")) {
-            o.group = "master";
-        } else {
-            o.group = "all";
-        }
+        o.group = [];
+        const groupMatch = o.summary.match(groupRegex);
+        if (groupMatch) groupMatch.map(e => o.group.push(e.slice(1, -1)));
+
+        // Get committee, default to DVD if not found
+        const summaryMatch = o.summary.match(committeeRegex);
+        o.committee = summaryMatch
+            ? summaryMatch[0].slice(1, -1)
+            : "DVD";
+        o.summary = o.summary
+            .replaceAll(committeeRegex, "")
+            .replaceAll(groupRegex, "");
+
+        // Fix date
         o.dateData = {
             start: new Date(Date.parse(o.start.date ? o.start.date : o.start.dateTime)),
             end: new Date(Date.parse(o.end.date ? o.end.date : o.end.dateTime)),
@@ -53,12 +56,15 @@ const getKickOffCalender = async (auth) => {
         };
         delete o.start;
         delete o.end;
-        o.committee = o.summary.match(committeeRegex)
-            ? o.summary.match(committeeRegex)[0].slice(1, -1)
-            : "DVD";
-        o.summary = o.summary
-            .replace(committeeRegex, "")
-            .replace(group, "");
+
+        // Clear up unneeded fields 
+        delete o.organizer;
+        delete o.iCalUID;
+        delete o.sequence;
+        delete o.reminders;
+        delete o.eventType;
+        delete o.kind;
+        delete o.etag;
         return o;
     });
     return events;
