@@ -67,10 +67,11 @@ const getKickOffCalender = async (auth) => {
 let sheetEvents = {};
 let kickOffEvents = [];
 const syncEvents = async () => {
-    await authorize().then(async auth => {
-        sheetEvents = await getEventsFromSheet(auth);
-        kickOffEvents = await getKickOffCalender(auth);
-    }).catch(console.error);
+    if (process.env.ENABLE_DRIVE == "true")
+        await authorize().then(async auth => {
+            sheetEvents = await getEventsFromSheet(auth);
+            kickOffEvents = await getKickOffCalender(auth);
+        }).catch(console.error);
 };
 
 let lastTime = new Date(Date.parse("2100-01-01"));
