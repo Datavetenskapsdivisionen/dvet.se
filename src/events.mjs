@@ -15,7 +15,6 @@ const getEventsFromSheet = async (auth) => {
         let obj = {};
         headers.forEach((h, i) => obj[h] = val[i]);
         const formattedTime = obj["Day"] + ":" + obj["Time"].replace(".", ":");
-        //console.log(formattedTime + ": " + Date.parse(formattedTime));
         obj.FullTime = Date.parse(formattedTime);
         return obj;
     });
@@ -33,7 +32,14 @@ const getKickOffCalender = async (auth) => {
         singleEvents: true,
         orderBy: "startTime",
     });
-    const events = res.data.items;
+    const committeeRegex = /\((\w+|[0,9]|\+|å|ä|ö|Å|Ä|Ö| |&|\.|!|\t)+\)( *$)/;
+    const events = res.data.items.map(o => {
+        o.committee = o.summary.match(committeeRegex)
+            ? o.summary.match(committeeRegex)[0].slice(1, -1)
+            : "DVD";
+        o.summary = o.summary.replace(committeeRegex, "");
+        return o;
+    });
     return events;
 };
 
@@ -41,10 +47,8 @@ let sheetEvents = {};
 let kickOffEvents = [];
 const syncEvents = async () => {
     authorize().then(async auth => {
-        const data = await getEventsFromSheet(auth);
-        sheetEvents = data;
-        const kickOff = await getKickOffCalender(auth);
-        kickOffEvents = kickOff;
+        sheetEvents = await getEventsFromSheet(auth);
+        kickOffEvents = await getKickOffCalender(auth);
     }).catch(console.error);
 };
 
@@ -70,8 +74,14 @@ const getSheetEvents = async (req, res) => {
 
 const getKickOffEvents = async (req, res) => {
     getter(req, res, () => {
-        console.log(req.query.type);
-        return kickOffEvents;
+        const query = req.query.type;
+        if (query === "bachelor") {
+
+        }
+        else if (query === "master") {
+
+        }
+        else return kickOffEvents;
     });
 };
 

@@ -62,27 +62,21 @@ const getEventData = async (full, openModal, setModalData) => {
             className += " upcoming";
         }
 
-        const lastParentheses = /\((\w+|[0,9]|\+|å|ä|ö|Å|Ä|Ö| |&|\.|!|\t)+\)( *$)/;
-        const committee = o.summary.match(lastParentheses)
-            ? o.summary.match(lastParentheses)[0].slice(1, -1)
-            : "DVD";
-        const summary = o.summary.replace(lastParentheses, "");
-
         const location = o.location
             ? o.location.split(",").slice(0, 2).join(", ")
             : <>&nbsp;</>;
 
         if (o.description) className += " clickable";
         const action = (o.description) ? () => {
-            setModalData([summary, o.description, dateElem, committee, location]);
+            setModalData([o.summary, o.description, dateElem, o.committee, location]);
             openModal();
         } : () => { };
 
         return <div className={className} onClick={action}>
-            <h3>{summary}</h3>
+            <h3>{o.summary}</h3>
             <h4>{dateElem}</h4>
             <h4>{location}</h4>
-            <p>Arrangör: {committee}</p>
+            <p>Arrangör: {o.committee}</p>
         </div>;
     });
     if (full !== true) {
