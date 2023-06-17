@@ -89,7 +89,13 @@ const IframePage = (props) => (
         <iframe
             src={props.url}
             frameborder="0"
-            style={{ width: "100%", height: "90vh" }}
+            style={{
+                width: "100%",
+                height: "90vh",
+                overflow: "auto",
+                WebkitOverflowScrolling: "touch",
+            }}
+            scrolling="yes"
         >
         </iframe>
     </>
