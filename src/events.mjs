@@ -34,7 +34,7 @@ const getKickOffCalender = async (auth) => {
     const committeeRegex = /\((\w+|[0,9]|\+|å|ä|ö|Å|Ä|Ö| |&|\.|!|\t)+\)( *$)/g;
     const groupRegex = /\[(\w+|[0,9]|\+|å|ä|ö|Å|Ä|Ö| |&|\.|!|\t)+\]/g;
     const events = res.data.items.map(o => {
-        //TODO Replace this with a more general approach once testing data is available
+        // Get the target groups for an event
         o.group = [];
         const groupMatch = o.summary.match(groupRegex);
         if (groupMatch) groupMatch.map(e => o.group.push(e.slice(1, -1)));
