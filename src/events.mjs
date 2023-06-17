@@ -33,11 +33,25 @@ const getKickOffCalender = async (auth) => {
         orderBy: "startTime",
     });
     const committeeRegex = /\((\w+|[0,9]|\+|å|ä|ö|Å|Ä|Ö| |&|\.|!|\t)+\)( *$)/;
+    const group = /\[(\w+|[0,9]|\+|å|ä|ö|Å|Ä|Ö| |&|\.|!|\t)+\]/;
     const events = res.data.items.map(o => {
+        //TODO Replace this with a more general approach once testing data is available
+        if (o.summary.includes("[Kandidat]")
+            && o.summary.includes("[Master]")) {
+            o.group = "all";
+        } else if (o.summary.includes("[Kandidat]")) {
+            o.group = "bachelor";
+        } else if (o.summary.includes("[Master]")) {
+            o.group = "master";
+        } else {
+            o.group = "all";
+        }
         o.committee = o.summary.match(committeeRegex)
             ? o.summary.match(committeeRegex)[0].slice(1, -1)
             : "DVD";
-        o.summary = o.summary.replace(committeeRegex, "");
+        o.summary = o.summary
+            .replace(committeeRegex, "")
+            .replace(group, "");
         return o;
     });
     return events;
