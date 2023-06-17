@@ -70,7 +70,7 @@
             andra studenter!
         </p>
         <p>
-            Styrelsen består i nulägget av oss två, Samuel Hammersberg (divisions ordförande) och Lukas Gartman (divisions kassör).
+            Styrelsen består i nulägget av oss två, Samuel Hammersberg (divisionsordförande) och Lukas Gartman (divisionskassör).
         </p>
         <h2>Kontakt Info</h2>
         <p>
