@@ -12,8 +12,8 @@ const isToday = (date) => {
 const hasPassed = (date) => (date < new Date());
 
 const EVENT_LIMIT = 5;
-const getEventData = async (full, openModal, setModalData) => {
-    const json = await (await fetch("/getKickOffEvents")).json();
+const getEventData = async (full, eventUrl, openModal, setModalData) => {
+    const json = await (await fetch(eventUrl)).json();
     let data = json
         .map(o => {
             o.dateData.start = new Date(Date.parse(o.dateData.start));
@@ -106,7 +106,7 @@ const me = (props) => {
 
     const [csv, setState] = React.useState(<div className="loading"></div>);
     React.useEffect(() => {
-        getEventData(props.full, openModal, setModalData).then((res) => setState(res));
+        getEventData(props.full, props.eventUrl, openModal, setModalData).then((res) => setState(res));
     }, [getEventData]);
 
     // const backButton = (props.full == true) ?
