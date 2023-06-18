@@ -16,7 +16,7 @@ const callback = (req, res) => {
 import { newsfeed } from "./newsfeed.mjs";
 import { postHook } from "./githookhandle.mjs";
 import getPhotos from "./photos.mjs";
-import { getKickOffEvents } from "./events.mjs";
+import { getKickOffEvents, getDVEvents } from "./events.mjs";
 import killerBean from "./killerbean.mjs";
 
 app.use(expressStaticGzip("dist", {
@@ -47,6 +47,7 @@ app.get("/committees/dvrk/master", callback);
 app.get("/newsfeed", newsfeed);
 app.get("/getPhotos", getPhotos);
 app.get("/getKickoffEvents", getKickOffEvents);
+app.get("/getEvents", getDVEvents);
 app.post("/postHook", postHook);
 app.post("/killerBean", killerBean);
 

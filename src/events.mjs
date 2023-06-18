@@ -1,7 +1,7 @@
 import { authorize } from "./googleApi.mjs";
 import { google } from "googleapis";
 
-const getKickOffCalender = async (auth, calenderId) => {
+const getCalender = async (auth, calenderId) => {
     const calendar = google.calendar({ version: "v3", auth });
     const res = await calendar.events.list({
         calendarId: calenderId,
@@ -49,42 +49,51 @@ const getKickOffCalender = async (auth, calenderId) => {
     return events;
 };
 
-let kickOffEvents = [];
+let events = {};
 const syncEvents = async (calenderId) => {
     if (process.env.ENABLE_DRIVE == "true")
         await authorize().then(async auth => {
-            kickOffEvents = await getKickOffCalender(auth, calenderId);
+            events[calenderId] = {
+                data: await getCalender(auth, calenderId),
+                lastTime: new Date()
+            };
         }).catch(console.error);
 };
 
-let lastTime = new Date(Date.parse("2100-01-01"));
+const getEvents = async (req, res, calendarId) => {
+    const filterFunc = () => {
+        const query = req.query.type;
+        if (query) {
+            return events[calendarId].data.filter(
+                e => e.group.includes(query)
+                    || e.group.length == 0
+            );
+        }
+        else return events[calendarId].data;
+    };
 
-const getter = async (req, res, calendarId, getter) => {
     if (process.env.ENABLE_DRIVE != "true") {
         res.json({ error: "Event API is down!" });
         return;
     }
-    const diff = Math.abs(new Date() - lastTime);
+    if (!events[calendarId]) events[calendarId] = {
+        lastTime: new Date(Date.parse("3000-01-01"))
+    };
+
+    const diff = Math.abs(new Date() - events[calendarId].lastTime);
     const minutes = (diff / 1000) / 60;
     if (minutes >= 5) {
-        lastTime = new Date();
-        syncEvents(calendarId).then(() => res.json(getter()));
-    } else res.json(getter());
+        events[calendarId].lastTime = new Date();
+        syncEvents(calendarId).then(() => res.json(filterFunc()));
+    } else res.json(filterFunc());
 };
+const getKickOffEvents = (req, res) => getEvents(
+    req, res,
+    "c_18d270d79e0911aa0be7a499c2190b616bbebf8462b3936d67cf4966757db7cb@group.calendar.google.com"
+);
+const getDVEvents = (req, res) => getEvents(
+    req, res,
+    "c_cd70b7365c189248ae5fce47932c65729fb3a0a4052a83b610613f1e6dcfd047@group.calendar.google.com"
+);
 
-const getKickOffEvents = async (req, res) => {
-    getter(req, res,
-        "c_18d270d79e0911aa0be7a499c2190b616bbebf8462b3936d67cf4966757db7cb@group.calendar.google.com",
-        () => {
-            const query = req.query.type;
-            if (query) {
-                return kickOffEvents.filter(
-                    e => e.group.includes(query)
-                        || e.group.length == 0
-                );
-            }
-            else return kickOffEvents;
-        });
-};
-
-export { getKickOffEvents };
+export { getKickOffEvents, getDVEvents };
