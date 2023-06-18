@@ -11,8 +11,8 @@ import { isReception } from "../util";
 
 const me = () => (
     <div className="page">
-        <ReactMarkdown children={text} rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}></ReactMarkdown>
         <KickoffInfoButton />
+        <ReactMarkdown children={text} rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}></ReactMarkdown>
         {!isReception()
             ?
             <>
