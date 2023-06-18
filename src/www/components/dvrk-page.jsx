@@ -66,7 +66,7 @@ const DVRKbar = () => {
 
 const MainPage = () => (
     <>
-        <Schedule eventUrl="/getKickOffEvents" />
+        <Schedule eventUrl="/getKickOffEvents" restUrl="/committees/dvrk/schedule" />
         <ReactMarkdown children={text} rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}></ReactMarkdown>
     </>
 );

@@ -6,10 +6,12 @@ import text from "../../../content/home-page.md";
 import InfoButton from "./widgets/info-button.jsx";
 import KickoffInfoButton from "./widgets/kickoff-info-button";
 import NewsFeed from "./widgets/newsfeed";
+import Schedule from "./widgets/schedule";
 
 const me = () => (
     <div className="page">
         <KickoffInfoButton />
+        <Schedule eventUrl="/getEvents" restUrl="/schedule" />
         <ReactMarkdown children={text} rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}></ReactMarkdown>
 
         <NewsFeed />

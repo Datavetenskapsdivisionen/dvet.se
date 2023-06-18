@@ -12,6 +12,7 @@ import HomePage from "./components/home-page";
 import CommitteePage from "./components/committee-page";
 import ToolsPage from "./components/tools-page";
 import PhotosPage from "./components/photos-page";
+import Schedule from "./components/widgets/schedule";
 // import WIP from "./components/widgets/wip";
 import IndividualCommitteePage from "./components/individual-committee-page";
 
@@ -37,6 +38,12 @@ const App = () => {
             <Route exact path="/documents" element={<DocumentPage />} />
             <Route exact path="/contact" element={<ContactPage />} />
             <Route exact path="/photos" element={<PhotosPage />} />
+            <Route exact path="/schedule" element={
+              <div className="page">
+                <h1>Event</h1>
+                <Schedule eventUrl="/getEvents" full={true} />
+              </div>
+            } />
 
             <Route exact path="/committees/the-board" element={
               <IndividualCommitteePage text={require("../../content/committees/the-board.md")["default"]} />
