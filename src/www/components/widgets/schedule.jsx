@@ -115,7 +115,7 @@ const me = (props) => {
 
     const month = new Date().getMonth() + 1;
 
-    return (month >= 6 && month <= 9) || props.full == true ? <div className="schedule-holder">
+    return props.full == true ? <div className="schedule-holder">
         {csv}
         <Modal
             isOpen={modalIsOpen}
