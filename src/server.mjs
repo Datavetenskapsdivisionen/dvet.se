@@ -16,7 +16,7 @@ const callback = (req, res) => {
 import { newsfeed } from "./newsfeed.mjs";
 import { postHook } from "./githookhandle.mjs";
 import getPhotos from "./photos.mjs";
-import { getSheetEvents, getKickOffEvents } from "./events.mjs";
+import { getKickOffEvents, getDVEvents } from "./events.mjs";
 import killerBean from "./killerbean.mjs";
 
 app.use(expressStaticGzip("dist", {
@@ -30,6 +30,7 @@ app.get("/documents", callback);
 app.get("/contact", callback);
 app.get("/tools", callback);
 app.get("/photos", callback);
+app.get("/schedule", callback);
 app.get("/committees/the-board", callback);
 app.get("/committees/dvrk", callback);
 app.get("/committees/dvrk/schedule", callback);
@@ -46,8 +47,8 @@ app.get("/committees/dvrk/bachelor", callback);
 app.get("/committees/dvrk/master", callback);
 app.get("/newsfeed", newsfeed);
 app.get("/getPhotos", getPhotos);
-app.get("/getEvents", getSheetEvents);
 app.get("/getKickoffEvents", getKickOffEvents);
+app.get("/getEvents", getDVEvents);
 app.post("/postHook", postHook);
 app.post("/killerBean", killerBean);
 

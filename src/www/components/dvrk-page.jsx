@@ -3,7 +3,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import text from "../../../content/committees/dvrk.md";
-import KickoffSchedule from "./widgets/kickoff-schedule";
+import Schedule from "./widgets/schedule";
 import "./../dvrk-styles.less";
 import { Route, Link, useNavigate } from "react-router-dom";
 import DVRKLogo from "../../../assets/committee-logos/dvrk-logo.png";
@@ -66,14 +66,14 @@ const DVRKbar = () => {
 
 const MainPage = () => (
     <>
-        <KickoffSchedule />
+        <Schedule eventUrl="/getKickOffEvents" restUrl="/committees/dvrk/schedule" />
         <ReactMarkdown children={text} rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}></ReactMarkdown>
     </>
 );
 
 const SchedulePage = () => (
     <>
-        <KickoffSchedule full={true} />
+        <Schedule full={true} eventUrl="/getKickoffEvents" />
     </>
 );
 

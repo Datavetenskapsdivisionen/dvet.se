@@ -6,11 +6,20 @@ import text from "../../../content/home-page.md";
 import InfoButton from "./widgets/info-button.jsx";
 import KickoffInfoButton from "./widgets/kickoff-info-button";
 import NewsFeed from "./widgets/newsfeed";
+import Schedule from "./widgets/schedule";
+import { isReception } from "../util";
 
 const me = () => (
     <div className="page">
         <KickoffInfoButton />
         <ReactMarkdown children={text} rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}></ReactMarkdown>
+        {!isReception()
+            ?
+            <>
+                <h2>Events</h2>
+                <Schedule eventUrl="/getEvents" restUrl="/schedule" />
+            </>
+            : <></>}
 
         <NewsFeed />
         {/* <div className="info-buttons-list">

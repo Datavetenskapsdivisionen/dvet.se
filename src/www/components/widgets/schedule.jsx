@@ -12,15 +12,12 @@ const isToday = (date) => {
 const hasPassed = (date) => (date < new Date());
 
 const EVENT_LIMIT = 5;
-const getEventData = async (full, openModal, setModalData) => {
-    const json = await (await fetch("/getKickOffEvents")).json();
+const getEventData = async (full, eventUrl, restUrl, openModal, setModalData) => {
+    const json = await (await fetch(eventUrl)).json();
     let data = json
         .map(o => {
-            o.dateData = {
-                start: new Date(Date.parse(o.start.date ? o.start.date : o.start.dateTime)),
-                end: new Date(Date.parse(o.end.date ? o.end.date : o.end.dateTime)),
-                isDay: o.start.dateTime == null && o.end.dateTime == null
-            };
+            o.dateData.start = new Date(Date.parse(o.dateData.start));
+            o.dateData.end = new Date(Date.parse(o.dateData.end));
             return o;
         })
         .filter(o => {
@@ -33,6 +30,7 @@ const getEventData = async (full, openModal, setModalData) => {
                 return true;
             }
         });
+    const hidingEvents = data.length > EVENT_LIMIT;
     if (full !== true) {
         data = data.slice(0, EVENT_LIMIT);
     }
@@ -62,34 +60,28 @@ const getEventData = async (full, openModal, setModalData) => {
             className += " upcoming";
         }
 
-        const lastParentheses = /\((\w+|[0,9]|\+|å|ä|ö|Å|Ä|Ö| |&|\.|!|\t)+\)( *$)/;
-        const committee = o.summary.match(lastParentheses)
-            ? o.summary.match(lastParentheses)[0].slice(1, -1)
-            : "DVD";
-        const summary = o.summary.replace(lastParentheses, "");
-
         const location = o.location
             ? o.location.split(",").slice(0, 2).join(", ")
             : <>&nbsp;</>;
 
         if (o.description) className += " clickable";
         const action = (o.description) ? () => {
-            setModalData([summary, o.description, dateElem, committee, location]);
+            setModalData([o.summary, o.description, dateElem, o.committee, location]);
             openModal();
         } : () => { };
 
         return <div className={className} onClick={action}>
-            <h3>{summary}</h3>
+            <h3>{o.summary}</h3>
             <h4>{dateElem}</h4>
             <h4>{location}</h4>
-            <p>Arrangör: {committee}</p>
+            <p>Arrangör: {o.committee}</p>
         </div>;
     });
-    if (full !== true) {
+    if (full !== true && hidingEvents) {
         data.push(
             <div
                 className="schedule-item upcoming-button"
-                onClick={() => window.open("/committees/dvrk/schedule", "_self")}
+                onClick={() => window.open(restUrl, "_self")}
             >
                 <h3>Uppkommande</h3>
                 <p> Tryck här för att se resten av eventen!</p>
@@ -115,33 +107,20 @@ const me = (props) => {
 
     const [csv, setState] = React.useState(<div className="loading"></div>);
     React.useEffect(() => {
-        getEventData(props.full, openModal, setModalData).then((res) => setState(res));
+        getEventData(
+            props.full, props.eventUrl,
+            props.restUrl, openModal, setModalData
+        ).then((res) => setState(res));
     }, [getEventData]);
-
-    // const backButton = (props.full == true) ?
-    //     <button onClick={() => {
-    //         const events = Array.from(document.getElementsByClassName("passed"));
-    //         if (!oldVisible) {
-    //             events.forEach(x => x.classList.remove("hidden"));
-    //             oldVisible = true;
-    //         }
-    //         else {
-    //             events.forEach(x => x.classList.add("hidden"));
-    //             oldVisible = false;
-    //         }
-    //     }}>Toggla tidigare event</button>
-    //     : <></>;
 
     const month = new Date().getMonth() + 1;
 
-    return (month >= 6 && month <= 9) || props.full == true ? <div className="schedule-holder">
-        {/* {backButton} */}
+    return <div className="schedule-holder">
         {csv}
         <Modal
             isOpen={modalIsOpen}
             onAfterOpen={afterOpenModal}
             onRequestClose={closeModal}
-            //style={customStyles}
             contentLabel="Example Modal"
             appElement={document.getElementById("app")}
             className="schedule-modal"
@@ -154,7 +133,7 @@ const me = (props) => {
             <p>Vilka hostar: {modalWho}</p>
             <button onClick={closeModal} className="close-button">X</button>
         </Modal>
-    </div> : <></>;
+    </div>;
 };
 
 export default me;

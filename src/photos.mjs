@@ -66,9 +66,9 @@ const buildTree = async (files) => {
 };
 
 let photos = null;
-const syncPhotos = () => {
+const syncPhotos = async () => {
     if (process.env.ENABLE_DRIVE == "true")
-        authorize().then(async c => {
+        await authorize().then(async c => {
             photos = await buildTree(await listFiles(c));
         }).catch(console.error);
 };
@@ -84,9 +84,8 @@ const getPhotos = async (req, res) => {
     const minutes = (diff / 1000) / 60;
     if (minutes >= 5) {
         lastTime = new Date();
-        await syncPhotos();
-    }
-    res.json(photos);
+        syncPhotos().then(() => res.json(photos));
+    } else res.json(photos);
 };
 
 export default getPhotos;
