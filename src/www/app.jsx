@@ -41,7 +41,7 @@ const App = () => {
             <Route exact path="/schedule" element={
               <div className="page">
                 <h1>Event</h1>
-                <Schedule eventUrl="/getEvents" full={true} />
+                <Schedule full={true} />
               </div>
             } />
 

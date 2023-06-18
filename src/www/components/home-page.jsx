@@ -17,7 +17,7 @@ const me = () => (
             ?
             <>
                 <h2>Events</h2>
-                <Schedule eventUrl="/getEvents" restUrl="/schedule" />
+                <Schedule eventLimit={2} />
             </>
             : <></>}
 

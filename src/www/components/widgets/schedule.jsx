@@ -11,8 +11,7 @@ const isToday = (date) => {
 
 const hasPassed = (date) => (date < new Date());
 
-const EVENT_LIMIT = 5;
-const getEventData = async (full, eventUrl, restUrl, openModal, setModalData) => {
+const getEventData = async (full, eventUrl, restUrl, eventLimit, openModal, setModalData) => {
     const json = await (await fetch(eventUrl)).json();
     let data = json
         .map(o => {
@@ -30,9 +29,9 @@ const getEventData = async (full, eventUrl, restUrl, openModal, setModalData) =>
                 return true;
             }
         });
-    const hidingEvents = data.length > EVENT_LIMIT;
+    const hidingEvents = data.length > eventLimit;
     if (full !== true) {
-        data = data.slice(0, EVENT_LIMIT);
+        data = data.slice(0, eventLimit);
     }
     data = data.map(o => {
         const dateElem = o.dateData.isDay
@@ -108,12 +107,12 @@ const me = (props) => {
     const [csv, setState] = React.useState(<div className="loading"></div>);
     React.useEffect(() => {
         getEventData(
-            props.full, props.eventUrl,
-            props.restUrl, openModal, setModalData
+            props.full, props.eventUrl ?? "/getEvents",
+            props.restUrl ?? "/schedule",
+            props.eventLimit ?? 5,
+            openModal, setModalData
         ).then((res) => setState(res));
     }, [getEventData]);
-
-    const month = new Date().getMonth() + 1;
 
     return <div className="schedule-holder">
         {csv}
