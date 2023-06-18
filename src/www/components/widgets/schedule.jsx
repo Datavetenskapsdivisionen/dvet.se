@@ -115,7 +115,7 @@ const me = (props) => {
 
     const month = new Date().getMonth() + 1;
 
-    return props.full == true ? <div className="schedule-holder">
+    return <div className="schedule-holder">
         {csv}
         <Modal
             isOpen={modalIsOpen}
@@ -133,7 +133,7 @@ const me = (props) => {
             <p>Vilka hostar: {modalWho}</p>
             <button onClick={closeModal} className="close-button">X</button>
         </Modal>
-    </div> : <></>;
+    </div>;
 };
 
 export default me;
