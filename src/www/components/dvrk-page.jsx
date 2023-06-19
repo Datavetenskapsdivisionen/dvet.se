@@ -3,6 +3,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import text from "../../../content/committees/dvrk.md";
+import contact from "../../../content/committees/dvrkcontact.md";
 import KickoffSchedule from "./widgets/kickoff-schedule";
 import "./../dvrk-styles.less";
 import { Route, Link, useNavigate } from "react-router-dom";
@@ -71,6 +72,12 @@ const MainPage = () => (
     </>
 );
 
+const ContactPage = () => (
+    <>
+        <ReactMarkdown children={contact} rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}></ReactMarkdown>
+    </>
+);
+
 const SchedulePage = () => (
     <>
         <KickoffSchedule full={true} />
@@ -116,7 +123,7 @@ const dvrkRoute = () => (
             <ContentHolder element={<SchedulePage />} />
         } />
         <Route exact path="/committees/dvrk/contact" element={
-            <ContentHolder element={<InfoPage />} />
+            <ContentHolder element={<ContactPage />} />
         } />
         <Route exact path="/committees/dvrk/form" element={
             <ContentHolder element={

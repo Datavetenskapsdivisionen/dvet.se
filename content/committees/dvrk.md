@@ -1,86 +1,38 @@
-# DVRK
-Fyll i denna sidan med kort och gott om eran kommité!
 
-Ni kan använda GitHub markdown 
-[GitHub markdown](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)
-, eller alternativt HTML, med väldigt få begränsningar!
+# Ny student?
 
-Hacka på och lek runt med *lite* CSS för att ge er sida lite style!
+**Hej!**
 
-Som ett exempel har vi en fin WOW knapp:
+Grattis till din antagning! Den 14 Augusti drar din Inspark igång. Det är fyra veckor fyld med massa roliga aktiviteter som är till för att du ska lära känna dina studiekamrater, bli bekant med universitetet och Göteborg som studentstad. 
+
+### Vad ska jag göra nu? 
+
+#### Bli medlem i Göta Studentkår!
+
+Som medlem i Göta Studentkår får du tillgång till massa roliga och användbara förmåner. För några av arrangemangen under Insparken behöver du vara medlem i Göta Studentkår. Bli medlem [här](https://medlem.gotastudentkar.se/sv/).
+
+#### Registrera dig på Orbi
+
+Orbi är en plattform som används av hela Göta Studentkår för att annonsera om evenemang som arrangeras av alla föreningar. Även våra evenemang kommer dyka upp här! Detta är det bästa sättet att få information om vad som händer under Insparken. Du börjar genom att ladda ner Orbi appen på din telefon! 
+
+#### Fyll i reccentiors formuläret!
+
+För att vi ska göra Insparken så bra som möjligt ber vi om lite information om dig som person. Även om du inte tror du är intresserad av att delta på Insparken uppmuntrar vi dig starkt att svara på detta formulär. Tar bara någon minut. Du hittar det [här](https://dvet.se/committees/dvrk/form).
+
+#### Läs reccentiorsguiden!
+
+Vad är en reccentior? Vad är DVRK? Allt detta och mer hittar du i vår guide för nya studenter. Förhoppningvis har du redan sett detta men om du missat så finns den  [här](https://dvet.se/committees/dvrk/bachelor).
+
+#### Gå med i våra kanaler!
+
+För att få information och komma i kontakt med dina studiekamrater rekomenderar vi att ni går med i:
+* Facebookgruppen: *\<facebooklänk>*
+* Discordkanalen: *\<discordinvite>*
+
+#### Följ oss!
+På Instagram heter vi [@dvrk_gu](https://www.instagram.com/dvrk_gu/) och på facebook hittar ni oss som [@guDVRK](https://www.facebook.com/guDVRK).
+
+
 <style>
-.test-class {
-    position: relative;
-    transition-duration: 250ms;
-    cursor: pointer;
-}
-.test-class:hover {
-    color: blue;
-}
-.test-class::after {
-    content: "WOW";
-    position: absolute;
-    left: 0; top: 0;
-    transition-duration: 250ms;
-}
-.test-class:hover::after{
-    color: red; top: -4px; left: -4px;
-}
-.test-class::before {
-    content: "WOW";
-    position: absolute;
-    left: 0; top: 0;
-    transition-duration: 250ms;
-}
-.test-class:hover::before {
-    color: green; top: -2px; left: -2px;
-}
-</style>
-<script>
-const openUrl = () => {
-    window.open("https://www.youtube.com/watch?v=Xm_dS-wEFvs");
-};
-</script>
-<h1 class="test-class" onClick={openUrl}>
-WOW
-</h1>
 
-Som kan defineras med en `style` tag, en `script` tag och en `h1`!
-```html
-<style>
-.test-class {
-    position: relative;
-    transition-duration: 250ms;
-    cursor: pointer;
-}
-.test-class:hover {
-    color: blue;
-}
-.test-class::after {
-    content: "WOW";
-    position: absolute;
-    left: 0; top: 0;
-    transition-duration: 250ms;
-}
-.test-class:hover::after{
-    color: red; top: -4px; left: -4px;
-}
-.test-class::before {
-    content: "WOW";
-    position: absolute;
-    left: 0; top: 0;
-    transition-duration: 250ms;
-}
-.test-class:hover::before {
-    color: green; top: -2px; left: -2px;
-}
 </style>
-<script>
-const openUrl = () => {
-    window.open("https://www.youtube.com/watch?v=Xm_dS-wEFvs");
-};
-</script>
-<h1 class="test-class" onClick={openUrl}>
-WOW
-</h1>
-```
