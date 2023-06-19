@@ -16,6 +16,7 @@ const callback = (req, res) => {
 import { newsfeed } from "./newsfeed.mjs";
 import { postHook } from "./githookhandle.mjs";
 import getPhotos from "./photos.mjs";
+import { getKickOffEvents, getDVEvents } from "./events.mjs";
 import killerBean from "./killerbean.mjs";
 
 app.use(expressStaticGzip("dist", {
@@ -29,6 +30,7 @@ app.get("/documents", callback);
 app.get("/contact", callback);
 app.get("/tools", callback);
 app.get("/photos", callback);
+app.get("/schedule", callback);
 app.get("/committees/the-board", callback);
 app.get("/committees/dvrk", callback);
 app.get("/committees/dvrk/schedule", callback);
@@ -45,8 +47,18 @@ app.get("/committees/dvrk/bachelor", callback);
 app.get("/committees/dvrk/master", callback);
 app.get("/newsfeed", newsfeed);
 app.get("/getPhotos", getPhotos);
+app.get("/getKickoffEvents", getKickOffEvents);
+app.get("/getEvents", getDVEvents);
 app.post("/postHook", postHook);
 app.post("/killerBean", killerBean);
+
+app.get("/recceguiden", (req, res) => servePdf(req, res, "assets/kick-off/recceguiden.pdf"));
+app.get("/masterguide", (req, res) => servePdf(req, res, "assets/kick-off/masterguiden.pdf"));
+
+const servePdf = (req, res, pdf) => {
+    const filePath = path.join(process.cwd(), pdf);
+    res.sendFile(filePath);
+};
 
 
 const port = process.env.PORT || 8080;

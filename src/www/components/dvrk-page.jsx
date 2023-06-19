@@ -4,7 +4,7 @@ import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import text from "../../../content/committees/dvrk.md";
 import contact from "../../../content/committees/dvrkcontact.md";
-import KickoffSchedule from "./widgets/kickoff-schedule";
+import Schedule from "./widgets/schedule";
 import "./../dvrk-styles.less";
 import { Route, Link, useNavigate } from "react-router-dom";
 import DVRKLogo from "../../../assets/committee-logos/dvrk-logo.png";
@@ -67,7 +67,7 @@ const DVRKbar = () => {
 
 const MainPage = () => (
     <>
-        <KickoffSchedule />
+        <Schedule eventUrl="/getKickOffEvents" restUrl="/committees/dvrk/schedule" />
         <ReactMarkdown children={text} rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}></ReactMarkdown>
     </>
 );
@@ -80,7 +80,7 @@ const ContactPage = () => (
 
 const SchedulePage = () => (
     <>
-        <KickoffSchedule full={true} />
+        <Schedule full={true} eventUrl="/getKickoffEvents" />
     </>
 );
 
@@ -96,7 +96,13 @@ const IframePage = (props) => (
         <iframe
             src={props.url}
             frameborder="0"
-            style={{ width: "100%", height: "512px" }}
+            style={{
+                width: "100%",
+                height: "90vh",
+                overflow: "auto",
+                WebkitOverflowScrolling: "touch",
+            }}
+            scrolling="yes"
         >
         </iframe>
     </>
@@ -136,7 +142,7 @@ const dvrkRoute = () => (
         <Route exact path="/committees/dvrk/bachelor" element={
             <ContentHolder element={
                 <IframePage
-                    url="https://drive.google.com/file/d/1ZwFMOY8R5qs2EAfeGlwL2mN0aHnqT21E/preview"
+                    url="/recceguiden"
                     title="Recceguiden för kandidater!"
                 />
             } />
@@ -144,7 +150,7 @@ const dvrkRoute = () => (
         <Route exact path="/committees/dvrk/master" element={
             <ContentHolder element={
                 <IframePage
-                    url="https://drive.google.com/file/d/1ZwFMOY8R5qs2EAfeGlwL2mN0aHnqT21E/preview"
+                    url="/masterguide"
                     title="Receptionguide for master students!"
                 />
             } />

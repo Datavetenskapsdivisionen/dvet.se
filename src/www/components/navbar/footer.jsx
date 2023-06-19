@@ -4,7 +4,9 @@ import { Link } from "react-router-dom";
 const footer = () => {
     return (
         <footer>
-            © dvet.se {new Date().getFullYear()}
+            <div></div>
+            <span>© dvet.se {new Date().getFullYear()}</span>
+            <div id="google_translate_element"></div>
         </footer>
     );
 };

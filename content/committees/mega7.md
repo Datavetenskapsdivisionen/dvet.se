@@ -1,86 +1,45 @@
-# Mega7
-Fyll i denna sidan med kort och gott om eran kommité!
-
-Ni kan använda GitHub markdown 
-[GitHub markdown](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)
-, eller alternativt HTML, med väldigt få begränsningar!
-
-Hacka på och lek runt med *lite* CSS för att ge er sida lite style!
-
-Som ett exempel har vi en fin WOW knapp:
 <style>
-.test-class {
-    position: relative;
-    transition-duration: 250ms;
-    cursor: pointer;
-}
-.test-class:hover {
-    color: blue;
-}
-.test-class::after {
-    content: "WOW";
-    position: absolute;
-    left: 0; top: 0;
-    transition-duration: 250ms;
-}
-.test-class:hover::after{
-    color: red; top: -4px; left: -4px;
-}
-.test-class::before {
-    content: "WOW";
-    position: absolute;
-    left: 0; top: 0;
-    transition-duration: 250ms;
-}
-.test-class:hover::before {
-    color: green; top: -2px; left: -2px;
-}
+  @import url('https://fonts.googleapis.com/css2?family=Creepster&family=Lobster&display=swap');
+  .lobster {
+      font-family: 'Lobster', cursive;
+      font-size: 80px;
+  }
+  
+  .mega6style {
+    font-family: 'Creepster', cursive;
+  }
+  
+  p {
+    font-size: 30px;
+  }
+  
+  .supaflex {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+  }
 </style>
-<script>
-const openUrl = () => {
-    window.open("https://www.youtube.com/watch?v=Xm_dS-wEFvs");
-};
-</script>
-<h1 class="test-class" onClick={openUrl}>
-WOW
-</h1>
 
-Som kan defineras med en `style` tag, en `script` tag och en `h1`!
-```html
-<style>
-.test-class {
-    position: relative;
-    transition-duration: 250ms;
-    cursor: pointer;
-}
-.test-class:hover {
-    color: blue;
-}
-.test-class::after {
-    content: "WOW";
-    position: absolute;
-    left: 0; top: 0;
-    transition-duration: 250ms;
-}
-.test-class:hover::after{
-    color: red; top: -4px; left: -4px;
-}
-.test-class::before {
-    content: "WOW";
-    position: absolute;
-    left: 0; top: 0;
-    transition-duration: 250ms;
-}
-.test-class:hover::before {
-    color: green; top: -2px; left: -2px;
-}
-</style>
-<script>
-const openUrl = () => {
-    window.open("https://www.youtube.com/watch?v=Xm_dS-wEFvs");
-};
-</script>
-<h1 class="test-class" onClick={openUrl}>
-WOW
-</h1>
-```
+
+<h1 class="lobster">💮 Mega7 ☺️ </h1>
+
+<div class="supaflex">
+<div>
+
+Vi är bättre än <span class="mega6style">Mega6</span>
+
+🪴
+
+Kom och rösta på vår* första ordförande vid nästa stämma!
+
+Vad gör Mega7? Vi kanske vattnar blommor i Monaden!
+</div>
+
+<div>
+<p>Our president:</p>
+
+<img width=300px height=300px src="https://media.discordapp.net/attachments/910817302029668352/1118862632691183656/blank-profile-picture-973460_1280.png?width=657&height=657">
+</div>
+</div>
+
