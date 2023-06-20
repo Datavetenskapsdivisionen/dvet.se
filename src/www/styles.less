@@ -784,27 +784,48 @@ footer {
     position: relative;
     overflow: hidden;
     min-height: 80px;
-
-
-    #logo {
-        padding: 0 10px;
+    
+    
+    .headwrapper{
         display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        justify-content: center;
-
-        a {
-            display: inline-block;
-            font-family: "Press Start 2P", cursive;
-            font-size: 1.4rem;
-            color: white;
-            font-weight: 950;
-            padding: 0.25em 0.2em 0.12em 0.25em;
-            text-transform: uppercase;
-            text-decoration: none;
-            background: @black;
+        flex-direction: row;
+        position: relative;
+        overflow: auto;
+        
+        #logopic {
+            max-height: 80px;
+            margin-top: 0.5vh;
+            margin-bottom: 0.5vh;
+        
         }
+
+        #logo {
+            order: 1;
+            padding: 0 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            
+            a {
+                display: inline-block;
+                font-family: "Press Start 2P", cursive;
+                font-size: 2rem;
+                color: white;
+                font-weight: 950;
+                padding: 0.25em 0.2em 0.12em 0.25em;
+                text-transform: uppercase;
+                text-decoration: none;
+                background: @black;
+                
+                @media(max-width: 450px){
+                    font-size: 1.2rem;
+                }
+            }
+                
+            }
     }
+
 
     #subheader {
         background: @black;
@@ -813,6 +834,9 @@ footer {
         font-size: 0.8rem;
         font-family: "Press Start 2P", cursive;
         text-transform: uppercase;
+        @media(max-width: 450px){
+            font-size: 0.6rem;
+        }
     }
 
     .header-bg-grid {

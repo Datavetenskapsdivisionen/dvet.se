@@ -1,5 +1,5 @@
 import React from 'react';
-
+import logo from "../../../assets/main.png"
 const toolbar = () => {
   return (
     <header className="dv-header">
@@ -9,9 +9,12 @@ const toolbar = () => {
         })
       }
       </div>
-      <div id="logo">
-        <a href="/">Datavetenskap</a>
-        <span id="subheader">vid Göteborgs Universitet</span>
+        <div className="headwrapper">
+          <img src={logo} alt="" id="logopic"/>
+        <div id="logo">
+          <a href="/">Datavetenskap</a>
+          <span id="subheader">vid Göteborgs Universitet</span>
+        </div>
       </div>
     </header>);
 };
