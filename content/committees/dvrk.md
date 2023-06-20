@@ -9,7 +9,7 @@ Grattis till din antagning! Den 14 Augusti drar din Inspark igång. Det är fyra
 
 #### Bli medlem i Göta Studentkår!
 
-Som medlem i Göta Studentkår får du tillgång till massa roliga och användbara förmåner. För några av arrangemangen under Insparken behöver du vara medlem i Göta Studentkår. Bli medlem [här](https://medlem.gotastudentkar.se/sv/).
+Som medlem i Göta Studentkår får du tillgång till massa roliga och användbara förmåner. Läs mer om detta [här]().För några av arrangemangen under Insparken behöver du vara medlem i Göta Studentkår. Bli medlem [här](https://medlem.gotastudentkar.se/sv/).
 
 #### Registrera dig på Orbi
 
