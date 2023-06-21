@@ -34,6 +34,8 @@ app.get("/schedule", callback);
 app.get("/committees/the-board", callback);
 app.get("/committees/dvrk", callback);
 app.get("/committees/dvrk/schedule", callback);
+app.get("/committees/dvrk/schedule/bachelor", callback);
+app.get("/committees/dvrk/schedule/master", callback);
 app.get("/committees/dvrk/contact", callback);
 app.get("/committees/dvrk/form", callback);
 app.get("/committees/board-of-studies", callback);
