@@ -96,7 +96,7 @@
     </div>
     <div class="committee-page-image">
         <div>
-            <img src="https://cdn.discordapp.com/attachments/532842577162928129/1119725792365133864/105577611.png" />
+            <img src="https://media.discordapp.net/attachments/532842577162928129/1119724319568822282/1055769.png" />
         </div>
         <span>Styrelsen</span>
     </div>
