@@ -60,7 +60,6 @@ const servePdf = (req, res, pdf) => {
     res.sendFile(filePath);
 };
 
-
 const port = process.env.PORT || 8080;
 console.log("Server starting at: http://localhost:" + port);
 app.listen(port);
