@@ -26,41 +26,18 @@
     font-family: 'Arimo', sans-serif;
     box-shadow: 0px -200px 48px -186px rgba(22, 22, 22, 1) inset;
     position: relative;
+    height: 50vh;
 
     .header-text {
-        padding-bottom: 40px;
         display: flex;
-        flex-direction: column;
-        justify-content: center;
         align-items: center;
+        justify-content: center;
+        text-align: center;
         backdrop-filter: blur(4px);
+        height: 100%;
+    }
 
-        @media (min-width:950px) {
-            span {
-                font-size: 20em;
-            }
-
-            img {
-                max-height: 12em;
-                margin-top: -12em;
-            }
-        }
-
-        @media (max-width:950px) {
-            span {
-                font-size: 34vw;
-            }
-
-            img {
-                max-height: 22vw;
-                margin-top: -20vw;
-            }
-        }
-
-        span {
-            color: white;
-            user-select: none;
-            -webkit-user-select: none;
-        }
+    img {
+        max-height: 12em;
     }
 }

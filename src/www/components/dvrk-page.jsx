@@ -8,7 +8,7 @@ import Schedule from "./widgets/schedule";
 import "./../dvrk-styles.less";
 import { Route, Link, useNavigate } from "react-router-dom";
 import DVRKLogo from "../../../assets/committee-logos/dvrk-logo.png";
-import DURKMAN from "../../../assets/dvrk.jpg";
+import DURKMAN from "../../../assets/dvrk.png";
 const DURKMAN_URL = "url(" + new String(DURKMAN) + ")";
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
@@ -59,7 +59,6 @@ const DVRKbar = () => {
     return <>
         <header className="dvrk-header" style={{ backgroundImage: DURKMAN_URL }}>
             <div className="header-text">
-                <span>DVRK</span>
                 <img draggable="false" src={DVRKLogo} />
             </div>
         </header>
