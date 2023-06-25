@@ -13,7 +13,7 @@ const DURKMAN_URL = "url(" + new String(DURKMAN) + ")";
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 
-const options = [
+const documentOptions = [
     {
         label: <span>Kandidat</span>,
         value: "/committees/dvrk/bachelor"
@@ -23,15 +23,35 @@ const options = [
         value: "/committees/dvrk/master"
     }
 ];
+const scheduleOptions = [
+    {
+        label: <span>Kandidat</span>,
+        value: "/committees/dvrk/schedule/bachelor"
+    },
+    {
+        label: <span>Master</span>,
+        value: "/committees/dvrk/schedule/master"
+    }
+];
 const DVRKbar = () => {
     const nav = useNavigate();
     const clickAction = (uri) => { nav(uri); window.scrollTo(0, 0); };
-    let dropdown = <Dropdown
+    let documentDropdown = <Dropdown
         className="nav__dropdown_parent"
         controlClassName="nav__dropdown"
-        placeholderClassName="placeholder"
-        options={options}
+        placeholderClassName="placeholder placeholder-document"
+        options={documentOptions}
         onChange={v => { clickAction(v.value); }}
+        // Edit this in the styles.less file instead (.placeholder::after),
+        // this hack is done to avoid showing selected value in the dropdown.
+        placeholder={<span>Dokument</span>}
+    />;
+    let scheduleDropdown = <Dropdown
+        className="nav__dropdown_parent"
+        controlClassName="nav__dropdown"
+        placeholderClassName="placeholder placeholder-schedule"
+        options={scheduleOptions}
+        onChange={v => { window.open(v.value, "_self"); }}
         // Edit this in the styles.less file instead (.placeholder::after),
         // this hack is done to avoid showing selected value in the dropdown.
         placeholder={<span>Dokument</span>}
@@ -48,16 +68,14 @@ const DVRKbar = () => {
                 <Link className="nav__link" to="/committees/dvrk">
                     Hem
                 </Link>
-                <Link className="nav__link" to="/committees/dvrk/schedule">
-                    Schema
-                </Link>
+                {scheduleDropdown}
                 <Link className="nav__link" to="/committees/dvrk/contact">
                     Kontakt
                 </Link>
                 <Link className="nav__link" to="/committees/dvrk/form">
                     Formulär
                 </Link>
-                {dropdown}
+                {documentDropdown}
                 <Link className="nav__link" to="/">
                     Tillbaka
                 </Link>
@@ -67,7 +85,7 @@ const DVRKbar = () => {
 
 const MainPage = () => (
     <>
-        <Schedule eventUrl="/getKickOffEvents" restUrl="/committees/dvrk/schedule" />
+        {/* <Schedule eventUrl="/getKickOffEvents" restUrl="/committees/dvrk/schedule" /> */}
         <ReactMarkdown children={text} rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}></ReactMarkdown>
     </>
 );
@@ -78,9 +96,10 @@ const ContactPage = () => (
     </>
 );
 
-const SchedulePage = () => (
+const SchedulePage = (props) => (
     <>
-        <Schedule full={true} eventUrl="/getKickoffEvents" />
+        <h1>{props.title ?? "Schema"}</h1>
+        <Schedule full={true} eventUrl={"/getKickoffEvents" + (props.extension ?? "")} />
     </>
 );
 
@@ -127,6 +146,16 @@ const dvrkRoute = () => (
         } />
         <Route exact path="/committees/dvrk/schedule" element={
             <ContentHolder element={<SchedulePage />} />
+        } />
+        <Route exact path="/committees/dvrk/schedule/bachelor" element={
+            <ContentHolder element={
+                <SchedulePage extension="?type=Kandidat" title="Kandidat schema" />
+            } />
+        } />
+        <Route exact path="/committees/dvrk/schedule/master" element={
+            <ContentHolder element={
+                <SchedulePage extension="?type=Master" title="Master schema" />
+            } />
         } />
         <Route exact path="/committees/dvrk/contact" element={
             <ContentHolder element={<ContactPage />} />

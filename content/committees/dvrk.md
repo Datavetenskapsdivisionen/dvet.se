@@ -5,6 +5,9 @@
 
 Grattis till din antagning! Den 14 Augusti drar din Inspark igång. Det är fyra veckor fyld med massa roliga aktiviteter som är till för att du ska lära känna dina studiekamrater, bli bekant med universitetet och Göteborg som studentstad. 
 
+Letar du efter mottagnings schemat så kan du antingen trycka på schema knappen i baren eller trycka här för 
+[kandidat schemat](/committees/dvrk/schedule/bachelor) eller här för [master schemat](/committees/dvrk/schedule/master)!
+
 ### Vad ska jag göra nu? 
 
 #### Bli medlem i Göta Studentkår!
