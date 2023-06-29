@@ -1,86 +1,27 @@
 # Mega6
-Fyll i denna sidan med kort och gott om eran kommité!
+Vad är ett studentliv utan fest?
+Det finns många anledningar till
+att festa; för att slappna av, socialisera, ha skoj eller varför inte
+bara balla ur? Oavsett vilken anledning du har så vet vi att ditt
+(som alla andras) studentliv inte
+skulle vara samma utan en ordentlig fest då och då.
 
-Ni kan använda GitHub markdown 
-[GitHub markdown](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)
-, eller alternativt HTML, med väldigt få begränsningar!
+Vi, Mega6, är Datavetenskapsdivisionens festkommitté och vi
+brinner för att förgylla ditt studentliv med fester av alla dess
+slag. Vår huvudsakliga typ av
+evenemang är sittningar där
+man sitter runt ett bord, äter
+mat, dricker, och sjunger - allt
+enligt tradition. Det är såklart
+alltid med valfri dryck. ;)
 
-Hacka på och lek runt med *lite* CSS för att ge er sida lite style!
+Mega6 anordnar också lite mindre tillställningar (såsom krök
+i Monaden) med mer av en chill
+stämning.
 
-Som ett exempel har vi en fin WOW knapp:
-<style>
-.test-class {
-    position: relative;
-    transition-duration: 250ms;
-    cursor: pointer;
-}
-.test-class:hover {
-    color: blue;
-}
-.test-class::after {
-    content: "WOW";
-    position: absolute;
-    left: 0; top: 0;
-    transition-duration: 250ms;
-}
-.test-class:hover::after{
-    color: red; top: -4px; left: -4px;
-}
-.test-class::before {
-    content: "WOW";
-    position: absolute;
-    left: 0; top: 0;
-    transition-duration: 250ms;
-}
-.test-class:hover::before {
-    color: green; top: -2px; left: -2px;
-}
-</style>
-<script>
-const openUrl = () => {
-    window.open("https://www.youtube.com/watch?v=Xm_dS-wEFvs");
-};
-</script>
-<h1 class="test-class" onClick={openUrl}>
-WOW
-</h1>
+Vi längtar redan nu tills vi träffas käraste Recentior, och glöm
+inte, det finns inga omfester,
+bara omtentor.
 
-Som kan defineras med en `style` tag, en `script` tag och en `h1`!
-```html
-<style>
-.test-class {
-    position: relative;
-    transition-duration: 250ms;
-    cursor: pointer;
-}
-.test-class:hover {
-    color: blue;
-}
-.test-class::after {
-    content: "WOW";
-    position: absolute;
-    left: 0; top: 0;
-    transition-duration: 250ms;
-}
-.test-class:hover::after{
-    color: red; top: -4px; left: -4px;
-}
-.test-class::before {
-    content: "WOW";
-    position: absolute;
-    left: 0; top: 0;
-    transition-duration: 250ms;
-}
-.test-class:hover::before {
-    color: green; top: -2px; left: -2px;
-}
-</style>
-<script>
-const openUrl = () => {
-    window.open("https://www.youtube.com/watch?v=Xm_dS-wEFvs");
-};
-</script>
-<h1 class="test-class" onClick={openUrl}>
-WOW
-</h1>
-```
+Petter, Anthon, KG & Lukas
+[mega6@dvet.se](mega6@dvet.se)

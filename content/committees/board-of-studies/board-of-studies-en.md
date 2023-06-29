@@ -1,86 +1,21 @@
 # Board of Studies
-Fyll i denna sidan med kort och gott om eran kommité!
+We at the Computer Science education committee (studienämnden) are here to ensure the quali-
+ty of education and studies in
+the bachelor program. We work
+to represent students’ opinions by actively participating in
+course evaluation meetings for
+the mandatory courses.
 
-Ni kan använda GitHub markdown 
-[GitHub markdown](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)
-, eller alternativt HTML, med väldigt få begränsningar!
+We also encourage you to take
+part in the course evaluation
+surveys that are sent out at the
+end of each course. Your feedback and insights help us improve the courses and make the
+education even better.
 
-Hacka på och lek runt med *lite* CSS för att ge er sida lite style!
+Feel free to reach out to us if you
+have any questions, opinions, or
+just want to chat about a course,
+lecturer, or examiner.
 
-Som ett exempel har vi en fin WOW knapp:
-<style>
-.test-class {
-    position: relative;
-    transition-duration: 250ms;
-    cursor: pointer;
-}
-.test-class:hover {
-    color: blue;
-}
-.test-class::after {
-    content: "WOW";
-    position: absolute;
-    left: 0; top: 0;
-    transition-duration: 250ms;
-}
-.test-class:hover::after{
-    color: red; top: -4px; left: -4px;
-}
-.test-class::before {
-    content: "WOW";
-    position: absolute;
-    left: 0; top: 0;
-    transition-duration: 250ms;
-}
-.test-class:hover::before {
-    color: green; top: -2px; left: -2px;
-}
-</style>
-<script>
-const openUrl = () => {
-    window.open("https://www.youtube.com/watch?v=Xm_dS-wEFvs");
-};
-</script>
-<h1 class="test-class" onClick={openUrl}>
-WOW
-</h1>
-
-Som kan defineras med en `style` tag, en `script` tag och en `h1`!
-```html
-<style>
-.test-class {
-    position: relative;
-    transition-duration: 250ms;
-    cursor: pointer;
-}
-.test-class:hover {
-    color: blue;
-}
-.test-class::after {
-    content: "WOW";
-    position: absolute;
-    left: 0; top: 0;
-    transition-duration: 250ms;
-}
-.test-class:hover::after{
-    color: red; top: -4px; left: -4px;
-}
-.test-class::before {
-    content: "WOW";
-    position: absolute;
-    left: 0; top: 0;
-    transition-duration: 250ms;
-}
-.test-class:hover::before {
-    color: green; top: -2px; left: -2px;
-}
-</style>
-<script>
-const openUrl = () => {
-    window.open("https://www.youtube.com/watch?v=Xm_dS-wEFvs");
-};
-</script>
-<h1 class="test-class" onClick={openUrl}>
-WOW
-</h1>
-```
+Josefin & Alva
+[studienamnd@dvet.se](mailto:studienamnd@dvet.se)

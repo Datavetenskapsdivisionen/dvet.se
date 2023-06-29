@@ -1,86 +1,26 @@
 # ConCats
-Fyll i denna sidan med kort och gott om eran kommité!
+Concats är en växande kommitté med 6 grymma medlemmar.
+Vi har i uppgift att arbeta för att
+skapa en trivsam miljö i Monaden
+där alla känner sig välkomna och
+inkluderade.
 
-Ni kan använda GitHub markdown 
-[GitHub markdown](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)
-, eller alternativt HTML, med väldigt få begränsningar!
+Vi håller också i diverse evenemang bl.a i sällskapspel 
+kvällar, filmkvällar, gamejams eller
+grillning när vädret tillåter. Vi
+tar dessutom hand om Monaden
+lokalen och ser till att det hålls
+trevligt där.
 
-Hacka på och lek runt med *lite* CSS för att ge er sida lite style!
+Varför heter vi just ConCats?
+Kan man ju undra, det kommer
+ni förhoppningsvis lista ut efter
+att ni lärt er Haskell i funktionell
+programmeringskursen!
 
-Som ett exempel har vi en fin WOW knapp:
-<style>
-.test-class {
-    position: relative;
-    transition-duration: 250ms;
-    cursor: pointer;
-}
-.test-class:hover {
-    color: blue;
-}
-.test-class::after {
-    content: "WOW";
-    position: absolute;
-    left: 0; top: 0;
-    transition-duration: 250ms;
-}
-.test-class:hover::after{
-    color: red; top: -4px; left: -4px;
-}
-.test-class::before {
-    content: "WOW";
-    position: absolute;
-    left: 0; top: 0;
-    transition-duration: 250ms;
-}
-.test-class:hover::before {
-    color: green; top: -2px; left: -2px;
-}
-</style>
-<script>
-const openUrl = () => {
-    window.open("https://www.youtube.com/watch?v=Xm_dS-wEFvs");
-};
-</script>
-<h1 class="test-class" onClick={openUrl}>
-WOW
-</h1>
+Vill du engagera dig i studentlivet här på DV och gillar snacks,
+mat, film och spel? Då hade du
+passat i ConCats
 
-Som kan defineras med en `style` tag, en `script` tag och en `h1`!
-```html
-<style>
-.test-class {
-    position: relative;
-    transition-duration: 250ms;
-    cursor: pointer;
-}
-.test-class:hover {
-    color: blue;
-}
-.test-class::after {
-    content: "WOW";
-    position: absolute;
-    left: 0; top: 0;
-    transition-duration: 250ms;
-}
-.test-class:hover::after{
-    color: red; top: -4px; left: -4px;
-}
-.test-class::before {
-    content: "WOW";
-    position: absolute;
-    left: 0; top: 0;
-    transition-duration: 250ms;
-}
-.test-class:hover::before {
-    color: green; top: -2px; left: -2px;
-}
-</style>
-<script>
-const openUrl = () => {
-    window.open("https://www.youtube.com/watch?v=Xm_dS-wEFvs");
-};
-</script>
-<h1 class="test-class" onClick={openUrl}>
-WOW
-</h1>
-```
+Lukas, Patrik, Alexander, Pascal, Faisal & Konstantin
+[concats@dvet.se](mailto:concats@dvet.se)
