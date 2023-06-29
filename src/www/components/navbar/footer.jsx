@@ -6,7 +6,7 @@ const footer = () => {
         <footer>
             <div></div>
             <span>© dvet.se {new Date().getFullYear()}</span>
-            <div id="google_translate_element"></div>
+            {/* <div id="google_translate_element"></div> */}
         </footer>
     );
 };
