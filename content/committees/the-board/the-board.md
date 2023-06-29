@@ -56,6 +56,7 @@
     <div lang="se-SE" class="committee-page-text">
         <p>
             Hej där!
+            <br/>
             Styrelsen är toppen av Datavetenskapsdivisionen. Vi är
             studentrepresentanter för er, studenterna, i kommunikation
             med Göta studentkår och institutionen. Utanför dem så gör vi
@@ -67,7 +68,7 @@
         <p>
             Vi tycker att det är väldigt viktigt att alla i våra program 
             känner sig representerade och att de kan delta i vår organisation.
-            Om ni har några frågor, funde ringar eller förslag är det bara
+            Om ni har några frågor, funderingar eller förslag är det bara
             att kontakta oss via vår kontakt information (se nedan), eller helt
             enkelt prata med oss i Monaden. Vi tycker alltid om att tjöta med
             andra studenter!

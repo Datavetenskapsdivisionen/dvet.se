@@ -1,6 +1,6 @@
 import React from "react";
 import { useSearchParams } from "react-router-dom";
-
+import { isEnglish } from "../util";
 
 
 const createElements = (data, searchParams, setSearchParams) => {
@@ -87,7 +87,7 @@ const me = () => {
     }, [fetchImageData, searchParams]);
 
     return <div className="page">
-        <h1>Bilder - {folderName}</h1>
+        <h1>{isEnglish() ? "Photos" : "Bilder"} - {folderName}</h1>
         {data}
     </div>;
 };
