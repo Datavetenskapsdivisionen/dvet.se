@@ -3,6 +3,9 @@
 while : 
 do
     printf -- "----------------- GIT -------------------\n"
+    git reset --hard || true
+
+    printf -- "----------------- GIT -------------------\n"
     git pull || true
 
     printf -- "\n----------------- NPM -------------------\n"
