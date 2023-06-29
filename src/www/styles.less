@@ -786,6 +786,14 @@ footer {
         border: none;
         box-shadow: 0px 0px 1px 0px rgba(255, 255, 255, 0.5);
     }
+
+    button {
+        cursor: pointer;
+        background-color: transparent;
+        color: white;
+        border: none;
+        box-shadow: 0px 0px 2px 0px rgba(255, 255, 255, 0.5);
+    }
 }
 
 .dv-header {
@@ -1011,14 +1019,29 @@ nav {
 
         .placeholder-document::after {
             display: inline;
-            content: "Dokument";
             font-size: 1em;
+        }
+
+
+        .document-swedish::after {
+            content: "Dokument";
+        }
+
+        .document-english::after {
+            content: "Documents"
         }
 
         .placeholder-schedule::after {
             display: inline;
-            content: "Schema";
             font-size: 1em;
+        }
+
+        .schedule-swedish::after {
+            content: "Schema";
+        }
+
+        .schedule-english::after {
+            content: "Schedule"
         }
     }
 

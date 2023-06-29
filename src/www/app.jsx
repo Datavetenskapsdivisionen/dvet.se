@@ -52,7 +52,6 @@ const App = () => {
   return (
     <div>
       {getLanguageCookie() ? <>
-        {"Lang " + (getLanguageCookie() ?? "not set")}
         <Router>
           <Routes>
             {DVRKRoute()}

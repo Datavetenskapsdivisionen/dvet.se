@@ -7,7 +7,7 @@ const isReception = () => {
 
 const getLanguageCookie = () => {
     let match = document.cookie.match(new RegExp('(^| )language=([^;]+)'));
-    return match ? match[2] : null;
+    return match ? (match[2] == "null" ? null : match[2]) : null;
 };
 
 

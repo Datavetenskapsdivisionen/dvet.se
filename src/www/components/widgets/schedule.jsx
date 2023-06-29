@@ -127,9 +127,9 @@ const me = (props) => {
         >
             <h2 ref={(_subtitle) => (subtitle = _subtitle)}>{modalTitle}</h2>
             <p>{modalContent}</p>
-            <p>När: {modalWhen}</p>
-            <p>Vart: {modalWhere}</p>
-            <p>Vilka hostar: {modalWho}</p>
+            <p>When: {modalWhen}</p>
+            <p>Where: {modalWhere}</p>
+            <p>Who is hosting: {modalWho}</p>
             <button onClick={closeModal} className="close-button">X</button>
         </Modal>
     </div>;

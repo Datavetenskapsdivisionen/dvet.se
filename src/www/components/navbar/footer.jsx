@@ -6,6 +6,10 @@ const footer = () => {
         <footer>
             <div></div>
             <span>© dvet.se {new Date().getFullYear()}</span>
+            <button onClick={() => {
+                document.cookie = "language=null";
+                location.reload();
+            }}>Switch Language</button>
             {/* <div id="google_translate_element"></div> */}
         </footer>
     );
