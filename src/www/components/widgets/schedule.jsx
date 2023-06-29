@@ -73,7 +73,7 @@ const getEventData = async (full, eventUrl, restUrl, eventLimit, openModal, setM
             <h3>{o.summary}</h3>
             <h4>{dateElem}</h4>
             <h4>{location}</h4>
-            <p>Arrangör: {o.committee}</p>
+            <p>Host: {o.committee}</p>
         </div>;
     });
     if (full !== true && hidingEvents) {
