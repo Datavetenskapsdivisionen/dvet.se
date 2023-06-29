@@ -37,7 +37,7 @@ Vad gör Mega7? Vi kanske vattnar blommor i Monaden!
 </div>
 
 <div>
-<p>Our president:</p>
+<p>Vår ordförande:</p>
 
 <img width=300px height=300px src="https://media.discordapp.net/attachments/910817302029668352/1118862632691183656/blank-profile-picture-973460_1280.png?width=657&height=657">
 </div>

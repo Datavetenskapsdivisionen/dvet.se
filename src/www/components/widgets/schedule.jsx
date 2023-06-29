@@ -73,7 +73,7 @@ const getEventData = async (full, eventUrl, restUrl, eventLimit, openModal, setM
             <h3>{o.summary}</h3>
             <h4>{dateElem}</h4>
             <h4>{location}</h4>
-            <p>Arrangör: {o.committee}</p>
+            <p>Host: {o.committee}</p>
         </div>;
     });
     if (full !== true && hidingEvents) {
@@ -127,9 +127,9 @@ const me = (props) => {
         >
             <h2 ref={(_subtitle) => (subtitle = _subtitle)}>{modalTitle}</h2>
             <p>{modalContent}</p>
-            <p>När: {modalWhen}</p>
-            <p>Vart: {modalWhere}</p>
-            <p>Vilka hostar: {modalWho}</p>
+            <p>When: {modalWhen}</p>
+            <p>Where: {modalWhere}</p>
+            <p>Who is hosting: {modalWho}</p>
             <button onClick={closeModal} className="close-button">X</button>
         </Modal>
     </div>;

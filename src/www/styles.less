@@ -11,6 +11,19 @@ code {
     font-family: 'IBM Plex Mono', monospace;
 }
 
+.language-picker {
+    margin-top: auto;
+    margin-bottom: auto;
+
+    h1 {
+        font-family: "Press Start 2P";
+    }
+
+    button {
+        padding: 10px;
+    }
+}
+
 .photo-holder {
     display: inline-flex;
     flex-wrap: wrap;
@@ -95,7 +108,7 @@ code {
 }
 
 .loading::before {
-    content: "Laddar...";
+    content: "Loading...";
     font-size: 1.5em;
     font-weight: bold;
 }
@@ -756,22 +769,12 @@ footer {
         text-align: center;
     }
 
-    .goog-te-gadget {
-        display: flex !important;
-        align-items: center;
-        gap: 4px;
-        color: white;
-
-        span a {
-            color: white !important;
-        }
-    }
-
-    .goog-te-combo {
+    button {
+        cursor: pointer;
         background-color: transparent;
         color: white;
         border: none;
-        box-shadow: 0px 0px 1px 0px rgba(255, 255, 255, 0.5);
+        box-shadow: 0px 0px 2px 0px rgba(255, 255, 255, 0.5);
     }
 }
 
@@ -998,14 +1001,29 @@ nav {
 
         .placeholder-document::after {
             display: inline;
-            content: "Dokument";
             font-size: 1em;
+        }
+
+
+        .document-swedish::after {
+            content: "Dokument";
+        }
+
+        .document-english::after {
+            content: "Documents"
         }
 
         .placeholder-schedule::after {
             display: inline;
-            content: "Schema";
             font-size: 1em;
+        }
+
+        .schedule-swedish::after {
+            content: "Schema";
+        }
+
+        .schedule-english::after {
+            content: "Schedule"
         }
     }
 

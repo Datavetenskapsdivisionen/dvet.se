@@ -2,8 +2,10 @@ import React from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
-import text from "../../../content/committees/dvrk.md";
-import contact from "../../../content/committees/dvrkcontact.md";
+import text from "../../../content/committees/dvrk/dvrk.md";
+import contact from "../../../content/committees/dvrk/dvrkcontact.md";
+import textEn from "../../../content/committees/dvrk/dvrk-en.md";
+import contactEn from "../../../content/committees/dvrk/dvrkcontact-en.md";
 import Schedule from "./widgets/schedule";
 import "./../dvrk-styles.less";
 import { Route, Link, useNavigate } from "react-router-dom";
@@ -12,10 +14,11 @@ import DURKMAN from "../../../assets/dvrk.png";
 const DURKMAN_URL = "url(" + new String(DURKMAN) + ")";
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
+import { isEnglish } from "../util";
 
 const documentOptions = [
     {
-        label: <span>Kandidat</span>,
+        label: <span>{isEnglish() ? "Bachelor" : "Kandidat"}</span>,
         value: "/committees/dvrk/bachelor"
     },
     {
@@ -25,7 +28,7 @@ const documentOptions = [
 ];
 const scheduleOptions = [
     {
-        label: <span>Kandidat</span>,
+        label: <span>{isEnglish() ? "Bachelor" : "Kandidat"}</span>,
         value: "/committees/dvrk/schedule/bachelor"
     },
     {
@@ -36,10 +39,11 @@ const scheduleOptions = [
 const DVRKbar = () => {
     const nav = useNavigate();
     const clickAction = (uri) => { nav(uri); window.scrollTo(0, 0); };
+    let placeholderLanguage = isEnglish() ? "english" : "swedish";
     let documentDropdown = <Dropdown
         className="nav__dropdown_parent"
         controlClassName="nav__dropdown"
-        placeholderClassName="placeholder placeholder-document"
+        placeholderClassName={"placeholder placeholder-document document-" + placeholderLanguage}
         options={documentOptions}
         onChange={v => { clickAction(v.value); }}
         // Edit this in the styles.less file instead (.placeholder::after),
@@ -49,7 +53,7 @@ const DVRKbar = () => {
     let scheduleDropdown = <Dropdown
         className="nav__dropdown_parent"
         controlClassName="nav__dropdown"
-        placeholderClassName="placeholder placeholder-schedule"
+        placeholderClassName={"placeholder placeholder-schedule schedule-" + placeholderLanguage}
         options={scheduleOptions}
         onChange={v => { window.open(v.value, "_self"); }}
         // Edit this in the styles.less file instead (.placeholder::after),
@@ -65,18 +69,18 @@ const DVRKbar = () => {
         <nav className="dvrk-nav">
             <div>
                 <Link className="nav__link" to="/committees/dvrk">
-                    Hem
+                    {isEnglish() ? "Home" : "Hem"}
                 </Link>
                 {scheduleDropdown}
                 <Link className="nav__link" to="/committees/dvrk/contact">
-                    Kontakt
+                    {isEnglish() ? "Contact" : "Kontakt"}
                 </Link>
                 <Link className="nav__link" to="/committees/dvrk/form">
-                    Formulär
+                    {isEnglish() ? "Form" : "Formulär"}
                 </Link>
                 {documentDropdown}
                 <Link className="nav__link" to="/">
-                    Tillbaka
+                    {isEnglish() ? "Back" : "Tillbaka"}
                 </Link>
             </div>
         </nav></>;
@@ -85,19 +89,19 @@ const DVRKbar = () => {
 const MainPage = () => (
     <>
         {/* <Schedule eventUrl="/getKickOffEvents" restUrl="/committees/dvrk/schedule" /> */}
-        <ReactMarkdown children={text} rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}></ReactMarkdown>
+        <ReactMarkdown children={isEnglish() ? textEn : text} rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}></ReactMarkdown>
     </>
 );
 
 const ContactPage = () => (
     <>
-        <ReactMarkdown children={contact} rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}></ReactMarkdown>
+        <ReactMarkdown children={isEnglish() ? contactEn : contact} rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}></ReactMarkdown>
     </>
 );
 
 const SchedulePage = (props) => (
     <>
-        <h1>{props.title ?? "Schema"}</h1>
+        <h1>{props.title ?? "Schedule"}</h1>
         <Schedule full={true} eventUrl={"/getKickoffEvents" + (props.extension ?? "")} />
     </>
 );
@@ -148,12 +152,12 @@ const dvrkRoute = () => (
         } />
         <Route exact path="/committees/dvrk/schedule/bachelor" element={
             <ContentHolder element={
-                <SchedulePage extension="?type=Kandidat" title="Kandidat schema" />
+                <SchedulePage extension="?type=Kandidat" title={isEnglish() ? "Bachelor schedule" : "Kandidat schema"} />
             } />
         } />
         <Route exact path="/committees/dvrk/schedule/master" element={
             <ContentHolder element={
-                <SchedulePage extension="?type=Master" title="Master schema" />
+                <SchedulePage extension="?type=Master" title="Master schedule" />
             } />
         } />
         <Route exact path="/committees/dvrk/contact" element={
@@ -163,7 +167,7 @@ const dvrkRoute = () => (
             <ContentHolder element={
                 <IframePage
                     url="https://drive.google.com/file/d/1ZwFMOY8R5qs2EAfeGlwL2mN0aHnqT21E/preview"
-                    title="Faddergrupp formulär!"
+                    title={isEnglish() ? "Phaddergroup form!" : "Phaddergrupp formulär!"}
                 />
             } />
         } />
@@ -171,7 +175,7 @@ const dvrkRoute = () => (
             <ContentHolder element={
                 <IframePage
                     url="/recceguiden"
-                    title="Recceguiden för kandidater!"
+                    title={isEnglish() ? "Receptionguide for bachelor students!" : "Recceguiden för kandidater!"}
                 />
             } />
         } />

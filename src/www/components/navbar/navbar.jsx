@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { isEnglish } from "../../util";
 
 const navbar = () => {
   return (
@@ -9,22 +10,22 @@ const navbar = () => {
           Start
         </Link>
         <Link className="nav__link" to="/committees">
-          Kommitteer
+          {isEnglish() ? "Committees" : "Kommitteer"}
         </Link>
         <Link className="nav__link" to="/about">
-          Om Oss
+          {isEnglish() ? "About us" : "Om Oss"}
         </Link>
 
         <Link className="nav__link" to="/photos">
-          Bilder
+          {isEnglish() ? "Photos" : "Bilder"}
         </Link>
 
         <Link className="nav__link" to="/documents">
-          Dokument
+          {isEnglish() ? "Documents" : "Dokument"}
         </Link>
 
         <Link className="nav__link" to="/contact">
-          Kontakt
+          {isEnglish() ? "Contact" : "Kontakt"}
         </Link>
       </div>
     </nav>

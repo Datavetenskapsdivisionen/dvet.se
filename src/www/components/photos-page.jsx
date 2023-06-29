@@ -1,6 +1,6 @@
 import React from "react";
 import { useSearchParams } from "react-router-dom";
-
+import { isEnglish } from "../util";
 
 
 const createElements = (data, searchParams, setSearchParams) => {
@@ -30,7 +30,7 @@ const createElements = (data, searchParams, setSearchParams) => {
             <svg xmlns="http://www.w3.org/2000/svg" height="99" viewBox="-5 0 24 24" width="160"><path d="M0 0h24v24H0z" fill="none" />
                 <path d="M11.67 3.87L9.9 2.1 0 12l9.9 9.9 1.77-1.77L3.54 12z" />
             </svg>
-            <span>Backa</span>
+            <span>{isEnglish() ? "Go back" : "Backa"}</span>
         </div>;
 
     const children = data.children ? data.children.map(c => {
@@ -87,7 +87,7 @@ const me = () => {
     }, [fetchImageData, searchParams]);
 
     return <div className="page">
-        <h1>Bilder - {folderName}</h1>
+        <h1>{isEnglish() ? "Photos" : "Bilder"} - {folderName}</h1>
         {data}
     </div>;
 };

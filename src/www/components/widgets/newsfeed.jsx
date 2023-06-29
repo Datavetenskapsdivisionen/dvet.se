@@ -2,6 +2,7 @@ import React from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
+import { isEnglish } from "../../util";
 
 const fetchNews = () => (
     fetch("/newsfeed")
@@ -27,7 +28,7 @@ const stringToEmoji = (s) => {
 };
 
 const createElements = (data) => {
-    if (data.error) return <p>Kunde inte hämta nyheter!</p>;
+    if (data.error) return <p>Could not fetch news!</p>;
     const titles = data.map(e => {
         const title = e.title;
         const avatar = e.user.avatar_url;
@@ -94,7 +95,7 @@ const me = (props) => {
 
     return <div className="news-holder">
         <h2>
-            Nyheter
+            {isEnglish() ? "News" : "Nyheter"}
             <a className="rss-button" href="/newsfeed?type=rss" target="_blank">
                 <img
                     src="https://wp-assets.rss.com/blog/wp-content/uploads/2019/10/10111557/social_style_3_rss-512-1.png"
@@ -106,7 +107,7 @@ const me = (props) => {
         <div className="center">
             <button onClick={
                 () => window.open("https://github.com/Datavetenskapsdivisionen/posts/issues")
-            }>Se äldre nyheter</button>
+            }>{isEnglish() ? "See older news" : "Se äldre nyheter"}</button>
         </div>
     </div >;
 };

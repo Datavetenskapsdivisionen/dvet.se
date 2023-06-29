@@ -1,5 +1,7 @@
 import React from 'react';
-import logo from "../../../assets/main.png"
+import logo from "../../../assets/main.png";
+import { isEnglish } from "../util";
+
 const toolbar = () => {
   return (
     <header className="dv-header">
@@ -9,11 +11,11 @@ const toolbar = () => {
         })
       }
       </div>
-        <div className="headwrapper">
-          <img src={logo} alt="" id="logopic"/>
+      <div className="headwrapper">
+        <img src={logo} alt="" id="logopic" />
         <div id="logo">
-          <a href="/">Datavetenskap</a>
-          <span id="subheader">vid Göteborgs Universitet</span>
+          <a href="/">{isEnglish() ? "Computer Science" : "Datavetenskap"}</a>
+          <span id="subheader">{isEnglish() ? "AT" : "VID"} Göteborgs Universitet</span>
         </div>
       </div>
     </header>);
