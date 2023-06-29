@@ -9,11 +9,11 @@ const getLanguageCookie = () => {
     let match = document.cookie.match(new RegExp('(^| )language=([^;]+)'));
     return match ? (match[2] == "null" ? null : match[2]) : null;
 };
-
+const cook = getLanguageCookie();
+const english = cook ? cook == "en" : false;
 
 const isEnglish = () => {
-    let cook = getLanguageCookie();
-    return cook ? cook == "en" : false;
+    return english;
 };
 
 export { isReception, isEnglish, getLanguageCookie };
