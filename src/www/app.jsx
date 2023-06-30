@@ -23,20 +23,20 @@ const LanguageSelector = () => {
       <h1>Hi - language selection!</h1>
       <p>Before you can proceed we have to ask you which language you prefer!</p>
       <form id="language-form">
-        <input type="radio" name="langauge" id="langauge-se" defaultChecked={true} />
+        <input type="radio" name="language" id="language-se" defaultChecked={true} />
         <label htmlFor="language-se">Svenska</label>
         <br />
-        <input type="radio" name="langauge" id="langauge-en" />
+        <input type="radio" name="language" id="language-en" />
         <label htmlFor="language-se">English</label>
         <br /><br />
-        <i>By clicking <b>Ok</b>, you are alright with us saving a cookie on your device, which saves your language preference accross sessions.
+        <i>By clicking <b>Ok</b>, you are alright with us saving a cookie on your device, which saves your language preference across sessions.
           <br />
-          This is required for site functionallity, and it is the only cookie used on this website.
+          This is required for site functionality, and it is the only cookie used on this website.
         </i>
         <br /><br />
       </form>
       <button className="kickoff-info-button" onClick={() => {
-        let english = document.getElementById("langauge-en");
+        let english = document.getElementById("language-en");
         if (english.checked) {
           document.cookie = "language=en";
         } else {
