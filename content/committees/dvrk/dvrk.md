@@ -30,7 +30,7 @@ Vad är en reccentior? Vad är DVRK? Allt detta och mer hittar du i vår guide f
 #### Gå med i våra kanaler!
 
 För att få information och komma i kontakt med dina studiekamrater rekomenderar vi att ni går med i:
-* Facebookgruppen: (https://fb.me/g/p_sVNEgvGeE5JfkVNp/o1xN0JKQ)
+* Facebookgruppen: (https://www.facebook.com/groups/249484121139659/)
 * Discordkanalen: (https://discord.gg/UdUUhdgXk8)
 
 #### Följ oss!

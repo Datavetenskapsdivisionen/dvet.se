@@ -29,7 +29,7 @@ What is a reccentior? What is DVRK? You can find all of this and more in our gui
 #### Join our channels!
 
 To get information and connect with your fellow students, we recommend joining:
-* Facebook group: (https://fb.me/g/p_sVNEgvGeE5JfkVNp/o1xN0JKQ)
+* Facebook group: (https://www.facebook.com/groups/249484121139659/)
 * Discord channel: (https://discord.gg/UdUUhdgXk8)
 
 #### Follow us!
