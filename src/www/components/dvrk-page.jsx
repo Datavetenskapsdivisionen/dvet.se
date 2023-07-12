@@ -166,8 +166,8 @@ const dvrkRoute = () => (
         <Route exact path="/committees/dvrk/form" element={
             <ContentHolder element={
                 <IframePage
-                    url="https://drive.google.com/file/d/1ZwFMOY8R5qs2EAfeGlwL2mN0aHnqT21E/preview"
-                    title={isEnglish() ? "Phaddergroup form!" : "Phaddergrupp formulär!"}
+                    url="https://forms.gle/sRbasSn6uUx8p19c8"
+                    title={isEnglish() ? "Recentiorsdeklarationen!" : "Recentiorsdeklarationen!"}
                 />
             } />
         } />
