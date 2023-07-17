@@ -16,6 +16,18 @@ import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 import { isEnglish } from "../util";
 
+
+// Yoinked from https://stackoverflow.com/a/21742107
+const isIOS = () => {
+    var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+    // iOS detection from: http://stackoverflow.com/a/9039885/177710
+    if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+        return true;
+    } else {
+        return false;
+    }
+};
+
 const documentOptions = [
     {
         label: <span>{isEnglish() ? "Bachelor" : "Kandidat"}</span>,
@@ -113,21 +125,32 @@ const InfoPage = () => (
 );
 
 const IframePage = (props) => (
-    <>
-        <h1>{props.title}</h1>
-        <iframe
-            src={props.url}
-            frameborder="0"
-            style={{
-                width: "100%",
-                height: "90vh",
-                overflow: "auto",
-                WebkitOverflowScrolling: "touch",
-            }}
-            scrolling="yes"
-        >
-        </iframe>
-    </>
+    isIOS() ?
+        <>
+            <button
+                className="kickoff-info-button"
+                onClick={() => window.open(props.url, "_this")}
+                style={{ padding: "20px" }}
+            >
+                Click here to get to the document!
+            </button>
+        </>
+        :
+        <>
+            <h1>{props.title}</h1>
+            <iframe
+                src={props.url}
+                frameborder="0"
+                style={{
+                    width: "100%",
+                    height: "90vh",
+                    overflow: "auto",
+                    WebkitOverflowScrolling: "touch",
+                }}
+                scrolling="yes"
+            >
+            </iframe>
+        </>
 );
 
 // If you know a better way to do this, plz pull request :)
