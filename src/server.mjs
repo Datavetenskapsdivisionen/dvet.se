@@ -25,7 +25,7 @@ app.use(expressStaticGzip("dist", {
 app.use(express.json());
 app.get("/", callback);
 app.get("/committees", callback);
-app.get("/newscreen", callback);
+app.get("/newsscreen", callback);
 app.get("/about", callback);
 app.get("/documents", callback);
 app.get("/contact", callback);
