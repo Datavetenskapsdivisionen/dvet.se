@@ -26,6 +26,7 @@ app.use(express.json());
 app.get("/", callback);
 app.get("/committees", callback);
 app.get("/newsscreen", callback);
+app.get("/scscreen", callback);
 app.get("/about", callback);
 app.get("/documents", callback);
 app.get("/contact", callback);

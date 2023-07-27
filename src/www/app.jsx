@@ -14,6 +14,7 @@ import ToolsPage from "./components/tools-page";
 import PhotosPage from "./components/photos-page";
 import Schedule from "./components/widgets/schedule";
 import NewsScreen from "./components/newscreen";
+import ScheduleScreen from "./components/schedulescreen";
 // import WIP from "./components/widgets/wip";
 import IndividualCommitteePage from "./components/individual-committee-page";
 import { getLanguageCookie } from "./util";
@@ -57,6 +58,7 @@ const App = () => {
           <Routes>
             {DVRKRoute()}
             <Route exact path="/newsscreen" element={<NewsScreen />} />
+            <Route exact path="/scscreen" element={<ScheduleScreen />} />
             <Route element={
               <>
                 <Toolbar />
