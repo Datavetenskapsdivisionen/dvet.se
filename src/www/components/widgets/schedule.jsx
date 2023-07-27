@@ -1,5 +1,6 @@
 import React from "react";
 import Modal from "react-modal";
+import { isEnglish } from "../../util";
 
 
 const isToday = (date) => {
@@ -87,10 +88,14 @@ const getEventData = async (full, eventUrl, restUrl, eventLimit, openModal, setM
             </div>
         );
     }
-    return <div className="kickoff-schedule">
-        {data}
-        {/* <pre style={{ textAlign: "left" }}>{JSON.stringify(json, null, 4)}</pre> */}
-    </div>;
+    if (data.length == 0) {
+        return <h1>{isEnglish() ? "No upcoming events" : "Inga uppkommande event"}</h1>;
+    } else {
+        return <div className="kickoff-schedule">
+            {data}
+            {/* <pre style={{ textAlign: "left" }}>{JSON.stringify(json, null, 4)}</pre> */}
+        </div>;
+    };
 };
 
 let oldVisible = false;
