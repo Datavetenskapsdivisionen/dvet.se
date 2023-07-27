@@ -27,7 +27,7 @@ const stringToEmoji = (s) => {
     return ans;
 };
 
-const createElements = (data) => {
+const createElements = (data, liteVersion) => {
     if (data.error) return <p>Could not fetch news!</p>;
     const titles = data.map(e => {
         const title = e.title;
@@ -67,13 +67,17 @@ const createElements = (data) => {
             <div className="bottom">
                 <div className="reactions">
                     {reactions}
-                    <div className="reaction"
-                        onClick={() => window.open(e.html_url)}
-                    >&nbsp;+&nbsp;</div>
-                    <div className="reaction"
-                        onClick={() => window.open(e.html_url)} >
-                        {commentAmount} kommentarer
-                    </div>
+                    {liteVersion ? <></> :
+                        <>
+                            <div className="reaction"
+                                onClick={() => window.open(e.html_url)}
+                            >&nbsp;+&nbsp;</div>
+                            <div className="reaction"
+                                onClick={() => window.open(e.html_url)} >
+                                {commentAmount} kommentarer
+                            </div>
+                        </>
+                    }
                 </div>
                 <span>- {author}</span>
             </div>
@@ -83,18 +87,18 @@ const createElements = (data) => {
 };
 
 const me = (props) => {
+    const liteVersion = props.liteVersion == true;
     const [data, setData] = React.useState(<div className="loading"></div>);
     React.useEffect(() => {
-        fetchNews().then((res) => setData(createElements(res)));
+        fetchNews().then((res) => setData(createElements(res, liteVersion)));
     }, [fetchNews]);
 
     const content = data.error ?
         <h3>{data.error}</h3>
         :
         data;
-
     return <div className="news-holder">
-        <h2>
+        {liteVersion ? <></> : <h2>
             {isEnglish() ? "News" : "Nyheter"}
             <a className="rss-button" href="/newsfeed?type=rss" target="_blank">
                 <img
@@ -102,13 +106,13 @@ const me = (props) => {
                     draggable="false"
                 />
             </a>
-        </h2>
+        </h2>}
         {content}
-        <div className="center">
+        {liteVersion ? <></> : <div className="center">
             <button onClick={
                 () => window.open("https://github.com/Datavetenskapsdivisionen/posts/issues")
             }>{isEnglish() ? "See older news" : "Se äldre nyheter"}</button>
-        </div>
+        </div>}
     </div >;
 };
 
