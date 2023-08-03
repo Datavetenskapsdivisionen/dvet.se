@@ -24,7 +24,7 @@ To make Insparken as great as possible, we ask for some information about you as
 
 #### Read the reccentiors guide!
 
-What is a reccentior? What is DVRK? You can find all of this and more in our guide for new students. Hopefully, you've already seen it, but if you missed it, you can find it [here](https://dvet.se/committees/dvrk/bachelor).
+What is a reccentior? What is DVRK? You can find all of this and more in our guide for new students. Hopefully, you've already seen it, but if you missed it, you can find it [here](https://dvet.se/committees/dvrk/bachelor) [here](https://dvet.se/committees/dvrk/master)
 
 #### Join our channels!
 

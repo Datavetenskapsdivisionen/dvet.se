@@ -25,7 +25,7 @@ För att vi ska göra Insparken så bra som möjligt ber vi om lite information 
 
 #### Läs reccentiorsguiden!
 
-Vad är en reccentior? Vad är DVRK? Allt detta och mer hittar du i vår guide för nya studenter. Förhoppningvis har du redan sett detta men om du missat så finns den  [här](https://dvet.se/committees/dvrk/bachelor).
+Vad är en reccentior? Vad är DVRK? Allt detta och mer hittar du i vår guide för nya studenter. Förhoppningvis har du redan sett detta men om du missat så finns den  [här](https://dvet.se/committees/dvrk/bachelor). För masters [här](https://dvet.se/committees/dvrk/master).
 
 #### Gå med i våra kanaler!
 
