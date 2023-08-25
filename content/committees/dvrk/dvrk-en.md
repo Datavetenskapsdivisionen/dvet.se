@@ -1,6 +1,5 @@
 # New student? 
 
-For non-swedish speakers, this page is WIP, proper translation is coming shortly!
 
 **Hello!**
 
