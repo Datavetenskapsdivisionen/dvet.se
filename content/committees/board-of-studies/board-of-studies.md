@@ -28,8 +28,7 @@
             Tveka inte att kontakta oss om ni har frågor, åsikter eller
             bara vill babbla om någon kurs, föreläsare eller examinator.
         </p>
-        [studienamnd@dvet.se](mailto:studienamnd@dvet.se) <!--fixa-->
-        <!-- <a href="mailto:someone@example.com">Send email</a> -->
+        <a href="mailto:studienamnd@dvet.se">studienamnd@dvet.se</a> -->
         <p>
             Josefin & Alva
         </p>
