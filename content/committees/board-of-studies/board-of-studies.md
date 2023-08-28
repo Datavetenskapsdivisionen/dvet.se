@@ -1,4 +1,4 @@
-# Studienämnden
+
 <!DOCTYPE html>
 <html lang="sv">
 <head>
@@ -6,12 +6,17 @@
 	<title>
     </title>
     <style>
+        p{
+            font-size:16px;
+            font-family: "Tahoma", "Geneva", sans-serif; 
+        }
     </style>
 </head>
 <body>
     <header>
     </header>
     <main>
+        <h1>Studienämnden</h1>
         <p>
             Datavetenskaps studienämnd är till för att säkerställa studie -och
             utbildningskvalitén på kandidatprogrammet. Vi arbetar med
@@ -28,7 +33,7 @@
             Tveka inte att kontakta oss om ni har frågor, åsikter eller
             bara vill babbla om någon kurs, föreläsare eller examinator.
         </p>
-        <a href="mailto:studienamnd@dvet.se">studienamnd@dvet.se</a> -->
+        <a href="mailto:studienamnd@dvet.se">studienamnd@dvet.se</a>
         <p>
             Josefin & Alva
         </p>
