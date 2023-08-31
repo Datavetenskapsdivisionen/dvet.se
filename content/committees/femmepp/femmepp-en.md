@@ -49,6 +49,8 @@
 <body>
         <div class="flex-co">
             <div class="c1">
+              <img src="../../../assets/femmepp/1.jpeg"/>
+              <img src="../../../assets/femmepp/2.jpeg"/>
             </div>
             <div class="c2">
                 <h1>Femme++</h1>
@@ -62,7 +64,9 @@
                     We spend time together, go out for a coffee, eat dinners and have parties. 
                 </p>
             </div>
-            <div class="c3"></div>
+            <div class="c3">
+              <img src="../../../assets/femmepp/3.jpeg"/>
+              <img src="../../../assets/femmepp/4.jpeg"/></div>
         </div>
 </body>
 </html>
