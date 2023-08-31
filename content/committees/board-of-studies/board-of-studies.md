@@ -75,7 +75,7 @@
                 </p>
             </div>
             <div class="c3">                    
-              <img src="assets/studienamnd.jpg"/>            
+              <img src="../../../assets/studienamnd.JPG"/>            
             </div>
         </div>
     </body>
