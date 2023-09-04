@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="sv">
+<html lang="eng">
   <head>
     <meta charset="UTF-8">
     <title>
@@ -18,8 +18,8 @@
         padding: 0px;
       }
       .cimg img{
-        height: 350px;
-        padding: 2%;
+        height: 370px;
+        padding: 1%;
       }
       .ctxt{
         background: #FFF2BF;
@@ -27,7 +27,7 @@
         height: 50%;
       }
       .cimg{
-        background: #FFbbBF;
+        background: #FFF2BF;
         display: flex;
         flex-wrap: wrap;
         height: 30%;
@@ -45,7 +45,7 @@
         We believe that it is important to have a space where those who often find themselves in the minority within computer science can talk about things they otherwise find difficult to discuss, or to just connect with like-minded individuals and have fun.
       </p>
       <p>
-        We spend time together, go out for a coffee, eat dinners and have parties. 
+        We spend time together, go out for a coffee, eat dinners and sing karaoke. 
       </p>
     </div>
     <div class="cimg">
