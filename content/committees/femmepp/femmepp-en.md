@@ -65,7 +65,7 @@
                 </p>
             </div>
             <div class="c3">
-              <img src="../../../assets/femmepp/3.jpeg"/>
+              <img src="https://media.discordapp.net/attachments/969589372955557898/1148207873751523408/2fd0bf1ee0a4c575914bbb6793da477f.jpeg?width=440&height=660"/>
               <img src="../../../assets/femmepp/4.jpeg"/></div>
         </div>
 </body>
