@@ -2,12 +2,15 @@
 <html lang="eng">
   <head>
     <meta charset="UTF-8">
-    <title>
-      </title>
-      <style>
-        p{
+    <title></title>
+    <style>
+      p{
         font-size:16px;
         font-family: "Tahoma", "Geneva", sans-serif; 
+      }
+      h1{
+        font-family: "Garamond", "Georgia", Serif;
+        font-size:40px;
       }
       main{
         padding: 0px;
@@ -22,16 +25,28 @@
         padding: 1%;
       }
       .ctxt{
-        background: #FFF2BF;
-        padding: 1%;
+        background: #FFD9E4;
+        padding: 10px 45px;
         height: 50%;
       }
       .cimg{
-        background: #FFF2BF;
+        background: #FFD9E4;
         display: flex;
         flex-wrap: wrap;
         height: 30%;
         justify-content: space-evenly;
+      }
+      @media screen and (max-width: 550px) {
+        .cimg img{
+          height: 300px;
+          padding: 1%;
+        }
+      }
+      @media screen and (max-width: 425px) {
+        .cimg img{
+          height: 240px;
+          padding: 1%;
+        }
       }
     </style>
   </head>
@@ -53,8 +68,8 @@
       <img src="https://media.discordapp.net/attachments/969589372955557898/1148207874863005696/d77381a9e2ff5f7de4f4bbc965197b49.jpeg?width=440&height=660"/>
       <img src="https://media.discordapp.net/attachments/969589372955557898/1148207873751523408/2fd0bf1ee0a4c575914bbb6793da477f.jpeg?width=440&height=660"/>
       <img src="https://media.discordapp.net/attachments/969589372955557898/1148207874036727848/27d74a78e9b403e260f97f5a00a4a943.jpeg?width=440&height=660"/>
-       <img src="https://media.discordapp.net/attachments/969589372955557898/1148207875181781102/IMG_5903.jpg?width=880&height=660"/>
-       <img src="https://media.discordapp.net/attachments/1101440761955876904/1146069467814699059/20230301_165341.jpg?width=495&height=660"/>
+      <img src="https://media.discordapp.net/attachments/969589372955557898/1148207875181781102/IMG_5903.jpg?width=880&height=660"/>
+      <img src="https://media.discordapp.net/attachments/1101440761955876904/1146069467814699059/20230301_165341.jpg?width=495&height=660"/>
     </div>
   </body>
 </html>
