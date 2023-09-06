@@ -25,12 +25,12 @@
         padding: 1%;
       }
       .ctxt{
-        background: #FFD9E4;
+        background: #ffe2e4;
         padding: 10px 45px;
         height: 50%;
       }
       .cimg{
-        background: #FFD9E4;
+        background: #ffe2e4;
         display: flex;
         flex-wrap: wrap;
         height: 30%;
