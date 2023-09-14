@@ -10,5 +10,4 @@ Föreningen håller för det mesta till i [Monaden](https://goo.gl/maps/vp7kAQRc
 vilket är våran sektionslokal på Johanneberg, i Edit huset på Chalmers.
 
 För att få vara med i föreningen behöver du först gå med i [Göta Studentkår](https://gotastudentkar.se/sv/medlemsformaner) 
-och sedan fylla i formen här: [https://medlem.dvet.se/](https://medlem.dvet.se/).
-Vi kommer därefter kontakta er om erat medlemskap!
+och sedan kan du ladda ner Orbi appen och ansöka om ett medlemskap i den!

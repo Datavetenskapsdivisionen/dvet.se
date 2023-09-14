@@ -10,5 +10,4 @@ The association mostly resides in [The Monad](https://goo.gl/maps/vp7kAQRcWrZWo2
 which is our section premises at Johanneberg, in the Edit house at Chalmers.
 
 To join the association, you first need to join [Göta Studentkår](https://gotastudentkar.se/sv/medlemsformaner)
-and then fill in the form here: [https://medlem.dvet.se/](https://medlem.dvet.se/).
-After that we will contact you about your membership!
+and you can download the Orbi app and apply for a membership there!
