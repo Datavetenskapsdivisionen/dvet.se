@@ -64,14 +64,24 @@ const getEventData = async (full, eventUrl, restUrl, eventLimit, openModal, setM
             ? o.location.split(",").slice(0, 2).join(", ")
             : <>&nbsp;</>;
 
+        let infoTag = <></>;
         if (o.description) className += " clickable";
+        if (o.description) infoTag = <div className="info">
+            I<br />
+            N<br />
+            F<br />
+            O
+        </div>;
         const action = (o.description) ? () => {
             setModalData([o.summary, o.description, dateElem, o.committee, location]);
             openModal();
         } : () => { };
 
         return <div className={className} onClick={action}>
-            <h3>{o.summary}</h3>
+            <div className="post-title">
+                <h3>{o.summary}</h3>
+                {infoTag}
+            </div>
             <h4>{dateElem}</h4>
             <h4>{location}</h4>
             <p>Host: {o.committee}</p>
