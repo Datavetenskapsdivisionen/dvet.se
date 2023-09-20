@@ -1,4 +1,5 @@
 # DV_Ops 
+## Computer Science Divisons largest committé
 DV_Ops is the IT Committee of
 DVD. We are responsible for all
 IT-related matters in Monaden,
