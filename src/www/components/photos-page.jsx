@@ -89,15 +89,15 @@ const me = () => {
     return <div className="page">
         <h1>{isEnglish() ? "Photos" : "Bilder"} - {folderName}</h1>
         {data}
-        {isEnglish() ? <>
+        {isEnglish() ? <div>
             <br />
             If you find any photos you wish to be removed here please contact <a href="styrelsen@dvet.se">styrelsen@dvet.se </a>
             and we will remove them!
-        </> : <>
+        </div> : <div>
             <br />
             Om du hittar några bilder som du önskar ska bli borttagna så kan du kontakta <a href="styrelsen@dvet.se">styrelsen@dvet.se </a>
             så tar vi bort dom!
-        </>}
+        </div>}
     </div>;
 };
 
