@@ -13,7 +13,7 @@ const getCalender = async (auth, calenderId) => {
     // const committeeRegex = /\((\w+|[0,9]|\+|å|ä|ö|Å|Ä|Ö|È|É|é|è| |&|\.|!|\t)+\)( *$)/g;
     // const groupRegex = /\[(\w+|[0,9]|\+|å|ä|ö|Å|Ä|Ö|È|É|é|è| |&|\.|!|\t)+\]/g;
     const committeeRegex = /\((\w|\W)+\)( *$)/g;
-    const groupRegex = /\[(\w|\W)+\]/g;
+    const groupRegex = /\[(\w+|[0,9]|\+|å|ä|ö|Å|Ä|Ö|È|É|é|è| |&|\.|!|\t)+\]/g;
     const events = res.data.items.map(o => {
         // Get the target groups for an event
         o.group = [];
