@@ -38,18 +38,20 @@ const fetchRSS = async () => {
             description: "Diverse nytt från Datavetenskap på GU",
             site_url: "https://dvet.se"
         });
-    posts.forEach(e => {
-        feed.item({
-            title: e.title,
-            description: e.body,
-            url: "https://www.dvet.se/#post-" + e.id,
-            guid: e.id,
-            author: e.user.name,
-            date: e.created_at
+    try {
+        posts.forEach(e => {
+            feed.item({
+                title: e.title,
+                description: e.body,
+                url: "https://www.dvet.se/#post-" + e.id,
+                guid: e.id,
+                author: e.user.name,
+                date: e.created_at
+            });
         });
-    });
 
-    rss = feed.xml({ indent: true });
+        rss = feed.xml({ indent: true });
+    } catch { }
 };
 await fetchRSS();
 

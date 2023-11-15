@@ -70,6 +70,6 @@ const authorize = async () => {
     }
     return client;
 };
-await authorize();
+if (process.env.ENABLE_DRIVE === "true") await authorize();
 
 export { authorize };
