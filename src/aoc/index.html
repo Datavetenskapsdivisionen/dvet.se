@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>AOC</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nova+Mono&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: rgb(17, 17, 40);
+            background: linear-gradient(331deg, rgba(17, 17, 40, 1) 0%, rgba(28, 28, 59, 1) 100%);
+        }
+
+        #app {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            width: 100%;
+            font-size: 10vw;
+            font-family: 'Nova Mono', monospace;
+            color: #00cc00;
+            text-shadow: 0 0 2px #00cc00, 0 0 5px #00cc00;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div id="timer"></div>
+    </div>
+
+    <script>
+        let id = document.getElementById("timer");
+
+        const updateTime = () => {
+            let time = new Date().getTime();
+            let countdown = Date.parse("2023-12-01T06:00:00+01:00");
+            let diffDeci = (countdown - time) / 100;
+            let diffSecs = (countdown - time) / 1000;
+            let diffMins = diffSecs / 60;
+            let diffHours = diffMins / 60;
+            let diffDays = diffHours / 24;
+
+            let hours = String(Math.floor(diffHours % 24)).padStart(2, "0");
+            let mins = String(Math.floor(diffMins % 60)).padStart(2, "0");
+            let secs = String(Math.floor(diffSecs % 60)).padStart(2, "0");
+            let deci = String(Math.floor(diffDeci % 10)).padStart(1, "0");
+
+            id.innerText = `${Math.floor(diffDays)}:${hours}:${mins}:${secs}:${deci}`;
+        };
+        updateTime();
+
+        setInterval(updateTime, 100);
+    </script>
+</body>
+
+</html>
