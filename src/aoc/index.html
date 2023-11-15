@@ -52,7 +52,7 @@
 
         const updateTime = () => {
             let time = new Date().getTime();
-            let countdown = Date.parse("2023-12-01T06:00:00+01:00");
+            let countdown = Date.parse(`${new Date().getFullYear()}-12-01T06:00:00+01:00`);
             let diffDeci = (countdown - time) / 100;
             let diffSecs = (countdown - time) / 1000;
             if (diffSecs > 0) {
