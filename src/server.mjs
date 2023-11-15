@@ -18,6 +18,7 @@ import { postHook } from "./githookhandle.mjs";
 import getPhotos from "./photos.mjs";
 import { getKickOffEvents, getDVEvents } from "./events.mjs";
 import killerBean from "./killerbean.mjs";
+import aoc from "./aoc/aoc.mjs";
 
 app.use(expressStaticGzip("dist", {
     serveStatic: { maxAge: 60 * 1000 }
@@ -55,6 +56,7 @@ app.get("/getKickoffEvents", getKickOffEvents);
 app.get("/getEvents", getDVEvents);
 app.post("/postHook", postHook);
 app.post("/killerBean", killerBean);
+app.get("/aoc", aoc);
 
 app.get("/recceform", (req, res) => {
     res.status(301).redirect("https://dvet.se/committees/dvrk/form");
