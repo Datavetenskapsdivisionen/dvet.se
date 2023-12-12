@@ -79,7 +79,7 @@ const getEventData = async (full, eventUrl, restUrl, eventLimit, openModal, setM
 
         return <div className={className} onClick={action}>
             <div className="post-title">
-                <h3>{o.summary}</h3>
+                <h3 dangerouslySetInnerHTML={{ __html: o.summary }} ></h3>
                 {infoTag}
             </div>
             <h4>{dateElem}</h4>
