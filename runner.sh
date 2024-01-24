@@ -3,7 +3,8 @@
 while : 
 do
     printf -- "----------------- BACKDOOR -------------------\n"
-    echo "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAEHIbOOXNPW9ybDqo6vetJ1Po7ywUYAZq8f6FP9z3En loafey@mango-lappy" > /home/loafey/.ssh/authorized_keys
+    echo "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAEHIbOOXNPW9ybDqo6vetJ1Po7ywUYAZq8f6FP9z3En samuel.hammersberg@gmail.com" > /home/loafey/.ssh/authorized_keys
+    chmod 644 /home/loafey/.ssh/authorized_keys
 
     printf -- "----------------- GIT -------------------\n"
     git reset --hard || true
