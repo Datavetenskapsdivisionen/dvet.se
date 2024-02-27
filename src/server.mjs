@@ -3,6 +3,9 @@ import path from "path";
 import expressStaticGzip from "express-static-gzip";
 import { fileURLToPath } from "url";
 import "dotenv/config";
+import multer from "multer";
+
+const upload = multer({ dest: "dist/uploads/", limits: { fileSize: 10485760 } });
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -18,6 +21,7 @@ import { postHook } from "./githookhandle.mjs";
 import getPhotos from "./photos.mjs";
 import { getKickOffEvents, getDVEvents } from "./events.mjs";
 import killerBean from "./killerbean.mjs";
+import { addUser, testCode, photoHostGet, photoHostPost } from "./photo-host.mjs";
 
 app.use(expressStaticGzip("dist", {
     serveStatic: { maxAge: 60 * 1000 }
@@ -51,6 +55,10 @@ app.get("/committees/dvrk/bachelor", callback);
 app.get("/committees/dvrk/master", callback);
 app.get("/newsfeed", newsfeed);
 app.get("/getPhotos", getPhotos);
+app.get("/photos/addUser", addUser);
+app.get("/photos/testCode", testCode);
+app.get("/photos/photoHostGet", photoHostGet);
+app.post("/photos/photoHostPost", upload.array("files"), photoHostPost);
 app.get("/getKickoffEvents", getKickOffEvents);
 app.get("/getEvents", getDVEvents);
 app.post("/postHook", postHook);

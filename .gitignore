@@ -3,3 +3,4 @@ dist/
 .env
 credentials.json
 token.json
+photoPosters.json
