@@ -6,6 +6,7 @@ const driveId = "0AGLrt0xH3PWfUk9PVA";
 const listFiles = async (authClient) => {
     const drive = google.drive({ version: "v3", auth: authClient });
     const res = await drive.files.list({
+        pageSize: 1000,
         //pageSize: 10,
         corpora: "drive",
         driveId: driveId,
@@ -20,48 +21,51 @@ const listFiles = async (authClient) => {
     return files;
 };
 
-const buildTree = async (files) => {
-    const root = files.find(e =>
+
+// Yes this algorithm is horrible, but I can't be arsed 🤫
+const buildTree = (files) => {
+    let root = files.find(e =>
         e.mimeType == "application/vnd.google-apps.folder"
         && e.name == "Public"
         && e.parents[0] == [driveId]);
     root.children = [];
     files = files.filter(e => e.parents[0] != [driveId]);
+    files = files.map(c => {
+        c.children = [];
+        if (c.mimeType != "application/vnd.google-apps.folder") {
+            c.url = `https://drive.google.com/file/d/${c.id}/view`;
+            c.previewUrl = `https://drive.google.com/file/d/${c.id}/preview`;
+            c.directUrl = `https://drive.google.com/uc?id=${c.id}`;
+        }
+        return c;
+    });
 
-    const iter = (root, files) => {
-        const rest = [];
-        files.forEach(e => {
-            if (e.mimeType == "application/vnd.google-apps.folder") {
-                e.children = [];
-            } else {
-                e.url = `https://drive.google.com/file/d/${e.id}/view`;
-                e.previewUrl = `https://drive.google.com/file/d/${e.id}/preview`;
-                e.directUrl = `https://drive.google.com/uc?id=${e.id}`;
-            }
-            // else if (e.mimeType.startsWith("image/")) {
-            //     drive.files.get({
-            //         fileId: e.id,
-            //         supportsAllDrives: true,
-            //     }).then(c => console.log("---------------------\n" + JSON.stringify(c) + "\n---------------------"));
-            //     //console.log(res);
-            // }
-            if (e.parents[0] == root.id)
-                root.children.push(e);
-            else
-                rest.push(e);
-        });
-        files = rest;
-
-        root.children = root.children
-            .sort((a, b) => a.mimeType == "application/vnd.google-apps.folder" ? -1 : 1);
-
-        root.children.forEach(c => {
-            if (c.children)
-                iter(c, files);
-        });
+    const addNode = (root, node) => {
+        let foundRoot = false;
+        if (root.id == node.parents[0]) {
+            root.children.push(node);
+            foundRoot = true;
+        } else {
+            let newChildren = [];
+            root.children.forEach(c => {
+                let [newC, fnd] = addNode(c, node);
+                newChildren.push(newC);
+                foundRoot = foundRoot || fnd;
+            });
+            root.children = newChildren;
+        }
+        return [root, foundRoot];
     };
 
-    iter(root, files);
+    while (files.length != 0) {
+        let node = files.pop();
+        let [newRoot, foundRoot] = addNode(root, node);
+        if (!foundRoot) {
+            files = [node, ...files];
+        }
+        root = newRoot;
+    }
+
     return root;
 };
 
