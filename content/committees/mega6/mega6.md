@@ -80,7 +80,7 @@
     </div>
     <div class="committee-page-image">
         <div>
-            <img src="https://cdn.discordapp.com/attachments/1154102732085538946/1154103571516772492/mega6-gruppbild.png" />
+            <img src="https://www.dvet.se/uploads/committee-images/loafey%20-%2034badadbf3f9409291475f1ca8a4d81a%20-%20mega6-gruppbild.png" />
         </div>
         <span>Mega6</span>
     </div>
