@@ -97,7 +97,7 @@
     </div>
     <div class="committee-page-image">
         <div>
-            <img src="https://media.discordapp.net/attachments/532842577162928129/1119724319568822282/1055769.png" />
+            <img src="https://www.dvet.se/uploads/committee-images/loafey%20-%2052ce25a03f400db9235ec8e0ccb2fdeb%20-%201055769.png" />
         </div>
         <span>Styrelsen</span>
     </div>
