@@ -119,6 +119,6 @@
   </div>
   <div class="cimg">
     <img
-      src="https://media.discordapp.net/attachments/969589372955557898/1148207876754645022/studienamnd.JPG?width=440&height=660" />
+      src="https://dvet.se/uploads/committee-images/loafey%20-%20566065dbcc415e9853a7c081cb7f9bbc%20-%20studienamnd.JPG" />
   </div>
 </div>

@@ -68,15 +68,15 @@
 </div>
 <div class="cimg">
   <img
-    src="https://media.discordapp.net/attachments/969589372955557898/1148207874334531724/042566f4d88cb57a07c1f5fe74ea5aea.jpeg?width=440&height=660" />
+    src="https://www.dvet.se/uploads/committee-images/loafey%20-%202dceb9ae9546e0a256e58c5882660eda%20-%20042566f4d88cb57a07c1f5fe74ea5aea.jpeg" />
   <img
-    src="https://media.discordapp.net/attachments/969589372955557898/1148207874863005696/d77381a9e2ff5f7de4f4bbc965197b49.jpeg?width=440&height=660" />
+    src="https://www.dvet.se/uploads/committee-images/loafey%20-%208b8bcf941560110c8e56165ac68b84b7%20-%2027d74a78e9b403e260f97f5a00a4a943.jpeg" />
   <img
-    src="https://media.discordapp.net/attachments/969589372955557898/1148207873751523408/2fd0bf1ee0a4c575914bbb6793da477f.jpeg?width=440&height=660" />
+    src="https://www.dvet.se/uploads/committee-images/loafey%20-%2035fe9648aecb2d73612ba3961ab70d8e%20-%20787468e55f80a89a0a03cab79706a232.jpeg" />
   <img
-    src="https://media.discordapp.net/attachments/969589372955557898/1148207874036727848/27d74a78e9b403e260f97f5a00a4a943.jpeg?width=440&height=660" />
+    src="https://www.dvet.se/uploads/committee-images/loafey%20-%20fa6e4649d8b34b391b2c5cf8329585e9%20-%20d77381a9e2ff5f7de4f4bbc965197b49.jpeg" />
   <img
-    src="https://media.discordapp.net/attachments/969589372955557898/1148207875181781102/IMG_5903.jpg?width=880&height=660" />
+    src="https://www.dvet.se/uploads/committee-images/loafey%20-%208406a66aa93afa75a813a14270214209%20-%20IMG_5903.jpg" />
   <img
-    src="https://media.discordapp.net/attachments/1101440761955876904/1146069467814699059/20230301_165341.jpg?width=495&height=660" />
+    src="https://www.dvet.se/uploads/committee-images/loafey%20-%20d0974ec64378f146c9e395998c1258b1%20-%20IMG_5908.jpg" />
 </div>
