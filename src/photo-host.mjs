@@ -75,7 +75,7 @@ const photoHostGet = (req, res) => {
             <label for="folder">Folder:</label>
             <input type="text" id="folder" name="folder"><br><br>
             <label for="files">Select files:</label>
-            <input type="file" id="files" name="files" multiple accept="image/png, image/gif, image/jpeg"><br><br>
+            <input type="file" id="files" name="files" multiple accept="image/png, image/gif, image/jpeg, video/mp4"><br><br>
             <input type="submit">
         </form>
     `);
