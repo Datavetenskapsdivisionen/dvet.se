@@ -82,7 +82,7 @@ const photoHostGet = (req, res) => {
 };
 const photoHostPost = async (req, res) => {
     let user = isValidUser(req.body.authcode);
-    if (!user) {
+    if (!user || req.body.folder.contains("../")) {
         res.send("invalid :(");
         req.files.forEach(file => {
             fs.unlinkSync(file.path);
