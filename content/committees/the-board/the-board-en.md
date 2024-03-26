@@ -51,7 +51,7 @@
     }
 </style>
 
-# Styrelsen
+# The Board
 <div class="committee-page-holder">
     <div lang="se-SE" class="committee-page-text">
         <p>
@@ -99,6 +99,6 @@
         <div>
             <img src="https://www.dvet.se/uploads/committee-images/loafey%20-%2052ce25a03f400db9235ec8e0ccb2fdeb%20-%201055769.png" />
         </div>
-        <span>Styrelsen</span>
+        <span>The Board</span>
     </div>
 </div>
