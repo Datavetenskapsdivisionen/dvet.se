@@ -1,11 +1,11 @@
 import React from "react";
 import Toolbar from "./components/toolbar";
 import "./styles.less";
-import { BrowserRouter as Router, Route, Routes, Outlet } from "react-router-dom";
+import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import Navbar from "./components/navbar/navbar";
 import Footer from "./components/navbar/footer";
 import ContactPage from "./components/contact-page";
-import DVRKRoute from "./components/dvrk-page";
+import DVRK from "./components/dvrk-page";
 import DocumentPage from "./components/documents-page";
 import AboutPage from "./components/about-page";
 import HomePage from "./components/home-page";
@@ -17,7 +17,7 @@ import NewsScreen from "./components/newscreen";
 import ScheduleScreen from "./components/schedulescreen";
 // import WIP from "./components/widgets/wip";
 import IndividualCommitteePage from "./components/individual-committee-page";
-import { getLanguageCookie } from "./util";
+import { getLanguageCookie, isEnglish } from "./util";
 
 const LanguageSelector = () => {
   return <main>
@@ -29,9 +29,9 @@ const LanguageSelector = () => {
         <label htmlFor="language-se">Svenska</label>
         <br />
         <input type="radio" name="language" id="language-en" />
-        <label htmlFor="language-se">English</label>
+        <label htmlFor="language-en">English</label>
         <br /><br />
-        <i>By clicking <b>Ok</b>, you are alright with us saving a cookie on your device, which saves your language preference across sessions.
+        <i>By clicking <b>Ok</b>, you consent to us saving a cookie on your device, which saves your language preference across sessions.
           <br />
           This is required for site functionality, and it is the only cookie used on this website.
         </i>
@@ -40,9 +40,9 @@ const LanguageSelector = () => {
       <button className="kickoff-info-button" onClick={() => {
         let english = document.getElementById("language-en");
         if (english.checked) {
-          document.cookie = "language=en";
+          document.cookie = "language=en; path=/";
         } else {
-          document.cookie = "language=se";
+          document.cookie = "language=se; path=/";
         }
         location.reload();
       }}>Ok</button>
@@ -50,95 +50,78 @@ const LanguageSelector = () => {
   </main>;
 };
 
-const App = () => {
+const SchedulePage = () => {
+  return (
+    <div className="page">
+      <h1>Events</h1>
+      <Schedule full={true} />
+    </div>
+  );
+};
+
+const NotFoundPage = () => {
+  const textSe = "Sidan du försökte nå kunde inte hittas. Om du misstänker att detta är ett fel, vänligen skicka oss ett mail via ";
+  const textEn = "The page you tried to reach could not be found. If you believe this is a mistake, please send us an email at ";
+  return (
+    <div className="page">
+        <h1>404</h1>
+        {console.log("isEnglish? : " + isEnglish)}
+        <p>{ isEnglish() ? textEn : textSe } <a href="mailto:styrelsen@dvet.se">styrelsen@dvet.se</a>.</p>
+    </div>
+  );
+}
+
+const Layout = (props) => {
   return (
     <div>
-      {getLanguageCookie() ? <>
-        <Router>
-          <Routes>
-            {DVRKRoute()}
-            <Route exact path="/newsscreen" element={<NewsScreen />} />
-            <Route exact path="/scscreen" element={<ScheduleScreen />} />
-            <Route element={
-              <>
-                <Toolbar />
-                <Navbar />
-                <main>
-                  <Outlet />
-                </main>
-              </>
-            }>
-              <Route exact path="/" element={<HomePage />} />
-              <Route exact path="/contact" element={<ContactPage />} />
-              <Route exact path="/about" element={<AboutPage />} />
-              <Route exact path="/committees" element={<CommitteePage />} />
-              <Route exact path="/tools" element={<ToolsPage />} />
-              <Route exact path="/documents" element={<DocumentPage />} />
-              <Route exact path="/photos" element={<PhotosPage />} />
-              <Route exact path="/schedule" element={
-                <div className="page">
-                  <h1>Events</h1>
-                  <Schedule full={true} />
-                </div>
-              } />
-
-              <Route exact path="/committees/the-board" element={
-                <IndividualCommitteePage
-                  text={require("../../content/committees/the-board/the-board.md")["default"]}
-                  textEn={require("../../content/committees/the-board/the-board-en.md")["default"]}
-                />
-              } />
-              <Route exact path="/committees/board-of-studies" element={
-                <IndividualCommitteePage
-                  text={require("../../content/committees/board-of-studies/board-of-studies.md")["default"]}
-                  textEn={require("../../content/committees/board-of-studies/board-of-studies-en.md")["default"]}
-                />
-              } />
-              <Route exact path="/committees/mega6" element={
-                <IndividualCommitteePage
-                  text={require("../../content/committees/mega6/mega6.md")["default"]}
-                  textEn={require("../../content/committees/mega6/mega6-en.md")["default"]}
-                />
-              } />
-              <Route exact path="/committees/concats" element={
-                <IndividualCommitteePage
-                  text={require("../../content/committees/concats/concats.md")["default"]}
-                  textEn={require("../../content/committees/concats/concats-en.md")["default"]}
-                />
-              } />
-              <Route exact path="/committees/femmepp" element={
-                <IndividualCommitteePage
-                  text={require("../../content/committees/femmepp/femmepp.md")["default"]}
-                  textEn={require("../../content/committees/femmepp/femmepp-en.md")["default"]}
-                />
-              } />
-              <Route exact path="/committees/dv_ops" element={
-                <IndividualCommitteePage
-                  text={require("../../content/committees/dv_ops/dv_ops.md")["default"]}
-                  textEn={require("../../content/committees/dv_ops/dv_ops-en.md")["default"]}
-                />
-              } />
-              <Route exact path="/committees/dvarm" element={
-                <IndividualCommitteePage
-                  text={require("../../content/committees/dvarm/dvarm.md")["default"]}
-                  textEn={require("../../content/committees/dvarm/dvarm-en.md")["default"]}
-                />
-              } />
-              <Route exact path="/committees/mega7" element={
-                <IndividualCommitteePage
-                  text={require("../../content/committees/mega7/mega7.md")["default"]}
-                  textEn={require("../../content/committees/mega7/mega7-en.md")["default"]}
-                />
-              } />
-            </Route>
-          </Routes>
-        </Router>
-      </>
-        :
-        <LanguageSelector />}
+      <Toolbar />
+      <Navbar />
+      <main>
+        { props.error ? <NotFoundPage /> : <Outlet /> }
+      </main>
       <Footer />
-      {/* <WIP /> */}
     </div>
+  );
+};
+
+const router = createBrowserRouter([
+  { element: <Layout />, errorElement: <Layout error />, children: [
+    { path: "/newsscreen", element: <NewsScreen /> },
+    { path: "/scscreen",   element: <ScheduleScreen/> },
+
+    { path: "/",           element: <HomePage /> },
+    { path: "/contact",    element: <ContactPage /> },
+    { path: "/about",      element: <AboutPage /> },
+    { path: "/committees", element: <CommitteePage /> },
+    { path: "/tools",      element: <ToolsPage /> },
+    { path: "/documents",  element: <DocumentPage /> },
+    { path: "/photos",     element: <PhotosPage /> },
+    { path: "/schedule",   element: <SchedulePage /> },
+
+    { path: "/committees/the-board",        element: <IndividualCommitteePage committee="the-board" /> },
+    { path: "/committees/board-of-studies", element: <IndividualCommitteePage committee="board-of-studies" /> },
+    { path: "/committees/mega6",            element: <IndividualCommitteePage committee="mega6" /> },
+    { path: "/committees/concats",          element: <IndividualCommitteePage committee="concats" /> },
+    { path: "/committees/femmepp",          element: <IndividualCommitteePage committee="femmepp" /> },
+    { path: "/committees/dv_ops",           element: <IndividualCommitteePage committee="dv_ops" /> },
+    { path: "/committees/dvarm",            element: <IndividualCommitteePage committee="dvarm" /> },
+    { path: "/committees/mega7",            element: <IndividualCommitteePage committee="mega7" /> },
+  ]},
+  { path: "/committees/dvrk",                   element: <DVRK.MainPage /> },
+  { path: "/committees/dvrk/schedule",          element: <DVRK.SchedulePage /> },
+  { path: "/committees/dvrk/schedule/bachelor", element: <DVRK.BachelorSchedulePage /> },
+  { path: "/committees/dvrk/schedule/master",   element: <DVRK.MasterSchedulePage /> },
+  { path: "/committees/dvrk/contact",           element: <DVRK.ContactPage /> },
+  { path: "/committees/dvrk/form",              element: <DVRK.FormPage /> },
+  { path: "/committees/dvrk/bachelor",          element: <DVRK.BachelorPage /> },
+  { path: "/committees/dvrk/master",            element: <DVRK.MasterPage /> },
+]);
+
+const App = () => {
+  return (
+    <>
+    { getLanguageCookie() ? <RouterProvider router={router} /> : <LanguageSelector /> }
+    </>
   );
 };
 

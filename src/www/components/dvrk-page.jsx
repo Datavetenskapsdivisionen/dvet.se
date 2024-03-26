@@ -8,14 +8,14 @@ import textEn from "../../../content/committees/dvrk/dvrk-en.md";
 import contactEn from "../../../content/committees/dvrk/dvrkcontact-en.md";
 import Schedule from "./widgets/schedule";
 import "./../dvrk-styles.less";
-import { Route, Link, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import DVRKLogo from "../../../assets/committee-logos/dvrk-logo.png";
 import DURKMAN from "../../../assets/dvrk.png";
 const DURKMAN_URL = "url(" + new String(DURKMAN) + ")";
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 import { isEnglish } from "../util";
-
+import Footer from "../components/navbar/footer";
 
 // Yoinked from https://stackoverflow.com/a/21742107
 const isIOS = () => {
@@ -80,77 +80,52 @@ const DVRKbar = () => {
         </header>
         <nav className="dvrk-nav">
             <div>
-                <Link className="nav__link" to="/committees/dvrk">
+                <NavLink className="nav__link" to="/committees/dvrk" end>
                     {isEnglish() ? "Home" : "Hem"}
-                </Link>
+                </NavLink>
                 {scheduleDropdown}
-                <Link className="nav__link" to="/committees/dvrk/contact">
+                <NavLink className="nav__link" to="/committees/dvrk/contact" end>
                     {isEnglish() ? "Contact" : "Kontakt"}
-                </Link>
-                <Link className="nav__link" to="/committees/dvrk/form">
+                </NavLink>
+                <NavLink className="nav__link" to="/committees/dvrk/form" end>
                     {isEnglish() ? "Form" : "Formulär"}
-                </Link>
+                </NavLink>
                 {documentDropdown}
-                <Link className="nav__link" to="/">
+                <NavLink className="nav__link" to="/" end>
                     {isEnglish() ? "Back" : "Tillbaka"}
-                </Link>
+                </NavLink>
             </div>
-        </nav></>;
+        </nav>
+    </>;
 };
-
-const MainPage = () => (
-    <>
-        {/* <Schedule eventUrl="/getKickOffEvents" restUrl="/committees/dvrk/schedule" /> */}
-        <ReactMarkdown children={isEnglish() ? textEn : text} rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}></ReactMarkdown>
-    </>
-);
-
-const ContactPage = () => (
-    <>
-        <ReactMarkdown children={isEnglish() ? contactEn : contact} rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}></ReactMarkdown>
-    </>
-);
-
-const SchedulePage = (props) => (
-    <>
-        <h1>{props.title ?? "Schedule"}</h1>
-        <Schedule full={true} eventUrl={"/getKickoffEvents" + (props.extension ?? "")} />
-    </>
-);
-
-const InfoPage = () => (
-    <>
-        <ReactMarkdown children={text} rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}></ReactMarkdown>
-    </>
-);
 
 const IframePage = (props) => (
     isIOS() ?
-        <>
-            <button
-                className="kickoff-info-button"
-                onClick={() => window.open(props.url, "_this")}
-                style={{ padding: "20px" }}
-            >
-                Click here to get to the document!
-            </button>
-        </>
-        :
-        <>
-            <h1>{props.title}</h1>
-            <iframe
-                src={props.url}
-                frameborder="0"
-                style={{
-                    width: "100%",
-                    height: "90vh",
-                    overflow: "auto",
-                    WebkitOverflowScrolling: "touch",
-                }}
-                scrolling="yes"
-            >
-            </iframe>
-        </>
+    <>
+        <button
+            className="kickoff-info-button"
+            onClick={() => window.open(props.url, "_this")}
+            style={{ padding: "20px" }}
+        >
+            Click here to get to the document!
+        </button>
+    </>
+    :
+    <>
+        <h1>{props.title}</h1>
+        <iframe
+            src={props.url}
+            frameBorder="0"
+            style={{
+                width: "100%",
+                height: "90vh",
+                overflow: "auto",
+                WebkitOverflowScrolling: "touch",
+            }}
+            scrolling="yes"
+        >
+        </iframe>
+    </>
 );
 
 // If you know a better way to do this, plz pull request :)
@@ -162,56 +137,79 @@ const ContentHolder = (props) => (
                 {props.element}
             </div>
         </main>
+        <Footer />
     </>
 );
 
-const dvrkRoute = () => (
-    <Route>
-        <Route exact path="/committees/dvrk" element={
-            <ContentHolder element={<MainPage />} />
+const MainPage = () => {
+    return (
+        <ContentHolder element={
+            /* <Schedule eventUrl="/getKickOffEvents" restUrl="/committees/dvrk/schedule" /> */
+            <ReactMarkdown children={isEnglish() ? textEn : text} rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}></ReactMarkdown>
         } />
-        <Route exact path="/committees/dvrk/schedule" element={
-            <ContentHolder element={<SchedulePage />} />
-        } />
-        <Route exact path="/committees/dvrk/schedule/bachelor" element={
-            <ContentHolder element={
-                <SchedulePage extension="?type=Kandidat" title={isEnglish() ? "Bachelor schedule" : "Kandidat schema"} />
-            } />
-        } />
-        <Route exact path="/committees/dvrk/schedule/master" element={
-            <ContentHolder element={
-                <SchedulePage extension="?type=Master" title="Master schedule" />
-            } />
-        } />
-        <Route exact path="/committees/dvrk/contact" element={
-            <ContentHolder element={<ContactPage />} />
-        } />
-        <Route exact path="/committees/dvrk/form" element={
-            <ContentHolder element={
-                <IframePage
-                    url="https://forms.gle/sRbasSn6uUx8p19c8"
-                    title={isEnglish() ? "Recentiorsdeklarationen!" : "Recentiorsdeklarationen!"}
-                />
-            } />
-        } />
-        <Route exact path="/committees/dvrk/bachelor" element={
-            <ContentHolder element={
-                <IframePage
-                    url="/recceguiden"
-                    title={isEnglish() ? "Receptionguide for bachelor students!" : "Recceguiden för kandidater!"}
-                />
-            } />
-        } />
-        <Route exact path="/committees/dvrk/master" element={
-            <ContentHolder element={
-                <IframePage
-                    url="/masterguide"
-                    title="Receptionguide for master students!"
-                />
-            } />
-        } />
-    </Route>
-);
+    );
+};
 
+const ContactPage = () => {
+    return (
+        <ContentHolder element={
+            <ReactMarkdown children={isEnglish() ? contactEn : contact} rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}></ReactMarkdown>
+        } />
+    );
+};
 
-export default dvrkRoute;
+const SchedulePage = (props) => {
+    return (
+        <ContentHolder element={
+            <>
+            <h1>{props.title ?? "Schedule"}</h1>
+            <Schedule full={true} eventUrl={"/getKickoffEvents" + (props.extension ?? "")} />
+            </>
+        } />
+    );
+};
+
+const BachelorSchedulePage = () => {
+    return (
+        <SchedulePage extension="?type=Kandidat" title={isEnglish() ? "Bachelor schedule" : "Kandidat schema"} />
+    );
+};
+
+const MasterSchedulePage = () => {
+    return (
+        <SchedulePage extension="?type=Master" title="Master schedule" />
+    );
+};
+
+const FormPage = () => {
+    return (
+        <IframePage
+            url="https://forms.gle/sRbasSn6uUx8p19c8" // TODO: must have a survey in English
+            title={isEnglish() ? "Recentiors declaration!" : "Recentiorsdeklarationen!"}
+        />
+    );
+};
+
+const BachelorPage = () => {
+    return (
+        <ContentHolder element={
+            <IframePage
+                url="/recceguiden"
+                title={isEnglish() ? "Reception guide for bachelor students!" : "Recceguiden för kandidater!"}
+            />
+        } />
+    );
+};
+
+const MasterPage = () => {
+    return (
+        <ContentHolder element={
+            <IframePage
+                url="/masterguide"
+                title="Receptionguide for master students!"
+            />
+        } />
+    );
+};
+
+export default { MainPage, ContactPage, SchedulePage, BachelorSchedulePage, MasterSchedulePage, FormPage, BachelorPage, MasterPage };
