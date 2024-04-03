@@ -126,7 +126,8 @@ const me = (props) => {
             props.restUrl ?? "/schedule",
             props.eventLimit ?? 5,
             openModal, setModalData
-        ).then((res) => setState(res));
+        ).then((res) => setState(res))
+        .catch(() => setState(<div>Unable to fetch events</div>));
     }, [getEventData]);
 
     return <div className="schedule-holder">

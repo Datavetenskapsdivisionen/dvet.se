@@ -2,6 +2,8 @@ import React from 'react';
 import logo from "../../../assets/main.png";
 import { isEnglish } from "../util";
 
+const randomNumber = (limit) => Math.floor(Math.random() * limit) + 1;
+
 const toolbar = () => {
   return (
     <header className="dv-header">
@@ -15,14 +17,10 @@ const toolbar = () => {
         <img src={logo} alt="" id="logopic" />
         <div id="logo">
           <a href="/">{isEnglish() ? "Computer Science" : "Datavetenskap"}</a>
-          <span id="subheader">{isEnglish() ? "AT" : "VID"} Göteborgs Universitet</span>
+          <span id="subheader">{isEnglish() ? "AT University of Gothenburg" : "VID Göteborgs Universitet"}</span>
         </div>
       </div>
     </header>);
 };
 
-
-const randomNumber = (limit) => Math.floor(Math.random() * limit) + 1;
-
 export default toolbar
-

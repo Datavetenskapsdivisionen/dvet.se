@@ -7,14 +7,15 @@ rehypeRaw({ allowDangerousHtml: true });
 
 const me = (props) => {
     const text = isEnglish() ?
-        <ReactMarkdown children={props.textEn} rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}></ReactMarkdown>
-        :
-        <ReactMarkdown children={props.text} rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}></ReactMarkdown>
-        ;
+        require(`../../../content/committees/${props.committee}/${props.committee}-en.md`)["default"]
+    :
+        require(`../../../content/committees/${props.committee}/${props.committee}.md`)["default"];
 
-    return <div className="page">
-        {text}
-    </div>;
+    return (
+        <div className="page">
+            <ReactMarkdown children={text} rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]} />
+        </div>
+    );
 };
 
 export default me;
