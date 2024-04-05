@@ -1,7 +1,7 @@
 import React from "react";
 import Modal from "react-modal";
 import { isEnglish } from "../../util";
-
+import { useNavigate } from 'react-router-dom';
 
 const isToday = (date) => {
     const today = new Date();
@@ -88,10 +88,11 @@ const getEventData = async (full, eventUrl, restUrl, eventLimit, openModal, setM
         </div>;
     });
     if (full !== true && hidingEvents) {
+        const navigate = useNavigate();
         data.push(
             <div
                 className="schedule-item upcoming-button"
-                onClick={() => window.open(restUrl, "_self")}
+                onClick={() => navigate(restUrl)}
             >
                 <h3>Uppkommande</h3>
                 <p> Tryck här för att se resten av eventen!</p>
