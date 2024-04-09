@@ -86,9 +86,6 @@ const Layout = (props) => {
 
 const router = createBrowserRouter([
   { element: <Layout />, errorElement: <Layout error />, children: [
-    { path: "/newsscreen", element: <NewsScreen /> },
-    { path: "/scscreen",   element: <ScheduleScreen/> },
-
     { path: "/",           element: <HomePage /> },
     { path: "/contact",    element: <ContactPage /> },
     { path: "/about",      element: <AboutPage /> },
@@ -107,6 +104,9 @@ const router = createBrowserRouter([
     { path: "/committees/dvarm",            element: <IndividualCommitteePage committee="dvarm" /> },
     { path: "/committees/mega7",            element: <IndividualCommitteePage committee="mega7" /> },
   ]},
+  { path: "/newsscreen", element: <NewsScreen /> },
+  { path: "/scscreen",   element: <ScheduleScreen/> },
+  
   { path: "/committees/dvrk",                   element: <DVRK.MainPage /> },
   { path: "/committees/dvrk/schedule",          element: <DVRK.SchedulePage /> },
   { path: "/committees/dvrk/schedule/bachelor", element: <DVRK.BachelorSchedulePage /> },
