@@ -32,10 +32,12 @@ const buildTree = (files) => {
     files = files.filter(e => e.parents[0] != [driveId]);
     files = files.map(c => {
         c.children = [];
-        if (c.mimeType != "application/vnd.google-apps.folder") {
+        c.childrenCount = 0;
+        if (c.mimeType !== "application/vnd.google-apps.folder") {
             c.url = `https://drive.google.com/file/d/${c.id}/view`;
             c.previewUrl = `https://drive.google.com/file/d/${c.id}/preview`;
             c.directUrl = `https://drive.google.com/uc?id=${c.id}`;
+            c.thumbnailUrl = `https://drive.google.com/thumbnail?id=${c.id}`;
         }
         return c;
     });
@@ -57,6 +59,24 @@ const buildTree = (files) => {
         return [root, foundRoot];
     };
 
+    const filterEmptyDirs = (root) => {
+        if (root.mimeType === "application/vnd.google-apps.folder") {
+            root.children = root.children.filter(n => !filterEmptyDirs(n));
+            return root.children.length === 0;
+        } else {
+            return false;
+        }
+    };
+
+    const countChildren = (root) => {
+        if (root.mimeType !== "application/vnd.google-apps.folder") {
+            return 1;
+        }
+
+        root.children.map(n => root.childrenCount += countChildren(n));        
+        return root.children.length;
+    }
+
     while (files.length != 0) {
         let node = files.pop();
         let [newRoot, foundRoot] = addNode(root, node);
@@ -65,6 +85,9 @@ const buildTree = (files) => {
         }
         root = newRoot;
     }
+
+    filterEmptyDirs(root);
+    countChildren(root);
 
     return root;
 };

@@ -1,6 +1,7 @@
 import React from 'react';
 import logo from "../../../assets/main.png";
 import { isEnglish } from "../util";
+import { NavLink } from "react-router-dom";
 
 const randomNumber = (limit) => Math.floor(Math.random() * limit) + 1;
 
@@ -16,7 +17,7 @@ const toolbar = () => {
       <div className="headwrapper">
         <img src={logo} alt="" id="logopic" />
         <div id="logo">
-          <a href="/">{isEnglish() ? "Computer Science" : "Datavetenskap"}</a>
+          <NavLink to="/">{isEnglish() ? "Computer Science" : "Datavetenskap"}</NavLink>
           <span id="subheader">{isEnglish() ? "AT University of Gothenburg" : "VID Göteborgs Universitet"}</span>
         </div>
       </div>
