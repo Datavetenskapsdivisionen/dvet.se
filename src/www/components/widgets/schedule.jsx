@@ -10,6 +10,12 @@ const isToday = (date) => {
         date.getFullYear() == today.getFullYear();
 };
 
+const isNew = (date, numOfDays) => {
+    const today = new Date();
+    const nDaysAgo = new Date(today.setDate(today.getDate() - numOfDays));;
+    return new Date(date) >= nDaysAgo;
+}
+
 const hasPassed = (date) => (date < new Date());
 
 const getEventData = async (full, eventUrl, restUrl, eventLimit, openModal, setModalData, navigate) => {
@@ -58,6 +64,9 @@ const getEventData = async (full, eventUrl, restUrl, eventLimit, openModal, setM
             className += " passed";
         } else {
             className += " upcoming";
+            if (isNew(o.dateData.created, 3)) {
+                className += " new";
+            }
         }
 
         const location = o.location
