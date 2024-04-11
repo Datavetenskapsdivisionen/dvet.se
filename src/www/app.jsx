@@ -65,7 +65,6 @@ const NotFoundPage = () => {
   return (
     <div className="page">
         <h1>404</h1>
-        {console.log("isEnglish? : " + isEnglish)}
         <p>{ isEnglish() ? textEn : textSe } <a href="mailto:styrelsen@dvet.se">styrelsen@dvet.se</a>.</p>
     </div>
   );

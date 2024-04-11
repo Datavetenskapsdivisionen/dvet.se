@@ -3,7 +3,6 @@ const isReception = () => {
     const toDate = new Date(Date.parse(`${new Date().getFullYear()}-09-17`));
     const res = (new Date().getTime() >= fromDate.getTime())
         && (new Date().getTime() <= toDate.getTime());
-    console.log(res);
     return res;
 };
 

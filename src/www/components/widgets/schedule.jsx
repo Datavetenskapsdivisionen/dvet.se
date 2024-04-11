@@ -10,9 +10,15 @@ const isToday = (date) => {
         date.getFullYear() == today.getFullYear();
 };
 
+const isNew = (date, numOfDays) => {
+    const today = new Date();
+    const nDaysAgo = new Date(today.setDate(today.getDate() - numOfDays));;
+    return new Date(date) >= nDaysAgo;
+}
+
 const hasPassed = (date) => (date < new Date());
 
-const getEventData = async (full, eventUrl, restUrl, eventLimit, openModal, setModalData) => {
+const getEventData = async (full, eventUrl, restUrl, eventLimit, openModal, setModalData, navigate) => {
     const json = await (await fetch(eventUrl)).json();
     let data = json
         .map(o => {
@@ -58,6 +64,9 @@ const getEventData = async (full, eventUrl, restUrl, eventLimit, openModal, setM
             className += " passed";
         } else {
             className += " upcoming";
+            if (isNew(o.dateData.created, 3)) {
+                className += " new";
+            }
         }
 
         const location = o.location
@@ -88,7 +97,6 @@ const getEventData = async (full, eventUrl, restUrl, eventLimit, openModal, setM
         </div>;
     });
     if (full !== true && hidingEvents) {
-        const navigate = useNavigate();
         data.push(
             <div
                 className="schedule-item upcoming-button"
@@ -117,6 +125,7 @@ const me = (props) => {
     const openModal = () => setIsOpen(true);
     const afterOpenModal = () => { };
     const closeModal = () => setIsOpen(false);
+    const navigate = useNavigate();
 
     const [[modalTitle, modalContent, modalWhen, modalWho, modalWhere], setModalData] = React.useState(["event", "about", "2020", "whom", "where"]);
 
@@ -126,7 +135,8 @@ const me = (props) => {
             props.full, props.eventUrl ?? "/getEvents",
             props.restUrl ?? "/schedule",
             props.eventLimit ?? 5,
-            openModal, setModalData
+            openModal, setModalData,
+            navigate
         ).then((res) => setState(res))
         .catch(() => setState(<div>Unable to fetch events</div>));
     }, [getEventData]);
