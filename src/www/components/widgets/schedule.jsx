@@ -52,9 +52,9 @@ const getEventData = async (full, eventUrl, restUrl, eventLimit, openModal, setM
                 &nbsp;|
                 <span>
                     {`
-                            ${o.dateData.start.toLocaleTimeString("se-SE", { hour: "2-digit", minute: "2-digit" })} - 
-                            ${o.dateData.end.toLocaleTimeString("se-SE", { hour: "2-digit", minute: "2-digit" })}
-                        `}
+                        ${o.dateData.start.toLocaleTimeString("se-SE", { hour: "2-digit", minute: "2-digit" })} - 
+                        ${o.dateData.end.toLocaleTimeString("se-SE", { hour: "2-digit", minute: "2-digit" })}
+                    `}
                 </span>
             </>;
         let className = "schedule-item";
@@ -73,7 +73,13 @@ const getEventData = async (full, eventUrl, restUrl, eventLimit, openModal, setM
             ? o.location.split(",").slice(0, 2).join(", ")
             : <>&nbsp;</>;
 
-        let infoTag = <></>;
+        let newTag = null;
+        if (isNew(o.dateData.created, 3)) newTag = <div className="info">
+            N<br />
+            E<br />
+            W
+        </div>;
+        let infoTag = null;
         if (o.description) className += " clickable";
         if (o.description) infoTag = <div className="info">
             I<br />
@@ -89,7 +95,12 @@ const getEventData = async (full, eventUrl, restUrl, eventLimit, openModal, setM
         return <div className={className} onClick={action}>
             <div className="post-title">
                 <h3 dangerouslySetInnerHTML={{ __html: o.summary }} ></h3>
-                {infoTag}
+                {(newTag || infoTag) && 
+                    <div className="tags">
+                        {newTag}
+                        {infoTag}
+                    </div>
+                }
             </div>
             <h4>{dateElem}</h4>
             <h4>{location}</h4>
@@ -138,7 +149,7 @@ const me = (props) => {
             openModal, setModalData,
             navigate
         ).then((res) => setState(res))
-        .catch(() => setState(<div>Unable to fetch events</div>));
+        .catch(() => setState(<div>{isEnglish() ? "Unable to fetch events ": "Det gick inte att hämta events"}</div>));
     }, [getEventData]);
 
     return <div className="schedule-holder">
