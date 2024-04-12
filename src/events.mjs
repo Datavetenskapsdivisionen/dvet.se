@@ -33,7 +33,7 @@ const getCalender = async (auth, calenderId) => {
         o.dateData = {
             start: new Date(Date.parse(o.start.date ?? o.start.dateTime)),
             end: new Date(Date.parse(o.end.date ?? o.end.dateTime)),
-            created: new Date(Date.parse(o.updated ?? o.created)),
+            created: new Date(Date.parse(o.created)),
             isDay: o.start.dateTime == null && o.end.dateTime == null
         };
         delete o.start;

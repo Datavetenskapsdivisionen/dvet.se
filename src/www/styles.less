@@ -444,10 +444,10 @@ code {
             }
 
             .post-title {
+                display: flex;
                 margin: 0;
-                min-height: 3em;
-                display: grid;
-                grid-template-columns: 1fr 1.25em;
+                height: 58px;
+                min-height: 58px;
                 font-family: "Press Start 2P";
                 background-color: #161616;
                 color: white;
@@ -458,18 +458,25 @@ code {
                     margin: 0;
                     padding: 10px;
                     font-size: 1em;
+                    width: 100%;
+                    line-height: 1em;
                 }
 
-                .info {
-                    font-family: "Press Start 2P";
-                    background-color: red !important;
-                    color: white;
-                    font-size: 0.75em;
-                    box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.5);
-                    padding-left: 0.5em;
-                    padding-right: 0.5em;
-                    padding-top: 1px;
-                    padding-bottom: 1px;
+                .tags {
+                    display: flex;
+                    height: 100%;
+
+                    .info {
+                        display: flex;
+                        align-items: center;
+                        font-family: "Press Start 2P";
+                        background-color: red !important;
+                        color: white;
+                        font-size: 0.75em;
+                        box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.5);
+                        margin-left: 1px;
+                        padding: 1px 0.5em;
+                    }
                 }
             }
         }
