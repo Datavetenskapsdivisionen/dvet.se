@@ -35,6 +35,32 @@ code {
 }
 
 .photo-viewer {
+    &#mobile {
+        display: none;
+    }
+
+    @media (max-width: 620px) {
+        &#mobile {
+            display: flex;
+        }
+
+        &#mobile > div {
+            display: flex;
+            flex-direction: column;
+
+            div {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-around;
+                width: 100%;
+            }
+        }
+
+        &#desktop {
+            display: none;
+        }
+    }
+    
     display: flex;
     flex-direction: column;
     // justify-content: space-around;
@@ -71,7 +97,7 @@ code {
         }
     }
 
-    div:nth-child(2) {
+    .label {
         font-size: 1.2em;
         color: white;
         margin-top: 5px;
