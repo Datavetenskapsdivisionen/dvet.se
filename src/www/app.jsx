@@ -13,6 +13,8 @@ import CommitteePage from "./components/committee-page";
 import ToolsPage from "./components/tools-page";
 import PhotosPage from "./components/photos-page";
 import Schedule from "./components/widgets/schedule";
+import InfoScreen from "./components/info-screen";
+import EditInfoScreen from "./components/edit-info-screen";
 import NewsScreen from "./components/newscreen";
 import ScheduleScreen from "./components/schedulescreen";
 // import WIP from "./components/widgets/wip";
@@ -102,9 +104,12 @@ const router = createBrowserRouter([
     { path: "/committees/dv_ops",           element: <IndividualCommitteePage committee="dv_ops" /> },
     { path: "/committees/dvarm",            element: <IndividualCommitteePage committee="dvarm" /> },
     { path: "/committees/mega7",            element: <IndividualCommitteePage committee="mega7" /> },
+
+    { path: "/info-screen/edit", element: <EditInfoScreen />, loader: async () => await fetch("/getInfoScreenSlides") },
   ]},
-  { path: "/newsscreen", element: <NewsScreen /> },
-  { path: "/scscreen",   element: <ScheduleScreen/> },
+  { path: "/info-screen", element: <InfoScreen />, loader: async () => await fetch("/getInfoScreenSlides") },
+  { path: "/newsscreen",  element: <NewsScreen /> },
+  { path: "/scscreen",    element: <ScheduleScreen/> },
   
   { path: "/committees/dvrk",                   element: <DVRK.MainPage /> },
   { path: "/committees/dvrk/schedule",          element: <DVRK.SchedulePage /> },

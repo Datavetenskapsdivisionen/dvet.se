@@ -19,6 +19,7 @@ const callback = (req, res) => {
 import { newsfeed } from "./newsfeed.mjs";
 import { postHook } from "./githookhandle.mjs";
 import getPhotos from "./photos.mjs";
+import { getSlides, updateSlides } from "./info-screen.mjs";
 import { getKickOffEvents, getDVEvents } from "./events.mjs";
 import killerBean from "./killerbean.mjs";
 import { addUser, testCode, photoHostGet, photoHostPost } from "./photo-host.mjs";
@@ -29,6 +30,9 @@ app.use(expressStaticGzip("dist", {
 app.use(express.json());
 app.get("/", callback);
 app.get("/committees", callback);
+app.get("/info-screen", callback);
+app.get("/info-screen/edit", callback);
+app.put("/info-screen/update", updateSlides);
 app.get("/newsscreen", callback);
 app.get("/scscreen", callback);
 app.get("/about", callback);
@@ -55,6 +59,7 @@ app.get("/committees/dvrk/bachelor", callback);
 app.get("/committees/dvrk/master", callback);
 app.get("/newsfeed", newsfeed);
 app.get("/getPhotos", getPhotos);
+app.get("/getInfoScreenSlides", getSlides);
 app.get("/photos/addUser", addUser);
 app.get("/photos/testCode", testCode);
 app.get("/photos/photoHostGet", photoHostGet);
@@ -64,9 +69,7 @@ app.get("/getEvents", getDVEvents);
 app.post("/postHook", postHook);
 app.post("/killerBean", killerBean);
 
-app.get("/recceform", (req, res) => {
-    res.status(301).redirect("https://dvet.se/committees/dvrk/form");
-});
+app.get("/recceform",   (req, res) => res.status(301).redirect("https://dvet.se/committees/dvrk/form"));
 app.get("/recceguiden", (req, res) => servePdf(req, res, "assets/kick-off/recceguiden.pdf"));
 app.get("/masterguide", (req, res) => servePdf(req, res, "assets/kick-off/masterguiden.pdf"));
 
