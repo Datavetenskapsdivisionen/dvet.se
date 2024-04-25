@@ -24,6 +24,111 @@ code {
     }
 }
 
+// MonadenTV (info screen)
+#slideshow {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    
+    iframe, img, markdown {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100vw;
+        height: 100vh;
+        border: none;
+    }
+
+    img {
+        object-fit: contain;
+        background-color: black;
+    }
+
+    .duration-progress {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 75px;
+        height: 75x;
+        margin: 5px;
+        z-index: 3;
+    }
+}
+
+.edit-slides-container {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    overflow-x: scroll;
+    padding-bottom: 20px;
+
+    .edit-slides {
+        border-collapse: separate;
+        border-spacing: 0 15px;
+        margin: 0 10px;
+    
+        thead tr th, tbody tr td {
+            padding: 0 10px;
+            text-align: left;
+
+            .btn {
+                display: block;
+                margin: 0;
+            }
+        }
+    
+        tbody {
+            tr td {
+                padding: 5px 10px;
+
+                svg {
+                    cursor: grab;
+                    margin: 5px 0 0 5px;
+                    touch-action: none;
+                }
+
+                svg:active {
+                    cursor: grabbing;
+                    touch-action: none;
+                }
+            }
+    
+            tr {
+                outline: 1px lightblue solid;
+                box-shadow: 0 0 5px lightblue;
+                border-radius: 2px;
+            }
+        }
+    }
+}
+
+.btn {
+    font-family: "Press Start 2P", cursive;
+    font-size: 10px;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    border-radius: 2px;
+    padding: 8px 10px;
+    margin: 10px 0 0 10px;
+    color: white;
+    cursor: pointer;
+    white-space: nowrap;
+
+    &.blue {
+        background-color: @megaman-blue;
+    }
+
+    &.red {
+        background-color: @protoman-red;
+    }
+
+    &.green {
+        background-color: #26d776;
+    }
+}
+
 .background-dim {
     position: fixed;
     top: 0;
@@ -63,7 +168,6 @@ code {
     
     display: flex;
     flex-direction: column;
-    // justify-content: space-around;
     justify-content: center;
     align-items: center;
     position: fixed;
@@ -150,7 +254,6 @@ code {
             text-overflow: ellipsis;
             overflow: hidden;
             white-space: nowrap;
-            // margin-top: -5px;
             background-color: #161616;
             text-align: center;
             color: white;
@@ -413,6 +516,10 @@ code {
     p {
         font-family: 'Open Sans', sans-serif;
         color: #161616;
+    }
+
+    label, input, select, span {
+        margin: 5px 10px 5px 0;
     }
 
     .close-button {
