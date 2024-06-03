@@ -12,6 +12,7 @@ const navbar = () => {
         <NavLink className="nav__link" to="/photos">{isEnglish() ? "Photos" : "Bilder"}</NavLink >
         <NavLink className="nav__link" to="/documents">{isEnglish() ? "Documents" : "Dokument"}</NavLink >
         <NavLink className="nav__link" to="/contact">{isEnglish() ? "Contact" : "Kontakt"}</NavLink >
+        <NavLink className="nav__link" to="/wiki">{"Wiki"}</NavLink >
       </div>
     </nav>
   );

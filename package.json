@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node src/server.mjs",
     "dev": "webpack serve --hot --open",
-    "build": "webpack --config webpack.config.js --mode production"
+    "build": "node src/wikibuilder/builder.mjs && webpack --config webpack.config.js --mode production"
   },
   "keywords": [],
   "author": "",
@@ -47,6 +47,7 @@
     "compression-webpack-plugin": "^11.1.0",
     "css-loader": "^6.10.0",
     "file-loader": "^6.2.0",
+    "html-loader": "^5.0.0",
     "html-webpack-plugin": "^5.6.0",
     "less": "^4.2.0",
     "less-loader": "^12.2.0",

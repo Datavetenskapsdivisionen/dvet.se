@@ -41,6 +41,7 @@ app.get("/contact", callback);
 app.get("/tools", callback);
 app.get("/photos", callback);
 app.get("/schedule", callback);
+app.get("/wiki", callback);
 app.get("/committees/the-board", callback);
 app.get("/committees/dvrk", callback);
 app.get("/committees/dvrk/schedule", callback);
@@ -69,7 +70,7 @@ app.get("/getEvents", getDVEvents);
 app.post("/postHook", postHook);
 app.post("/killerBean", killerBean);
 
-app.get("/recceform",   (req, res) => res.status(301).redirect("https://dvet.se/committees/dvrk/form"));
+app.get("/recceform", (req, res) => res.status(301).redirect("https://dvet.se/committees/dvrk/form"));
 app.get("/recceguiden", (req, res) => servePdf(req, res, "assets/kick-off/recceguiden.pdf"));
 app.get("/masterguide", (req, res) => servePdf(req, res, "assets/kick-off/masterguiden.pdf"));
 
