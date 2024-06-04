@@ -42,13 +42,13 @@ class File {
     }
 
     navtree(path) {
-        const uri = `${path}/${this.name}`;
+        const uri = `${path}/${this.name.replaceAll(" ", "_")}`;
         return `<div><Link class="wiki-navtree-link" to="${uri}">• ${this.name}</Link></div>`;
     }
 
     __react(path) {
         let name = `${path}/${this.name}`;
-        let fancyName = name.replaceAll("/", "__").replace(".", "");
+        let fancyName = name.replaceAll("/", "__").replace(".", "").replaceAll(" ", "_");
         let code = `import ${fancyName} from "${name}.html";\n`;
         return [[fancyName], code];
     }
@@ -142,7 +142,7 @@ const me = () => {
         path = path.slice(0, -2);
     }
     console.log(path);
-    if (path == "__undefined__undefined") path = "__main";
+    if (path == "__undefined__undefined") path = "__About_Us";
 
     ${paths} {
         return <h1>404 invalid uri</h1>;
