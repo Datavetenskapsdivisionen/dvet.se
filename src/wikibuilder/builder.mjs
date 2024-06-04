@@ -30,11 +30,11 @@ class File {
     show(_i) {
         return "├ " + this.name;
     }
-    output(source, output, navtree) {
+    output(source, output) {
         source += `/${this.name}.${this.extension}`;
         const input = fs.readFileSync(source).toString();
         const parsed = marked.parse(input);
-        const outputString = `<div>${navtree}</div>\n<main>\n${parsed}</main>`;
+        const outputString = `<div>\n${parsed}</div>`;
         output += `/${this.name}.html`;
         fs.writeFile(output, outputString, err => {
             if (err) console.log(err);
@@ -42,8 +42,15 @@ class File {
     }
 
     navtree(path) {
-        const uri = `${path}%2F${this.name}.html`;
-        return `<li><a href="${uri}">${this.name}</button></li>`;
+        const uri = `${path}/${this.name}`;
+        return `<li><Link to="${uri}">${this.name}</Link></li>`;
+    }
+
+    __react(path) {
+        let name = `${path}/${this.name}`;
+        let fancyName = name.replaceAll("/", "__").replace(".", "");
+        let code = `import ${fancyName} from "${name}.html";\n`;
+        return [[fancyName], code];
     }
 }
 class Directory {
@@ -71,7 +78,7 @@ class Directory {
         console.log(" ".repeat(i) + this.show(i));
     }
 
-    output(path, out, navtree) {
+    output(path, out) {
         if (this.path != "root") {
             path += "/" + this.path;
             out += "/" + this.path;
@@ -80,19 +87,73 @@ class Directory {
         try { fs.mkdirSync(out); } catch { }
 
         for (const child of this.children) {
-            child.output(path, out, navtree);
+            child.output(path, out);
         }
     }
 
     navtree(path) {
         if (this.path != "root") {
-            path += "%2F" + this.path;
+            path += "/" + this.path;
         }
         let children = `<li>${this.path}</li>`;
         for (const child of this.children) {
             children += child.navtree(path);
         }
         return `<ul>${children}</ul>`;
+    }
+
+    __react(path) {
+        if (this.path != "root") {
+            path += "/" + this.path;
+        }
+        let output = "";
+        let names = [];
+        for (const child of this.children) {
+            let [newNames, newOutput] = child.__react(path);
+            output += newOutput;
+            names = names.concat(newNames);
+        }
+        return [names, output];
+    }
+    react(navtree) {
+        let output = `import React from "react";
+import { useParams, Link } from "react-router-dom";
+const TREE = ${navtree};\n\n`;
+        let names = [];
+        for (const child of this.children) {
+            let [newNames, newOutput] = child.__react(".");
+            output += newOutput;
+            names = names.concat(newNames);
+        }
+        let outputPath = OUTPUT_DIR + "/wiki.jsx";
+        let paths = "";
+        for (const name of names) {
+            paths += `if (path == "${name}") {
+        return <main>{TREE}<div className="page" dangerouslySetInnerHTML={{ __html: ${name} }}></div></main>;
+    } else `;
+        }
+
+        output += `
+const me = () => {
+    const params = useParams();
+    let path = "/" + params.id + "/" + params["*"];
+    path = path.replaceAll("/", "__");
+    if (path.endsWith("__")) {
+        path = path.slice(0, -2);
+    }
+    console.log(path);
+    if (path == "__undefined__undefined") path = "__main";
+
+    ${paths} {
+        return <h1>404 invalid uri</h1>;
+    };
+};
+export default me;
+`;
+
+        fs.writeFile(outputPath, output, err => {
+            if (err) console.error(err);
+        });
     }
 }
 
@@ -121,8 +182,9 @@ const main = () => {
     console.log(` - creating/clearing output dir (${OUTPUT_DIR})`);
     clearDist();
     console.log(` - generating markdown...`);
-    const navtree = struct.navtree("/wiki?uri=");
-    struct.output(SOURCE_DIR, OUTPUT_DIR, navtree);
+    const navtree = struct.navtree("/dviki");
+    struct.output(SOURCE_DIR, OUTPUT_DIR);
+    struct.react(navtree);
     console.log(" - done");
 };
 main();

@@ -1,6 +1,6 @@
 import React from "react";
-import Page from "../../../dist/wiki/main.html";
+import Page from "../../../dist/wiki/wiki.jsx";
 
-const me = () => <div className="page" dangerouslySetInnerHTML={{ __html: Page }}></div>;
+const me = () => <div className="page"><Page></Page></div>;
 
 export default me;

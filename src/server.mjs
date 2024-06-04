@@ -60,6 +60,12 @@ app.use(express.json());
     "/committees/dvrk/master",
 ].forEach(c => app.get(c, callback));
 
+const dvikiPath = (req, res) => {
+    let path = req.path.replace("/dviki", "");
+    callback(req, res);
+};
+
+app.get("/dviki/:path*", dvikiPath);
 app.put("/info-screen/update", updateSlides);
 app.get("/newsfeed", newsfeed);
 app.get("/getPhotos", getPhotos);
