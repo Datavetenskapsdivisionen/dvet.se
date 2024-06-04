@@ -34,7 +34,9 @@ class File {
         source += `/${this.name}.${this.extension}`;
         const input = fs.readFileSync(source).toString();
         const parsed = marked.parse(input);
-        const outputString = `<div>\n${parsed}</div>`;
+        const outputString = `<div class="edit-button">
+<div>\n${parsed}</div>
+<a class="edit-page-button" href="https://github.com/Datavetenskapsdivisionen/dvet.se/blob/master/${source}" target="_blank">Edit this page ✍️</a></div>`;
         output += `/${this.name}.html`;
         fs.writeFile(output, outputString, err => {
             if (err) console.log(err);
