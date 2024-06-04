@@ -129,7 +129,7 @@ const TREE = ${navtree};\n\n`;
         let paths = "";
         for (const name of names) {
             paths += `if (path == "${name}") {
-        return <main>{TREE}<div className="page" dangerouslySetInnerHTML={{ __html: ${name} }}></div></main>;
+        return <main-wiki>{TREE}<div className="page" dangerouslySetInnerHTML={{ __html: ${name} }}></div></main-wiki>;
     } else `;
         }
 
