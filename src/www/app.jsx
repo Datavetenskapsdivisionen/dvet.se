@@ -97,7 +97,7 @@ const router = createBrowserRouter([
       { path: "/documents", element: <DocumentPage /> },
       { path: "/photos", element: <PhotosPage /> },
       { path: "/schedule", element: <SchedulePage /> },
-      { path: "/wiki", element: <WikiPage /> },
+      { path: "/dviki", element: <WikiPage /> },
 
       { path: "/committees/the-board", element: <IndividualCommitteePage committee="the-board" /> },
       { path: "/committees/board-of-studies", element: <IndividualCommitteePage committee="board-of-studies" /> },
