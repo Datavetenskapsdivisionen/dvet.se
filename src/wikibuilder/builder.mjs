@@ -43,7 +43,7 @@ class File {
 
     navtree(path) {
         const uri = `${path}/${this.name}`;
-        return `<li><Link to="${uri}">${this.name}</Link></li>`;
+        return `<div><Link class="wiki-navtree-link" to="${uri}">• ${this.name}</Link></div>`;
     }
 
     __react(path) {
@@ -95,11 +95,11 @@ class Directory {
         if (this.path != "root") {
             path += "/" + this.path;
         }
-        let children = `<li>${this.path}</li>`;
+        let children = `<a class="wiki-navtree-title">{"<"}${this.path}{">"}</a>`;
         for (const child of this.children) {
             children += child.navtree(path);
         }
-        return `<ul>${children}</ul>`;
+        return `<div class="wiki-navtree">${children}</div>`;
     }
 
     __react(path) {
