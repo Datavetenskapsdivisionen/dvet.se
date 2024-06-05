@@ -4,6 +4,10 @@ import { marked } from "marked";
 const OUTPUT_DIR = "dist/wiki";
 const SOURCE_DIR = "content/wiki";
 
+const nameFixer = name => name
+    .replaceAll("/", "__").replace(".", "")
+    .replaceAll(" ", "_").replace("(", "_")
+    .replace(")", "_");
 
 const clearDist = () => {
     try {
@@ -44,13 +48,13 @@ class File {
     }
 
     navtree(path) {
-        const uri = `${path}/${this.name.replaceAll(" ", "_")}`;
+        const uri = `${path}/${nameFixer(this.name)}`;
         return `<div><Link class="wiki-navtree-link" to="${uri}">• ${this.name}</Link></div>`;
     }
 
     __react(path) {
         let name = `${path}/${this.name}`;
-        let fancyName = name.replaceAll("/", "__").replace(".", "").replaceAll(" ", "_");
+        let fancyName = nameFixer(name);
         let code = `import ${fancyName} from "${name}.html";\n`;
         return [[fancyName], code];
     }
@@ -97,11 +101,19 @@ class Directory {
         if (this.path != "root") {
             path += "/" + this.path;
         }
-        let children = `<a class="wiki-navtree-title">{"<"}${this.path}{">"}</a>`;
+        const buttonId = this.path + "__button";
+        const divId = this.path + "__div";
+        const hide = this.children.length >= 10 ?
+            `<button class="wiki-navtree-button" id="${buttonId}" onClick={() => hideTree("${buttonId}", "${divId}")}>⇓</button>` :
+            "<></>";
+        const hideStyle = this.children.length >= 10 ?
+            "{{display: \"none\"}}" :
+            "{{}}";
+        let children = `<a class="wiki-navtree-title">{"<"}${this.path}{">"}${hide}</a><div style=${hideStyle} id="${divId}">`;
         for (const child of this.children) {
             children += child.navtree(path);
         }
-        return `<div class="wiki-navtree">${children}</div>`;
+        return `<div class="wiki-navtree">${children}</div></div>`;
     }
 
     __react(path) {
@@ -120,7 +132,19 @@ class Directory {
     react(navtree) {
         let output = `import React from "react";
 import { useParams, Link } from "react-router-dom";
-const TREE = ${navtree};\n\n`;
+const hideTree = (buttonId, divId) => {
+    const button = document.getElementById(buttonId);
+    const div = document.getElementById(divId);
+    if (div.style.display == "block") {
+        div.style.display = "none";
+        button.innerText = "⇓";
+    } else {
+        div.style.display = "block";
+        button.innerText = "⇑";
+    }
+};
+const TREE = ${navtree};
+\n\n`;
         let names = [];
         for (const child of this.children) {
             let [newNames, newOutput] = child.__react(".");
