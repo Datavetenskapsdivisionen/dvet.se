@@ -48,7 +48,7 @@ class File {
     }
 
     navtree(path) {
-        const uri = `${path}/${nameFixer(this.name)}`;
+        const uri = `${path.replace(" ", "_")}/${nameFixer(this.name)}`;
         return `<div><Link class="wiki-navtree-link" to="${uri}">• ${this.name}</Link></div>`;
     }
 
