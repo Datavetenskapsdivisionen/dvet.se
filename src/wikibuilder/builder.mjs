@@ -1,7 +1,7 @@
 import fs from "fs";
 import { marked } from "marked";
 
-const OUTPUT_DIR = "dist/wiki";
+const OUTPUT_DIR = "wiki-cache";
 const SOURCE_DIR = "content/wiki";
 
 const nameFixer = name => name
@@ -36,27 +36,40 @@ class File {
     }
     output(source, output) {
         source += `/${this.name}.${this.extension}`;
-        const input = fs.readFileSync(source).toString();
-        const parsed = marked.parse(input);
-        const outputString = `<div class="edit-button">
+        if (this.extension == "md") {
+            const input = fs.readFileSync(source).toString();
+            const parsed = marked.parse(input);
+            const outputString = `<div class="edit-button">
 <div>\n${parsed}</div>
 <a class="edit-page-button" href="https://github.com/Datavetenskapsdivisionen/dvet.se/blob/master/${source}" target="_blank">Edit this page ✍️</a></div>`;
-        output += `/${this.name}.html`;
-        fs.writeFile(output, outputString, err => {
-            if (err) console.log(err);
-        });
+            output += `/${this.name}.html`;
+            fs.writeFile(output, outputString, err => {
+                if (err) console.log(err);
+            });
+        } else {
+            output += `/${this.name}.${this.extension}`;
+            fs.copyFileSync(source, output);
+        }
     }
 
     navtree(path) {
-        const uri = `${path.replace(" ", "_")}/${nameFixer(this.name)}`;
-        return `<div><Link class="wiki-navtree-link" to="${uri}">• ${this.name}</Link></div>`;
+        if (this.extension == "md") {
+            const uri = `${path.replace(" ", "_")}/${nameFixer(this.name)}`;
+            return `<div><Link class="wiki-navtree-link" to="${uri}">• ${this.name}</Link></div>`;
+        } else {
+            return `<></>`;
+        }
     }
 
     __react(path) {
-        let name = `${path}/${this.name}`;
-        let fancyName = nameFixer(name);
-        let code = `import ${fancyName} from "${name}.html";\n`;
-        return [[fancyName], code];
+        if (this.extension == "md") {
+            let name = `${path}/${this.name}`;
+            let fancyName = nameFixer(name);
+            let code = `import ${fancyName} from "${name}.html";\n`;
+            return [[fancyName], code];
+        } else {
+            return null;
+        }
     }
 }
 class Directory {
@@ -123,7 +136,9 @@ class Directory {
         let output = "";
         let names = [];
         for (const child of this.children) {
-            let [newNames, newOutput] = child.__react(path);
+            let childOutput = child.__react(path);
+            if (!childOutput) continue;
+            let [newNames, newOutput] = childOutput;
             output += newOutput;
             names = names.concat(newNames);
         }

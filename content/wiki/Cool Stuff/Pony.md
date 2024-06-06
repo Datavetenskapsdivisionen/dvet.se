@@ -1,2 +1,0 @@
-# yooo!
-jag är balL! :)

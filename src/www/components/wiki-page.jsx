@@ -1,5 +1,5 @@
 import React from "react";
-import Page from "../../../dist/wiki/wiki.jsx";
+import Page from "../../../wiki-cache/wiki.jsx";
 
 const me = () => <div className="page"><Page></Page></div>;
 
