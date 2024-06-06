@@ -952,6 +952,37 @@ main-wiki {
     display: grid;
     grid-template-columns: 260px auto;
 
+    .wiki-grid {
+        display: flex;
+        flex-wrap: wrap;
+        column-gap: 1em;
+        row-gap: 1em;
+    }
+
+    .wiki-image-holder {
+        background-color: white;
+        display: grid;
+        grid-template-rows: auto 2.5em;
+        align-items: center;
+        justify-items: center;
+        box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.5);
+
+        >img {
+            max-width: 600px;
+            max-height: 150px;
+        }
+
+        >a {
+            color: white;
+            text-align: center;
+            font-size: 0.8em;
+            padding: 12px;
+            box-shadow: 0px -15px 56px 4px rgba(255, 255, 255, 0.25);
+            font-family: "Press Start 2P";
+            background-color: #161616;
+        }
+    }
+
     .wiki-navtree {
         border-left: #1616162f 2px solid;
         border-top: #1616162f 2px solid;

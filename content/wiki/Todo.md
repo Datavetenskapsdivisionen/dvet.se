@@ -4,7 +4,7 @@ The following pages need to be filled in:
 - [ ] Booking/Boardroom
 - [ ] Booking/Monad
 - [ ] Booking/Party
-- [x] Organization/Styleguide 
+- [x] Organization/Style Guidelines
 - [ ] Organization/Structure 
 - [x] Organization/Committees
 - [ ] Rules/Annual Meetings
