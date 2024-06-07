@@ -65,7 +65,7 @@ class File {
     navtree(path) {
         if (this.extension == "md") {
             const uri = `${path.replace(" ", "_")}/${nameFixer(this.name)}`;
-            return `<div><Link onClick={hideNavTree} class="wiki-navtree-link" to="${uri}">• ${this.name}</Link></div>`;
+            return `<div><Link onClick={hideNavTree} class="wiki-navtree-link" to="${uri}">{'\t'}${this.name}</Link></div>`;
         } else {
             return `<></>`;
         }
@@ -132,7 +132,7 @@ class Directory {
         const hideStyle = this.children.length >= 10 ?
             "{{display: \"none\"}}" :
             "{{}}";
-        let children = `<a class="wiki-navtree-title">{"<"}${this.path}{">"}${hide}</a><div style=${hideStyle} id="${divId}">`;
+        let children = `<a class="wiki-navtree-title">${this.path}${hide}</a><div style=${hideStyle} id="${divId}">`;
         for (const child of this.children) {
             children += child.navtree(path);
         }

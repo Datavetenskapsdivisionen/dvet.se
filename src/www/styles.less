@@ -1017,6 +1017,12 @@ main-wiki {
 
     .wiki-navtree-root {
         overflow: scroll;
+        height: 100%;
+
+
+        @media screen and (min-width: 766px) {
+            border-right: 2px solid #1616161c;
+        }
 
         @media screen and (max-width: 766px) {
             transition-duration: 0.1s;
@@ -1025,7 +1031,6 @@ main-wiki {
             top: 0;
             background-color: white;
             width: 100%;
-            height: 100%;
             padding-top: 4px;
             box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.5);
         }
@@ -1050,6 +1055,7 @@ main-wiki {
             color: #161616;
             text-decoration: none;
             margin-bottom: 4px;
+            padding-left: 4px;
         }
 
         .wiki-navtree-button {
