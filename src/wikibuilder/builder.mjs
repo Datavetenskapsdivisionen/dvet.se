@@ -121,7 +121,8 @@ class Directory {
     }
 
     navtree(path) {
-        if (this.path != "root") {
+        const isNotRoot = this.path != "root";
+        if (isNotRoot) {
             path += "/" + this.path;
         }
         const buttonId = this.path + "__button";
@@ -132,7 +133,9 @@ class Directory {
         const hideStyle = this.children.length >= 10 ?
             "{{display: \"none\"}}" :
             "{{}}";
-        let children = `<a class="wiki-navtree-title">${this.path}${hide}</a><div style=${hideStyle} id="${divId}">`;
+        let children = isNotRoot
+            ? `<a class="wiki-navtree-title">${this.path}${hide}</a><div style=${hideStyle} id="${divId}">`
+            : `<a class="wiki-navtree-title">Wiki${hide}</a><div style=${hideStyle} id="${divId}">`;
         for (const child of this.children) {
             children += child.navtree(path);
         }
