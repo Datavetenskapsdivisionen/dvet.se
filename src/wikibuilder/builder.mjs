@@ -65,7 +65,7 @@ class File {
     navtree(path) {
         if (this.extension == "md") {
             const uri = `${path.replace(" ", "_")}/${nameFixer(this.name)}`;
-            return `<div><Link class="wiki-navtree-link" to="${uri}">• ${this.name}</Link></div>`;
+            return `<div><Link onClick={hideNavTree} class="wiki-navtree-link" to="${uri}">• ${this.name}</Link></div>`;
         } else {
             return `<></>`;
         }
@@ -168,6 +168,17 @@ const hideTree = (buttonId, divId) => {
         button.innerText = "⇑";
     }
 };
+
+const hideNavTree = () => {
+    const navtree = document.getElementById("navtree");
+    navtree.classList.add("wiki-navtree-hidden");
+};
+
+const showNavTree = () => {
+    const navtree = document.getElementById("navtree");
+    navtree.classList.remove("wiki-navtree-hidden");
+};
+
 const TREE = ${navtree};
 \n\n`;
         let names = [];
@@ -180,7 +191,11 @@ const TREE = ${navtree};
         let paths = "";
         for (const name of names) {
             paths += `if (path == "${name}") {
-        return <main-wiki>{TREE}<div className="page" dangerouslySetInnerHTML={{ __html: ${name} }}></div></main-wiki>;
+        return <main-wiki>
+            <button onClick={showNavTree} class="show-tree-button">≡ Show Tree</button>
+            <div id="navtree" class="wiki-navtree-root wiki-navtree-hidden">{TREE}</div>
+            <div className="page" dangerouslySetInnerHTML={{ __html: ${name} }}></div>
+        </main-wiki>;
     } else `;
         }
 
