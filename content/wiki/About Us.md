@@ -11,3 +11,7 @@ which is our section premises at Johanneberg, in the Edit house at Chalmers.
 
 To join the organization, you first need to join [Göta Studentkår](https://gotastudentkar.se/sv/medlemsformaner)
 and you can download the Orbi app and apply for a membership there!
+
+Unfortunately (i.e. laziness) the rest of this Wiki will be in Swedish, so if you need any information
+from here that is in english, feel free to email us at [styrelsen@dvet.se](mailto:styrelsen@dvet.se) and 
+we will try to help you as best we can!
