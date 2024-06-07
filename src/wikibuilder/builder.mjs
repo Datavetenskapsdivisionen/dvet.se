@@ -37,11 +37,21 @@ class File {
     output(source, output) {
         source += `/${this.name}.${this.extension}`;
         if (this.extension == "md") {
+            const ctime = fs.statSync(source).ctime.toLocaleString();
             const input = fs.readFileSync(source).toString();
             const parsed = marked.parse(input);
-            const outputString = `<div class="edit-button">
+            const outputString = `
 <div>\n${parsed}</div>
-<a class="edit-page-button" href="https://github.com/Datavetenskapsdivisionen/dvet.se/blob/master/${source}" target="_blank">Edit this page ✍️</a></div>`;
+<div class="edit-page-button">
+    <a class="actual-button" href="https://github.com/Datavetenskapsdivisionen/dvet.se/blob/master/${source}" target="_blank">
+        Edit this page ✍️
+    </a>
+    <a>(last edited at ${ctime}, see 
+        <a class="actual-button" href="https://github.com/Datavetenskapsdivisionen/dvet.se/commits/master/${source}" target="_blank">
+            history
+        </a>)
+    </a>
+</div>`;
             output += `/${this.name}.html`;
             fs.writeFile(output, outputString, err => {
                 if (err) console.log(err);
