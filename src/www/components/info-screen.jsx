@@ -60,7 +60,7 @@ const me = () => {
     }, [currentSlideIndex, slides]);
     
     return <>
-        { !slides && <div style={{ backgroundColor: "black" }}><img src={datavetenskapLogo} /></div> }
+        { !slides && <div className="default-banner"><img src={datavetenskapLogo} /></div> }
         { slides &&
         <div id="slideshow">
             { allSlides ?? <></> }

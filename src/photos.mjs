@@ -1,5 +1,5 @@
 import path from "path";
-import { authorize } from "./googleApi.mjs";
+import { authoriseGoogleApi } from "./googleApi.mjs";
 import { google } from "googleapis";
 
 const driveId = "0AGLrt0xH3PWfUk9PVA";
@@ -95,7 +95,7 @@ const buildTree = (files) => {
 let photos = null;
 const syncPhotos = async () => {
     if (process.env.ENABLE_DRIVE == "true")
-        await authorize().then(async c => {
+        await authoriseGoogleApi().then(async c => {
             photos = await buildTree(await listFiles(c));
         }).catch(console.error);
 };
