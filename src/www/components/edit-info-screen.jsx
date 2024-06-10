@@ -183,8 +183,6 @@ const me = () => {
     
     return <>
         <div className="page">
-            <NavLink to="/tools">go to tools</NavLink>
-            <NavLink to="/info-screen">go to info screen</NavLink>
             <h1>{isEnglish() ? "Edit info screen" : "Redigera infoskärmen"}</h1>
             <div className="edit-slides-container">
                 <Slides />
