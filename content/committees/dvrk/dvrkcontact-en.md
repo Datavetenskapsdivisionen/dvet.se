@@ -8,5 +8,5 @@ This mail is checked frequently and we try to respond as fast as we can!
 ### Instagram: [@dvrk_gu](https://www.instagram.com/dvrk_gu/)
 If you send a private message here we will respond as fast as we can.
 
-### Ordförande: [tim@dvet.se](mailto:tim@dvet.se)
+### Ordförande: [ida@dvet.se](mailto:ida@dvet.se)
 This mail only goes to the chairman of DVRK.
