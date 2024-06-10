@@ -19,3 +19,9 @@ Efter evenemanget ansvarar __du__ som bokat för att det städas. Följ städsch
 
 Bokningsformulär: [här](https://forms.gle/u7m5iTYhLqtQbNhe6)
 Kolla tillgänglighet innan du bokar i kanalen `#monaden-bokningar` i `MonadenDV`.
+
+## Andra föreningar
+
+Tillhör du en annan förening och vill låna Monaden? Maila då [styrelsen@dvet.se](styrelsen@dvet.se) med datum och arrangemang.
+
+Som tumregel tillåter vi endast utlån för arrangemang där studenter som tillhör Datavetenskapsdivisionen är välkomna.
