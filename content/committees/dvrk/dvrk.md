@@ -1,37 +1,34 @@
-
-
 # Ny student?
 
 **Hej!**
 
-Grattis till din antagning! Den 14 Augusti för kandidater och 25 Augsti för masters drar din Inspark igång. Det är flera veckor fyld med massa roliga aktiviteter som är till för att du ska lära känna dina studiekamrater, bli bekant med universitetet och Göteborg som studentstad. 
+Grattis till din antagning! Din Inspark drar igång den 19:e augusti om du är kandidat och den 25:e augusti om du är master. Under 4 veckor arrangeras massa roliga aktiviteter för att du ska kunna lära känna dina studiekamrater, bli bekant med universitetet och utforska Göteborg som studentstad!
 
 Letar du efter Insparks schemat så kan du antingen trycka på schema knappen i baren eller trycka här för 
 [kandidat schemat](/committees/dvrk/schedule/bachelor) eller här för [master schemat](/committees/dvrk/schedule/master)!
 
-### Vad ska jag göra nu? 
+### Vad ska jag göra nu?
 
 #### Bli medlem i Göta Studentkår!
 
-Som medlem i Göta Studentkår får du tillgång till massa roliga och användbara förmåner. Läs mer om detta [här](). För några av arrangemangen under Insparken behöver du vara medlem i Göta Studentkår. Bli medlem [här](https://medlem.gotastudentkar.se/sv/).
+Som medlem i Göta Studentkår får du tillgång till massa roliga och användbara förmåner. Läs mer om detta här. För några av arrangemangen under Insparken behöver du vara medlem i Göta Studentkår. Bli medlem [här](https://medlem.gotastudentkar.se/sv/).
 
-#### Registrera dig på Orbi
 
-Orbi är en plattform som används av hela Göta Studentkår för att annonsera om evenemang som arrangeras av alla föreningar. Även våra evenemang kommer dyka upp här! Detta är det bästa sättet att få information om vad som händer under Insparken. Du börjar genom att ladda ner Orbi appen på din telefon! 
+#### Registrera dig på Orbi!
 
-#### Fyll i reccentiors formuläret!
+Orbi är en plattform som hela Göta Studentkår använder för att annonsera om evenemang som arrangeras av alla föreningar. Våra evenemang kommer också att synas här! Detta är det bästa sättet att få information om vad som händer under Insparken. Börja med att ladda ner Orbi-appen på din telefon!
 
-För att vi ska göra Insparken så bra som möjligt ber vi om lite information om dig som person. Även om du inte tror du är intresserad av att delta på Insparken uppmuntrar vi dig starkt att svara på detta formulär. Tar bara någon minut. Du hittar det [här](https://dvet.se/committees/dvrk/form).
+#### Fyll i recentiorsdeklarationen!
 
-#### Läs reccentiorsguiden!
+För att vi ska kunna göra Insparken så bra som möjligt ber vi dig att ge oss lite information om dig själv. Även om du inte planerar att delta så mycket uppmuntrar vi dig starkt att fylla i detta formulär. Det tar bara några minuter. Du hittar det [här](https://dvet.se/committees/dvrk/form).
 
-Vad är en reccentior? Vad är DVRK? Allt detta och mer hittar du i vår guide för nya studenter. Förhoppningvis har du redan sett detta men om du missat så finns den  [här](https://dvet.se/committees/dvrk/bachelor). För masters [här](https://dvet.se/committees/dvrk/master).
+
+#### Läs recentiorsguiden!
+Vad är en recentior? Vad är DVRK? Allt detta och mer hittar du i vår guide för nya studenter! Du hittar den genom att trycka på knappen i baren, eller klicka [här](https://dvet.se/committees/dvrk/bachelor). För masters [här](https://dvet.se/committees/dvrk/master).
 
 #### Gå med i våra kanaler!
+Vi rekommenderar starkt att ni går med i vår [Facebookgrupp](https://www.facebook.com/groups/868507685108910/?rdid=YORi62wGgLHYgWqM&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2Fqe8fWdeHw3SD8tzs%2F) och vår [Discordkanal](https://discord.com/invite/UdUUhdgXk8) för att hålla er uppdaterade och komma i kontakt med dina studiekamrater.
 
-För att få information och komma i kontakt med dina studiekamrater rekomenderar vi att ni går med i:
-* Facebookgruppen: (https://www.facebook.com/groups/249484121139659/)
-* Discordkanalen: (https://discord.gg/UdUUhdgXk8)
-
-#### Följ oss!
-På Instagram heter vi [@dvrk_gu](https://www.instagram.com/dvrk_gu/) och på facebook hittar ni oss som [@guDVRK](https://www.facebook.com/guDVRK).
+Följ våra sociala medier!
+Ni hittar oss både på vår Instagram, [@dvrk_gu](https://www.instagram.com/dvrk_gu/), och på Facebook som [@guDVRK](https://www.facebook.com/guDVRK).
+ 
