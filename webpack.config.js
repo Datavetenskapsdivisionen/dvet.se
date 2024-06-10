@@ -37,6 +37,10 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.html$/i,
+        loader: "html-loader",
+      },
+      {
         test: /\.jsx?$/,
         exclude: /node_modules/,
         loader: require.resolve("babel-loader"),
@@ -63,9 +67,7 @@ module.exports = {
       },
       {
         test: /\.svg$/,
-        use: [
-          { loader: "svg-url-loader" },
-        ],
+        type: 'asset/resource'
       },
       {
         test: /\.jsx?$/,

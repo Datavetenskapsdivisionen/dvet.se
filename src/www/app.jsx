@@ -12,6 +12,7 @@ import HomePage from "./components/home-page";
 import CommitteePage from "./components/committee-page";
 import ToolsPage from "./components/tools-page";
 import PhotosPage from "./components/photos-page";
+import WikiPage from "./components/wiki-page";
 import Schedule from "./components/widgets/schedule";
 import InfoScreen from "./components/info-screen";
 import EditInfoScreen from "./components/edit-info-screen";
@@ -66,11 +67,11 @@ const NotFoundPage = () => {
   const textEn = "The page you tried to reach could not be found. If you believe this is a mistake, please send us an email at ";
   return (
     <div className="page">
-        <h1>404</h1>
-        <p>{ isEnglish() ? textEn : textSe } <a href="mailto:styrelsen@dvet.se">styrelsen@dvet.se</a>.</p>
+      <h1>404</h1>
+      <p>{isEnglish() ? textEn : textSe} <a href="mailto:styrelsen@dvet.se">styrelsen@dvet.se</a>.</p>
     </div>
   );
-}
+};
 
 const Layout = (props) => {
   return (
@@ -78,7 +79,7 @@ const Layout = (props) => {
       <Toolbar />
       <Navbar />
       <main>
-        { props.error ? <NotFoundPage /> : <Outlet /> }
+        {props.error ? <NotFoundPage /> : <Outlet />}
       </main>
       <Footer />
     </div>
@@ -86,45 +87,52 @@ const Layout = (props) => {
 };
 
 const router = createBrowserRouter([
-  { element: <Layout />, errorElement: <Layout error />, children: [
-    { path: "/",           element: <HomePage /> },
-    { path: "/contact",    element: <ContactPage /> },
-    { path: "/about",      element: <AboutPage /> },
-    { path: "/committees", element: <CommitteePage /> },
-    { path: "/tools",      element: <ToolsPage /> },
-    { path: "/documents",  element: <DocumentPage /> },
-    { path: "/photos",     element: <PhotosPage /> },
-    { path: "/schedule",   element: <SchedulePage /> },
+  {
+    element: <Layout />, errorElement: <Layout error />, children: [
+      { path: "/", element: <HomePage /> },
+      { path: "/contact", element: <ContactPage /> },
+      { path: "/about", element: <AboutPage /> },
+      { path: "/committees", element: <CommitteePage /> },
+      { path: "/tools", element: <ToolsPage /> },
+      { path: "/documents", element: <DocumentPage /> },
+      { path: "/photos", element: <PhotosPage /> },
+      { path: "/schedule", element: <SchedulePage /> },
+      {
+        path: "/dviki", element: <WikiPage />, children: [
+          { path: ":id/*", element: <WikiPage /> }
+        ]
+      },
 
-    { path: "/committees/the-board",        element: <IndividualCommitteePage committee="the-board" /> },
-    { path: "/committees/board-of-studies", element: <IndividualCommitteePage committee="board-of-studies" /> },
-    { path: "/committees/mega6",            element: <IndividualCommitteePage committee="mega6" /> },
-    { path: "/committees/concats",          element: <IndividualCommitteePage committee="concats" /> },
-    { path: "/committees/femmepp",          element: <IndividualCommitteePage committee="femmepp" /> },
-    { path: "/committees/dv_ops",           element: <IndividualCommitteePage committee="dv_ops" /> },
-    { path: "/committees/dvarm",            element: <IndividualCommitteePage committee="dvarm" /> },
-    { path: "/committees/mega7",            element: <IndividualCommitteePage committee="mega7" /> },
+      { path: "/committees/the-board", element: <IndividualCommitteePage committee="the-board" /> },
+      { path: "/committees/board-of-studies", element: <IndividualCommitteePage committee="board-of-studies" /> },
+      { path: "/committees/mega6", element: <IndividualCommitteePage committee="mega6" /> },
+      { path: "/committees/concats", element: <IndividualCommitteePage committee="concats" /> },
+      { path: "/committees/femmepp", element: <IndividualCommitteePage committee="femmepp" /> },
+      { path: "/committees/dv_ops", element: <IndividualCommitteePage committee="dv_ops" /> },
+      { path: "/committees/dvarm", element: <IndividualCommitteePage committee="dvarm" /> },
+      { path: "/committees/mega7", element: <IndividualCommitteePage committee="mega7" /> },
 
-    { path: "/info-screen/edit", element: <EditInfoScreen />, loader: async () => await fetch("/getInfoScreenSlides") },
-  ]},
+      { path: "/info-screen/edit", element: <EditInfoScreen />, loader: async () => await fetch("/getInfoScreenSlides") },
+    ]
+  },
   { path: "/info-screen", element: <InfoScreen />, loader: async () => await fetch("/getInfoScreenSlides") },
-  { path: "/newsscreen",  element: <NewsScreen /> },
-  { path: "/scscreen",    element: <ScheduleScreen/> },
-  
-  { path: "/committees/dvrk",                   element: <DVRK.MainPage /> },
-  { path: "/committees/dvrk/schedule",          element: <DVRK.SchedulePage /> },
+  { path: "/newsscreen", element: <NewsScreen /> },
+  { path: "/scscreen", element: <ScheduleScreen /> },
+
+  { path: "/committees/dvrk", element: <DVRK.MainPage /> },
+  { path: "/committees/dvrk/schedule", element: <DVRK.SchedulePage /> },
   { path: "/committees/dvrk/schedule/bachelor", element: <DVRK.BachelorSchedulePage /> },
-  { path: "/committees/dvrk/schedule/master",   element: <DVRK.MasterSchedulePage /> },
-  { path: "/committees/dvrk/contact",           element: <DVRK.ContactPage /> },
-  { path: "/committees/dvrk/form",              element: <DVRK.FormPage /> },
-  { path: "/committees/dvrk/bachelor",          element: <DVRK.BachelorPage /> },
-  { path: "/committees/dvrk/master",            element: <DVRK.MasterPage /> },
+  { path: "/committees/dvrk/schedule/master", element: <DVRK.MasterSchedulePage /> },
+  { path: "/committees/dvrk/contact", element: <DVRK.ContactPage /> },
+  { path: "/committees/dvrk/form", element: <DVRK.FormPage /> },
+  { path: "/committees/dvrk/bachelor", element: <DVRK.BachelorPage /> },
+  { path: "/committees/dvrk/master", element: <DVRK.MasterPage /> },
 ]);
 
 const App = () => {
   return (
     <>
-    { getLanguageCookie() ? <RouterProvider router={router} /> : <LanguageSelector /> }
+      {getLanguageCookie() ? <RouterProvider router={router} /> : <LanguageSelector />}
     </>
   );
 };

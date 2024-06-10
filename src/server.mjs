@@ -28,35 +28,45 @@ app.use(expressStaticGzip("dist", {
     serveStatic: { maxAge: 60 * 1000 }
 }));
 app.use(express.json());
-app.get("/", callback);
-app.get("/committees", callback);
-app.get("/info-screen", callback);
-app.get("/info-screen/edit", callback);
+[
+    "/",
+    "/committees",
+    "/info-screen",
+    "/info-screen/edit",
+    "/newsscreen",
+    "/scscreen",
+    "/about",
+    "/documents",
+    "/contact",
+    "/tools",
+    "/photos",
+    "/schedule",
+    "/dviki",
+    "/committees/the-board",
+    "/committees/dvrk",
+    "/committees/dvrk/schedule",
+    "/committees/dvrk/schedule/bachelor",
+    "/committees/dvrk/schedule/master",
+    "/committees/dvrk/contact",
+    "/committees/dvrk/form",
+    "/committees/board-of-studies",
+    "/committees/mega6",
+    "/committees/concats",
+    "/committees/femmepp",
+    "/committees/dv_ops",
+    "/committees/dvarm",
+    "/committees/mega7",
+    "/committees/dvrk/bachelor",
+    "/committees/dvrk/master",
+].forEach(c => app.get(c, callback));
+
+const dvikiPath = (req, res) => {
+    let path = req.path.replace("/dviki", "");
+    callback(req, res);
+};
+
+app.get("/dviki/:path*", dvikiPath);
 app.put("/info-screen/update", updateSlides);
-app.get("/newsscreen", callback);
-app.get("/scscreen", callback);
-app.get("/about", callback);
-app.get("/documents", callback);
-app.get("/contact", callback);
-app.get("/tools", callback);
-app.get("/photos", callback);
-app.get("/schedule", callback);
-app.get("/committees/the-board", callback);
-app.get("/committees/dvrk", callback);
-app.get("/committees/dvrk/schedule", callback);
-app.get("/committees/dvrk/schedule/bachelor", callback);
-app.get("/committees/dvrk/schedule/master", callback);
-app.get("/committees/dvrk/contact", callback);
-app.get("/committees/dvrk/form", callback);
-app.get("/committees/board-of-studies", callback);
-app.get("/committees/mega6", callback);
-app.get("/committees/concats", callback);
-app.get("/committees/femmepp", callback);
-app.get("/committees/dv_ops", callback);
-app.get("/committees/dvarm", callback);
-app.get("/committees/mega7", callback);
-app.get("/committees/dvrk/bachelor", callback);
-app.get("/committees/dvrk/master", callback);
 app.get("/newsfeed", newsfeed);
 app.get("/getPhotos", getPhotos);
 app.get("/getInfoScreenSlides", getSlides);
@@ -69,9 +79,11 @@ app.get("/getEvents", getDVEvents);
 app.post("/postHook", postHook);
 app.post("/killerBean", killerBean);
 
-app.get("/recceform",   (req, res) => res.status(301).redirect("https://dvet.se/committees/dvrk/form"));
+app.get("/recceform", (req, res) => res.status(301).redirect("https://dvet.se/committees/dvrk/form"));
 app.get("/recceguiden", (req, res) => servePdf(req, res, "assets/kick-off/recceguiden.pdf"));
 app.get("/masterguide", (req, res) => servePdf(req, res, "assets/kick-off/masterguiden.pdf"));
+
+
 
 const servePdf = (req, res, pdf) => {
     const filePath = path.join(process.cwd(), pdf);
