@@ -127,19 +127,22 @@ class Directory {
         }
         const buttonId = this.path + "__button";
         const divId = this.path + "__div";
-        const hide = this.children.length >= 10 ?
-            `<button class="wiki-navtree-button" id="${buttonId}" onClick={() => hideTree("${buttonId}", "${divId}")}>⇓</button>` :
-            "<></>";
-        const hideStyle = this.children.length >= 10 ?
-            "{{display: \"none\"}}" :
-            "{{}}";
+        const hide = this.children.length >= 10
+            ? `<button class="wiki-navtree-button" id="${buttonId}" onClick={() => hideTree("${buttonId}", "${divId}")}>⇓</button>`
+            : "<></>";
+        const hideStyle = this.children.length >= 10
+            ? "{{display: \"none\"}}"
+            : "{{}}";
         let children = isNotRoot
             ? `<a class="wiki-navtree-title">${this.path}${hide}</a><div style=${hideStyle} id="${divId}">`
             : `<a class="wiki-navtree-title">Wiki${hide}</a><div style=${hideStyle} id="${divId}">`;
         for (const child of this.children) {
             children += child.navtree(path);
         }
-        return `<div class="wiki-navtree">${children}</div></div>`;
+        if (this.children.filter(p => p.extension && p.extension != "hidden").length > 0)
+            return `<div class="wiki-navtree">${children}</div></div>`;
+        else
+            return `<></>`;
     }
 
     __react(path) {
@@ -186,7 +189,9 @@ const TREE = ${navtree};
 \n\n`;
         let names = [];
         for (const child of this.children) {
-            let [newNames, newOutput] = child.__react(".");
+            let childOutput = child.__react(".");
+            if (!childOutput) continue;
+            let [newNames, newOutput] = childOutput;
             output += newOutput;
             names = names.concat(newNames);
         }
