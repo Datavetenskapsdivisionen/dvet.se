@@ -1,4 +1,4 @@
-import { authorize } from "./googleApi.mjs";
+import { authoriseGoogleApi } from "./googleApi.mjs";
 import { google } from "googleapis";
 
 const getCalender = async (auth, calenderId) => {
@@ -56,7 +56,7 @@ const getCalender = async (auth, calenderId) => {
 let events = {};
 const syncEvents = async (calenderId) => {
     if (process.env.ENABLE_DRIVE == "true")
-        await authorize().then(async auth => {
+        await authoriseGoogleApi().then(async auth => {
             events[calenderId] = {
                 data: await getCalender(auth, calenderId),
                 lastTime: new Date()

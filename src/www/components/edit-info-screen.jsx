@@ -1,10 +1,11 @@
 import React from "react";
 import Modal from "react-modal";
-import { useLoaderData } from "react-router-dom";
+import { NavLink, useLoaderData } from "react-router-dom";
 import { isEnglish } from "../util";
 import { draggable, dropTargetForElements, monitorForElements } from "@atlaskit/pragmatic-drag-and-drop/element/adapter";
 // import { attachClosestEdge, Edge, extractClosestEdge, } from '@atlaskit/pragmatic-drag-and-drop-hitbox/addon/closest-edge';
 import invariant from "tiny-invariant";
+import Cookies from "js-cookie";
 
 const me = () => {
     const slidesJSON = useLoaderData();
@@ -20,9 +21,10 @@ const me = () => {
     React.useEffect(() => {updateOnOffStates()}, [slidesJSON]);
 
     const saveEdits = () => {
+        const token = Cookies.get("dv-token");
         fetch("/info-screen/update", {
             method: "PUT",
-            headers: {"Content-Type": "application/json"},
+            headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
             body: JSON.stringify(slidesJSON)
         });
     }
@@ -181,6 +183,8 @@ const me = () => {
     
     return <>
         <div className="page">
+            <NavLink to="/tools">go to tools</NavLink>
+            <NavLink to="/info-screen">go to info screen</NavLink>
             <h1>{isEnglish() ? "Edit info screen" : "Redigera infoskärmen"}</h1>
             <div className="edit-slides-container">
                 <Slides />

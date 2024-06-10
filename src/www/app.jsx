@@ -20,6 +20,34 @@ import ScheduleScreen from "./components/schedulescreen";
 // import WIP from "./components/widgets/wip";
 import IndividualCommitteePage from "./components/individual-committee-page";
 import { getLanguageCookie, isEnglish } from "./util";
+import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
+import Cookies from "js-cookie";
+
+const GoogleAuth = () => {
+  const [token, setToken] = React.useState(Cookies.get("dv-token"));
+  const [isLoggedIn, setIsLoggedIn] = React.useState(null);
+
+  // Log in with token if it exists
+  React.useEffect(() => {
+    if (token) {
+      fetch("/verify-token", { method: "POST", headers: { "Authorization": `Bearer ${token}` }})
+      .then(res => setIsLoggedIn(res.ok))
+      .catch(setIsLoggedIn(false));
+    }
+  }, [token]);
+
+  const onSuccess = async (res) => {
+    if (res.credential) {
+      await fetch("/google-auth", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(res)})
+      .then(res => setIsLoggedIn(res.ok))
+      .catch(setIsLoggedIn(false));
+    }
+  };
+
+  return <GoogleOAuthProvider clientId="420624855220-dad51rlh0qhf2p0fco7s37h685clivps">
+    { (isLoggedIn && <Outlet />) ?? (<><GoogleLogin onSuccess={onSuccess} onError={setIsLoggedIn(false)} /> <p>Unauthorised.</p></>) }
+  </GoogleOAuthProvider>
+};
 
 const LanguageSelector = () => {
   return <main>
@@ -105,7 +133,9 @@ const router = createBrowserRouter([
     { path: "/committees/dvarm",            element: <IndividualCommitteePage committee="dvarm" /> },
     { path: "/committees/mega7",            element: <IndividualCommitteePage committee="mega7" /> },
 
-    { path: "/info-screen/edit", element: <EditInfoScreen />, loader: async () => await fetch("/getInfoScreenSlides") },
+    { element: <GoogleAuth />, children: [
+      { path: "/info-screen/edit", element: <EditInfoScreen />, loader: async () => await fetch("/getInfoScreenSlides") }
+    ]}
   ]},
   { path: "/info-screen", element: <InfoScreen />, loader: async () => await fetch("/getInfoScreenSlides") },
   { path: "/newsscreen",  element: <NewsScreen /> },

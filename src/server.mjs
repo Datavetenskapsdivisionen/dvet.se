@@ -23,6 +23,8 @@ import { getSlides, updateSlides } from "./info-screen.mjs";
 import { getKickOffEvents, getDVEvents } from "./events.mjs";
 import killerBean from "./killerbean.mjs";
 import { addUser, testCode, photoHostGet, photoHostPost } from "./photo-host.mjs";
+import { getTokenFromGoogleOauth2 } from "./googleApi.mjs";
+import { verifyToken } from "./auth.mjs";
 
 app.use(expressStaticGzip("dist", {
     serveStatic: { maxAge: 60 * 1000 }
@@ -32,7 +34,7 @@ app.get("/", callback);
 app.get("/committees", callback);
 app.get("/info-screen", callback);
 app.get("/info-screen/edit", callback);
-app.put("/info-screen/update", updateSlides);
+app.put("/info-screen/update", verifyToken, updateSlides);
 app.get("/newsscreen", callback);
 app.get("/scscreen", callback);
 app.get("/about", callback);
@@ -68,6 +70,8 @@ app.get("/getKickoffEvents", getKickOffEvents);
 app.get("/getEvents", getDVEvents);
 app.post("/postHook", postHook);
 app.post("/killerBean", killerBean);
+app.post("/google-auth", getTokenFromGoogleOauth2);
+app.post("/verify-token", verifyToken);
 
 app.get("/recceform",   (req, res) => res.status(301).redirect("https://dvet.se/committees/dvrk/form"));
 app.get("/recceguiden", (req, res) => servePdf(req, res, "assets/kick-off/recceguiden.pdf"));

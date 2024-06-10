@@ -3,7 +3,8 @@ import path from "path";
 import process from "process";
 import { authenticate } from "@google-cloud/local-auth";
 import { google } from "googleapis";
-
+import { decodeJwt } from "jose";
+import { signToken } from "./auth.mjs";
 
 // --------------- STUFF TO JUST GET THE API WORKING ---------------
 // If modifying these scopes, delete token.json.
@@ -17,6 +18,24 @@ const SCOPES = [
 // time.
 const TOKEN_PATH = path.join(process.cwd(), "token.json");
 const CREDENTIALS_PATH = path.join(process.cwd(), "credentials.json");
+
+const getTokenFromGoogleOauth2 = async (req, res) => {
+    const credentials = req.body.credential;
+    try {
+        const userData = decodeJwt(credentials);
+        const user = {
+            email: userData.email,
+            name: userData.name,
+            picture: userData.picture,
+            organisation: userData.hd
+        }
+        const token = await signToken(user);
+        res.cookie("dv-token", token, { maxAge: 1000*60*60*24*30 }); // Expires in 30 days (milliseconds)
+        res.json({ token });
+    } catch (err) {
+        res.status(401).json({ msg: "Invalid credentials" });
+    }
+};
 
 /**
  * Reads previously authorized credentials from the save file.
@@ -53,10 +72,10 @@ const saveCredentials = async (client) => {
 };
 
 /**
- * Load or request or authorization to call APIs.
+ * Load or request or authorization to call Google APIs.
  *
  */
-const authorize = async () => {
+const authoriseGoogleApi = async () => {
     let client = await loadSavedCredentialsIfExist();
     if (client) {
         return client;
@@ -70,6 +89,6 @@ const authorize = async () => {
     }
     return client;
 };
-if (process.env.ENABLE_DRIVE === "true") await authorize();
+if (process.env.ENABLE_DRIVE === "true") await authoriseGoogleApi();
 
-export { authorize };
+export { authoriseGoogleApi, getTokenFromGoogleOauth2 };
