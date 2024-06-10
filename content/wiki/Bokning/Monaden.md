@@ -1,3 +1,5 @@
+# Bokning av Monaden
+
 Bokning av Monaden kan ske av alla medlemmar i Datavetenskapsdivisionen. 
 Bokning är endast tillåtet efter 17:00. Sker bokning mindre 24 timmar i förskott har andra medlemmar rätt att neka bokning.
 Vid konflikt om bokad är det först och främst först till kvarn som gäller. 
