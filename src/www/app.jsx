@@ -99,7 +99,7 @@ const router = createBrowserRouter([
       { path: "/schedule", element: <SchedulePage /> },
       {
         path: "/dviki", element: <WikiPage />, children: [
-          { path: ":id*", element: <WikiPage /> }
+          { path: ":id/*", element: <WikiPage /> }
         ]
       },
 
