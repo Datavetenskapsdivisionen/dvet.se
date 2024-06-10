@@ -1,10 +1,11 @@
 # Kontakta DVRK
 
 ### Mail: [dvrk@dvet.se](mailto:dvrk@dvet.se)
-Detta är det bästa sättet att komma i kontakt med oss! <br /> Denna mailadress går till alla oss i DVRK. Denna inkorg kollas löpande och vi försöker svara så fort som vi kan.
+Detta är det bästa sättet att komma i kontakt med oss! Denna mailadress går till alla oss i DVRK. Vi kollar inkorgen löpande och svarar så fort vi kan. 
 
-### Instagram: [@dvrk_gu](https://www.instagram.com/dvrk_gu/)
-Skickar du ett privat meddelande till oss här så svarar vi så fort som vi kan.
+### Instagram:[@dvrk_gu](https://www.instagram.com/)
+Skicka oss ett privat meddelande så svarar vi så fort vi kan!. 
 
-### Ordförande: [tim@dvet.se](mailto:tim@dvet.se)
+### Ordförande: [ida@dvet.se](mailto:ida@dvet.se)
 Denna mailadress går endast till ordförande av DVRK. 
+

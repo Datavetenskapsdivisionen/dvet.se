@@ -1,5 +1,6 @@
 @import "/assets/variables.less";
 @import (css) url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&family=Open+Sans&family=Press+Start+2P&display=swap');
+@import (css) url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
 
 body {
     margin: 0;
@@ -29,8 +30,10 @@ code {
     width: 100%;
     height: 100%;
     position: absolute;
-    
-    iframe, img, markdown {
+
+    iframe,
+    img,
+    markdown {
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -76,8 +79,9 @@ code {
         border-collapse: separate;
         border-spacing: 0 15px;
         margin: 0 10px;
-    
-        thead tr th, tbody tr td {
+
+        thead tr th,
+        tbody tr td {
             padding: 0 10px;
             text-align: left;
 
@@ -86,7 +90,7 @@ code {
                 margin: 0;
             }
         }
-    
+
         tbody {
             tr td {
                 padding: 5px 10px;
@@ -102,7 +106,7 @@ code {
                     touch-action: none;
                 }
             }
-    
+
             tr {
                 outline: 1px lightblue solid;
                 box-shadow: 0 0 5px lightblue;
@@ -144,8 +148,8 @@ code {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.5);
-    z-index: 1;    
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
 }
 
 .photo-viewer {
@@ -158,7 +162,7 @@ code {
             display: flex;
         }
 
-        &#mobile > div {
+        &#mobile>div {
             display: flex;
             flex-direction: column;
 
@@ -174,7 +178,7 @@ code {
             display: none;
         }
     }
-    
+
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -244,7 +248,7 @@ code {
         cursor: pointer;
         width: 160px;
         height: 130px;
-        
+
         .dir-count {
             color: white;
             text-align: center;
@@ -527,7 +531,10 @@ code {
         color: #161616;
     }
 
-    label, input, select, span {
+    label,
+    input,
+    select,
+    span {
         margin: 5px 10px 5px 0;
     }
 
@@ -942,6 +949,144 @@ main {
     width: 100%;
 }
 
+main:has(div):has(main-wiki) {
+    max-width: unset !important;
+}
+
+
+
+main-wiki {
+    flex: 1;
+    margin: 10px auto;
+    width: 100%;
+
+    @media screen and (min-width: 766px) {
+        display: grid;
+        grid-template-columns: 260px auto;
+    }
+
+    @media screen and (max-width: 766px) {
+        display: grid;
+        grid-template-rows: 2em auto;
+    }
+
+    .wiki-grid {
+        display: flex;
+        flex-wrap: wrap;
+        column-gap: 1em;
+        row-gap: 1em;
+    }
+
+    .wiki-image-holder {
+        background-color: white;
+        display: grid;
+        grid-template-rows: auto 2.5em;
+        align-items: center;
+        justify-items: center;
+        box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.5);
+
+        >img {
+            max-width: 600px;
+            max-height: 150px;
+        }
+
+        >a {
+            color: white;
+            text-align: center;
+            font-size: 0.8em;
+            padding: 12px;
+            box-shadow: 0px -15px 56px 4px rgba(255, 255, 255, 0.25);
+            font-family: "Press Start 2P";
+            background-color: #161616;
+        }
+    }
+
+    .show-tree-button {
+        @media screen and (min-width: 766px) {
+            display: none;
+        }
+
+        font-family: "Quicksand",
+        sans-serif;
+        font-size: 1.2em;
+        border: 1px solid #161616;
+        background-color: #161616;
+        color: white;
+
+        text-align: left;
+        border-radius: 2px;
+        cursor: pointer;
+    }
+
+    .wiki-navtree-hidden {
+        @media screen and (max-width: 766px) {
+            left: -105% !important;
+        }
+    }
+
+    .wiki-navtree-root {
+        overflow: scroll;
+        height: 100%;
+
+
+        @media screen and (min-width: 766px) {
+            border-right: 2px solid #1616161c;
+        }
+
+        @media screen and (max-width: 766px) {
+            transition-duration: 0.1s;
+            position: fixed;
+            left: 0;
+            top: 0;
+            background-color: white;
+            width: 100%;
+            padding-top: 4px;
+            box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.5);
+        }
+    }
+
+    .wiki-navtree {
+        // border-left: #1616162f 2px solid;
+        // border-top: #1616162f 2px solid;
+        margin-left: 8px;
+
+        padding-left: 4px;
+        padding-bottom: 4px;
+
+        .wiki-navtree-title {
+            font-family: "Quicksand", sans-serif;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .wiki-navtree-link {
+            font-size: 1em;
+            color: #161616;
+            text-decoration: none;
+            margin-bottom: 4px;
+            padding-left: 4px;
+        }
+
+        .wiki-navtree-button {
+            border: none;
+            background-color: transparent;
+            font-family: "Quicksand", sans-serif;
+            font-weight: bold;
+            font-size: 1.2em;
+            cursor: pointer;
+        }
+    }
+
+    .edit-page-button {
+        font-size: 0.7em;
+
+        .actual-button {
+            color: rgb(16, 171, 223);
+            text-decoration: none;
+        }
+    }
+}
+
 #app {
     min-height: 100vh;
     position: relative;
@@ -1166,27 +1311,33 @@ nav {
         margin-left: 10px;
     }
 
-    .nav__link:hover:nth-child(1), .nav__link:nth-child(1).active {
+    .nav__link:hover:nth-child(1),
+    .nav__link:nth-child(1).active {
         border-color: @red;
     }
 
-    .nav__link:hover:nth-child(2), .nav__link:nth-child(2).active {
+    .nav__link:hover:nth-child(2),
+    .nav__link:nth-child(2).active {
         border-color: @yellow;
     }
 
-    .nav__link:hover:nth-child(3), .nav__link:nth-child(3).active {
+    .nav__link:hover:nth-child(3),
+    .nav__link:nth-child(3).active {
         border-color: @blue-2;
     }
 
-    .nav__link:hover:nth-child(4), .nav__link:nth-child(4).active {
+    .nav__link:hover:nth-child(4),
+    .nav__link:nth-child(4).active {
         border-color: @skin;
     }
 
-    .nav__link:hover:nth-child(5), .nav__link:nth-child(5).active {
+    .nav__link:hover:nth-child(5),
+    .nav__link:nth-child(5).active {
         border-color: @cyan;
     }
 
-    .nav__link:hover:nth-child(6), .nav__link:nth-child(6).active {
+    .nav__link:hover:nth-child(6),
+    .nav__link:nth-child(6).active {
         border-color: @white;
     }
 }
@@ -1267,27 +1418,33 @@ nav {
     border-color: @cyan;
 }
 
-.nav__link.active--exact:nth-child(1), .nav__link:nth-child(1).active {
+.nav__link.active--exact:nth-child(1),
+.nav__link:nth-child(1).active {
     border-color: @red;
 }
 
-.nav__link.active--exact:nth-child(2), .nav__link:nth-child(2).active {
+.nav__link.active--exact:nth-child(2),
+.nav__link:nth-child(2).active {
     border-color: @yellow;
 }
 
-.nav__link.active--exact:nth-child(3), .nav__link:nth-child(3).active {
+.nav__link.active--exact:nth-child(3),
+.nav__link:nth-child(3).active {
     border-color: @blue-2;
 }
 
-.nav__link.active--exact:nth-child(4), .nav__link:nth-child(4).active {
+.nav__link.active--exact:nth-child(4),
+.nav__link:nth-child(4).active {
     border-color: @skin;
 }
 
-.nav__link.active--exact:nth-child(5), .nav__link:nth-child(5).active {
+.nav__link.active--exact:nth-child(5),
+.nav__link:nth-child(5).active {
     border-color: @cyan;
 }
 
-.nav__link.active--exact:nth-child(6), .nav__link:nth-child(6).active {
+.nav__link.active--exact:nth-child(6),
+.nav__link:nth-child(6).active {
     border-color: @white;
 }
 

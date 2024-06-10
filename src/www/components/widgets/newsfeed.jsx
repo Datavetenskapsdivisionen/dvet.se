@@ -4,8 +4,8 @@ import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import { isEnglish } from "../../util";
 
-const fetchNews = () => (
-    fetch("/newsfeed")
+const fetchNews = (num) => (
+    fetch(`/newsfeed?num=${num}`)
         .then(res => res.json())
         .catch(e => ({
             error: "failed to fetch news"
@@ -88,9 +88,10 @@ const createElements = (data, liteVersion) => {
 
 const me = (props) => {
     const liteVersion = props.liteVersion == true;
+    const num = props.num ? props.num : 5;
     const [data, setData] = React.useState(<div className="loading"></div>);
     React.useEffect(() => {
-        fetchNews().then((res) => setData(createElements(res, liteVersion)));
+        fetchNews(num).then((res) => setData(createElements(res, liteVersion)));
     }, [fetchNews]);
 
     const content = data.error ?

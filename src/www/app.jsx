@@ -12,6 +12,7 @@ import HomePage from "./components/home-page";
 import CommitteePage from "./components/committee-page";
 import ToolsPage from "./components/tools-page";
 import PhotosPage from "./components/photos-page";
+import WikiPage from "./components/wiki-page";
 import Schedule from "./components/widgets/schedule";
 import InfoScreen from "./components/info-screen";
 import EditInfoScreen from "./components/edit-info-screen";
@@ -94,11 +95,11 @@ const NotFoundPage = () => {
   const textEn = "The page you tried to reach could not be found. If you believe this is a mistake, please send us an email at ";
   return (
     <div className="page">
-        <h1>404</h1>
-        <p>{ isEnglish() ? textEn : textSe } <a href="mailto:styrelsen@dvet.se">styrelsen@dvet.se</a>.</p>
+      <h1>404</h1>
+      <p>{isEnglish() ? textEn : textSe} <a href="mailto:styrelsen@dvet.se">styrelsen@dvet.se</a>.</p>
     </div>
   );
-}
+};
 
 const Layout = (props) => {
   return (
@@ -106,7 +107,7 @@ const Layout = (props) => {
       <Toolbar />
       <Navbar />
       <main>
-        { props.error ? <NotFoundPage /> : <Outlet /> }
+        {props.error ? <NotFoundPage /> : <Outlet />}
       </main>
       <Footer />
     </div>
@@ -123,7 +124,9 @@ const router = createBrowserRouter([
     { path: "/documents",  element: <DocumentPage /> },
     { path: "/photos",     element: <PhotosPage /> },
     { path: "/schedule",   element: <SchedulePage /> },
-
+    { path: "/dviki",      element: <WikiPage />, children: [
+      { path: ":id/*", element: <WikiPage /> }
+    ]},
     { path: "/committees/the-board",        element: <IndividualCommitteePage committee="the-board" /> },
     { path: "/committees/board-of-studies", element: <IndividualCommitteePage committee="board-of-studies" /> },
     { path: "/committees/mega6",            element: <IndividualCommitteePage committee="mega6" /> },
@@ -154,7 +157,7 @@ const router = createBrowserRouter([
 const App = () => {
   return (
     <>
-    { getLanguageCookie() ? <RouterProvider router={router} /> : <LanguageSelector /> }
+      {getLanguageCookie() ? <RouterProvider router={router} /> : <LanguageSelector />}
     </>
   );
 };

@@ -3,7 +3,7 @@
 
 **Hello!**
 
-Congratulations on your acceptance! Your Orientation Week (Inspark) will begin on August 14th for bachelors and August 25th for Masters. It's weeks filled with lots of fun activities designed for you to get to know your fellow students, familiarize yourself with the university, and explore Gothenburg as a student city.
+Congratulations on your acceptance! Your Orientation Week (Inspark) will begin on August 19th for bachelors and August 25th for Masters. It's weeks filled with lots of fun activities designed for you to get to know your fellow students, familiarize yourself with the university, and explore Gothenburg as a student city.
 
 If you're looking for the Inspark schedule, you can either click on the "Schema" button in the navbar or click here for the [bachelor's schedule](/committees/dvrk/schedule/bachelor) or here for the [master's schedule](/committees/dvrk/schedule/master)!
 
@@ -28,7 +28,7 @@ What is a reccentior? What is DVRK? You can find all of this and more in our gui
 #### Join our channels!
 
 To get information and connect with your fellow students, we recommend joining:
-* Facebook group: (https://www.facebook.com/groups/249484121139659/)
+* Facebook group: (https://www.facebook.com/groups/868507685108910/)
 * Discord channel: (https://discord.gg/UdUUhdgXk8)
 
 #### Follow us!

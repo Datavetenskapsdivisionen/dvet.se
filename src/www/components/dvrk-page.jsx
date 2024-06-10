@@ -10,7 +10,7 @@ import Schedule from "./widgets/schedule";
 import "./../dvrk-styles.less";
 import { NavLink, useNavigate } from "react-router-dom";
 import DVRKLogo from "../../../assets/committee-logos/dvrk-logo.png";
-import DURKMAN from "../../../assets/dvrk.png";
+import DURKMAN from "../../../assets/dvrk.jpg";
 const DURKMAN_URL = "url(" + new String(DURKMAN) + ")";
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
@@ -184,7 +184,7 @@ const MasterSchedulePage = () => {
 const FormPage = () => {
     return (
         <IframePage
-            url="https://forms.gle/sRbasSn6uUx8p19c8" // TODO: must have a survey in English
+            url="https://forms.gle/yTBk3hzc1X6qwDzY6" // TODO: must have a survey in English
             title={isEnglish() ? "Recentiors declaration!" : "Recentiorsdeklarationen!"}
         />
     );

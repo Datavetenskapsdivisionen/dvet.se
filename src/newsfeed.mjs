@@ -1,6 +1,7 @@
 import RSS from "rss";
 import { octokit, fetchName } from "./octokit.mjs";
 
+const MAX_FETCH = 100;
 let posts = [];
 const fetchPosts = async () => {
     const onSuccess = async (r) => {
@@ -22,7 +23,7 @@ const fetchPosts = async () => {
             {
                 owner: "Datavetenskapsdivisionen",
                 repo: "posts",
-                per_page: 100,
+                per_page: MAX_FETCH,
             })
             .then(onSuccess)
             .catch(e => posts = { error: e });
@@ -59,6 +60,13 @@ let lastTime = new Date();
 
 const newsfeed = async (req, res) => {
     const diff = Math.abs(new Date() - lastTime);
+
+    let amount = MAX_FETCH;
+    if (req.query.num) {
+        let res = parseInt(req.query.num, 10);
+        if (res != NaN) amount = res;
+    }
+
     const minutes = (diff / 1000) / 60;
     if (minutes >= 1) {
         lastTime = new Date();
@@ -69,7 +77,7 @@ const newsfeed = async (req, res) => {
         res.set('Content-Type', 'text/xml');
         res.send(rss);
     } else {
-        res.json(posts);
+        res.json(posts.slice(0, amount));
     }
 };
 

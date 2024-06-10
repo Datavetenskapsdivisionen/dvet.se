@@ -59,6 +59,16 @@ app.get("/committees/dvarm", callback);
 app.get("/committees/mega7", callback);
 app.get("/committees/dvrk/bachelor", callback);
 app.get("/committees/dvrk/master", callback);
+
+const dvikiPath = (req, res) => {
+    let path = req.path.replace("/dviki", "");
+    callback(req, res);
+};
+
+app.get("/dviki", callback);
+app.get("/dviki/:path*", dvikiPath);
+app.put("/info-screen/update", updateSlides);
+
 app.get("/newsfeed", newsfeed);
 app.get("/getPhotos", getPhotos);
 app.get("/getInfoScreenSlides", getSlides);
@@ -73,9 +83,11 @@ app.post("/killerBean", killerBean);
 app.post("/google-auth", getTokenFromGoogleOauth2);
 app.post("/verify-token", verifyToken);
 
-app.get("/recceform",   (req, res) => res.status(301).redirect("https://dvet.se/committees/dvrk/form"));
+app.get("/recceform", (req, res) => res.status(301).redirect("https://dvet.se/committees/dvrk/form"));
 app.get("/recceguiden", (req, res) => servePdf(req, res, "assets/kick-off/recceguiden.pdf"));
 app.get("/masterguide", (req, res) => servePdf(req, res, "assets/kick-off/masterguiden.pdf"));
+
+
 
 const servePdf = (req, res, pdf) => {
     const filePath = path.join(process.cwd(), pdf);
