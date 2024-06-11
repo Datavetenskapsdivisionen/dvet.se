@@ -22,7 +22,7 @@ import getPhotos from "./photos.mjs";
 import { getSlides, updateSlides } from "./info-screen.mjs";
 import { getKickOffEvents, getDVEvents } from "./events.mjs";
 import killerBean from "./killerbean.mjs";
-import { addUser, testCode, photoHostGet, photoHostPost } from "./photo-host.mjs";
+import { photoHostPost } from "./photo-host.mjs";
 import { getTokenFromGoogleOauth2 } from "./googleApi.mjs";
 import { verifyToken } from "./auth.mjs";
 
@@ -60,28 +60,23 @@ app.get("/committees/mega7", callback);
 app.get("/committees/dvrk/bachelor", callback);
 app.get("/committees/dvrk/master", callback);
 
-const dvikiPath = (req, res) => {
-    let path = req.path.replace("/dviki", "");
-    callback(req, res);
-};
-
 app.get("/dviki", callback);
-app.get("/dviki/:path*", dvikiPath);
+app.get("/dviki/:path*", callback);
 app.put("/info-screen/update", updateSlides);
 
 app.get("/newsfeed", newsfeed);
 app.get("/getPhotos", getPhotos);
 app.get("/getInfoScreenSlides", getSlides);
-app.get("/photos/addUser", addUser);
-app.get("/photos/testCode", testCode);
-app.get("/photos/photoHostGet", photoHostGet);
-app.post("/photos/photoHostPost", upload.array("files"), photoHostPost);
+
+app.get("/photos/host", callback);
+app.post("/photos/post", verifyToken, upload.array("files"), photoHostPost);
+
 app.get("/getKickoffEvents", getKickOffEvents);
 app.get("/getEvents", getDVEvents);
 app.post("/postHook", postHook);
 app.post("/killerBean", killerBean);
 app.post("/google-auth", getTokenFromGoogleOauth2);
-app.post("/verify-token", verifyToken);
+app.post("/verify-token", verifyToken, (req, res) => res.status(200).json({ ok: "ok" }));
 
 app.get("/recceform", (req, res) => res.status(301).redirect("https://dvet.se/committees/dvrk/form"));
 app.get("/recceguiden", (req, res) => servePdf(req, res, "assets/kick-off/recceguiden.pdf"));
