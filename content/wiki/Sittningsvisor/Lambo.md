@@ -1,5 +1,4 @@
 # Lambo
-### Lambo
 
 Alla:\
 Sätt nu glaset till din mund!\
@@ -8,7 +7,7 @@ Och drick ur, din fylle fylle hund!\
 Tjofaderittan Lambo!\
 Se hur dropparna i glaset\
 rinner ned i fylle aset.\
-Lambo! Hej!Lambo! Hej!\
+Lambo! Hej! Lambo! Hej!\
 Tjofaderittan Lambo!
 
 Solo:\
