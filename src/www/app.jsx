@@ -12,7 +12,7 @@ import HomePage from "./components/home-page";
 import CommitteePage from "./components/committee-page";
 import ToolsPage from "./components/tools-page";
 import PhotosPage from "./components/photos-page";
-const WikiPage = lazy(() => import("./components/wiki-page"));
+import WikiPage from "./components/wiki-page";
 import Schedule from "./components/widgets/schedule";
 import InfoScreen from "./components/info-screen";
 import EditInfoScreen from "./components/edit-info-screen";
@@ -128,8 +128,8 @@ const router = createBrowserRouter([
       { path: "/photos", element: <PhotosPage /> },
       { path: "/schedule", element: <SchedulePage /> },
       {
-        path: "/dviki", element: <Loading Child={WikiPage} />, children: [
-          { path: ":id/*", element: <Loading Child={WikiPage} /> }
+        path: "/dviki", element: <WikiPage />, children: [
+          { path: ":id/*", element: <WikiPage /> }
         ]
       },
       { path: "/committees/the-board", element: <IndividualCommitteePage committee={"the-board"} /> },
