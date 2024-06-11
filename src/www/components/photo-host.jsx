@@ -2,7 +2,7 @@ import React from "react";
 
 import Cookies from "js-cookie";
 
-const test = (e) => {
+const onSubmitAction = (e) => {
     e.preventDefault();
 
     const resField = document.getElementById("photos-response-field");
@@ -37,7 +37,7 @@ const me = () => {
             <label for="files">Select files:</label>
             <input type="file" id="files" name="files" multiple accept="image/png, image/gif, image/jpeg, video/mp4" />
             <br /><br />
-            <input onClick={test} type="submit" />
+            <input onClick={onSubmitAction} type="submit" />
         </form>
     </>;
 };
