@@ -2,7 +2,7 @@ import fs from "fs";
 import { decodeJwt } from "jose";
 
 const photoHostPost = async (req, res) => {
-    if (req.body.folder == null || req.body.folder.includes("../") || req.body.folder.startsWith("/")) {
+    if (req.body.folder == null || req.body.folder.includes("..") || req.body.folder.startsWith("/")) {
         console.log(req.folder);
         res.status(401).json({ err: `invalid :(` });
         req.files.forEach(file => {
