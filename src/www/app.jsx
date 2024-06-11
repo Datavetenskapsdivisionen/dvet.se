@@ -4,14 +4,14 @@ import "./styles.less";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import Navbar from "./components/navbar/navbar";
 import Footer from "./components/navbar/footer";
-const ContactPage = lazy(() => import("./components/contact-page"));
+import ContactPage from "./components/contact-page";
 import DVRK from "./components/dvrk-page";
-const DocumentPage = lazy(() => import("./components/documents-page"));
-const AboutPage = lazy(() => import("./components/about-page"));
-const HomePage = lazy(() => import("./components/home-page"));
-const CommitteePage = lazy(() => import("./components/committee-page"));
-const ToolsPage = lazy(() => import("./components/tools-page"));
-const PhotosPage = lazy(() => import("./components/photos-page"));
+import DocumentPage from "./components/documents-page";
+import AboutPage from "./components/about-page";
+import HomePage from "./components/home-page";
+import CommitteePage from "./components/committee-page";
+import ToolsPage from "./components/tools-page";
+import PhotosPage from "./components/photos-page";
 const WikiPage = lazy(() => import("./components/wiki-page"));
 import Schedule from "./components/widgets/schedule";
 import InfoScreen from "./components/info-screen";
@@ -20,7 +20,7 @@ import PhotoHostScreen from "./components/photo-host";
 import NewsScreen from "./components/newscreen";
 import ScheduleScreen from "./components/schedulescreen";
 // import WIP from "./components/widgets/wip";
-const IndividualCommitteePage = lazy(() => import("./components/individual-committee-page"));
+import IndividualCommitteePage from "./components/individual-committee-page";
 import { getLanguageCookie, isEnglish } from "./util";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 import Cookies from "js-cookie";
@@ -119,27 +119,27 @@ const Layout = (props) => {
 const router = createBrowserRouter([
   {
     element: <Layout />, errorElement: <Layout error />, children: [
-      { path: "/", element: <Loading Child={HomePage} /> },
-      { path: "/contact", element: <Loading Child={ContactPage} /> },
-      { path: "/about", element: <Loading Child={AboutPage} /> },
-      { path: "/committees", element: <Loading Child={CommitteePage} /> },
-      { path: "/tools", element: <Loading Child={ToolsPage} /> },
-      { path: "/documents", element: <Loading Child={DocumentPage} /> },
-      { path: "/photos", element: <Loading Child={PhotosPage} /> },
+      { path: "/", element: <HomePage /> },
+      { path: "/contact", element: <ContactPage /> },
+      { path: "/about", element: <AboutPage /> },
+      { path: "/committees", element: <CommitteePage /> },
+      { path: "/tools", element: <ToolsPage /> },
+      { path: "/documents", element: <DocumentPage /> },
+      { path: "/photos", element: <PhotosPage /> },
       { path: "/schedule", element: <SchedulePage /> },
       {
         path: "/dviki", element: <Loading Child={WikiPage} />, children: [
           { path: ":id/*", element: <Loading Child={WikiPage} /> }
         ]
       },
-      { path: "/committees/the-board", element: <Loading Child={IndividualCommitteePage} childProps={{ committee: "the-board" }} /> },
-      { path: "/committees/board-of-studies", element: <Loading Child={IndividualCommitteePage} childProps={{ committee: "board-of-studies" }} /> },
-      { path: "/committees/mega6", element: <Loading Child={IndividualCommitteePage} childProps={{ committee: "mega6" }} /> },
-      { path: "/committees/concats", element: <Loading Child={IndividualCommitteePage} childProps={{ committee: "concats" }} /> },
-      { path: "/committees/femmepp", element: <Loading Child={IndividualCommitteePage} childProps={{ committee: "femmepp" }} /> },
-      { path: "/committees/dv_ops", element: <Loading Child={IndividualCommitteePage} childProps={{ committee: "dv_ops" }} /> },
-      { path: "/committees/dvarm", element: <Loading Child={IndividualCommitteePage} childProps={{ committee: "dvarm" }} /> },
-      { path: "/committees/mega7", element: <Loading Child={IndividualCommitteePage} childProps={{ committee: "mega7" }} /> },
+      { path: "/committees/the-board", element: <IndividualCommitteePage committee={"the-board"} /> },
+      { path: "/committees/board-of-studies", element: <IndividualCommitteePage committee={"board-of-studies"} /> },
+      { path: "/committees/mega6", element: <IndividualCommitteePage committee={"mega6"} /> },
+      { path: "/committees/concats", element: <IndividualCommitteePage committee={"concats"} /> },
+      { path: "/committees/femmepp", element: <IndividualCommitteePage committee={"femmepp"} /> },
+      { path: "/committees/dv_ops", element: <IndividualCommitteePage committee={"dv_ops"} /> },
+      { path: "/committees/dvarm", element: <IndividualCommitteePage committee={"dvarm"} /> },
+      { path: "/committees/mega7", element: <IndividualCommitteePage committee={"mega7"} /> },
 
       {
         element: <GoogleAuth />, children: [

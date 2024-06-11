@@ -16,8 +16,8 @@ module.exports = {
     runtimeChunk: 'single',
     splitChunks: {
       chunks: 'all',
-      minSize: 10000,
-      maxSize: 250000,
+      minSize: 200000,
+      maxSize: 450000,
     },
     minimizer: [
       new TerserPlugin({
