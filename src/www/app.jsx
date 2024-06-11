@@ -47,7 +47,7 @@ const GoogleAuth = () => {
   };
 
   return <GoogleOAuthProvider clientId="420624855220-dad51rlh0qhf2p0fco7s37h685clivps">
-    {(isLoggedIn && <Outlet />) ?? (<><GoogleLogin onSuccess={onSuccess} onError={setIsLoggedIn(false)} /> <p>Unauthorised.</p></>)}
+    {(isLoggedIn && <Outlet />) ?? (<><GoogleLogin onSuccess={onSuccess} onError={() => setIsLoggedIn(false)} /> <p>Unauthorised.</p></>)}
   </GoogleOAuthProvider>;
 };
 
