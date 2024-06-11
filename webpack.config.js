@@ -5,10 +5,20 @@ const CompressionPlugin = require("compression-webpack-plugin");
 
 
 module.exports = {
+  cache: {
+    type: 'filesystem',
+    allowCollectingMemory: true,
+  },
   entry: "./src/www/index.js",
   mode: "development",
   optimization: {
     chunkIds: "size",
+    runtimeChunk: 'single',
+    splitChunks: {
+      chunks: 'all',
+      minSize: 10000,
+      maxSize: 250000,
+    },
     minimizer: [
       new TerserPlugin({
         parallel: true,
@@ -19,7 +29,7 @@ module.exports = {
     ]
   },
   output: {
-    filename: "bundle.js",
+    filename: "[name].bundle.js",
     path: path.resolve(__dirname, "dist"),
     publicPath: "/",
   },
@@ -28,7 +38,15 @@ module.exports = {
       template: "./src/www/index.html",
       favicon: "./assets/favicon.png",
     }),
-    new CompressionPlugin()
+    new CompressionPlugin({
+      deleteOriginalAssets: (name) => {
+        if (name == "index.html") {
+          return false;
+        }
+
+        return true;
+      },
+    })
   ],
   resolve: {
     modules: [__dirname, "src", "node_modules"],
