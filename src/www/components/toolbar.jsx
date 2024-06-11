@@ -18,10 +18,10 @@ const toolbar = () => {
         <img src={logo} alt="" id="logopic" />
         <div id="logo">
           <NavLink to="/">{isEnglish() ? "Computer Science" : "Datavetenskap"}</NavLink>
-          <span id="subheader">{isEnglish() ? "AT University of Gothenburg" : "VID Göteborgs Universitet"}</span>
+          <span id="subheader">{isEnglish() ? "AT The University of Gothenburg" : "VID Göteborgs Universitet"}</span>
         </div>
       </div>
     </header>);
 };
 
-export default toolbar
+export default toolbar;

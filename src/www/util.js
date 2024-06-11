@@ -1,5 +1,5 @@
 const isReception = () => {
-    const fromDate = new Date(Date.parse(`${new Date().getFullYear()}-07-12`));
+    const fromDate = new Date(Date.parse(`${new Date().getFullYear()}-06-10`));
     const toDate = new Date(Date.parse(`${new Date().getFullYear()}-09-17`));
     const res = (new Date().getTime() >= fromDate.getTime())
         && (new Date().getTime() <= toDate.getTime());
