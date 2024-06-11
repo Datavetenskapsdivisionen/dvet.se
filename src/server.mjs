@@ -5,9 +5,9 @@ import { fileURLToPath } from "url";
 import "dotenv/config";
 import multer from "multer";
 
-const allowedTypes = ["audio/aac", "image/bmp", "text/csv", "image/gif", "image/jpeg", 
-    "video/mp4", "video/mpeg", "audio/ogg", "video/ogg", "image/png", "application/pdf",
-    "image/tiff", "text/plain", "audio/wav", "audio/webm", "video/webm", "image/webp"];
+const allowedTypes = ["audio/aac", "image/bmp", "text/csv", "image/gif", "image/jpeg", "video/mp4",
+    "video/mpeg", "audio/ogg", "video/ogg", "image/png", "application/pdf", "image/tiff",
+    "text/plain", "audio/wav", "audio/webm", "video/webm", "image/webp", "image/heic"];
 const upload = multer({
     dest: "dist/uploads/",
     limits: { fileSize: 10485760 },
