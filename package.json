@@ -38,6 +38,7 @@
     "rehype-raw": "^7.0.0",
     "remark-gfm": "^4.0.0",
     "rss": "^1.2.2",
+    "sharp": "^0.33.4",
     "svg-url-loader": "^8.0.0",
     "tiny-invariant": "^1.3.3"
   },
