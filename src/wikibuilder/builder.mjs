@@ -128,13 +128,16 @@ class Directory {
         const buttonId = this.path + "__button";
         const divId = this.path + "__div";
         const hide = this.children.length >= 10
-            ? `<button class="wiki-navtree-button" id="${buttonId}" onClick={() => hideTree("${buttonId}", "${divId}")}>⇓</button>`
+            ? `<button class="wiki-navtree-button" id="${buttonId}" onClick={() => hideTree("${buttonId}", "${divId}")}>${this.path} ⇓</button>`
             : "<></>";
+        const show = this.children.length >= 10
+            ? "<></>"
+            : `${this.path}`;
         const hideStyle = this.children.length >= 10
             ? "{{display: \"none\"}}"
             : "{{}}";
         let children = isNotRoot
-            ? `<a class="wiki-navtree-title">${this.path}${hide}</a><div style=${hideStyle} id="${divId}">`
+            ? `<a class="wiki-navtree-title">${show}${hide}</a><div style=${hideStyle} id="${divId}">`
             : `<a class="wiki-navtree-title">Wiki${hide}</a><div style=${hideStyle} id="${divId}">`;
         for (const child of this.children) {
             children += child.navtree(path);
@@ -168,10 +171,12 @@ const hideTree = (buttonId, divId) => {
     const div = document.getElementById(divId);
     if (div.style.display == "block") {
         div.style.display = "none";
-        button.innerText = "⇓";
+        button.innerText = button.innerText.slice(0, -1);
+        button.innerText = button.innerText + " ⇓"; 
     } else {
         div.style.display = "block";
-        button.innerText = "⇑";
+        button.innerText = button.innerText.slice(0, -1);
+        button.innerText = button.innerText + " ⇑";
     }
 };
 
