@@ -1,4 +1,4 @@
-# Siffervisan (2)
+# Siffervisan 2
 ### Melodi: Ritsch, ratsch...
 1, 2, 75, 6, 7, 75, 6, 7, 75, 6, 7\
 1, 2, 75, 6, 7, 58 63\
