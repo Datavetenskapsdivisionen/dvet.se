@@ -16,6 +16,7 @@ const WikiPage = lazy(() => import("./components/wiki-page"));
 import Schedule from "./components/widgets/schedule";
 import InfoScreen from "./components/info-screen";
 import EditInfoScreen from "./components/edit-info-screen";
+import PhotoHostScreen from "./components/photo-host";
 import NewsScreen from "./components/newscreen";
 import ScheduleScreen from "./components/schedulescreen";
 // import WIP from "./components/widgets/wip";
@@ -142,7 +143,8 @@ const router = createBrowserRouter([
 
       {
         element: <GoogleAuth />, children: [
-          { path: "/info-screen/edit", element: <EditInfoScreen />, loader: async () => await fetch("/getInfoScreenSlides") }
+          { path: "/info-screen/edit", element: <EditInfoScreen />, loader: async () => await fetch("/getInfoScreenSlides") },
+          { path: "/photos/host", element: <PhotoHostScreen /> }
         ]
       }
     ]

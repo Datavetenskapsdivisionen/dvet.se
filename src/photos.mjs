@@ -5,20 +5,28 @@ import { google } from "googleapis";
 const driveId = "0AGLrt0xH3PWfUk9PVA";
 const listFiles = async (authClient) => {
     const drive = google.drive({ version: "v3", auth: authClient });
-    const res = await drive.files.list({
-        pageSize: 1000,
-        //pageSize: 10,
-        corpora: "drive",
-        driveId: driveId,
-        includeItemsFromAllDrives: false,
-        includeTeamDriveItems: true,
-        supportsAllDrives: true,
-        supportsTeamDrives: true,
-        orderBy: "createdTime desc",
-        fields: "nextPageToken, files(id, name, parents, mimeType, kind)",
-    });
-    const files = res.data.files;
-    return files;
+    const fetchFiles = async (pageToken) => {
+        const res = await drive.files.list({
+            pageSize: 1000,
+            //pageSize: 50,
+            corpora: "drive",
+            driveId: driveId,
+            includeItemsFromAllDrives: false,
+            includeTeamDriveItems: true,
+            supportsAllDrives: true,
+            supportsTeamDrives: true,
+            orderBy: "folder desc",
+            fields: "nextPageToken, files(id, name, parents, mimeType, kind)",
+            pageToken: pageToken
+        });
+        let files = res.data.files;
+        if (res.data.nextPageToken) {
+            files = files.concat(await fetchFiles(res.data.nextPageToken));
+        }
+        return files;
+    };
+    const result = await fetchFiles(null);
+    return result;
 };
 
 
@@ -73,16 +81,27 @@ const buildTree = (files) => {
             return 1;
         }
 
-        root.children.map(n => root.childrenCount += countChildren(n));        
+        root.children.map(n => root.childrenCount += countChildren(n));
         return root.children.length;
-    }
+    };
 
+    let lastLen = files.length;
+    let borkCounter = 0;
     while (files.length != 0) {
         let node = files.pop();
         let [newRoot, foundRoot] = addNode(root, node);
         if (!foundRoot) {
             files = [node, ...files];
+        } else {
+            borkCounter = 0;
         }
+        if (lastLen == files.length) {
+            borkCounter += 1;
+            if (borkCounter >= lastLen) {
+                break;
+            }
+        }
+        lastLen = files.length;
         root = newRoot;
     }
 
