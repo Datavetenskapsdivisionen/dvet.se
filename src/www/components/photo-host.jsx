@@ -24,7 +24,7 @@ const test = (e) => {
                 resField.innerHTML = `Error: ${r.err}`;
             }
         })
-        .catch(e => resField.innerText = `Error: ${r.err}`);
+        .catch(e => resField.innerText = `Error: ${e}`);
 };
 
 const me = () => {
