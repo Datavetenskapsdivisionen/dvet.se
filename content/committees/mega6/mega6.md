@@ -73,14 +73,14 @@
             Glöm inte, det finns inga omfester, bara omtentor!
         </p>
         <p>
-            Petter, Anthon, KG & Lukas <br>
+            Lukas, KG, Ida, Gustav & Angelika <br>
             <a href="mailto:mega6@dvet.se">mega6@dvet.se</a>
         </p>
         <img src="https://media.tenor.com/C7BqqYKGuOUAAAAC/megaman-dance.gif"/>
     </div>
     <div class="committee-page-image">
         <div>
-            <img src="https://www.dvet.se/uploads/committee-images/loafey%20-%2034badadbf3f9409291475f1ca8a4d81a%20-%20mega6-gruppbild.png" />
+            <img src="https://dvet.se/uploads/mega6/Lukas%20Gartman%20-%20bca2b5991b6797fb77b0f21913bdecb7%20-%20Mega6.JPG" />
         </div>
         <span>Mega6</span>
     </div>
