@@ -14,6 +14,7 @@ class PageData {
     */
     constructor(index) {
         this.index = index;
+        this.debugText = `dbg-${Math.floor(Math.random() * 1000)}`;
     }
 }
 
@@ -49,9 +50,19 @@ const stateSlice = createSlice({
             state.pages.push(new PageData(index));
             storeState(state);
         },
+        removePage: (state, payload) => {
+            const index = payload.payload;
+
+            for (let i = index; i < state.pages.length; i++) {
+                state.pages[i].index -= 1;
+            }
+            state.pages.splice(index - 1, 1);
+
+            storeState(state);
+        }
     }
 });
-const { newPage } = stateSlice.actions;
+const { newPage, removePage } = stateSlice.actions;
 
 const store = configureStore({
     reducer: stateSlice.reducer
@@ -92,10 +103,21 @@ const SongList = () => {
  */
 const Page = ({ pageData }) => {
     const indexClass = pageData.index % 2 ? "page-index-right" : "page-index-left";
+    const dispatch = useDispatch();
+
+    const clickRemove = () => {
+        dispatch(removePage(pageData.index));
+    };
 
     return <div className="editor-page">
+        <div className="editor-tools">
+            <button>⇑</button>
+            <button>⇓</button>
+            <button onClick={clickRemove}>Remove</button>
+        </div>
         <div className="editor-page-content">
             <a className={indexClass}>{pageData.index}</a>
+            <a className="page-debug-text">{pageData.debugText}</a>
         </div>
     </div>;
 };
