@@ -32,6 +32,7 @@ import killerBean from "./killerbean.mjs";
 import { photoHostPost } from "./photo-host.mjs";
 import { getTokenFromGoogleOauth2 } from "./googleApi.mjs";
 import { verifyToken } from "./auth.mjs";
+import songApi from "./song-api.mjs";
 
 app.use(expressStaticGzip("dist", {
     serveStatic: { maxAge: 60 * 1000 }
@@ -50,6 +51,7 @@ app.get("/contact", callback);
 app.get("/tools", callback);
 app.get("/photos", callback);
 app.get("/schedule", callback);
+app.get("/sittning", callback);
 app.get("/committees/the-board", callback);
 app.get("/committees/dvrk", callback);
 app.get("/committees/dvrk/schedule", callback);
@@ -77,6 +79,8 @@ app.get("/getInfoScreenSlides", getSlides);
 
 app.get("/photos/host", callback);
 app.post("/photos/post", verifyToken, upload.array("files"), photoHostPost);
+
+app.get("/sittning/api", verifyToken, songApi);
 
 app.get("/getKickoffEvents", getKickOffEvents);
 app.get("/getEvents", getDVEvents);

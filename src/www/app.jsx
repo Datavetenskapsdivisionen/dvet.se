@@ -19,6 +19,7 @@ import EditInfoScreen from "./components/edit-info-screen";
 import PhotoHostScreen from "./components/photo-host";
 import NewsScreen from "./components/newscreen";
 import ScheduleScreen from "./components/schedulescreen";
+import SittningsPage from "./components/sittning-gen";
 // import WIP from "./components/widgets/wip";
 import IndividualCommitteePage from "./components/individual-committee-page";
 import { getLanguageCookie, isEnglish } from "./util";
@@ -144,7 +145,8 @@ const router = createBrowserRouter([
       {
         element: <GoogleAuth />, children: [
           { path: "/info-screen/edit", element: <EditInfoScreen />, loader: async () => await fetch("/getInfoScreenSlides") },
-          { path: "/photos/host", element: <PhotoHostScreen /> }
+          { path: "/photos/host", element: <PhotoHostScreen /> },
+          { path: "/sittning", element: <SittningsPage /> }
         ]
       }
     ]
