@@ -157,6 +157,7 @@ const Options = () => {
     </div>;
 };
 
+// document.querySelector(":root").style.setProperty("--sittning-multiplier", 2);
 
 const EDITOR_AREA = "editor-area";
 const Editor = () => {
@@ -165,7 +166,6 @@ const Editor = () => {
     // const dispatch = useDispatch();
 
     return <div>
-        <h2>Sittning - Editor</h2>
         <div className="hor-center">
             <div id={EDITOR_AREA} className="editor-area">
                 {pages.map(d => <Page pageData={d}></Page>)}
