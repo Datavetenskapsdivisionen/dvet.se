@@ -59,10 +59,26 @@ const stateSlice = createSlice({
             state.pages.splice(index - 1, 1);
 
             storeState(state);
-        }
+        },
+        movePage: (state, payload) => {
+            const [indexT, dir] = payload.payload;
+            const index = indexT - 1;
+            const otherIndex = index + dir;
+            if (otherIndex < 0) return;
+            if (otherIndex >= state.pages.length) return;
+
+            let a = state.pages[index];
+            let b = state.pages[otherIndex];
+            a.index = otherIndex + 1;
+            b.index = index + 1;
+            state.pages[otherIndex] = a;
+            state.pages[index] = b;
+
+            storeState(state);
+        },
     }
 });
-const { newPage, removePage } = stateSlice.actions;
+const { newPage, removePage, movePage } = stateSlice.actions;
 
 const store = configureStore({
     reducer: stateSlice.reducer
@@ -109,10 +125,18 @@ const Page = ({ pageData }) => {
         dispatch(removePage(pageData.index));
     };
 
+    const moveUp = () => {
+        dispatch(movePage([pageData.index, -1]));
+    };
+
+    const moveDown = () => {
+        dispatch(movePage([pageData.index, 1]));
+    };
+
     return <div className="editor-page">
         <div className="editor-tools">
-            <button>⇑</button>
-            <button>⇓</button>
+            <button onClick={moveUp}>⇑</button>
+            <button onClick={moveDown}>⇓</button>
             <button onClick={clickRemove}>Remove</button>
         </div>
         <div className="editor-page-content">
