@@ -284,6 +284,12 @@ const Options = () => {
     return <div className="editor-options">
         <h2>Options</h2>
         <button onClick={() => dispatch(newPage())}>New page</button>
+        <input type="text" placeholder="image-url" id="sittning-image-url" />
+        <button onClick={() => {
+            const val = document.getElementById("sittning-image-url").value;
+            const img = `<img src="${val}" alt="failed to grab image!"/>`;
+            dispatch(addSong(img));
+        }}>Add image</button>
     </div>;
 };
 
