@@ -1050,13 +1050,20 @@ main-sittning {
     }
 
     .sittning-item {
-        * {
+        * :not(button) {
             pointer-events: none;
             user-select: none;
         }
 
         outline: 2px hotpink dashed;
         cursor: grab;
+
+        button {
+            position: absolute;
+            top: 0;
+            right: 0;
+            font-size: 2em;
+        }
     }
 
     .editor-page-content {

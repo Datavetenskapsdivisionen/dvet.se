@@ -87,6 +87,13 @@ const stateSlice = createSlice({
 
             storeState(state);
         },
+        removeChild: (state, payload) => {
+            const [parent, child] = payload.payload;
+
+            delete state.pages[parent - 1].children[child];
+
+            storeState(state);
+        },
         addSong: (state, payload) => {
             const song = payload.payload;
             const stamp = "song-" + Math.floor(Math.random() * 100000);
@@ -95,6 +102,7 @@ const stateSlice = createSlice({
             }
             storeState(state);
         },
+
         focus: (state, payload) => {
             const index = payload.payload;
             state.focus = index;
@@ -133,8 +141,10 @@ const stateSlice = createSlice({
         },
     }
 });
-const { newPage, removePage,
-    movePage, focus, addSong,
+const {
+    newPage, removePage,
+    movePage, focus,
+    addSong, removeChild,
     moveChild, resizeChild } = stateSlice.actions;
 
 const store = configureStore({
@@ -232,7 +242,12 @@ const Page = ({ pageData }) => {
                 const h = pageData.children[s].h;
                 const w = pageData.children[s].w;
 
-                return <Draggable scale={0.5} defaultPosition={{ x: x, y: y }} bounds="parent" onStop={onDrop}>
+                return <Draggable
+                    scale={0.5}
+                    defaultPosition={{ x: x, y: y }}
+                    bounds="parent"
+                    onStop={onDrop}
+                >
                     <Resizable
                         onResizeStop={(e, direction, ref, d) => {
                             dispatch(resizeChild([pageData.index, s, d.width, d.height]));
@@ -246,8 +261,14 @@ const Page = ({ pageData }) => {
                         <div
                             id={s}
                             className="sittning-item"
-                            dangerouslySetInnerHTML={{ __html: pageData.children[s].htmlContent }}
-                        />
+                        >
+                            <button onClick={() => {
+                                dispatch(removeChild([pageData.index, s]));
+                            }}>X</button>
+                            <div
+                                dangerouslySetInnerHTML={{ __html: pageData.children[s].htmlContent }}
+                            />
+                        </div>
                     </Resizable>
                 </Draggable>;
             })}
