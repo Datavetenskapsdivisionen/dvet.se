@@ -118,7 +118,9 @@ const SongList = () => {
  * @param {{pageData: PageData}} pageData - The page data.
  */
 const Page = ({ pageData }) => {
-    const indexClass = pageData.index % 2 ? "page-index-right" : "page-index-left";
+    const indexClass = pageData.index % 2
+        ? "page-index-right"
+        : "page-index-left";
     const dispatch = useDispatch();
 
     const clickRemove = () => {
@@ -133,10 +135,15 @@ const Page = ({ pageData }) => {
         dispatch(movePage([pageData.index, 1]));
     };
 
+    const upArrow = pageData.index % 2 == 0
+        ? "⇐" : "⇗";
+    const downArrow = pageData.index % 2 == 0
+        ? "⇙" : "⇒";
+
     return <div className="editor-page">
         <div className="editor-tools">
-            <button onClick={moveUp}>⇑</button>
-            <button onClick={moveDown}>⇓</button>
+            <button onClick={moveUp}>{upArrow}</button>
+            <button onClick={moveDown}>{downArrow}</button>
             <button onClick={clickRemove}>Remove</button>
         </div>
         <div className="editor-page-content">

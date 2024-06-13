@@ -997,15 +997,17 @@ main-sittning {
     .editor-area {
         border: 1px solid #161616;
 
-        width: calc(@a4-width + 2px);
+        width: calc((@a4-width + 2px) * 2 + @side-gap);
         height: calc(@a4-height + 2px);
 
         overflow: auto;
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
+        flex-wrap: wrap;
         align-items: center;
         padding: @side-gap;
         row-gap: @side-gap;
+        column-gap: @side-gap;
 
         .editor-page {
             position: relative;
@@ -1027,12 +1029,13 @@ main-sittning {
 
     .editor-page-content {
         position: absolute;
-        scale: calc(1 / @multiplier);
-        width: calc(200% - @left-margin * 2);
-        height: calc(200% - @top-margin * 2);
+        @scaleVar: calc(1 / @multiplier);
+        scale: @scaleVar;
+        width: calc(@multiplier * 100% - @left-margin * @multiplier);
+        height: calc(@multiplier * 100% - @top-margin * @multiplier);
         left: calc(-50% + @left-margin);
         top: calc(-50% + @top-margin);
-        background-color: green;
+        outline: goldenrod 2px solid;
 
         .page-index-left {
             position: absolute;
