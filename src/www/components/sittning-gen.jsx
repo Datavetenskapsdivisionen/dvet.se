@@ -26,7 +26,7 @@ const storeState = (state) => {
 };
 
 /**
- * @returns {{pages: PageData[]}}
+ * @returns {{pages: PageData[], focus: number|null}}
  */
 const initState = () => {
     const stateStr = localStorage.getItem(STATE_KEY);
@@ -36,7 +36,8 @@ const initState = () => {
         return JSON.parse(decodedState);
     } else {
         return {
-            pages: []
+            pages: [],
+            focus: null
         };
     }
 };
@@ -45,6 +46,10 @@ const stateSlice = createSlice({
     name: 'State',
     initialState: initState(),
     reducers: {
+        focus: (state, payload) => {
+            const index = payload.payload;
+            state.focus = index;
+        },
         newPage: state => {
             let index = state.pages.length + 1;
             state.pages.push(new PageData(index));
@@ -56,6 +61,7 @@ const stateSlice = createSlice({
             for (let i = index; i < state.pages.length; i++) {
                 state.pages[i].index -= 1;
             }
+            if (state.focus >= index) state.focus -= 1;
             state.pages.splice(index - 1, 1);
 
             storeState(state);
@@ -78,7 +84,7 @@ const stateSlice = createSlice({
         },
     }
 });
-const { newPage, removePage, movePage } = stateSlice.actions;
+const { newPage, removePage, movePage, focus } = stateSlice.actions;
 
 const store = configureStore({
     reducer: stateSlice.reducer
@@ -106,7 +112,7 @@ const SongList = () => {
         })}</ul>
         : <>Loading songs...</>;
 
-    return <div>
+    return <div className="editor-song-list">
         <h2>{isEnglish() ? "Song List" : "Låt Lista"}</h2>
         {elem}
     </div>;
@@ -118,6 +124,12 @@ const SongList = () => {
  * @param {{pageData: PageData}} pageData - The page data.
  */
 const Page = ({ pageData }) => {
+    /** @type {number|null} */
+    const focusedIndex = useSelector(state => state.focus);
+    const contentClass = focusedIndex == pageData.index
+        ? "editor-page-content editor-page-content-focused"
+        : "editor-page-content";
+
     const indexClass = pageData.index % 2
         ? "page-index-right"
         : "page-index-left";
@@ -135,6 +147,10 @@ const Page = ({ pageData }) => {
         dispatch(movePage([pageData.index, 1]));
     };
 
+    const onFocus = () => {
+        dispatch(focus(pageData.index));
+    };
+
     const upArrow = pageData.index % 2 == 0
         ? "⇐" : "⇗";
     const downArrow = pageData.index % 2 == 0
@@ -142,11 +158,12 @@ const Page = ({ pageData }) => {
 
     return <div className="editor-page">
         <div className="editor-tools">
+            <button onClick={onFocus}>Focus</button>
             <button onClick={moveUp}>{upArrow}</button>
             <button onClick={moveDown}>{downArrow}</button>
             <button onClick={clickRemove}>Remove</button>
         </div>
-        <div className="editor-page-content">
+        <div className={contentClass}>
             <a className={indexClass}>{pageData.index}</a>
             <a className="page-debug-text">{pageData.debugText}</a>
         </div>
@@ -158,7 +175,7 @@ const Options = () => {
     const pages = useSelector(state => state.pages);
     const dispatch = useDispatch();
 
-    return <div>
+    return <div className="editor-options">
         <h2>Options</h2>
         <button onClick={() => dispatch(newPage())}>New page</button>
     </div>;
