@@ -3,10 +3,34 @@ import Cookies from "js-cookie";
 import { Provider, useSelector, useDispatch } from "react-redux";
 import { isEnglish } from "../util";
 import { createSlice, configureStore } from "@reduxjs/toolkit";
+import Draggable from "react-draggable";
+import { Resizable } from "re-resizable";
 
 const STATE_KEY = "dv-sittning-editor-state";
 
+class PageChild {
+    /** @type {string} */
+    htmlContent;
+    /** @type {number} */
+    x;
+    /** @type {number} */
+    y;
+    /** @type {number} */
+    h;
+    /** @type {number} */
+    w;
+    constructor(htmlContent) {
+        this.htmlContent = htmlContent;
+        this.x = 0;
+        this.y = 0;
+        this.h = 200;
+        this.w = 200;
+    }
+}
+
 class PageData {
+    /** @type {Array<PageChild>} */
+    children;
     /**
     * Represents a page.
     * @constructor
@@ -15,6 +39,7 @@ class PageData {
     constructor(index) {
         this.index = index;
         this.debugText = `dbg-${Math.floor(Math.random() * 1000)}`;
+        this.children = {};
     }
 }
 
@@ -46,6 +71,30 @@ const stateSlice = createSlice({
     name: 'State',
     initialState: initState(),
     reducers: {
+        moveChild: (state, payload) => {
+            const [parent, child, x, y] = payload.payload;
+
+            state.pages[parent - 1].children[child].x = x;
+            state.pages[parent - 1].children[child].y = y;
+
+            storeState(state);
+        },
+        resizeChild: (state, payload) => {
+            const [parent, child, w, h] = payload.payload;
+
+            state.pages[parent - 1].children[child].h += h;
+            state.pages[parent - 1].children[child].w += w;
+
+            storeState(state);
+        },
+        addSong: (state, payload) => {
+            const song = payload.payload;
+            const stamp = "song-" + Math.floor(Math.random() * 100000);
+            if (state.focus && state.pages[state.focus - 1]) {
+                state.pages[state.focus - 1].children[stamp] = new PageChild(song);
+            }
+            storeState(state);
+        },
         focus: (state, payload) => {
             const index = payload.payload;
             state.focus = index;
@@ -61,7 +110,7 @@ const stateSlice = createSlice({
             for (let i = index; i < state.pages.length; i++) {
                 state.pages[i].index -= 1;
             }
-            if (state.focus >= index) state.focus -= 1;
+            if (state.focus > index) state.focus -= 1;
             state.pages.splice(index - 1, 1);
 
             storeState(state);
@@ -84,13 +133,16 @@ const stateSlice = createSlice({
         },
     }
 });
-const { newPage, removePage, movePage, focus } = stateSlice.actions;
+const { newPage, removePage,
+    movePage, focus, addSong,
+    moveChild, resizeChild } = stateSlice.actions;
 
 const store = configureStore({
     reducer: stateSlice.reducer
 });
 
 const SongList = () => {
+    const dispatch = useDispatch();
     const [list, setList] = useState(null);
     useEffect(() => {
         fetch("/sittning/api", {
@@ -106,8 +158,12 @@ const SongList = () => {
 
     const elem = list
         ? <ul>{Object.keys(list).map(key => {
+            const songClick = () => {
+                dispatch(addSong(list[key]));
+            };
+
             return <li key={key}>
-                <button>{key}</button>
+                <button onClick={songClick}>{key}</button>
             </li>;
         })}</ul>
         : <>Loading songs...</>;
@@ -166,8 +222,37 @@ const Page = ({ pageData }) => {
         <div className={contentClass}>
             <a className={indexClass}>{pageData.index}</a>
             <a className="page-debug-text">{pageData.debugText}</a>
+            {Object.keys(pageData.children).map(s => {
+                const onDrop = (e, d) => {
+                    dispatch(moveChild([pageData.index, s, d.x, d.y]));
+                };
+
+                const x = pageData.children[s].x ? pageData.children[s].x : 0;
+                const y = pageData.children[s].y ? pageData.children[s].y : 0;
+                const h = pageData.children[s].h;
+                const w = pageData.children[s].w;
+
+                return <Draggable scale={0.5} defaultPosition={{ x: x, y: y }} bounds="parent" onStop={onDrop}>
+                    <Resizable
+                        onResizeStop={(e, direction, ref, d) => {
+                            dispatch(resizeChild([pageData.index, s, d.width, d.height]));
+                        }}
+                        defaultSize={{
+                            width: w,
+                            height: h
+                        }}
+                        scale={0.5}
+                    >
+                        <div
+                            id={s}
+                            className="sittning-item"
+                            dangerouslySetInnerHTML={{ __html: pageData.children[s].htmlContent }}
+                        />
+                    </Resizable>
+                </Draggable>;
+            })}
         </div>
-    </div>;
+    </div >;
 };
 
 const Options = () => {

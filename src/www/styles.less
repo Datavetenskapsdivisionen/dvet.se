@@ -1049,15 +1049,30 @@ main-sittning {
         outline: #26d776 8px solid !important;
     }
 
+    .sittning-item {
+        * {
+            pointer-events: none;
+            user-select: none;
+        }
+
+        outline: 2px hotpink dashed;
+        cursor: grab;
+    }
+
     .editor-page-content {
         position: absolute;
         @scaleVar: calc(1 / @multiplier);
+        @width: calc(@multiplier * 100% - @left-margin * @multiplier);
         scale: @scaleVar;
-        width: calc(@multiplier * 100% - @left-margin * @multiplier);
+        width: @width;
         height: calc(@multiplier * 100% - @top-margin * @multiplier);
         left: calc(-50% + @left-margin);
         top: calc(-50% + @top-margin);
         outline: goldenrod 2px solid;
+
+        >div {
+            position: absolute;
+        }
 
         .page-index-left {
             position: absolute;
