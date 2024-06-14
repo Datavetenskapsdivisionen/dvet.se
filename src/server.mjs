@@ -69,7 +69,6 @@ app.get("/committees/dvrk/master", callback);
 
 app.get("/dviki", callback);
 app.get("/dviki/:path*", callback);
-app.put("/info-screen/update", updateSlides);
 
 app.get("/newsfeed", newsfeed);
 app.get("/getPhotos", getPhotos);
