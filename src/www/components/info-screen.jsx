@@ -9,46 +9,74 @@ rehypeRaw({ allowDangerousHtml: true });
 import datavetenskapLogo from "../../../assets/main.png";
 
 const me = () => {
-    const slidesJSON = useLoaderData().filter(s => s.active ?? true); // TODO: filter start & end dates
-    const [slides, setSlides] = React.useState(null);
+    const [slidesJSON, setSlidesJSON] = React.useState(useLoaderData().filter(s => s.active ?? true)); // TODO: filter start & end dates);
+    const [slides, setSlides] = React.useState();
     const [timeLeft, setTimeLeft] = React.useState(0);
     const [currentSlideIndex, setCurrentSlideIndex] = React.useState(0);
-    const [allSlides, setAllSlides] = React.useState();
+    const [slidesElements, setSlidesElements] = React.useState();
+
+    const fetchSlidesData = async () => {
+        const s = await fetch("/getInfoScreenSlides").then(s => s.json());
+        return s.filter(s => s.active ?? true);
+    };
+
+    const parseSlidesJSON = (data = slidesJSON) => {
+        return data.map(s => {
+            switch (s.slide.type) {
+                case "iframe":   return { ...s, slide: <iframe src={s.slide.src} /> }
+                case "img":      return { ...s, slide: <img src={s.slide.src} /> }
+                case "markdown": return { ...s, slide: <markdown><ReactMarkdown children={s.slide.content} rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]} /></markdown> }
+            }
+        });
+    };
+
+    const updateSlides = async () => {
+        await fetchSlidesData().then(data => {
+            if (data && data.length !== 0) {
+                setSlidesJSON(data);
+                setSlides(parseSlidesJSON(data));
+                setTimeLeft(data[0].duration);
+            } else {
+                setSlidesJSON(null);
+                setSlides(null);
+                setTimeLeft(null);
+            }
+        });
+    };
+
+    const createSlidesElements = () => {
+        try { // wonky solution for now. PR if you can think of something better.
+            return slides.map((s, i) => {
+                const nextIndex = (i+1) % slides.length;
+                const currKey = slidesElements ? slidesElements[i].key : i+":0";
+                const nextKey = slidesElements ? slidesElements[nextIndex].key : nextIndex+":0";
+                const flippedBit = nextKey.split(":")[1] === "0" ? "1" : "0";
+                return <div style={{visibility: currentSlideIndex === i ? "visible" : "hidden", position: "absolute"}} key={nextIndex === i ? nextKey + flippedBit : currKey}>{ s.slide }</div>;
+            });
+        } catch {
+            console.log("failed to set elements. skipping...");
+        }
+    };
 
     React.useEffect(() => {
-        if (slidesJSON && slidesJSON.length !== 0) {
-            setSlides(() => {
-                return slidesJSON.map(s => {
-                    switch (s.slide.type) {
-                        case "iframe":   return { ...s, slide: <iframe src={s.slide.src} /> }
-                        case "img":      return { ...s, slide: <img src={s.slide.src} /> }
-                        case "markdown": return { ...s, slide: <markdown><ReactMarkdown children={s.slide.content} rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]} /></markdown> }
-                    }
-                });
-            });
-            setTimeLeft(slidesJSON[0].duration);
-        }
+        updateSlides();
     }, []);
 
     React.useEffect(() => {
         if (slides) {
-            setAllSlides(oldSlides => {
-                return slides.map((s, i) => {
-                    const nextIndex = (currentSlideIndex + 1) % slides.length;
-                    const currKey = oldSlides ? oldSlides[i].key : i+":0";
-                    const nextKey = oldSlides ? oldSlides[nextIndex].key : nextIndex+":0";
-                    const flippedBit = nextKey.split(":")[1] === "0" ? "1" : "0";
-                    return <div style={{visibility: currentSlideIndex === i ? "visible" : "hidden", position: "absolute"}} key={nextIndex === i ? nextKey + flippedBit : currKey}>{ s.slide }</div>;
-                })
-            });
+            setSlidesElements(createSlidesElements());
 
             const timer = setInterval(() => {
                 setTimeLeft(tl => {
                     if (tl <= 0) {
                         clearInterval(timer);
-                        const newIndex = (currentSlideIndex + 1) % slides.length;
-                        setCurrentSlideIndex(newIndex);
-                        return slides[newIndex].duration;
+                        const nextIndex = (currentSlideIndex + 1) % slides.length;
+                        setCurrentSlideIndex(nextIndex);
+                        if (nextIndex === 0) {
+                            updateSlides();
+                            setSlidesElements(createSlidesElements());
+                        }
+                        return slides[nextIndex].duration ?? slides[0].duration; // Temp fix. PR for better way to catch up.
                     } else {
                         return tl - 0.1;
                     }
@@ -56,6 +84,10 @@ const me = () => {
             }, 100);
 
             return () => clearInterval(timer);
+        } else {
+            setInterval(() => {
+                updateSlides();
+            }, 20000);
         }
     }, [currentSlideIndex, slides]);
     
@@ -63,7 +95,7 @@ const me = () => {
         { !slides && <div className="default-banner"><img src={datavetenskapLogo} /></div> }
         { slides &&
         <div id="slideshow">
-            { allSlides ?? <></> }
+            { slidesElements ?? <></> }
             <div className="duration-progress">
                 <CircularProgressbar
                     value={slides[currentSlideIndex].duration - timeLeft}
