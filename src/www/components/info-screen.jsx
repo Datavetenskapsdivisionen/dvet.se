@@ -7,17 +7,22 @@ import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 rehypeRaw({ allowDangerousHtml: true });
 import datavetenskapLogo from "../../../assets/main.png";
+import { getEndOfDayTime } from "../util";
 
 const me = () => {
-    const [slidesJSON, setSlidesJSON] = React.useState(useLoaderData().filter(s => s.active ?? true)); // TODO: filter start & end dates);
+    const [slidesJSON, setSlidesJSON] = React.useState(useLoaderData());
     const [slides, setSlides] = React.useState();
     const [timeLeft, setTimeLeft] = React.useState(0);
     const [currentSlideIndex, setCurrentSlideIndex] = React.useState(0);
     const [slidesElements, setSlidesElements] = React.useState();
 
+    const filterSlidesData = (data) => {
+        return data.filter(s => (s.active ?? true) && (s.start ? new Date().getTime() >= s.start : true) && (s.end ? new Date().getTime() <= getEndOfDayTime(new Date(s.end)) : true));
+    };
+
     const fetchSlidesData = async () => {
         const s = await fetch("/getInfoScreenSlides").then(s => s.json());
-        return s.filter(s => s.active ?? true);
+        return filterSlidesData(s);
     };
 
     const parseSlidesJSON = (data = slidesJSON) => {

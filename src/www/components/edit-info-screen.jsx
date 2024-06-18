@@ -1,11 +1,12 @@
 import React from "react";
 import Modal from "react-modal";
-import { NavLink, useLoaderData } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 import { isEnglish } from "../util";
 import { draggable, dropTargetForElements, monitorForElements } from "@atlaskit/pragmatic-drag-and-drop/element/adapter";
 // import { attachClosestEdge, Edge, extractClosestEdge, } from '@atlaskit/pragmatic-drag-and-drop-hitbox/addon/closest-edge';
 import invariant from "tiny-invariant";
 import Cookies from "js-cookie";
+import { dateToLocalISO } from "../util";
 
 const me = () => {
     const slidesJSON = useLoaderData();
@@ -40,14 +41,14 @@ const me = () => {
         setSelectedSlideIndex(index);
         const s = slidesJSON[index];
         setValues({
-            nameValue: s.name,
-            typeValue: s.slide.type,
+            nameValue:     s.name,
+            typeValue:     s.slide.type,
             durationValue: s.duration,
-            startValue: s.start ?? "",
-            endValue: s.end ?? "",
-            activeValue: s.active ?? true,
-            srcValue: s.slide.src ?? "",
-            contentValue: s.slide.content ?? ""
+            startValue:    s.start ? dateToLocalISO(new Date(s.start)) : "",
+            endValue:      s.end ? dateToLocalISO(new Date(s.end)) : "",
+            activeValue:   s.active ?? true,
+            srcValue:      s.slide.src ?? "",
+            contentValue:  s.slide.content ?? ""
         });
         setIsOpen(true);
     };
@@ -70,7 +71,7 @@ const me = () => {
         e.preventDefault();
 
         const slide = {type: values.typeValue, ...(values.typeValue === "markdown" ? {content: values.contentValue} : {src: values.srcValue})};
-        const newSlideData = {name: values.nameValue, duration: values.durationValue, active: values.activeValue, slide: slide};
+        const newSlideData = {name: values.nameValue, duration: values.durationValue, active: values.activeValue, start: new Date(values.startValue).getTime(), end: new Date(values.endValue).getTime(), slide: slide};
         
         if (selectedSlideIndex != null) {
             slidesJSON[selectedSlideIndex] = newSlideData;
@@ -130,8 +131,8 @@ const me = () => {
                 <td>{s.name}</td>
                 <td>{s.slide.type}</td>
                 <td>{s.duration}s</td>
-                <td>{s.start ?? ""}</td>
-                <td>{s.end ?? ""}</td>
+                <td>{s.start ? dateToLocalISO(new Date(s.start)) : ""}</td>
+                <td>{s.end ? dateToLocalISO(new Date(s.end)) : ""}</td>
                 <td><a className={"btn " + (onOffStates[i] ? "green" : "red")} onClick={() => onActiveClick(i)}>{onOffStates[i] ? (isEnglish() ? "ON" : "PÅ") : (isEnglish() ? "OFF" : "AV")}</a></td>
                 <td><a className="btn blue" onClick={() => onEditClick(i)}>{isEnglish() ? "EDIT" : "REDIGERA"}</a></td>
                 <td><a className="btn red" onClick={() => onDeleteClick(i)}>{isEnglish() ? "DELETE" : "TA BORT"}</a></td>
@@ -202,7 +203,12 @@ const me = () => {
 
             <form onSubmit={handleSubmit}>
                 <label for="name">{isEnglish() ? "Name" : "Namn"}:</label>
-                <input type="text" name="name" value={values.nameValue} onChange={e => setValues(v => { return {...v, nameValue: e.target.value} })} required />
+                <input name="name"
+                    type="text"
+                    value={values.nameValue}
+                    onChange={e => setValues(v => { return {...v, nameValue: e.target.value} })}
+                    required
+                />
 
                 <label for="type">{isEnglish() ? "Type" : "Typ"}:</label>
                 <select name="type" value={values.typeValue} onChange={e => setValues(v => { return {...v, typeValue: e.target.value} })} required>
@@ -213,30 +219,51 @@ const me = () => {
                 <br />
 
                 <label for="duration">{isEnglish() ? "Duration" : "Varaktighet"}:</label>
-                <input type="range" name="duration" min="1" max="60" value={values.durationValue} onChange={e => setValues(v => { return {...v, durationValue: parseInt(e.target.value)} })} required />
+                <input name="duration"
+                    type="range"
+                    min="1"
+                    max="60"
+                    value={values.durationValue}
+                    onChange={e => setValues(v => { return {...v, durationValue: parseInt(e.target.value)} })}
+                    required
+                />
                 <span>{values.durationValue}s</span>
                 <br />
 
                 <label for="start">Start:</label>
-                <input type="datetime-local" name="start" min={new Date()} value={values.startValue} onChange={e => setValues(v => { return {...v, startValue: e.target.value} })} />
+                <input name="start"
+                    type="date"
+                    min={dateToLocalISO(new Date())}
+                    max={values.endValue ? dateToLocalISO(new Date(values.endValue)) : ""}
+                    value={values.startValue}
+                    onChange={e => setValues(v => { return {...v, startValue: dateToLocalISO(new Date(e.target.value))} })} />
                 <span>({isEnglish() ? "optional" : "valfri"})</span>
                 <br />
 
                 <label for="end">{isEnglish() ? "End" : "Slut"}:</label>
-                <input type="datetime-local" name="end" value={values.endValue} onChange={e => setValues(v => { return {...v, endValue: e.target.value} })} />
+                <input name="end"
+                    type="date"
+                    min={dateToLocalISO(values.startValue ? new Date(values.startValue) : new Date())}
+                    value={values.endValue}
+                    onChange={e => setValues(v => { return {...v, endValue: values.startValue ? (new Date(e.target.value) >= new Date(values.startValue) ? dateToLocalISO(new Date(e.target.value)) : "") : e.target.value} })}
+                />
                 <span>({isEnglish() ? "optional" : "valfri"})</span>
                 <br />
 
                 { values.typeValue === "markdown" ? <>
                     <p>{isEnglish() ? "Content" : "Innehåll"}:</p>
-                    <textarea name="content" rows="6" cols="30" onChange={e => setValues(v => { return {...v, contentValue: e.target.value} })} required>{values.contentValue}</textarea>
+                    <textarea name="content" rows="6" cols="30" onChange={e => setValues(v => { return {...v, contentValue: e.target.value} })} required>
+                        {values.contentValue}
+                    </textarea>
                 </> : <>
                     <label for="src">URL:</label>
                     <input type="text" name="src" value={values.srcValue} onChange={e => setValues(v => { return {...v, srcValue: e.target.value} })} required />
                 </> }
                 <br />
 
-                <button onClick={handleSubmit} className="btn blue">{selectedSlideIndex != null ? (isEnglish() ? "UPDATE SLIDE" : "UPPDATERA SLIDE") : (isEnglish() ? "ADD SLIDE" : "LÄGG TILL")}</button>
+                <button onClick={handleSubmit} className="btn blue">
+                    {selectedSlideIndex != null ? (isEnglish() ? "UPDATE SLIDE" : "UPPDATERA SLIDE") : (isEnglish() ? "ADD SLIDE" : "LÄGG TILL")}
+                </button>
             </form>
         </Modal>
     </>

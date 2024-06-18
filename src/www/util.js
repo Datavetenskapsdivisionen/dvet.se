@@ -24,4 +24,14 @@ const isEnglish = () => {
     return english;
 };
 
-export { isReception, isEnglish, getLanguageCookie };
+const dateToLocalISO = (date = new Date()) => {
+    const month = date.getMonth() + 1; // we love zero based months 😌
+    const day = date.getDate();
+    return `${date.getFullYear()}-${month < 10 ? '0'+month : month}-${day < 10 ? '0'+day : day}`;
+};
+
+const getEndOfDayTime = (date = new Date()) => {
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 23, 59, 59, 999).getTime();
+}
+
+export { isReception, isEnglish, getLanguageCookie, dateToLocalISO, getEndOfDayTime };
