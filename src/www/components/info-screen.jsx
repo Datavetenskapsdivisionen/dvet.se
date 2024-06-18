@@ -86,7 +86,7 @@ const me = () => {
                         return tl - 0.1;
                     }
                 });
-            }, 100);
+            }, slides.length <= 1 ? 20000 : 100);
 
             return () => clearInterval(timer);
         } else {
@@ -101,7 +101,7 @@ const me = () => {
         { slides &&
         <div id="slideshow">
             { slidesElements ?? <></> }
-            <div className="duration-progress">
+            <div className={`duration-progress${slidesElements ? (slidesElements.length <= 1 ? " hidden" : "") : ""}`}>
                 <CircularProgressbar
                     value={slides[currentSlideIndex].duration - timeLeft}
                     maxValue={slides[currentSlideIndex].duration}
