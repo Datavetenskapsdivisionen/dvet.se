@@ -96,8 +96,8 @@ const me = () => {
         const s = props.slide;
         const i = props.id;
 
-        // const [dragging, setDragging] = React.useState(false);
-        // const [isDraggedOver, setIsDraggedOver] = React.useState(false);
+        const [dragged, setDragged] = React.useState(false);
+        const [isDraggedOver, setIsDraggedOver] = React.useState(false);
         
         const rowRef  = React.useRef(null);
         const dragRef = React.useRef(null);
@@ -110,20 +110,20 @@ const me = () => {
                 element: row,
                 dragHandle: drag,
                 getInitialData: () => ({ index: i }),
-                // onDragStart: () => setDragging(true),
-                // onDrop: () => setDragging(false)
+                onDragStart: () => setDragged(true),
+                onDrop: () => setDragged(false)
             });
             dropTargetForElements({
                 element: row,
                 getData: () => ({ index: i }),
-                // onDragEnter: () => setIsDraggedOver(true),
-                // onDragLeave: () => setIsDraggedOver(false),
-                // onDrop: () => setIsDraggedOver(false)
+                onDragEnter: () => setIsDraggedOver(true),
+                onDragLeave: () => setIsDraggedOver(false),
+                onDrop: () => setIsDraggedOver(false)
             });
         }, [slidesJSON]);
 
         return (
-            <tr className="slide-row" key={i} ref={rowRef}>
+            <tr className={(dragged ? "dragged " : "") + (isDraggedOver ? "dragged-over" : "")} key={i} ref={rowRef}>
                 <td ref={dragRef}>
                     <svg width="32" height="32" viewBox="0 0 24 24" role="presentation">
                         <g fill="currentColor" fill-rule="evenodd">
