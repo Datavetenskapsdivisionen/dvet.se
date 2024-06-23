@@ -15,6 +15,7 @@ const me = () => {
     const [timeLeft, setTimeLeft] = React.useState(0);
     const [currentSlideIndex, setCurrentSlideIndex] = React.useState(0);
     const [slidesElements, setSlidesElements] = React.useState();
+    const [shuffle, setShuffle] = React.useState(useLoaderData().shuffle ?? false);
 
     const filterSlidesData = (data) => {
         return data.filter(s => (s.active ?? true) && (s.start ? new Date().getTime() >= s.start : true) && (s.end ? new Date().getTime() <= getEndOfDayTime(new Date(s.end)) : true));
@@ -22,15 +23,16 @@ const me = () => {
 
     const fetchSlidesData = async () => {
         const s = await fetch("/getInfoScreenSlides").then(s => s.json());
-        return filterSlidesData(s);
+        setShuffle(s.shuffle ?? false); // TODO: separation of concern
+        return filterSlidesData(s.slides);
     };
 
     const parseSlidesJSON = (data = slidesJSON) => {
         return data.map(s => {
-            switch (s.slide.type) {
-                case "iframe":   return { ...s, slide: <iframe src={s.slide.src} /> }
-                case "img":      return { ...s, slide: <img src={s.slide.src} /> }
-                case "markdown": return { ...s, slide: <markdown><ReactMarkdown children={s.slide.content} rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]} /></markdown> }
+            switch (s.slide.slideType) {
+                case "iframe":   return { ...s, slide: <iframe src={s.slide.value} /> }
+                case "img":      return { ...s, slide: <img src={s.slide.value} /> }
+                case "markdown": return { ...s, slide: <markdown><ReactMarkdown children={s.slide.value} rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]} /></markdown> }
             }
         });
     };
@@ -75,7 +77,14 @@ const me = () => {
                 setTimeLeft(tl => {
                     if (tl <= 0) {
                         clearInterval(timer);
-                        const nextIndex = (currentSlideIndex + 1) % slides.length;
+                        let nextIndex;
+                        if (shuffle && slides.length > 2) {
+                            do {
+                                nextIndex = Math.floor(Math.random() * slides.length);
+                            } while (nextIndex === currentSlideIndex);
+                        } else {
+                            nextIndex = (currentSlideIndex + 1) % slides.length;
+                        }
                         setCurrentSlideIndex(nextIndex);
                         if (nextIndex === 0) {
                             updateSlides();
@@ -98,7 +107,7 @@ const me = () => {
     
     return <>
         { !slides && <div className="default-banner"><img src={datavetenskapLogo} /></div> }
-        { slides &&
+        { slides && slides[currentSlideIndex] &&
         <div id="slideshow">
             { slidesElements ?? <></> }
             <div className={`duration-progress${slidesElements ? (slidesElements.length <= 1 ? " hidden" : "") : ""}`}>

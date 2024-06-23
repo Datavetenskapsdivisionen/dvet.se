@@ -1,68 +1,74 @@
 import fs from "fs";
-import S from "fluent-json-schema";
 import Ajv from "ajv";
 
-const infoScreenSchema = S.object()
-    .prop("name", S.string())
-    .prop("duration", S.integer())
-    .prop("startDate", S.integer())
-    .prop("endDate", S.integer())
-    .prop("active", S.boolean())
-    .prop("slide", S.oneOf([
-        S.object()
-            .prop("type", S.string().enum(["iframe"]))
-            .prop("src", S.string())
-            .required(["type", "src"]),
-        S.object()
-            .prop("type", S.string().enum(["img"]))
-            .prop("src", S.string())
-            .required(["type", "src"]),
-        S.object()
-            .prop("type", S.string().enum(["markdown"]))
-            .prop("content", S.string())
-            .required(["type", "content"])
-    ]))
-    .required(["name", "duration", "slide"]);
-
-const fullSchema = S.array().items(infoScreenSchema);
+const schema = {
+    type: "object",
+    properties: {
+        shuffle: { type: "boolean" },
+        slides: {
+            type: "array",
+            items: {
+                type: "object",
+                properties: {
+                    name:     { type: "string" },
+                    duration: { type: "integer" },
+                    start:    { type: ["integer", "null"] },
+                    end:      { type: ["integer", "null"] },
+                    active:   { type: "boolean" },
+                    slide: {
+                        type: "object",
+                        properties: {
+                            slideType: { enum: ["iframe", "img", "markdown"] },
+                            value:     { type: "string" }
+                        },
+                        required: ["slideType", "value"]
+                    },
+                },
+                required: ["name", "duration", "slide"]
+            }
+        }
+    },
+    required: ["slides"]
+}
+    
 const ajv = new Ajv();
-const validator = ajv.compile(fullSchema.valueOf());
+const validator = ajv.compile(schema);
 
 const getSlides = async (req, res) => {
-    var slides;
+    let slides;
     try {
         slides = JSON.parse(fs.readFileSync("./info-screen-slides.json"));
     } catch (err) {
-        slides = [];
+        slides = {slides: []};
     }
     
     const isValid = validator(slides);
     if (!isValid) {
         console.log("The info screen JSON data is not valid.");
         console.log(validator.errors);
-        res.json({ error: "The info screen JSON data is not valid." });
+        res.status(400).json({ error: "The info screen JSON data is not valid." });
         return;
     }
 
-    res.json(slides);
+    res.status(200).json(slides);
 };
 
 const updateSlides = async (req, res) => {
     const slides = req.body;
     if (!slides || !validator(slides)) {
-        console.log(validator.errors.msg);
-        res.json({error: "The provided slides contains errors. Please check the JSON schema.\n" + validator.errors.msg});
+        console.log("The provided slides contains errors. Please check the JSON schema.\n\tError message: " + validator.errors.msg);
+        res.status(400).json({error: "The provided slides contains errors. Please check the JSON schema.\n\tError message: " + validator.errors.msg});
         return;
     }
 
     fs.writeFile("./info-screen-slides.json", JSON.stringify(slides), error => {
         if (error) {
-            res.json({error: error});
+            res.status(400).json({error: error});
             return;
         }
     });
 
-    res.json({"msg": "Slides updated!"});
+    res.status(200).json({"msg": "Slides updated!"});
 };
 
 export { getSlides, updateSlides };

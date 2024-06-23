@@ -9,12 +9,14 @@ import Cookies from "js-cookie";
 import { dateToLocalISO } from "../util";
 
 const me = () => {
-    const slidesJSON = useLoaderData();
+    const jsonData = useLoaderData();
+    const slidesJSON = jsonData.slides;
     const [modalIsOpen, setIsOpen] = React.useState(false);
     const [selectedSlideIndex, setSelectedSlideIndex] = React.useState(null);
-    const defaultState = {nameValue: "", typeValue: "iframe", durationValue: 10, startValue: "", endValue: "", activeValue: true, srcValue: "", contentValue: ""};
+    const defaultState = {nameValue: "", typeValue: "iframe", valueValue: "", durationValue: 10, startValue: "", endValue: "", activeValue: true};
     const [values, setValues] = React.useState(defaultState);
     const [onOffStates, setOnOffStates] = React.useState([]);
+    const [isShuffleOn, setIsShuffleOn] = React.useState(jsonData.shuffle ?? false);
 
     const updateOnOffStates = () => {
         setOnOffStates(slidesJSON.map(s => s.active ?? true));
@@ -26,9 +28,9 @@ const me = () => {
         fetch("/info-screen/update", {
             method: "PUT",
             headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
-            body: JSON.stringify(slidesJSON)
+            body: JSON.stringify({...jsonData, slides: slidesJSON})
         });
-    }
+    };
 
     const onActiveClick = (index) => {
         const currVal = slidesJSON[index].active ?? true;
@@ -42,13 +44,12 @@ const me = () => {
         const s = slidesJSON[index];
         setValues({
             nameValue:     s.name,
-            typeValue:     s.slide.type,
+            typeValue:     s.slide.slideType,
             durationValue: s.duration,
             startValue:    s.start ? dateToLocalISO(new Date(s.start)) : "",
             endValue:      s.end ? dateToLocalISO(new Date(s.end)) : "",
             activeValue:   s.active ?? true,
-            srcValue:      s.slide.src ?? "",
-            contentValue:  s.slide.content ?? ""
+            valueValue:    s.slide.value ?? ""
         });
         setIsOpen(true);
     };
@@ -61,6 +62,13 @@ const me = () => {
         }
     };
 
+    const onShuffleClick = () => {
+        const shuffle = jsonData.shuffle;
+        jsonData.shuffle = !shuffle;
+        setIsShuffleOn(!shuffle);
+        saveEdits();
+    }
+
     const onModalClose = () => {
         setValues(defaultState);
         setSelectedSlideIndex(null);
@@ -70,7 +78,7 @@ const me = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const slide = {type: values.typeValue, ...(values.typeValue === "markdown" ? {content: values.contentValue} : {src: values.srcValue})};
+        const slide = {slideType: values.typeValue, value: values.valueValue};
         const newSlideData = {name: values.nameValue, duration: values.durationValue, active: values.activeValue, start: new Date(values.startValue).getTime(), end: new Date(values.endValue).getTime(), slide: slide};
         
         if (selectedSlideIndex != null) {
@@ -129,7 +137,7 @@ const me = () => {
                     </svg>
                 </td>
                 <td>{s.name}</td>
-                <td>{s.slide.type}</td>
+                <td>{s.slide.slideType}</td>
                 <td>{s.duration}s</td>
                 <td>{s.start ? dateToLocalISO(new Date(s.start)) : ""}</td>
                 <td>{s.end ? dateToLocalISO(new Date(s.end)) : ""}</td>
@@ -187,7 +195,15 @@ const me = () => {
             <h1>{isEnglish() ? "Edit info screen" : "Redigera infoskärmen"}</h1>
             <div className="edit-slides-container">
                 <Slides />
-                <a onClick={() => setIsOpen(true)} className="btn blue">{isEnglish() ? "ADD SLIDE" : "LÄGG TILL"}</a>
+                <div>
+                    <a onClick={() => setIsOpen(true)} className="btn blue">{isEnglish() ? "ADD SLIDE" : "LÄGG TILL"}</a>
+                    
+                    <label class="switch">
+                        <input name="shuffle" type="checkbox" checked={isShuffleOn} onChange={onShuffleClick} />
+                        <span class="slider" />
+                    </label>
+                    <span>Shuffle order</span>
+                </div>
             </div>
         </div>
         
@@ -222,7 +238,7 @@ const me = () => {
                 <input name="duration"
                     type="range"
                     min="1"
-                    max="60"
+                    max="30"
                     value={values.durationValue}
                     onChange={e => setValues(v => { return {...v, durationValue: parseInt(e.target.value)} })}
                     required
@@ -252,12 +268,12 @@ const me = () => {
 
                 { values.typeValue === "markdown" ? <>
                     <p>{isEnglish() ? "Content" : "Innehåll"}:</p>
-                    <textarea name="content" rows="6" cols="30" onChange={e => setValues(v => { return {...v, contentValue: e.target.value} })} required>
-                        {values.contentValue}
+                    <textarea name="value" rows="6" cols="30" onChange={e => setValues(v => { return {...v, valueValue: e.target.value} })} required>
+                        {values.valueValue}
                     </textarea>
                 </> : <>
-                    <label for="src">URL:</label>
-                    <input type="text" name="src" value={values.srcValue} onChange={e => setValues(v => { return {...v, srcValue: e.target.value} })} required />
+                    <label for="value">URL:</label>
+                    <input type="text" name="value" value={values.valueValue} onChange={e => setValues(v => { return {...v, valueValue: e.target.value} })} required />
                 </> }
                 <br />
 
