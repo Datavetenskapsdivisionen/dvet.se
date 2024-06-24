@@ -1,19 +1,22 @@
 import React from "react";
 import Modal from "react-modal";
-import { NavLink, useLoaderData } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 import { isEnglish } from "../util";
 import { draggable, dropTargetForElements, monitorForElements } from "@atlaskit/pragmatic-drag-and-drop/element/adapter";
 // import { attachClosestEdge, Edge, extractClosestEdge, } from '@atlaskit/pragmatic-drag-and-drop-hitbox/addon/closest-edge';
 import invariant from "tiny-invariant";
 import Cookies from "js-cookie";
+import { dateToLocalISO } from "../util";
 
 const me = () => {
-    const slidesJSON = useLoaderData();
+    const jsonData = useLoaderData();
+    const slidesJSON = jsonData.slides;
     const [modalIsOpen, setIsOpen] = React.useState(false);
     const [selectedSlideIndex, setSelectedSlideIndex] = React.useState(null);
-    const defaultState = {nameValue: "", typeValue: "iframe", durationValue: 10, startValue: "", endValue: "", activeValue: true, srcValue: "", contentValue: ""};
+    const defaultState = {nameValue: "", typeValue: "iframe", valueValue: "", durationValue: 10, startValue: "", endValue: "", activeValue: true};
     const [values, setValues] = React.useState(defaultState);
     const [onOffStates, setOnOffStates] = React.useState([]);
+    const [isShuffleOn, setIsShuffleOn] = React.useState(jsonData.shuffle ?? false);
 
     const updateOnOffStates = () => {
         setOnOffStates(slidesJSON.map(s => s.active ?? true));
@@ -25,9 +28,9 @@ const me = () => {
         fetch("/info-screen/update", {
             method: "PUT",
             headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
-            body: JSON.stringify(slidesJSON)
+            body: JSON.stringify({...jsonData, slides: slidesJSON})
         });
-    }
+    };
 
     const onActiveClick = (index) => {
         const currVal = slidesJSON[index].active ?? true;
@@ -40,14 +43,13 @@ const me = () => {
         setSelectedSlideIndex(index);
         const s = slidesJSON[index];
         setValues({
-            nameValue: s.name,
-            typeValue: s.slide.type,
+            nameValue:     s.name,
+            typeValue:     s.slide.slideType,
             durationValue: s.duration,
-            startValue: s.start ?? "",
-            endValue: s.end ?? "",
-            activeValue: s.active ?? true,
-            srcValue: s.slide.src ?? "",
-            contentValue: s.slide.content ?? ""
+            startValue:    s.start ? dateToLocalISO(new Date(s.start)) : "",
+            endValue:      s.end ? dateToLocalISO(new Date(s.end)) : "",
+            activeValue:   s.active ?? true,
+            valueValue:    s.slide.value ?? ""
         });
         setIsOpen(true);
     };
@@ -60,6 +62,13 @@ const me = () => {
         }
     };
 
+    const onShuffleClick = () => {
+        const shuffle = jsonData.shuffle;
+        jsonData.shuffle = !shuffle;
+        setIsShuffleOn(!shuffle);
+        saveEdits();
+    }
+
     const onModalClose = () => {
         setValues(defaultState);
         setSelectedSlideIndex(null);
@@ -69,8 +78,8 @@ const me = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const slide = {type: values.typeValue, ...(values.typeValue === "markdown" ? {content: values.contentValue} : {src: values.srcValue})};
-        const newSlideData = {name: values.nameValue, duration: values.durationValue, active: values.activeValue, slide: slide};
+        const slide = {slideType: values.typeValue, value: values.valueValue};
+        const newSlideData = {name: values.nameValue, duration: values.durationValue, active: values.activeValue, start: new Date(values.startValue).getTime(), end: new Date(values.endValue).getTime(), slide: slide};
         
         if (selectedSlideIndex != null) {
             slidesJSON[selectedSlideIndex] = newSlideData;
@@ -87,8 +96,8 @@ const me = () => {
         const s = props.slide;
         const i = props.id;
 
-        // const [dragging, setDragging] = React.useState(false);
-        // const [isDraggedOver, setIsDraggedOver] = React.useState(false);
+        const [dragged, setDragged] = React.useState(false);
+        const [isDraggedOver, setIsDraggedOver] = React.useState(false);
         
         const rowRef  = React.useRef(null);
         const dragRef = React.useRef(null);
@@ -101,20 +110,20 @@ const me = () => {
                 element: row,
                 dragHandle: drag,
                 getInitialData: () => ({ index: i }),
-                // onDragStart: () => setDragging(true),
-                // onDrop: () => setDragging(false)
+                onDragStart: () => setDragged(true),
+                onDrop: () => setDragged(false)
             });
             dropTargetForElements({
                 element: row,
                 getData: () => ({ index: i }),
-                // onDragEnter: () => setIsDraggedOver(true),
-                // onDragLeave: () => setIsDraggedOver(false),
-                // onDrop: () => setIsDraggedOver(false)
+                onDragEnter: () => setIsDraggedOver(true),
+                onDragLeave: () => setIsDraggedOver(false),
+                onDrop: () => setIsDraggedOver(false)
             });
         }, [slidesJSON]);
 
         return (
-            <tr className="slide-row" key={i} ref={rowRef}>
+            <tr className={(dragged ? "dragged " : "") + (isDraggedOver ? "dragged-over" : "")} key={i} ref={rowRef}>
                 <td ref={dragRef}>
                     <svg width="32" height="32" viewBox="0 0 24 24" role="presentation">
                         <g fill="currentColor" fill-rule="evenodd">
@@ -128,10 +137,10 @@ const me = () => {
                     </svg>
                 </td>
                 <td>{s.name}</td>
-                <td>{s.slide.type}</td>
+                <td>{s.slide.slideType}</td>
                 <td>{s.duration}s</td>
-                <td>{s.start ?? ""}</td>
-                <td>{s.end ?? ""}</td>
+                <td>{s.start ? dateToLocalISO(new Date(s.start)) : ""}</td>
+                <td>{s.end ? dateToLocalISO(new Date(s.end)) : ""}</td>
                 <td><a className={"btn " + (onOffStates[i] ? "green" : "red")} onClick={() => onActiveClick(i)}>{onOffStates[i] ? (isEnglish() ? "ON" : "PÅ") : (isEnglish() ? "OFF" : "AV")}</a></td>
                 <td><a className="btn blue" onClick={() => onEditClick(i)}>{isEnglish() ? "EDIT" : "REDIGERA"}</a></td>
                 <td><a className="btn red" onClick={() => onDeleteClick(i)}>{isEnglish() ? "DELETE" : "TA BORT"}</a></td>
@@ -186,7 +195,15 @@ const me = () => {
             <h1>{isEnglish() ? "Edit info screen" : "Redigera infoskärmen"}</h1>
             <div className="edit-slides-container">
                 <Slides />
-                <a onClick={() => setIsOpen(true)} className="btn blue">{isEnglish() ? "ADD SLIDE" : "LÄGG TILL"}</a>
+                <div>
+                    <a onClick={() => setIsOpen(true)} className="btn blue">{isEnglish() ? "ADD SLIDE" : "LÄGG TILL"}</a>
+                    
+                    <label class="switch">
+                        <input name="shuffle" type="checkbox" checked={isShuffleOn} onChange={onShuffleClick} />
+                        <span class="slider" />
+                    </label>
+                    <span>Shuffle order</span>
+                </div>
             </div>
         </div>
         
@@ -202,7 +219,12 @@ const me = () => {
 
             <form onSubmit={handleSubmit}>
                 <label for="name">{isEnglish() ? "Name" : "Namn"}:</label>
-                <input type="text" name="name" value={values.nameValue} onChange={e => setValues(v => { return {...v, nameValue: e.target.value} })} required />
+                <input name="name"
+                    type="text"
+                    value={values.nameValue}
+                    onChange={e => setValues(v => { return {...v, nameValue: e.target.value} })}
+                    required
+                />
 
                 <label for="type">{isEnglish() ? "Type" : "Typ"}:</label>
                 <select name="type" value={values.typeValue} onChange={e => setValues(v => { return {...v, typeValue: e.target.value} })} required>
@@ -213,30 +235,51 @@ const me = () => {
                 <br />
 
                 <label for="duration">{isEnglish() ? "Duration" : "Varaktighet"}:</label>
-                <input type="range" name="duration" min="1" max="60" value={values.durationValue} onChange={e => setValues(v => { return {...v, durationValue: parseInt(e.target.value)} })} required />
+                <input name="duration"
+                    type="range"
+                    min="1"
+                    max="30"
+                    value={values.durationValue}
+                    onChange={e => setValues(v => { return {...v, durationValue: parseInt(e.target.value)} })}
+                    required
+                />
                 <span>{values.durationValue}s</span>
                 <br />
 
                 <label for="start">Start:</label>
-                <input type="datetime-local" name="start" min={new Date()} value={values.startValue} onChange={e => setValues(v => { return {...v, startValue: e.target.value} })} />
+                <input name="start"
+                    type="date"
+                    min={dateToLocalISO(new Date())}
+                    max={values.endValue ? dateToLocalISO(new Date(values.endValue)) : ""}
+                    value={values.startValue}
+                    onChange={e => setValues(v => { return {...v, startValue: dateToLocalISO(new Date(e.target.value))} })} />
                 <span>({isEnglish() ? "optional" : "valfri"})</span>
                 <br />
 
                 <label for="end">{isEnglish() ? "End" : "Slut"}:</label>
-                <input type="datetime-local" name="end" value={values.endValue} onChange={e => setValues(v => { return {...v, endValue: e.target.value} })} />
+                <input name="end"
+                    type="date"
+                    min={dateToLocalISO(values.startValue ? new Date(values.startValue) : new Date())}
+                    value={values.endValue}
+                    onChange={e => setValues(v => { return {...v, endValue: values.startValue ? (new Date(e.target.value) >= new Date(values.startValue) ? dateToLocalISO(new Date(e.target.value)) : "") : e.target.value} })}
+                />
                 <span>({isEnglish() ? "optional" : "valfri"})</span>
                 <br />
 
                 { values.typeValue === "markdown" ? <>
                     <p>{isEnglish() ? "Content" : "Innehåll"}:</p>
-                    <textarea name="content" rows="6" cols="30" onChange={e => setValues(v => { return {...v, contentValue: e.target.value} })} required>{values.contentValue}</textarea>
+                    <textarea name="value" rows="6" cols="30" onChange={e => setValues(v => { return {...v, valueValue: e.target.value} })} required>
+                        {values.valueValue}
+                    </textarea>
                 </> : <>
-                    <label for="src">URL:</label>
-                    <input type="text" name="src" value={values.srcValue} onChange={e => setValues(v => { return {...v, srcValue: e.target.value} })} required />
+                    <label for="value">URL:</label>
+                    <input type="text" name="value" value={values.valueValue} onChange={e => setValues(v => { return {...v, valueValue: e.target.value} })} required />
                 </> }
                 <br />
 
-                <button onClick={handleSubmit} className="btn blue">{selectedSlideIndex != null ? (isEnglish() ? "UPDATE SLIDE" : "UPPDATERA SLIDE") : (isEnglish() ? "ADD SLIDE" : "LÄGG TILL")}</button>
+                <button onClick={handleSubmit} className="btn blue">
+                    {selectedSlideIndex != null ? (isEnglish() ? "UPDATE SLIDE" : "UPPDATERA SLIDE") : (isEnglish() ? "ADD SLIDE" : "LÄGG TILL")}
+                </button>
             </form>
         </Modal>
     </>
