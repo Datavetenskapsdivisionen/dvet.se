@@ -25,7 +25,7 @@ const me = () => (
       <CommitteeBadge uri="/committees/the-board" name={isEnglish() ? "The Board" : "Styrelsen"} logo={TheBoardLogo} />
       <CommitteeBadge uri="/committees/dvrk" name="DVRK" logo={DVRKLogo} color="#1e1e1e" />
       <CommitteeBadge uri="/committees/board-of-studies" name={isEnglish() ? "Board of Studies" : "Studienämnd"} fontSize="1.8em" logo={BoardOfStudies} />
-      <CommitteeBadge uri="/committees/mega6" name="Mega6" logo={Mega6Logo} color="#434AFA" />
+      <CommitteeBadge uri="/committees/mega6" name="Mega6" logo={Mega6Logo} />
       <CommitteeBadge uri="/committees/concats" imageText={ConCatsText} logo={ConCatsLogo} />
       <CommitteeBadge uri="/committees/femmepp" name="Femme++" logo={FemmePPLogo} />
       <CommitteeBadge uri="/committees/dv_ops" name="DV_Ops" logo={DV_OpsLogo} DVops={true} />
