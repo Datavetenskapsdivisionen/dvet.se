@@ -74,7 +74,7 @@
             andra studenter!
         </p>
         <p>
-            Styrelsen består i nulägget av oss, Samuel Hammersberg (Divisionsordförande) och Lukas Gartman (Divisionskassör), Tim Persson (Vice-Divisionsordförande), Gustav Dalemo (Sekreterare), Josefin Kokkinakis (SAMO).
+            Styrelsen består i nuläget av Samuel Hammersberg (divisionsordförande), Lukas Gartman (divisionskassör), Tim Persson (vice-divisionsordförande), Gustav Dalemo (sekreterare) och Josefin Kokkinakis (SAMO).
         </p>
         <h2>Kontakt</h2>
         <p>
@@ -89,7 +89,6 @@
         </p>
         <p>
             Lukas kan nås genom att skicka ett mail till 
-            <a href="mailto:kassor@dvet.se">kassor@dvet.se</a> (stående address) eller till
             <a href="mailto:lukas@dvet.se">lukas@dvet.se</a>. 
             Går även bra att skriva på Discord (användarnamn <a href="https://discordapp.com/users/137933060644667392"><code>`nilvoid`</code></a>) 
             eller på Facebook Messenger!

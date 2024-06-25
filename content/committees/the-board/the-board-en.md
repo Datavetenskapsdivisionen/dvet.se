@@ -53,7 +53,7 @@
 
 # The Board
 <div class="committee-page-holder">
-    <div lang="se-SE" class="committee-page-text">
+    <div lang="en-GB" class="committee-page-text">
         <p>
             Hello there!
             <br/>
@@ -74,7 +74,7 @@
             other students!
         </p>
         <p>
-            The board currently consists of us, Samuel Hammersberg (Division chairman) and Lukas Gartman (Division treasurer), Tim Persson(Vice-Division chairman), Gustav Dalemo(Secretary), Josefin Kokkinakis (SAMO).
+            The board currently consists of Samuel Hammersberg (division chairman), Lukas Gartman (division treasurer), Tim Persson (vice-division chairman), Gustav Dalemo (secretary), and Josefin Kokkinakis (SAMO).
         </p>
         <h2>Contact Information</h2>
         <p>
@@ -84,20 +84,19 @@
             Samuel can be reached by sending a mail to 
             <a href="mailto:ordforande@dvet.se">ordforande@dvet.se</a> or to
             <a href="mailto:samuel@dvet.se">samuel@dvet.se</a>. 
-            You can also send a message on Discord (användarnamn <a href="https://discordapp.com/users/216650745271943168"><code>`loafey`</code></a>) 
+            You can also send a message on Discord (username <a href="https://discordapp.com/users/216650745271943168"><code>`loafey`</code></a>) 
             or on Facebook Messenger!
         </p>
         <p>
             Lukas can be reached by sending a mail to 
-            <a href="mailto:kassor@dvet.se">kassor@dvet.se</a> or to
             <a href="mailto:lukas@dvet.se">lukas@dvet.se</a>. 
-            You can also send a message on Discord (användarnamn <a href="https://discordapp.com/users/137933060644667392"><code>`nilvoid`</code></a>) 
+            You can also send a message on Discord (username <a href="https://discordapp.com/users/137933060644667392"><code>`nilvoid`</code></a>) 
             or on Facebook Messenger!
         </p>
         <p>
             Tim can be reached by sending a mail to 
             <a href="mailto:tim@dvet.se">tim@dvet.se</a>. 
-            You can also send a message on Discord (användarnamn <a href="https://discordapp.com/users/170196311784685568"><code>`timheterjag`</code></a>) 
+            You can also send a message on Discord (username <a href="https://discordapp.com/users/170196311784685568"><code>`timheterjag`</code></a>) 
             or on Facebook Messenger!
         </p>
     </div>
