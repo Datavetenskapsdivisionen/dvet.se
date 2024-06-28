@@ -113,8 +113,8 @@ const getEventData = async (full, eventUrl, restUrl, eventLimit, openModal, setM
                 className="schedule-item upcoming-button"
                 onClick={() => navigate(restUrl)}
             >
-                <h3>Uppkommande</h3>
-                <p> Tryck här för att se resten av eventen!</p>
+                <h3>{isEnglish() ? "Upcoming" : "Uppkommande"}</h3>
+                <p>{isEnglish() ? "Click here to see the rest of the events!" : "Tryck här för att se resten av eventen!"}</p>
             </div>
         );
     }
@@ -149,7 +149,7 @@ const me = (props) => {
             openModal, setModalData,
             navigate
         ).then((res) => setState(res))
-        .catch(() => setState(<div>{isEnglish() ? "Unable to fetch events ": "Det gick inte att hämta events"}</div>));
+        .catch(() => setState(<div>{isEnglish() ? "Unable to fetch events " : "Det gick inte att hämta events"}</div>));
     }, [getEventData]);
 
     return <div className="schedule-holder">

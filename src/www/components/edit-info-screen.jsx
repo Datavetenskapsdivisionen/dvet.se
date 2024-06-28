@@ -202,7 +202,7 @@ const me = () => {
                         <input name="shuffle" type="checkbox" checked={isShuffleOn} onChange={onShuffleClick} />
                         <span class="slider" />
                     </label>
-                    <span>Shuffle order</span>
+                    <span>{isEnglish() ? "Shuffle order" : "Blanda ordning"}</span>
                 </div>
             </div>
         </div>
