@@ -171,7 +171,7 @@ const SchedulePage = (props) => {
 
 const BachelorSchedulePage = () => {
     return (
-        <SchedulePage extension="?type=Kandidat" title={isEnglish() ? "Bachelor schedule" : "Kandidat schema"} />
+        <SchedulePage extension="?type=Kandidat" title={isEnglish() ? "Bachelor schedule" : "Kandidatschema"} />
     );
 };
 
