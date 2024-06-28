@@ -74,14 +74,14 @@ const getEventData = async (full, eventUrl, restUrl, eventLimit, openModal, setM
             : <>&nbsp;</>;
 
         let newTag = null;
-        if (isNew(o.dateData.created, 3)) newTag = <div className="info">
+        if (isNew(o.dateData.created, 3)) newTag = <div className="new-tag">
             N<br />
             E<br />
             W
         </div>;
         let infoTag = null;
         if (o.description) className += " clickable";
-        if (o.description) infoTag = <div className="info">
+        if (o.description) infoTag = <div className="info-tag">
             I<br />
             N<br />
             F<br />
