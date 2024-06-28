@@ -66,10 +66,10 @@ const syncEvents = async (calenderId) => {
 
 const getEvents = async (req, res, calendarId) => {
     const filterFunc = () => {
-        const query = req.query.type;
-        if (query) {
+        const eventType = req.query.type;
+        if (eventType && events[calendarId] && events[calendarId].data) {
             return events[calendarId].data.filter(
-                e => e.group.includes(query)
+                e => e.group.map(s => s.toLowerCase()).includes(eventType.toLowerCase())
                     || e.group.length == 0
             );
         }
