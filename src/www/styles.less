@@ -1014,7 +1014,6 @@ main-wiki {
     flex: 1;
     margin: 0px auto;
     width: 100%;
-    overflow: hidden;
 
     @media screen and (min-width: 766px) {
         display: grid;
@@ -1081,7 +1080,6 @@ main-wiki {
     }
 
     .wiki-navtree-root {
-        overflow: hidden;
         height: 100%;
 
         padding-left: 10px;
@@ -1129,15 +1127,29 @@ main-wiki {
         .wiki-navtree-title {
             font-family: "Quicksand", sans-serif;
             font-weight: bold;
-            font-size: 1.2em;
+            font-size: 1em;
+            padding-left: 5px;
+            margin-left: 5px;
         }
 
         .wiki-navtree-link {
+            transition-duration: 0.1s;
             font-size: 1em;
             color: #161616;
             text-decoration: none;
-            margin-bottom: 4px;
-            // padding-left: 4px;
+            margin-bottom: 2px;
+            width: calc(100% - 25px);
+            display: block;
+            background-color: transparent;
+            border-radius: 5px;
+            outline: 2px transparent solid;
+            padding-left: 5px;
+            margin-left: 5px;
+        }
+
+        .wiki-navtree-link:hover {
+            background-color: #16161622;
+            outline: 2px #16161622 solid;
         }
 
         .wiki-navtree-button {
