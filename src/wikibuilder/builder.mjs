@@ -6,6 +6,7 @@ const SOURCE_DIR = "content/wiki";
 
 const nameFixer = name => name
     .replaceAll("/", "__").replace(".", "")
+    .replaceAll("&", "___")
     .replaceAll(" ", "_").replace("(", "_")
     .replace(")", "_");
 
