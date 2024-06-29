@@ -37,6 +37,4 @@ jobs:
       
     - name: Deploy
       run: | 
-        curl -X POST \
-            -H "X-Dvet-Token: ${{ secrets.DEPLOY_TOKEN_MASTER }}" \
-            https://www.dvet.se/killerbean -f
+        curl -X POST -H "X-Dvet-Token: ${{ secrets.DEPLOY_TOKEN_MASTER }}" https://www.dvet.se/killerbean -f
