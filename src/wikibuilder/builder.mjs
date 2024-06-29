@@ -5,6 +5,8 @@ const OUTPUT_DIR = "wiki-cache";
 const SOURCE_DIR = "content/wiki";
 
 const nameFixer = name => name
+    .replaceAll("ä", "a").replaceAll("å", "a").replaceAll("ö", "o")
+    .replaceAll("Ä", "A").replaceAll("Å", "A").replaceAll("Ö", "O")
     .replaceAll("/", "__").replace(".", "")
     .replaceAll("&", "___")
     .replaceAll(" ", "_").replace("(", "_")
