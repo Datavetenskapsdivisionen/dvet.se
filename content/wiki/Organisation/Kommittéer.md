@@ -1,7 +1,7 @@
 # Kommittéer
 Datavetenskapsdivionen består av ett flertall kommittéer. 
 Dessa kommittéer har alla olika [syften](https://drive.google.com/file/d/1il_w2HWMZVwvRrJhEMa_8NUKFy-upx9m/view?usp=drive_link), 
-och alla svarar till styrelsen.\
+och alla svarar till styrelsen.
 
 Här är en kort lista av kommittéerna och deras mål:
 * [DVRK](/committees/dvrk)
