@@ -3,6 +3,7 @@ import { marked } from "marked";
 
 const OUTPUT_DIR = "wiki-cache";
 const SOURCE_DIR = "content/wiki";
+const SECRET_DIR = "Hemlisar";
 
 const nameFixer = name => name
     .replaceAll("ä", "a").replaceAll("å", "a").replaceAll("ö", "o")
@@ -135,7 +136,7 @@ class Directory {
             : "<></>";
         const show = this.children.length >= 10
             ? "<></>"
-            : `${this.path}`;
+            : `${this.path == SECRET_DIR ? "locky" : this.path}`;
         const hideStyle = this.children.length >= 10
             ? "{{display: \"none\"}}"
             : "{{}}";
