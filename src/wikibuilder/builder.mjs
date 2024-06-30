@@ -1,5 +1,6 @@
 import fs from "fs";
 import { marked } from "marked";
+import BabelCore from "@babel/core";
 
 const OUTPUT_DIR = "wiki-cache";
 const SOURCE_DIR = "content/wiki";
@@ -69,9 +70,10 @@ class File {
     navtree(path) {
         if (this.extension == "md") {
             const uri = `${path.replace(" ", "_")}/${nameFixer(this.name)}`;
-            return `<div><Link onClick={hideNavTree} class="wiki-navtree-link" to="${uri}">{'\t'}${this.name}</Link></div>`;
+            const res = `<div><Link onClick={hideNavTree} class="wiki-navtree-link" to="${uri}">{'\t'}${this.name}</Link></div>`;
+            return [res, res];
         } else {
-            return `<></>`;
+            return [`<></>`, `<></>`];
         }
     }
 
@@ -80,7 +82,7 @@ class File {
             let name = `${path}/${this.name}`;
             let fancyName = nameFixer(name);
             let code = `import ${fancyName} from "${name}.html";\n`;
-            return [[fancyName], code];
+            return [[fancyName], code, code];
         } else {
             return null;
         }
@@ -126,6 +128,7 @@ class Directory {
 
     navtree(path) {
         const isNotRoot = this.path != "root";
+        const isSecret = this.path == SECRET_DIR;
         if (isNotRoot) {
             path += "/" + this.path;
         }
@@ -136,38 +139,47 @@ class Directory {
             : "<></>";
         const show = this.children.length >= 10
             ? "<></>"
-            : `${this.path == SECRET_DIR ? "locky" : this.path}`;
+            : `${isSecret ? this.path + " 🔒" : this.path}`;
         const hideStyle = this.children.length >= 10
             ? "{{display: \"none\"}}"
             : "{{}}";
+
         let children = isNotRoot
             ? `<a class="wiki-navtree-title">${show}${hide}</a><div style=${hideStyle} id="${divId}">`
             : `<div style=${hideStyle} id="${divId}">`;
+        children = [children, children];
         for (const child of this.children) {
-            children += child.navtree(path);
+            let [normal, secret] = child.navtree(path);
+            if (!isSecret) children[0] += normal;
+            children[1] += secret;
         }
-        if (this.children.filter(p => p.extension && p.extension != "hidden").length > 0)
-            return `<div class="wiki-navtree">${children}</div></div>`;
-        else
-            return `<></>`;
+        if (this.children.filter(p => p.extension && p.extension != "hidden").length > 0) {
+            const res = f => `<div class="wiki-navtree">${f}</div></div>`;
+            return [res(children[0]), res(children[1])];
+        } else {
+            return [`<></>`, `<></>`];
+        }
     }
 
     __react(path) {
         if (this.path != "root") {
             path += "/" + this.path;
         }
+        const isSecret = this.path == SECRET_DIR;
         let output = "";
+        let secretOutput = "";
         let names = [];
         for (const child of this.children) {
             let childOutput = child.__react(path);
             if (!childOutput) continue;
-            let [newNames, newOutput] = childOutput;
-            output += newOutput;
+            let [newNames, newOutput, newSecretOutput] = childOutput;
+            if (!isSecret) output += newOutput;
+            secretOutput += newSecretOutput;
             names = names.concat(newNames);
         }
-        return [names, output];
+        return [names, output, secretOutput];
     }
-    react(navtree) {
+    react(navtree, secretNavtree) {
         let output = `import React from "react";
 import { useParams, Link } from "react-router-dom";
 const hideTree = (buttonId, divId) => {
@@ -193,18 +205,19 @@ const showNavTree = () => {
     const navtree = document.getElementById("navtree");
     navtree.classList.remove("wiki-navtree-hidden");
 };
-
-const TREE = ${navtree};
 \n\n`;
+        let secretOutput = output;
+        output += `const TREE = ${navtree};`;
+        secretOutput += `const TREE = ${secretNavtree};`;
         let names = [];
         for (const child of this.children) {
             let childOutput = child.__react(".");
             if (!childOutput) continue;
-            let [newNames, newOutput] = childOutput;
+            let [newNames, newOutput, newSecretOutput] = childOutput;
             output += newOutput;
+            secretOutput += newSecretOutput;
             names = names.concat(newNames);
         }
-        let outputPath = OUTPUT_DIR + "/wiki.jsx";
         let paths = "";
         for (const name of names) {
             paths += `if (path == "${name}") {
@@ -216,7 +229,7 @@ const TREE = ${navtree};
     } else `;
         }
 
-        output += `
+        const last = `
 const me = () => {
     const params = useParams();
     let path = "/" + params.id + "/" + params["*"];
@@ -233,10 +246,15 @@ const me = () => {
 };
 export default me;
 `;
-
-        fs.writeFile(outputPath, output, err => {
-            if (err) console.error(err);
-        });
+        output += last;
+        secretOutput += last;
+        // fs.writeFile((OUTPUT_DIR + `/wiki.jsx`), output, err => {
+        // if (err) console.error(err);
+        // });
+        // fs.writeFile((OUTPUT_DIR + `/secret-wiki.jsx`), secretOutput, err => {
+        // if (err) console.error(err);
+        // });
+        return [output, secretOutput];
     }
 }
 
@@ -265,9 +283,24 @@ const main = () => {
     console.log(` - creating/clearing output dir (${OUTPUT_DIR})`);
     clearDist();
     console.log(` - generating markdown...`);
-    const navtree = struct.navtree("/dviki");
+    const [navtree, secretNavTree] = struct.navtree("/dviki");
     struct.output(SOURCE_DIR, OUTPUT_DIR);
-    struct.react(navtree);
+    // struct.react(navtree, secretNavTree);
+    let [normal, secret] = struct.react(navtree, secretNavTree);
+
+    const compile = (code) => BabelCore.transformSync(code, {
+        presets: [["@babel/preset-env", { "targets": "defaults" }], "@babel/preset-react"],
+    }).code + "\nwindow.__hacky__wikiPage = () => me;";
+    normal = compile(normal);
+    secret = compile(secret);
+
+    fs.writeFile((OUTPUT_DIR + `/wiki.js`), normal, err => {
+        if (err) console.error(err);
+    });
+    fs.writeFile((OUTPUT_DIR + `/secret-wiki.js`), secret, err => {
+        if (err) console.error(err);
+    });
+
     console.log(" - done");
 };
 main();

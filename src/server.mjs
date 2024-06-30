@@ -37,6 +37,7 @@ app.use(expressStaticGzip("dist", {
     serveStatic: { maxAge: 60 * 1000 }
 }));
 app.use(express.json());
+app.get("/dist-secret/secretWiki.js", (req, res) => res.json("💩"));
 app.get("/", callback);
 app.get("/committees", callback);
 app.get("/info-screen", callback);

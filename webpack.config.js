@@ -9,7 +9,23 @@ module.exports = {
     type: 'filesystem',
     allowCollectingMemory: true,
   },
-  entry: "./src/www/index.js",
+  experiments: {
+    outputModule: true
+  },
+  entry: {
+    public: { import: "./src/www/index.js", filename: "[name].js" },
+    wiki: {
+      import: "./wiki-cache/wiki.js", filename: "[name].js", library: {
+        type: "window"
+      }
+    },
+    secretWiki: { import: "./wiki-cache/secret-wiki.js", filename: "../dist-secret/[name].js" }
+  },
+  output: {
+    filename: "[name].bundle.js",
+    path: path.resolve(__dirname, "dist"),
+    publicPath: "/"
+  },
   mode: "development",
   optimization: {
     chunkIds: "size",
@@ -27,11 +43,6 @@ module.exports = {
         },
       }),
     ]
-  },
-  output: {
-    filename: "[name].bundle.js",
-    path: path.resolve(__dirname, "dist"),
-    publicPath: "/",
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -86,12 +97,7 @@ module.exports = {
       {
         test: /\.svg$/,
         type: 'asset/resource'
-      },
-      {
-        test: /\.jsx?$/,
-        loader: "babel-loader",
-        exclude: /node_modules/,
-      },
+      }
     ],
   },
   devServer: {
