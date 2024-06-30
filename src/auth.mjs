@@ -23,7 +23,6 @@ const verifyCookieOrElse = async (req, res, ok, orElse) => {
         //res.status(200).json(jwt);
         return ok(req, res);
     } catch (e) {
-        console.log(`failed: ${e}`);
         return orElse(req, res);
     }
 };

@@ -37,14 +37,12 @@ import { verifyToken, verifyCookieOrElse } from "./auth.mjs";
 app.get("/wiki.js", (req, res) => verifyCookieOrElse(req, res,
     // Ok
     (req, res) => {
-        console.log("sending secret");
         res.set("Content-Type", "application/javascript");
         res.set("Content-Encoding", "gzip");
         res.sendFile(path.resolve(__dirname, "../dist-secret/secretWiki.js.gz"));
     },
     // Or else
     (req, res) => {
-        console.log("sending non-secret");
         res.set("Content-Type", "application/javascript");
         res.set("Content-Encoding", "gzip");
         res.sendFile(path.resolve(__dirname, "../dist/wiki.js.gz"));
