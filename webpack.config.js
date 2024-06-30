@@ -19,7 +19,11 @@ module.exports = {
         type: "window"
       }
     },
-    secretWiki: { import: "./wiki-cache/secret-wiki.js", filename: "../dist-secret/[name].js" }
+    secretWiki: {
+      import: "./wiki-cache/secret-wiki.js", filename: "../dist-secret/[name].js", library: {
+        type: "window"
+      }
+    }
   },
   output: {
     filename: "[name].bundle.js",

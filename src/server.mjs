@@ -31,13 +31,30 @@ import { getKickOffEvents, getDVEvents } from "./events.mjs";
 import killerBean from "./killerbean.mjs";
 import { photoHostPost } from "./photo-host.mjs";
 import { getTokenFromGoogleOauth2 } from "./googleApi.mjs";
-import { verifyToken } from "./auth.mjs";
+import { verifyToken, verifyCookieOrElse } from "./auth.mjs";
 
+
+app.get("/wiki.js", (req, res) => verifyCookieOrElse(req, res,
+    // Ok
+    (req, res) => {
+        console.log("sending secret");
+        res.set("Content-Type", "application/javascript");
+        res.set("Content-Encoding", "gzip");
+        res.sendFile(path.resolve(__dirname, "../dist-secret/secretWiki.js.gz"));
+    },
+    // Or else
+    (req, res) => {
+        console.log("sending non-secret");
+        res.set("Content-Type", "application/javascript");
+        res.set("Content-Encoding", "gzip");
+        res.sendFile(path.resolve(__dirname, "../dist/wiki.js.gz"));
+    })
+);
+app.get("/dist-secret/secretWiki.js", (req, res) => res.json("💩"));
 app.use(expressStaticGzip("dist", {
     serveStatic: { maxAge: 60 * 1000 }
 }));
 app.use(express.json());
-app.get("/dist-secret/secretWiki.js", (req, res) => res.json("💩"));
 app.get("/", callback);
 app.get("/committees", callback);
 app.get("/info-screen", callback);
