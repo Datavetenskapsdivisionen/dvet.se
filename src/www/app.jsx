@@ -144,7 +144,12 @@ const router = createBrowserRouter([
       {
         element: <GoogleAuth />, children: [
           { path: "/info-screen/edit", element: <EditInfoScreen />, loader: async () => await fetch("/getInfoScreenSlides") },
-          { path: "/photos/host", element: <PhotoHostScreen /> }
+          { path: "/photos/host", element: <PhotoHostScreen /> },
+          {
+            path: "/dviki/Hemlisar", element: <WikiPage />, children: [
+              { path: ":id/*", element: <WikiPage /> }
+            ]
+          },
         ]
       }
     ]
