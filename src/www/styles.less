@@ -1,6 +1,7 @@
 @import "/assets/variables.less";
 @import (css) url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&family=Open+Sans&family=Press+Start+2P&display=swap');
 @import (css) url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+@import (css) url('https://fonts.googleapis.com/css2?family=Danfo&display=swap');
 
 body {
     margin: 0;
@@ -1551,4 +1552,36 @@ nav {
             }
         }
     }
+}
+
+
+.login-page {
+    text-align: center;
+
+    @media (min-width: 768px) {
+        h1 {
+            font-size: 6em;
+        }
+    }
+
+    @media (max-width: 768px) {
+        h1 {
+            font-size: 2em;
+        }
+    }
+
+    h1 {
+        font-family: "Danfo", serif;
+        color: red;
+    }
+
+    p {
+        font-family: 'Open Sans', sans-serif;
+    }
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding-top: 50px;
 }
