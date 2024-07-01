@@ -10,7 +10,10 @@ do
     git reset --hard || true
 
     printf -- "----------------- GIT -------------------\n"
+    git submodule init || true
+    git submodule sync || true 
     git pull || true
+    git pull --recurse-submodules || true
 
     printf -- "\n----------------- NPM -------------------\n"
     npm install || true
