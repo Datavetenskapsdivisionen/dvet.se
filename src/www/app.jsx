@@ -49,15 +49,19 @@ const GoogleAuth = () => {
 
   return <GoogleOAuthProvider clientId="420624855220-dad51rlh0qhf2p0fco7s37h685clivps">
     {(isLoggedIn && <Outlet />) ?? (<div className="login-page">
+      <img src="https://dvet.se/uploads/Lukas%20Gartman%20-%203b003e2ecb00e9221907f4a3f0a21f38%20-%20fire.gif" />
       <h1>{isEnglish()
         ? "Stop right there, criminal scum!"
         : "Stanna där, kriminella avskum!"}
       </h1>
-      <GoogleLogin onSuccess={onSuccess} onError={() => setIsLoggedIn(false)} />
-      <p>{isEnglish()
-        ? <>The page you are trying to view requires authorization. <br />Please log in using your <code>@dvet.se</code> mail!</>
-        : <>Sidan du försöker komma åt kräver inlog. <br /> Logga in med din <code>@dvet.se</code> mail!</>
-      }</p>
+      <div>
+        <GoogleLogin onSuccess={onSuccess} onError={() => setIsLoggedIn(false)} />
+        <p>{isEnglish()
+          ? <>The page you are trying to view requires authorization. <br />Please log in with your <code>@dvet.se</code> mail!</>
+          : <>Sidan du försöker komma åt kräver inlog. <br /> Logga in med din <code>@dvet.se</code> mail!</>
+        }</p>
+      </div>
+      <img src="https://dvet.se/uploads/Lukas%20Gartman%20-%203b003e2ecb00e9221907f4a3f0a21f38%20-%20fire.gif" />
     </div>)}
   </GoogleOAuthProvider>;
 };
