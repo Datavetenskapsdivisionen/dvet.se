@@ -12,7 +12,7 @@ import ConCatsLogo from "../../../assets/committee-logos/concats-logo.png";
 import ConCatsText from "../../../assets/committee-logos/concats-text-alt.png";
 import Mega6Logo from "../../../assets/committee-logos/mega6-logo.png";
 import Mega7Logo from "../../../assets/committee-logos/mega7-logo.png";
-import TheBoardLogo from "../../../assets/externallogohemlet.svg";
+import TheBoardLogo from "../../../assets/committee-logos/styrelsen.png";
 import BoardOfStudies from "../../../assets/committee-logos/board-of-studies-logo.png";
 import FemmePPLogo from "../../../assets/committee-logos/femmepp-logo.png";
 import DV_OpsLogo from "../../../assets/committee-logos/dv_ops-logo.svg";
