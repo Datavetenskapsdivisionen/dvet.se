@@ -15,7 +15,6 @@ import DVArmLogo from "../../../assets/committee-logos/dvarm-logo.png";
 
 const me = () => (
   <div className="page">
-    <h1>{isEnglish() ? "Committees" : "Kommittéer"}</h1>
     <div className="committee-holder">
       <CommitteeBadge uri="/committees/the-board" name={isEnglish() ? "The Board" : "Styrelsen"} logo={TheBoardLogo} />
       <CommitteeBadge uri="/committees/dvrk" name="DVRK" logo={DVRKLogo} color="#1e1e1e" />
