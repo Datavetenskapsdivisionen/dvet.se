@@ -25,10 +25,9 @@ const compressImage = async (file, to_path) => {
         while (quality > 40) {
             switch (metadata.format) {
                 case "jpeg": image.jpeg({ quality }); break;
-                case "png":  image.png ({ quality }); break;
+                case "png": image.png({ quality }); break;
                 case "tiff": image.tiff({ quality }); break;
                 case "webp": image.webp({ quality }); break;
-                case "gif":  image.gif ({ quality }); break;
                 case "heif": image.heif({ quality }); break;
                 default: return buffer;
             }
@@ -64,7 +63,7 @@ const photoHostPost = async (req, res) => {
     if (createDir) fs.mkdirSync(folder, { recursive: true });
     let newPaths = [];
 
-    const fileTypesToCompress = ["image/jpeg", "image/png", "image/tiff", "image/webp", "image/gif", "image/heic"];
+    const fileTypesToCompress = ["image/jpeg", "image/png", "image/tiff", "image/webp", "image/heic"];
     for (const file of req.files) {
         const newPath = `${folder.endsWith("/") ? folder : `${folder}/`}${user} - ${file.filename} - ${file.originalname}`;
         if (fileTypesToCompress.includes(file.mimetype)) {
