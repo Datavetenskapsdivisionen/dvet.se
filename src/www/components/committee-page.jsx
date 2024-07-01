@@ -1,10 +1,5 @@
 import React from "react";
-import ReactMarkdown from "react-markdown";
-import text from "../../../content/committee-page/committee-page.md";
-import textEn from "../../../content/committee-page/committee-page-en.md";
 import CommitteeBadge from "./widgets/committee-badge";
-import remarkGfm from "remark-gfm";
-import rehypeRaw from "rehype-raw";
 import { isEnglish } from "../util";
 
 import DVRKLogo from "../../../assets/committee-logos/dvrk-logo.png";
@@ -20,7 +15,7 @@ import DVArmLogo from "../../../assets/committee-logos/dvarm-logo.png";
 
 const me = () => (
   <div className="page">
-    <ReactMarkdown children={isEnglish() ? textEn : text} rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}></ReactMarkdown>
+    <h1>{isEnglish() ? "Committees" : "Kommittéer"}</h1>
     <div className="committee-holder">
       <CommitteeBadge uri="/committees/the-board" name={isEnglish() ? "The Board" : "Styrelsen"} logo={TheBoardLogo} />
       <CommitteeBadge uri="/committees/dvrk" name="DVRK" logo={DVRKLogo} color="#1e1e1e" />
