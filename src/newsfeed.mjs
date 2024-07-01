@@ -56,7 +56,7 @@ const fetchRSS = async () => {
 };
 await fetchRSS();
 
-let lastTime = new Date();
+let lastTime = new Date(Date.parse("1970-01-01"));
 
 const newsfeed = async (req, res) => {
     const diff = Math.abs(new Date() - lastTime);
@@ -77,7 +77,10 @@ const newsfeed = async (req, res) => {
         res.set('Content-Type', 'text/xml');
         res.send(rss);
     } else {
-        res.json(posts.slice(0, amount));
+        if (posts.slice)
+            res.json(posts.slice(0, amount));
+        else
+            res.json([]);
     }
 };
 

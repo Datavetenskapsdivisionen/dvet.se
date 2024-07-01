@@ -1,6 +1,7 @@
 @import "/assets/variables.less";
 @import (css) url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&family=Open+Sans&family=Press+Start+2P&display=swap');
 @import (css) url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+@import (css) url('https://fonts.googleapis.com/css2?family=Danfo&display=swap');
 
 body {
     margin: 0;
@@ -1551,4 +1552,67 @@ nav {
             }
         }
     }
+}
+
+
+.login-page {
+    text-align: center;
+
+    div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    @media (min-width: 768px) {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: auto auto;
+        justify-items: center;
+
+        img:nth-of-type(1) {
+            grid-column: 1;
+            grid-row-start: 1;
+            grid-row-end: 3;
+        }
+
+        img:nth-of-type(2) {
+            grid-column: 3;
+            grid-row-start: 1;
+            grid-row-end: 3;
+        }
+
+        h1 {
+            font-size: 3em;
+            padding: 0;
+            margin: 0;
+        }
+    }
+
+    @media (max-width: 768px) {
+        display: flex;
+
+        h1 {
+            font-size: 2em;
+        }
+
+        img {
+            display: none;
+        }
+    }
+
+    h1 {
+        font-family: "Danfo", serif;
+        color: red;
+    }
+
+    p {
+        font-family: 'Open Sans', sans-serif;
+    }
+
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding-top: 50px;
 }

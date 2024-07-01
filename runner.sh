@@ -6,11 +6,13 @@ export NVM_DIR="$HOME/.nvm"
 
 while : 
 do
-    printf -- "----------------- GIT -------------------\n"
+    printf -- "\n----------------- GIT -------------------\n"
     git reset --hard || true
 
-    printf -- "----------------- GIT -------------------\n"
+    printf -- "\n----------------- PUL -------------------\n"
+    git submodule update --init --recursive || true
     git pull || true
+    git pull --recurse-submodules || true
 
     printf -- "\n----------------- NPM -------------------\n"
     npm install || true
