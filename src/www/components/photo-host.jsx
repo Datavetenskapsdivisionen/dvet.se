@@ -7,11 +7,11 @@ const me = () => {
     const onSubmitAction = (e) => {
         e.preventDefault();
         setIsUploading(true);
-    
+
         const resField = document.getElementById("photos-response-field");
         const fields = document.getElementById("photos-post-data");
         const data = new FormData(fields);
-    
+
         fetch("/photos/post", {
             method: "POST",
             headers: {
@@ -31,7 +31,7 @@ const me = () => {
             .finally(() => setIsUploading(false));
     };
 
-    return <>
+    return <div>
         <div id="photos-response-field"></div>
         <form id="photos-post-data" action="/photos/post" method="post" enctype="multipart/form-data">
             <label for="folder">Folder:</label>
@@ -42,7 +42,7 @@ const me = () => {
             <br /><br />
             <input onClick={onSubmitAction} type="submit" value={isUploading ? "Uploading..." : "Upload"} disabled={isUploading} />
         </form>
-    </>;
+    </div>;
 };
 
 export default me;
