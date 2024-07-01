@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
 //import Page from "/wiki.js";
 
-const isModule = (mod) =>
-    !((!Object.keys(mod)) || (!!mod.default && typeof module.default === "object" && !Object.keys(module.default).length));
 
 const me = () => {
-    const [Page, setPage] = useState(<>Loading...</>);
+    const [Page, setPage] = useState(<></>);
     useEffect(() => {
         const importWiki = async () => {
-            await import(/* webpackIgnore: true */"/wiki.js");
+            await import(/* webpackIgnore: true */"/wiki-data");
             let PageFunc = window.__hacky__wikiPage();
             setPage(<PageFunc />);
         };

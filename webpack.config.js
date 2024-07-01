@@ -15,7 +15,7 @@ module.exports = {
   entry: {
     public: { import: "./src/www/index.js", filename: "[name].js" },
     wiki: {
-      import: "./wiki-cache/wiki.js", filename: "[name].js", library: {
+      import: "./wiki-cache/wiki.js", filename: "../dist-secret/[name].js", library: {
         type: "window"
       }
     },

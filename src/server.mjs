@@ -34,21 +34,10 @@ import { getTokenFromGoogleOauth2 } from "./googleApi.mjs";
 import { verifyToken, verifyCookieOrElse } from "./auth.mjs";
 
 
-app.get("/wiki.js", (req, res) => verifyCookieOrElse(req, res,
-    // Ok
-    (req, res) => {
-        res.set("Content-Type", "application/javascript");
-        res.set("Content-Encoding", "gzip");
-        res.sendFile(path.resolve(__dirname, "../dist-secret/secretWiki.js.gz"));
-    },
-    // Or else
-    (req, res) => {
-        res.set("Content-Type", "application/javascript");
-        res.set("Content-Encoding", "gzip");
-        res.sendFile(path.resolve(__dirname, "../dist/wiki.js.gz"));
-    })
-);
-app.get("/dist-secret/secretWiki.js", (req, res) => res.json("💩"));
+app.get("/dist-secret/:path*", (req, res) => {
+    res.set("Content-Type", "application/javascript");
+    res.send(`"💩";`);
+});
 app.use(expressStaticGzip("dist", {
     serveStatic: { maxAge: 60 * 1000 }
 }));
@@ -85,6 +74,20 @@ app.get("/committees/dvrk/master", callback);
 
 app.get("/dviki", callback);
 app.get("/dviki/:path*", callback);
+app.get("/wiki-data", (req, res) => verifyCookieOrElse(req, res,
+    // Ok
+    (req, res) => {
+        res.set("Content-Type", "application/javascript");
+        res.set("Content-Encoding", "gzip");
+        res.sendFile(path.resolve(__dirname, "../dist-secret/secretWiki.js.gz"));
+    },
+    // Or else
+    (req, res) => {
+        res.set("Content-Type", "application/javascript");
+        res.set("Content-Encoding", "gzip");
+        res.sendFile(path.resolve(__dirname, "../dist-secret/wiki.js.gz"));
+    })
+);
 
 app.get("/newsfeed", newsfeed);
 app.get("/getPhotos", getPhotos);
