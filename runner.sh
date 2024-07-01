@@ -6,12 +6,11 @@ export NVM_DIR="$HOME/.nvm"
 
 while : 
 do
-    printf -- "----------------- GIT -------------------\n"
+    printf -- "\n----------------- GIT -------------------\n"
     git reset --hard || true
 
-    printf -- "----------------- GIT -------------------\n"
-    git submodule init || true
-    git submodule sync || true 
+    printf -- "\n----------------- PUL -------------------\n"
+    git submodule update --init --recursive || true
     git pull || true
     git pull --recurse-submodules || true
 
