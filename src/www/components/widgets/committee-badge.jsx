@@ -28,6 +28,10 @@ const me = (props) => {
         textholder += " dvOps-holder"
         imageholder += " dvOps-holder"
     }
+    if (props.Concats === true){
+        textholder += " concats-holder"
+        imageholder += " concats-holder"
+    }
 
     return <div className="committee-badge" style={style(props.color)} onClick={clickAction}>
         <div className= {imageholder}>
