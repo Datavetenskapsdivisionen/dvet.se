@@ -139,7 +139,7 @@ class Directory {
             : "<></>";
         const show = this.children.length >= 10
             ? "<></>"
-            : `${isSecret ? this.path + " 🔒" : this.path}`;
+            : `${this.path}`;
         const hideStyle = this.children.length >= 10
             ? "{{display: \"none\"}}"
             : "{{}}";
@@ -153,6 +153,7 @@ class Directory {
             if (!isSecret) children[0] += normal;
             children[1] += secret;
         }
+        if (isSecret) children[0] += `<div><a class="wiki-navtree-link" href="dviki/${SECRET_DIR}/Info">{'\t'}Logga In 🔒</a></div>`;
         if (this.children.filter(p => p.extension && p.extension != "hidden").length > 0) {
             const res = f => `<div class="wiki-navtree">${f}</div></div>`;
             return [res(children[0]), res(children[1])];
