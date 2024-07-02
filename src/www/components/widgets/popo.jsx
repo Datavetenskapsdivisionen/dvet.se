@@ -2,7 +2,7 @@ import React from "react";
 
 const me = () => {
     const [tickLoop, setTickLoop] = React.useState();
-    const [pos, setPos] = React.useState([0, 0]);
+    const [pos, setPos] = React.useState([-20, 50]);
     const [rot, setRot] = React.useState(0);
     const posRef = React.useRef();
     posRef.current = pos;
@@ -20,6 +20,8 @@ const me = () => {
     React.useEffect(() => {
         // Initialize tick loop
         setInterval(tick, 3000);
+        // Bit dumb but prevents instant transmission
+        setTimeout(tick, 10);
 
         return () => {
             // Stop tick loop (hopefully no race condition? eh)
