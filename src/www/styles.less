@@ -1605,7 +1605,7 @@ nav {
             font-size: 2em;
         }
 
-        img {
+        .login-flame1 {
             display: none;
         }
     }
@@ -1623,4 +1623,21 @@ nav {
     align-items: center;
     width: 100%;
     padding-top: 50px;
+
+    .popo {
+        position:fixed;
+        top: 0;
+        left: 0;
+        background-image: url(https://dvet.se/uploads/Samuel%20Hammersberg%20-%20e4708955ed42ceee6182c3cf9fa72980%20-%20police.gif);
+    
+        background-size: contain;
+        background-repeat: no-repeat;
+        height: 250px;
+        width: 250px;
+        background-position: center;
+        transform: translate(-50%,-50%);
+
+        transition: top 3s linear, left 3s linear, transform 0.5s;
+        pointer-events: none;
+    }
 }
