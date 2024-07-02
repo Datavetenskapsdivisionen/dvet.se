@@ -19,6 +19,7 @@ import EditInfoScreen from "./components/edit-info-screen";
 import PhotoHostScreen from "./components/photo-host";
 import NewsScreen from "./components/newscreen";
 import ScheduleScreen from "./components/schedulescreen";
+import Popo from "./components/widgets/popo"
 // import WIP from "./components/widgets/wip";
 import IndividualCommitteePage from "./components/individual-committee-page";
 import { getLanguageCookie, isEnglish } from "./util";
@@ -49,11 +50,12 @@ const GoogleAuth = () => {
 
   return <GoogleOAuthProvider clientId="420624855220-dad51rlh0qhf2p0fco7s37h685clivps">
     {(isLoggedIn && <Outlet />) ?? (<div className="login-page">
-      <img src="https://dvet.se/uploads/Lukas%20Gartman%20-%203b003e2ecb00e9221907f4a3f0a21f38%20-%20fire.gif" />
+      <img class="login-flame1" src="https://dvet.se/uploads/Lukas%20Gartman%20-%203b003e2ecb00e9221907f4a3f0a21f38%20-%20fire.gif" />
       <h1>{isEnglish()
         ? "Stop right there, criminal scum!"
         : "Stanna där, kriminella avskum!"}
       </h1>
+      <Popo />
       <div>
         <GoogleLogin onSuccess={onSuccess} onError={() => setIsLoggedIn(false)} />
         <p>{isEnglish()
