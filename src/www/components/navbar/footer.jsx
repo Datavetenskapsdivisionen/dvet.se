@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { isAuth } from "../../util";
+import { useNavigate } from "react-router-dom";
+import { isAuth, isEnglish } from "../../util";
 import Cookies from "js-cookie";
 
 const footer = () => {
-    let [loggedIn, setLoggedIn] = useState(false);
+    const nav = useNavigate();
+    const [loggedIn, setLoggedIn] = useState(false);
+
     useEffect(() => {
         const eff = async () => setLoggedIn(await isAuth());
         eff();
@@ -19,9 +21,11 @@ const footer = () => {
 
     return (
         <footer>
-            <span />
-            <span>© dvet.se {new Date().getFullYear()}</span>
             <div className="button-container">
+                <button onClick={() => nav("/privacy-policy")}>{isEnglish() ? "Privacy policy" : "Integritetspolicy"}</button>
+            </div>
+            <span>© dvet.se {new Date().getFullYear()}</span>
+            <div className="button-container right">
                 {logOutButton}
                 <button onClick={() => {
                     Cookies.set("language", "null");

@@ -14,6 +14,7 @@ import ToolsPage from "./components/tools-page";
 import PhotosPage from "./components/photos-page";
 import WikiPage from "./components/wiki-page";
 import Schedule from "./components/widgets/schedule";
+import PrivacyPolicy from "./components/privacy-policy";
 import InfoScreen from "./components/info-screen";
 import EditInfoScreen from "./components/edit-info-screen";
 import PhotoHostScreen from "./components/photo-host";
@@ -59,8 +60,8 @@ const GoogleAuth = () => {
       <div>
         <GoogleLogin onSuccess={onSuccess} onError={() => setIsLoggedIn(false)} />
         <p>{isEnglish()
-          ? <>The page you are trying to view requires authorization. <br />Please log in with your <code>@dvet.se</code> mail!</>
-          : <>Sidan du försöker komma åt kräver inlog. <br /> Logga in med din <code>@dvet.se</code> mail!</>
+          ? <>The page you are trying to view requires authentication.<br />Please log in with your <code>@dvet.se</code> mail!</>
+          : <>Sidan du försöker komma åt kräver inlogg.<br />Logga in med din <code>@dvet.se</code> mail!</>
         }</p>
       </div>
       <img src="https://dvet.se/uploads/Lukas%20Gartman%20-%203b003e2ecb00e9221907f4a3f0a21f38%20-%20fire.gif" />
@@ -80,10 +81,7 @@ const LanguageSelector = () => {
         <input type="radio" name="language" id="language-en" />
         <label htmlFor="language-en">English</label>
         <br /><br />
-        <i>By clicking <b>Ok</b>, you consent to us saving a cookie on your device, which saves your language preference across sessions.
-          <br />
-          This is required for site functionality, and it is the only cookie used on this website.
-        </i>
+        <i>By clicking <b>Ok</b>, you agree to our <a href="/privacy-policy?lang=en">privacy policy</a>.</i>
         <br /><br />
       </form>
       <button className="kickoff-info-button" onClick={() => {
@@ -143,6 +141,7 @@ const router = createBrowserRouter([
       { path: "/documents", element: <DocumentPage /> },
       { path: "/photos", element: <PhotosPage /> },
       { path: "/schedule", element: <SchedulePage /> },
+	  { path: "/privacy-policy", element: <PrivacyPolicy /> },
       {
         path: "/dviki", element: <WikiPage />, children: [
           { path: ":id/*", element: <WikiPage /> }
