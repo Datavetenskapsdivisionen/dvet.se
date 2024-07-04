@@ -81,7 +81,7 @@ const LanguageSelector = () => {
         <input type="radio" name="language" id="language-en" />
         <label htmlFor="language-en">English</label>
         <br /><br />
-        <i>By clicking <b>Ok</b>, you agree to our <a href="/privacy-policy?lang=en">privacy policy</a>.</i>
+        <i>By clicking <b>Ok</b>, you agree to our <a href="/privacy-policy?lang=en" target="_blank">privacy policy</a>.</i>
         <br /><br />
       </form>
       <button className="kickoff-info-button" onClick={() => {
