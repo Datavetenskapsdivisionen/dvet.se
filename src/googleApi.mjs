@@ -32,32 +32,39 @@ const googleLogin = async (req, res) => {
         return;
     }
 
+    let user, userGroups;
     try {
         const userData = decodeJwt(googleLoginJwt);
-
-        const oAuth2Client = await authoriseGoogleApi();
-        const admin = google.admin({version: "directory_v1", auth: oAuth2Client});
-        const allGroups = (await admin.groups.list({domain: "dvet.se"})).data.groups;
-        const userGroups = (await Promise.all(allGroups.map(async group => {
-            const isMember = (await admin.members.hasMember({groupKey: group.id, memberKey: userData.email})).data.isMember;
-            return isMember ? { name: group.name, email: group.email } : null;
-        }))).filter(ug => ug !== null);
-
-        const user = {
+        user = {
             email: userData.email,
             name: userData.name,
             picture: userData.picture,
             organisation: userData.hd,
-            userGroups: userGroups
         }
-
-        const jwt = await signToken(user);
-        res.cookie("dv-token", jwt, { maxAge: 1000*60*60*24*30 }); // Expires in 30 days (milliseconds)
-        res.json({ jwt });
     } catch (err) {
         res.status(401).json({ msg: "Invalid credentials" });
-        console.log(err);
+        console.error(err);
+        return;
     }
+
+    try {
+        const oAuth2Client = await authoriseGoogleApi();
+        const admin = google.admin({version: "directory_v1", auth: oAuth2Client});
+        const allGroups = (await admin.groups.list({domain: "dvet.se"})).data.groups;
+        userGroups = (await Promise.all(allGroups.map(async group => {
+            const isMember = (await admin.members.hasMember({groupKey: group.id, memberKey: user.email})).data.isMember;
+            return isMember ? { name: group.name, email: group.email } : null;
+        }))).filter(ug => ug !== null);
+    } catch (err) {
+        userGroups = [];
+        console.error(err);
+    }
+
+    user = {...user, userGroups };
+
+    const jwt = await signToken(user);
+    res.cookie("dv-token", jwt, { maxAge: 1000*60*60*24*30 }); // Expires in 30 days (milliseconds)
+    res.status(200).json({ jwt });
 };
 
 /**
