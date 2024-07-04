@@ -5,13 +5,13 @@
 
 Congratulations on your acceptance! Your Orientation Week (Inspark) will begin on August 19th for bachelors and August 25th for Masters. It's weeks filled with lots of fun activities designed for you to get to know your fellow students, familiarize yourself with the university, and explore Gothenburg as a student city.
 
-If you're looking for the Inspark schedule, you can either click on the "Schema" button in the navbar or click here for the [bachelor's schedule](/committees/dvrk/schedule/bachelor) or here for the [master's schedule](/committees/dvrk/schedule/master)!
+If you're looking for the Inspark schedule, you can either click on the "Schema" button in the navbar or [click here for the bachelor's schedule](/committees/dvrk/schedule/bachelor) or [here for the master's schedule](/committees/dvrk/schedule/master)!
 
 ### What should I do now?
 
 #### Become a member of Göta Studentkår!
 
-As a member of Göta Studentkår, you'll have access to many fun and useful benefits. Learn more about this [here](). For some of the events during Insparken, you need to be a member of Göta Studentkår. Become a member [here](https://medlem.gotastudentkar.se/sv/).
+As a member of Göta Studentkår, you'll have access to many fun and useful benefits. Learn more about the [membership benefits here](https://www.gotastudentkar.se/en/medlemsformaner). For some of the events during Insparken, you need to be a member of Göta Studentkår. You can [become a member here](https://medlem.gotastudentkar.se/en).
 
 #### Register on Orbi
 
@@ -19,11 +19,11 @@ Orbi is a platform used by Göta Studentkår to advertise events organized by al
 
 #### Fill out the reccentiors form!
 
-To make Insparken as great as possible, we ask for some information about you as a person. Even if you don't think you're interested in participating in Insparken, we strongly encourage you to fill out this form. It only takes a few minutes. You can find it [here](https://dvet.se/committees/dvrk/form).
+To make Insparken as great as possible, we ask for some information about you as a person. Even if you don't think you're interested in participating in Insparken, we strongly encourage you to fill out this form. It only takes a few minutes. You can find [the reccentiors form here](/committees/dvrk/form).
 
 #### Read the reccentiors guide!
 
-What is a reccentior? What is DVRK? You can find all of this and more in our guide for new students. Hopefully, you've already seen it, but if you missed it, you can find it [here](https://dvet.se/committees/dvrk/bachelor) [here](https://dvet.se/committees/dvrk/master)
+What is a reccentior? What is DVRK? You can find all of this and more in our guide for new students. Hopefully, you've already seen it, but if you missed it, you can find the [bachelors guide here](/committees/dvrk/bachelor) and the [masters guide here](/committees/dvrk/master).
 
 #### Join our channels!
 
