@@ -30,7 +30,7 @@ import { getSlides, updateSlides } from "./info-screen.mjs";
 import { getKickOffEvents, getDVEvents } from "./events.mjs";
 import killerBean from "./killerbean.mjs";
 import { photoHostPost } from "./photo-host.mjs";
-import { getTokenFromGoogleOauth2 } from "./googleApi.mjs";
+import { googleLogin } from "./googleApi.mjs";
 import { verifyToken, verifyCookieOrElse } from "./auth.mjs";
 
 
@@ -101,7 +101,7 @@ app.get("/getKickoffEvents", getKickOffEvents);
 app.get("/getEvents", getDVEvents);
 app.post("/postHook", postHook);
 app.post("/killerBean", killerBean);
-app.post("/google-auth", getTokenFromGoogleOauth2);
+app.post("/google-auth", googleLogin);
 app.post("/verify-token", verifyToken, (req, res) => res.status(200).json({ ok: "ok" }));
 
 app.get("/recceform", (req, res) => res.status(301).redirect("https://dvet.se/committees/dvrk/form"));
