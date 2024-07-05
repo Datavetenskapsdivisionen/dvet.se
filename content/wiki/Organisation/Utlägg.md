@@ -8,3 +8,10 @@ Formulären bör finnas utskrivna vid brevlådan. Om de är slut, notifiera styr
 
 <embed src="./dvd-expensesform.pdf" width="500" height="375" 
  type="application/pdf">
+
+<object class="pdf" 
+            data=
+"./dvd-expensesform.pdf"
+            width="800"
+            height="500">
+</object>
