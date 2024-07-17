@@ -23,6 +23,7 @@ const callback = (req, res) => {
     res.sendFile(path.join(__dirname, "../dist/index.html"));
 };
 
+import { linkShortenerGet, linkShortenerPost, linkShortenerRed } from "./link-shortener.mjs";
 import { newsfeed } from "./newsfeed.mjs";
 import { postHook } from "./githookhandle.mjs";
 import getPhotos from "./photos.mjs";
@@ -43,6 +44,16 @@ app.use(expressStaticGzip("dist", {
 }));
 app.use(express.json());
 app.get("/", callback);
+app.get("/link/:id", linkShortenerGet);
+app.get("/link-post", callback);
+app.post("/link-post", (req, res) => verifyCookieOrElse(req, res,
+    linkShortenerPost,
+    (req, res) => res.json({ error: "not authenticated" }))
+);
+app.get("/link-api", (req, res) => verifyCookieOrElse(req, res,
+    linkShortenerRed,
+    (req, res) => res.json([]))
+);
 app.get("/committees", callback);
 app.get("/info-screen", callback);
 app.get("/info-screen/edit", callback);

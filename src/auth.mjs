@@ -8,22 +8,32 @@ const signToken = async (content) => {
         .sign(new TextEncoder().encode(process.env.JWT_SECRET_KEY));
 };
 
-const verifyCookieOrElse = async (req, res, ok, orElse) => {
-    const cookies = req.headers.cookie;
-    if (!cookies) return orElse(req, res);
+const verifyCookie = async (cookies) => {
+    const err = { error: "invalid token" };
+    if (!cookies) return err;
     const match = cookies.match(new RegExp('(^| )dv-token=([^;]+)'));
-    if (!match) return orElse(req, res);
+    if (!match) return err;
     const token = "Bearer " + match[2];
-    if (!token) return orElse(req, res);
+    if (!token) return err;
 
     try {
         const encodedToken = new TextEncoder().encode(token.split(" ")[1]);
         const encodedSecret = new TextEncoder().encode(process.env.JWT_SECRET_KEY);
         const jwt = await jwtVerify(encodedToken, encodedSecret);
         //res.status(200).json(jwt);
-        return ok(req, res);
+        return jwt;
     } catch (e) {
+        return err;
+    }
+};
+
+const verifyCookieOrElse = async (req, res, ok, orElse) => {
+    let r = await verifyCookie(req.headers.cookie);
+
+    if (r.error) {
         return orElse(req, res);
+    } else {
+        return ok(req, res);
     }
 };
 
@@ -46,4 +56,4 @@ const verifyToken = async (req, res, next) => {
     }
 };
 
-export { verifyToken, signToken, verifyCookieOrElse };
+export { verifyToken, signToken, verifyCookieOrElse, verifyCookie };

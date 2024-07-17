@@ -20,7 +20,8 @@ import EditInfoScreen from "./components/edit-info-screen";
 import PhotoHostScreen from "./components/photo-host";
 import NewsScreen from "./components/newscreen";
 import ScheduleScreen from "./components/schedulescreen";
-import Popo from "./components/widgets/popo"
+import Popo from "./components/widgets/popo";
+import LinkPostScreen from "./components/link-post-screen";
 // import WIP from "./components/widgets/wip";
 import IndividualCommitteePage from "./components/individual-committee-page";
 import { getLanguageCookie, isEnglish } from "./util";
@@ -141,7 +142,7 @@ const router = createBrowserRouter([
       { path: "/documents", element: <DocumentPage /> },
       { path: "/photos", element: <PhotosPage /> },
       { path: "/schedule", element: <SchedulePage /> },
-	  { path: "/privacy-policy", element: <PrivacyPolicy /> },
+      { path: "/privacy-policy", element: <PrivacyPolicy /> },
       {
         path: "/dviki", element: <WikiPage />, children: [
           { path: ":id/*", element: <WikiPage /> }
@@ -160,6 +161,7 @@ const router = createBrowserRouter([
         element: <GoogleAuth />, children: [
           { path: "/info-screen/edit", element: <EditInfoScreen />, loader: async () => await fetch("/getInfoScreenSlides") },
           { path: "/photos/host", element: <PhotoHostScreen /> },
+          { path: "/link-post", element: <LinkPostScreen /> },
           {
             path: "/dviki/Hemlisar", element: <WikiPage />, children: [
               { path: ":id/*", element: <WikiPage /> }
