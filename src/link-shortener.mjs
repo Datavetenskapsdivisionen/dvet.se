@@ -1,6 +1,7 @@
 import __sql from 'sqlite3';
 import { verifyCookie } from './auth.mjs';
 const sqlite3 = __sql.verbose();
+import randomUnicodeEmoji from 'random-unicode-emoji';
 
 Array.prototype.intersperse = function (s) {
     return this.reduce((p, c, i) => (p[2 * i] = c, p), new Array(2 * this.length - 1).fill(s));
@@ -24,7 +25,7 @@ db.serializeAsync = (f) => new Promise((resolve, reject) => {
 });
 const linkTable = "links";
 const linkContent = `
-    id INTEGER PRIMARY KEY,
+    id TEXT PRIMARY KEY,
     link TEXT NOT NULL,
     creator TEXT NOT NULL,
     clicks INTEGER NOT NULL,
@@ -51,9 +52,10 @@ const addUrl = async (url, email) => {
     let pre = new Promise((resolve, reject) => {
         db.serializeAsync(async () => {
             const stmt = db.prepare(`INSERT INTO ${linkTable} (id, link, creator, clicks, date) VALUES (?, ?, ?, ?, ?)`);
-            stmt.run([null, url, email, 0, new Date().toString()], function (err) {
+            let id = encodeURI(randomUnicodeEmoji.random({ count: 4 }).join(""));
+            stmt.run([id, url, email, 0, new Date().toString()], function (err) {
                 if (null == err) {
-                    resolve(this.lastID);
+                    resolve(id);
                 } else {
                     console.error(err);
                 }
@@ -79,23 +81,21 @@ const linkShortenerRed = async (req, res) => {
 const linkShortenerGet = async (req, res) => {
     let id = req.params["id"];
 
-    console.log("start");
+    console.log("start: " + encodeURI(id));
 
     let pre = new Promise((resolve, reject) => {
-        let resolved = false;
         db.serialize(() => {
-            db.each(`SELECT link FROM ${linkTable} WHERE id = ${id}`,
-                (err, row) => {
-                    if (null == err) {
-                        addClick(id);
-                        resolved = true;
-                        resolve(row.link);
-                    } else {
+            db.get(`SELECT link FROM ${linkTable} WHERE id = ?`, [id],
+                function (err, row) {
+                    console.log(row);
+
+                    if (err) {
                         console.error(err);
+                        resolve("/");
+                    } else {
+                        addClick(id);
+                        resolve(row.link);
                     }
-                },
-                () => {
-                    if (!resolved) resolve("/");
                 });
         });
     });
@@ -110,6 +110,6 @@ const linkShortenerPost = async (req, res) => {
         return;
     }
     let id = await addUrl(req.body.val, jwt.payload.email);
-    res.json({ response: `https://dvet.se/link/${id}` });
+    res.json({ response: `http://localhost:8080/link/${id}` });
 };
 export { linkShortenerRed, linkShortenerGet, linkShortenerPost };
