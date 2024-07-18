@@ -6,7 +6,6 @@ import Navbar from "./components/navbar/navbar";
 import Footer from "./components/navbar/footer";
 import ContactPage from "./components/contact-page";
 import DVRK from "./components/dvrk-page";
-import DocumentPage from "./components/documents-page";
 import AboutPage from "./components/about-page";
 import HomePage from "./components/home-page";
 import CommitteePage from "./components/committee-page";
@@ -20,7 +19,7 @@ import EditInfoScreen from "./components/edit-info-screen";
 import PhotoHostScreen from "./components/photo-host";
 import NewsScreen from "./components/newscreen";
 import ScheduleScreen from "./components/schedulescreen";
-import Popo from "./components/widgets/popo"
+import Popo from "./components/widgets/popo";
 // import WIP from "./components/widgets/wip";
 import IndividualCommitteePage from "./components/individual-committee-page";
 import { getLanguageCookie, isEnglish } from "./util";
@@ -138,10 +137,9 @@ const router = createBrowserRouter([
       { path: "/about", element: <AboutPage /> },
       { path: "/committees", element: <CommitteePage /> },
       { path: "/tools", element: <ToolsPage /> },
-      { path: "/documents", element: <DocumentPage /> },
       { path: "/photos", element: <PhotosPage /> },
       { path: "/schedule", element: <SchedulePage /> },
-	  { path: "/privacy-policy", element: <PrivacyPolicy /> },
+      { path: "/privacy-policy", element: <PrivacyPolicy /> },
       {
         path: "/dviki", element: <WikiPage />, children: [
           { path: ":id/*", element: <WikiPage /> }

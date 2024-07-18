@@ -50,7 +50,6 @@ app.put("/info-screen/update", verifyToken, updateSlides);
 app.get("/newsscreen", callback);
 app.get("/scscreen", callback);
 app.get("/about", callback);
-app.get("/documents", callback);
 app.get("/contact", callback);
 app.get("/tools", callback);
 app.get("/photos", callback);
