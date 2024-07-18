@@ -20,6 +20,7 @@ import PhotoHostScreen from "./components/photo-host";
 import NewsScreen from "./components/newscreen";
 import ScheduleScreen from "./components/schedulescreen";
 import Popo from "./components/widgets/popo";
+import FaqPage from "./components/faq-page";
 // import WIP from "./components/widgets/wip";
 import IndividualCommitteePage from "./components/individual-committee-page";
 import { getLanguageCookie, isEnglish } from "./util";
@@ -137,6 +138,7 @@ const router = createBrowserRouter([
       { path: "/about", element: <AboutPage /> },
       { path: "/committees", element: <CommitteePage /> },
       { path: "/tools", element: <ToolsPage /> },
+      { path: "/faq", element: <FaqPage /> },
       { path: "/photos", element: <PhotosPage /> },
       { path: "/schedule", element: <SchedulePage /> },
       { path: "/privacy-policy", element: <PrivacyPolicy /> },

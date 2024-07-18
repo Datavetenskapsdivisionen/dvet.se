@@ -53,6 +53,7 @@ app.get("/about", callback);
 app.get("/contact", callback);
 app.get("/tools", callback);
 app.get("/photos", callback);
+app.get("/faq", callback);
 app.get("/schedule", callback);
 app.get("/privacy-policy", callback);
 app.get("/committees/the-board", callback);
