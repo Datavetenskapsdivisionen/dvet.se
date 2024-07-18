@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node src/server.mjs",
     "dev": "webpack serve --hot --open",
-    "build": "node src/wikibuilder/builder.mjs && webpack --config webpack.config.js --mode production",
+    "build": "node src/build/faq-builder.mjs && node src/build/wiki-builder.mjs && webpack --config webpack.config.js --mode production",
     "deps": "webpack --json > dist/stats.json && webpack-bundle-analyzer dist/stats.json"
   },
   "keywords": [],
