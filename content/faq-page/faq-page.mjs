@@ -25,7 +25,7 @@ export default [
                         <ul>
                             <li><b>Termin</b>: Ett läsår är indelat i två terminer: en hösttermin (HT) och en vårtermin (VT).</li>
                             <li>
-                                <b>Läsperiod</b>: Brukar förkortas till LP.<br/>
+                                <b>Läsperiod</b>: Brukar förkortas till LP, och kan kallas för studieperiod.<br/>
                                 Ett läsår är indelat i fyra läsperioder. Läsperiod 1 & 2 är under höstterminen och läsperiod 3 & 4 är under vårterminen.
                                 <a href="https://www.chalmers.se/utbildning/dina-studier/planera-och-genomfora-studier/datum-och-tider-for-lasaret/">
                                     Exakta datum för läsperioderna går att hitta här
@@ -127,8 +127,8 @@ export default [
                     <ul>
                         <li>
                             <b>Data Vetenskap (kandidat)</b>:
-                            <a href="https://www.gu.se/studera/hitta-utbildning/datavetenskapligt-program-n1cos">
-                                <b>gu.se/studera/hitta-utbildning/datavetenskapligt-program-n1cos</b>
+                            <a href="https://www.gu.se/studera/hitta-utbildning/n1cos-obligatoriska-kurser">
+                                <b>gu.se/studera/hitta-utbildning/n1cos-obligatoriska-kurser</b>
                             </a>
                         </li> 
                         <li>
@@ -146,6 +146,56 @@ export default [
                     </ul>
                 </p>
                 `
+            },
+            {
+                name: "Hur söker jag kurser?",
+                content: `
+                <p>
+                    Om du har precis börjat din utbildning så är det speciella regler som gäller:
+                    <ul>
+                        <li>
+                            <b>Datavetenskap</b>: Under första året är du automatiskt registrerad på 
+                            alla dina kurser och du behöver inte söka dom själv. 
+                        </li>
+                        <li>
+                            <b>Computer Science</b>: Innan du börjar din utbildning ska du ha skickat ett mail till studievägledaren
+                            vilket innehåller en lista på de fyra kurser du vill läsa under läsperiod ett och två.
+                        </li>
+                        <li>
+                            <b>Applied Data Science</b>: uh idk. 
+                        </li>
+                    </ul>
+                    Utöver dessa speciella regler så gäller följande:
+                </p>
+                <p>
+                    För att söka kurser använder man <a href="https://antagning.se">antagning.se</a> precis som när du sökte
+                    programmet. Tips är att trycka i att du endast söker efter kurser och "Visa endast kurser inom mitt program som jag kan söka" 
+                    (kräver att du är inloggad) om du inte letar efter kurser utanför programmet.
+                </p>
+                <p>
+                    Kom ihåg att titta förkunskapskraven för kursen du vill läsa, och att du enbart kan komma in på 6 kurser på en termin.
+                    Tips är att söka tre kurser per läsperiod så att du har en "backup" 
+                    om du inte kommer in på en kurs, och sen enbart gå två av dessa kurser.
+                </p>
+                `
+            },
+            {
+                name: "Hur hittar jag vilka kurser jag kan välja?",
+                content: `
+                <p>
+                    När du börja studera lär du ha fått en pdf fil från din programansvarig vilket innehåller en lista på alla 
+                    kurser du kan söka. Kom ihåg att titta på förkunskapskraven så att du kan läsa kurserna du är intresserad av.
+                </p>
+                <p>
+                    Alternativt så kan du använda 
+                    <a href="https://www.gu.se/studera/hitta-utbildning?education_department=Institutionen%20f%C3%B6r%20data-%20och%20informationsteknik&education_faculty=IT-fakulteten&education_type.keyword=Kurs&q=%2A&subject_area=IT">
+                        gu.se/studera/hitta-utbildning
+                    </a>
+                    vilket låter dig hitta alla kurser under institution och GU. 
+                    Det är dock viktigt att komma ihåg att alla dessa kurser är inte nödvändigtvis ligger inom ditt program, och lättaste
+                    sättet att dubbelchecka detta är om kursen kommer upp efter du har tryckt i "Visa endast kurser inom mitt program som jag kan söka"
+                    när du söker kurser på <a href="http://antagning.se">antagning.se</a>.
+                </p>`
             },
             {
                 name: "Hur många högskolepoäng får vara utanför programmet?",
@@ -172,9 +222,6 @@ export default [
                     </ul>
                 </p>
                 `
-            },
-            {
-                name: "Hur hittar jag vilka kurser jag kan välja?"
             }
         ]
     },
@@ -209,10 +256,28 @@ export default [
                     </p>`
             },
             {
+                name: "<i>Vart</i> är min tenta?"
+            },
+            {
+                name: "Vad kan jag ta med mig till en tenta?"
+            },
+            {
                 name: "Jag behöver extra hjälp, vad finns det för mig?"
             },
             {
                 name: "Jag har två tentor samtidigt, hur gör jag?"
+            }
+        ]
+    },
+    {
+        name: "Studentliv",
+        name_en: "Student Life",
+        questions: [
+            {
+                name: "Vad är Datavetenskapsdivsionen?"
+            },
+            {
+                name: "Vad är Göta Studentkår?"
             }
         ]
     }
