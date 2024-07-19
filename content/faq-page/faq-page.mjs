@@ -5,6 +5,7 @@ export default [
         questions: [
             {
                 name: "Bör jag vara med på mottagningen?",
+                name_en: "Should I participate in the reception?",
                 content: `
                     <p>Ja!!</p>
                     <p>
@@ -85,6 +86,32 @@ export default [
                             </li>
                         </ul>
                     </p>`
+            },
+            {
+                name: "Vad är Monaden?",
+                content: `
+                    <p>
+                        Monaden är våran studentlokal på campus Johanneberg! 
+                        Det är lokalen vi pluggar, chillar, och festar i!
+                    </p>
+                    <p>
+                        Som student under Datavetenskap, Computer Science och Applied Data Science 
+                        är du alltid välkommen där!
+                    </p>
+                `
+            },
+            {
+                name: "Vart är Monaden?",
+                content: `
+                    <p>
+                        Monaden ligger på campus Johanneberg (Chalmers) i EDIT byggnaden på bottenvåningen.
+                        <ul>
+                            <li><b>Address</b>: Rännvägen 6, 412 58 Göteborg</li>
+                            <li><b>Maps</b>: <a href="https://maps.app.goo.gl/2G1EPigP64ri62QP8">maps.app.goo.gl/2G1EPigP64ri62QP8</a></li>
+                            <li><b>Video på hur man hittar från Chalmers hållplats</b>: <a href="https://youtu.be/uHyFgT8ZJPQ?si=d3TouE4d8AdcV9mN">youtu.be/uHyFgT8ZJPQ?si=d3TouE4d8AdcV9mN</a></li>
+                        </ul>
+                    </p>
+                `
             },
             {
                 name: "Finns det någon chat för mitt program?",

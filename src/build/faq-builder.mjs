@@ -8,7 +8,8 @@ if (fs.existsSync("faq-cache")) fs.rmSync("faq-cache", { recursive: true, force:
 fs.mkdirSync("faq-cache");
 
 const createQuestion = question => {
-    const doneText = question.content && question.content_en ? "" : " 👺 ";
+    const doneTextLeft = question.content ? "" : " 👺 ";
+    const doneTextRight = question.content_en ? "" : " ⚠️ ";
     let output = "";
     let outputEn = "";
 
@@ -18,7 +19,7 @@ const createQuestion = question => {
     output += `<div class="faq-question">
         <div class="faq-question-title">
             <button class="faq-expand-button">
-                <h2>${doneText}${question.name ?? "Inget Namn"}${doneText}</h2>
+                <h2>${doneTextLeft}${question.name ?? "Inget Namn"}${doneTextRight}</h2>
                 <a>▼</a>
             </button>
         </div>
@@ -26,7 +27,7 @@ const createQuestion = question => {
     outputEn += `<div class="faq-question">
         <div class="faq-question-title">
             <button class="faq-expand-button">
-                <h2>${question.name ?? "No Name"}</h2>
+                <h2>${doneTextLeft}${question.name_en ?? "No Name"}${doneTextRight}</h2>
                 <a>▼</a>
             </button>
         </div>
