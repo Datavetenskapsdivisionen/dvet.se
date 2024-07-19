@@ -40,8 +40,10 @@ const createQuestion = question => {
 };
 
 for (const category of Faq) {
-    output += `<div><h2>${category.name ?? "Inget Namn"}</h2>`;
-    outputEn += `<div><h2>${category.name_en ?? "No Name"}</h2>`;
+    const id = "FaqCategory" + encodeURI(category.name_en ?? "no_name");
+    const href = `<a class="faq-href" href="#${id}">#</a>`;
+    output += `<div id="${id}"><h2>${href} ${category.name ?? "Inget Namn"}</h2>`;
+    outputEn += `<div id="${id}"><h2>${href} ${category.name_en ?? "No Name"}</h2>`;
     output += `<div class="faq-category">`;
     outputEn += `<div class="faq-category">`;
 
