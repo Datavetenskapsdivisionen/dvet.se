@@ -38,7 +38,8 @@ export default [
                             </li>
                             <li>
                                 <b>Högskolepoäng</b>: Brukar förkortas till <b>hp</b>.<br/>
-                                Varje kurs du går är värd x antal hp. Under vår institution (CSE) är majoriteten av kurserna värda 7,5hp. Kandidatprogram kräver att du har tagit 180hp och masterprogram kräver 120hp.
+                                Varje kurs du går är värd x antal hp. Under vår institution (CSE) är majoriteten av kurserna värda 7,5hp. 
+                                Kandidatprogram kräver att du har tagit 180hp och masterprogram kräver 120hp.
                             </li>
                             <li><b>Tenta</b>: Ett prov, oftast gjord skriftligt i sal under fyra timmar.</li>
                             <li><b>Hemtenta</b>: Ett prov som kan göras hemma, oftast över längre tid.</li>
@@ -46,10 +47,29 @@ export default [
                             <li><b>Dugga</b>: Ett miniprov i en kurs. Det varierar mellan kurser om dessa är betygsgrundade eller ej.</li>
                             <li><b>Programförkortningar</b>:</li>
                             <ul>
-                                <li><b>N1COS</b>: Datavetenskapligt program.</li>
-                                <li><b>N2COS</b>: Computer Science, Master's Programme.</li>
-                                <li><b>N2ADS</b>: Applied Data Science Master's Programme.</li>
+                                <li><b>N1COS</b> / <b>DV</b>: Datavetenskapligt program.</li>
+                                <li><b>N2COS</b> / <b>CS</b>: Computer Science, Master's Programme.</li>
+                                <li><b>N2ADS</b> / <b>ADS</b>: Applied Data Science Master's Programme.</li>
                             </ul>
+                            <li>
+                                <b>Grundläggande kurser</b>: 
+                                Detta är kurser som går igenom grunder till olika ämnen.
+                                De har oftast mindre förkunskapskrav jämnfört med avancerade kurser.
+                                <br/>
+                                <br/>
+                                Kallas ibland för kandidatkurser av studenter men detta är ingen officiell term.
+                            </li>
+                            <li>
+                                <b>Avancerade kurser</b>: 
+                                Kallas ibland <b>fördjupningskurser</b>.<br/>
+                                Detta är kurser som har som mål att fördjupa en students, redan grundläggande, kunskap inom ett ämne.
+                                <br/>
+                                <br/>
+                                <i>Viktigt att komma ihåg att en avancerad kurs behöver nödvändigtvis inte vara en svår kurs!</i>
+                                <br/>
+                                <br/>
+                                Kallas ibland för masterkurser av studenter men detta är ingen officiell term.
+                            </li>
                         </ul>
                     </p>`
             },
@@ -59,7 +79,8 @@ export default [
                     <p>
                         Det finns det! Föreningen driver en Discord kanal som heter MonadenDV vilket
                         består av Datavetenskaps, Computer Science och Applied Data Science studenter och även ett par doktorander.
-                        <br/>
+                    </p>
+                    <p>
                         Linken till denna finns som QR koder i Monaden, men även i recceguiden du har fått mailat till dig om du är en ny student.
                         Om du av nån anledning inte kan få tag i nån av dessa så kan du maila <a href="mailto:styrelsen@dvet.se">styrelsen@dvet.se</a>
                         så skickar vi dig en länk!
@@ -90,9 +111,67 @@ export default [
                             <li><i>Många, många mer...</i></li>
                         </ul>
                     </p>`
+            }
+        ]
+    },
+    {
+        name: "Program Info",
+        name_en: "Program Info",
+        questions: [
+            {
+                name: "Vilka kurser ingår i mitt programs?",
+                content: `
+                <p>
+                    Alla program har ett unikt upplägg med kurser, och listan på kurser du kommer gå, går lättast att hitta
+                    på utbildningsplanen vilket går att hitta här:
+                    <ul>
+                        <li>
+                            <b>Data Vetenskap (kandidat)</b>:
+                            <a href="https://www.gu.se/studera/hitta-utbildning/datavetenskapligt-program-n1cos">
+                                <b>gu.se/studera/hitta-utbildning/datavetenskapligt-program-n1cos</b>
+                            </a>
+                        </li> 
+                        <li>
+                            <b>Computer Science (master)</b>:
+                            <a href="https://www.gu.se/en/study-gothenburg/computer-science-masters-programme-n2cos">
+                                gu.se/en/study-gothenburg/computer-science-masters-programme-n2cos
+                            </a>
+                        </li> 
+                        <li>
+                            <b>Applied Data Science (master)</b>:
+                            <a href="https://www.gu.se/studera/hitta-utbildning/applied-data-science-masterprogram-n2ads">
+                                gu.se/studera/hitta-utbildning/applied-data-science-masterprogram-n2ads
+                            </a>
+                        </li> 
+                    </ul>
+                </p>
+                `
             },
             {
-                name: "Hur många högskolepoäng får vara utanför programmet?"
+                name: "Hur många högskolepoäng får vara utanför programmet?",
+                content: `
+                <p>
+                    Alla kurser du läser behöver inte nödvändigtvis falla under ditt programs huvudområde,
+                    men man får inte räkna med hur många som helst i sin examen.
+                    <ul>
+                        <li>
+                            <b>Datavetenskap (kandidat)</b>: Max 30hp valbara kurser utanför området datavetenskap får räknas med,
+                            där 15hp av dessa är avancerade kurser.
+                        </li>
+                        <li>
+                            <b>Computer Science (master)</b>: Totalt behöver du läsa 45hp avancerade kurser inom datavetenskap, och göra 
+                            ett examensarbete på antingen 30hp eller 60hp. 
+                            Detta betyder att du som student har 45hp eller 15hp för valfria kurser.
+                        </li>
+                        <li>
+                            <b>Applied Data Science (master)</b>: 
+                            Totalt kommer du läsa 52,5hp obligatoriska kurser inom Data Science, och göra 
+                            ett examensarbete på antingen 30hp eller 60hp. 
+                            Detta betyder att du som student har 37.5hp eller 7.5hp för valfria kurser.
+                        </li>
+                    </ul>
+                </p>
+                `
             },
             {
                 name: "Hur hittar jag vilka kurser jag kan välja?"
@@ -123,7 +202,9 @@ export default [
                     <p>
                         Det är oftast inget att oroa sig över! 
                         Tentor får man göra om hur många gånger som helst, men det kan ha inpakt på vilka kurser du kan gå,
-                        då om du ej uppfyller förkunskapskraven för en kurs får du inte gå den.<br/>
+                        då om du ej uppfyller förkunskapskraven för en kurs får du inte gå den.
+                    </p>
+                    <p>
                         Dock gäller detta inte under första året under din kandidat då du har platsgaranti på alla dina kurser då.
                     </p>`
             },

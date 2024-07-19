@@ -1006,15 +1006,16 @@ code {
 .faq-page {
     * {
         transition-duration: 0.3s;
+        break-inside: avoid;
     }
 }
 
 .faq-category {
-    /* column-count: 2; */
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 10px;
     height: 100%;
+    grid-auto-flow: dense;
 
     .faq-expand-button {
         display: grid;
@@ -1059,6 +1060,10 @@ code {
     .faq-content {
         background-color: #f0f0f0;
         padding: 0 10px 0 10px;
+
+        li {
+            padding-bottom: 4px;
+        }
     }
 
     @media (max-width: 1050px) {
