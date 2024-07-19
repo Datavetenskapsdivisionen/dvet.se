@@ -7,7 +7,8 @@ export default [
                 name: "Bör jag vara med på mottagningen?",
                 content: `
                     <p>Ja!!</p>
-                    <p>Mottagningen är inte obligatorisk att närvara på
+                    <p>
+                        Mottagningen är inte obligatorisk att närvara på
                         men det rekommenderas <b>STARKT</b> då det är ett bra sätt att lära 
                         känna de andra studenterna i din klass.
                         Evenemangen är dessutom mycket roliga och helt gratis!
@@ -15,6 +16,18 @@ export default [
                     <p>
                         Om du är en äldre student och vill vara med på mottagningen måste du bli en phadder.
                         Vi brukar skicka ut information om detta runt läsperiod 3/4.
+                    </p>`,
+                content_en: `
+                    <p>Yes!!</p>
+                    <p>
+                        It is not compulsory to attend the reception
+                        but it is <b>HIGHLY</b> recommended as it is a good way to learn
+                        know the other students in your class.
+                        The events are also a lot of fun and completely free!
+                    </p>
+                    <p>
+                        If you are an older student and want to join the reception, you must become a phadder.
+                        We usually send out information about this around term 3/4.
                     </p>`
             },
             {
