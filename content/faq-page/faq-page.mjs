@@ -43,7 +43,7 @@ export default [
                             <li><b>Tenta</b>: Ett prov, oftast gjord skriftligt i sal under fyra timmar.</li>
                             <li><b>Hemtenta</b>: Ett prov som kan göras hemma, oftast över längre tid.</li>
                             <li><b>Munta</b>: Ett muntligt prov, ganska sällsynt.</li>
-                            <li><b>Dugga</b>: Ett miniprov i en kurs. Det varierar mellan kurser om dessar betygsgrundade eller ej.</li>
+                            <li><b>Dugga</b>: Ett miniprov i en kurs. Det varierar mellan kurser om dessa är betygsgrundade eller ej.</li>
                             <li><b>Programförkortningar</b>:</li>
                             <ul>
                                 <li><b>N1COS</b>: Datavetenskapligt program.</li>

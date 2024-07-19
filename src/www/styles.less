@@ -1005,7 +1005,7 @@ code {
 
 .faq-page {
     * {
-        transition-duration: 0.2s;
+        transition-duration: 0.3s;
     }
 }
 
@@ -1040,6 +1040,8 @@ code {
             font-size: 2em;
             margin-top: -6px;
         }
+
+        box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.2);
     }
 
     .faq-question {
@@ -1049,14 +1051,14 @@ code {
     .faq-container {
         display: grid;
         overflow: hidden;
-        grid-template-rows: 0;
+        grid-template-rows: 0fr;
+        border-radius: 0 0 10px 10px;
+        box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.2);
     }
 
     .faq-content {
         background-color: #f0f0f0;
-        padding: 10px;
-        border-radius: 0 0 10px 10px;
-        box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.2);
+        padding: 0 10px 0 10px;
     }
 
     @media (max-width: 1050px) {

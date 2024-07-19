@@ -11,12 +11,13 @@ const me = () => {
             const arrow = button.children.item(1);
             // :)
             const content = button.parentElement.nextElementSibling;
+            const max = content.scrollHeight + "px";
             button.addEventListener('click', () => {
-                if (content.style.gridTemplateRows == "1fr") {
-                    content.style.gridTemplateRows = "0fr";
+                if (content.style.height == max) {
+                    content.style.height = "0";
                     arrow.innerHTML = "▼";
                 } else {
-                    content.style.gridTemplateRows = "1fr";
+                    content.style.height = max;
                     arrow.innerHTML = "▲";
                 }
             });

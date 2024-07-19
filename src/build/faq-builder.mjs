@@ -23,7 +23,7 @@ for (const category of Faq) {
                     <a>▼</a>
                 </button>
             </div>
-        <div class="faq-container" style="grid-template-rows: 0fr;"><div class="faq-content">`;
+        <div class="faq-container" style="height: 0;"><div class="faq-content">`;
         outputEn += `<div class="faq-question">
             <div class="faq-question-title">
                 <button class="faq-expand-button">
@@ -31,9 +31,9 @@ for (const category of Faq) {
                     <a>▼</a>
                 </button>
             </div>
-        <div class="faq-container" style="grid-template-rows: 0fr;"><div class="faq-content">`;
-        output += content ?? "Ingen Text";
-        outputEn += contentEn ?? "No Text";
+        <div class="faq-container" style="height: 0;"><div class="faq-content">`;
+        output += content ?? "<p>Ingen Text</p>";
+        outputEn += contentEn ?? "<p>No Text</p>";
         output += `</div></div></div>`;
         outputEn += `</div></div></div>`;
     }
