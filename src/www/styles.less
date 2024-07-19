@@ -1016,6 +1016,13 @@ code {
     gap: 10px;
     height: 100%;
     grid-auto-flow: dense;
+    transition-duration: 0.2s;
+
+    .faq-category-split {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
 
     .faq-expand-button {
         display: grid;
@@ -1068,7 +1075,7 @@ code {
 
     @media (max-width: 1050px) {
         .faq-grid {
-            display: block;
+            grid-template-columns: 1fr;
         }
     }
 
