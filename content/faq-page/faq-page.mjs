@@ -33,6 +33,7 @@ export default [
             },
             {
                 name: "Ordlista",
+                name_en: "List of Words",
                 content: `
                     <p>
                         Nedan finns ord som kan vara bra att kunna att kunna som student:
@@ -104,6 +105,7 @@ export default [
             },
             {
                 name: "Vad är Monaden?",
+                name_en: "What is the Monad?",
                 content: `
                     <p>
                         Monaden är våran studentlokal på campus Johanneberg! 
@@ -117,9 +119,10 @@ export default [
             },
             {
                 name: "Vart är Monaden?",
+                name_en: "Where is the Monad?",
                 content: `
                     <p>
-                        Monaden ligger på campus Johanneberg (Chalmers) i EDIT byggnaden på bottenvåningen.
+                        Monaden ligger på campus Johanneberg (Chalmers) i Edit-byggnaden på bottenvåningen.
                         <ul>
                             <li><b>Address</b>: Rännvägen 6, 412 58 Göteborg</li>
                             <li><b>Maps</b>: <a href="https://maps.app.goo.gl/2G1EPigP64ri62QP8">maps.app.goo.gl/2G1EPigP64ri62QP8</a></li>
@@ -130,6 +133,7 @@ export default [
             },
             {
                 name: "Finns det någon chat för mitt program?",
+                name_en: "Is there a chat for my program?",
                 content: `
                     <p>
                         Det finns det! Föreningen driver en Discord kanal som heter MonadenDV vilket
@@ -143,6 +147,7 @@ export default [
             },
             {
                 name: "Hur hittar man en bostad i Göteborg?",
+                name_en: "How do I find a place to live in Gothenburg?",
                 content: `
                     <p>
                         Som ny eller gammal student kan en studentbostad behövas, 
@@ -174,7 +179,8 @@ export default [
         name_en: "Program Info",
         questions: [
             {
-                name: "Vilka kurser ingår i mitt programs?",
+                name: "Vilka kurser ingår i mitt program?",
+                name_en: "What courses are included in my program?",
                 content: `
                 <p>
                     Alla program har ett unikt upplägg med kurser, och listan på kurser du kommer gå, går lättast att hitta
@@ -204,6 +210,7 @@ export default [
             },
             {
                 name: "Hur söker jag kurser?",
+                name_en: "How do I apply for courses?",
                 content: `
                 <p>
                     Om du har precis börjat din utbildning så är det speciella regler som gäller:
@@ -236,6 +243,7 @@ export default [
             },
             {
                 name: "Hur hittar jag vilka kurser jag kan välja?",
+                name_en: "How do I find which courses I can apply for?",
                 content: `
                 <p>
                     När du börja studera lär du ha fått en pdf fil från din programansvarig vilket innehåller en lista på alla 
@@ -254,6 +262,7 @@ export default [
             },
             {
                 name: "Hur många högskolepoäng får vara utanför programmet?",
+                name_en: "How many credits can be outside of myprogram?",
                 content: `
                 <p>
                     Alla kurser du läser behöver inte nödvändigtvis falla under ditt programs huvudområde,
@@ -286,6 +295,7 @@ export default [
         questions: [
             {
                 name: "När är mina tentor?",
+                name_en: "When are my exams?",
                 content: `
                     <p>
                         Exakta tillfällen för tentor varierar mellan kurser, men publiceras 
@@ -307,6 +317,7 @@ export default [
             },
             {
                 name: "Jag misslyckades med en tenta, vad gör jag?",
+                name_en: "I failed an exam, what can I do?",
                 content: `
                     <p>
                         Det är oftast inget att oroa sig över! 
@@ -319,6 +330,7 @@ export default [
             },
             {
                 name: "<i>Vart</i> är min tenta?",
+                name_en: "Where is my exam?",
                 content: `
                     <p>
                         De flesta tentors salar är listade här: 
@@ -333,6 +345,7 @@ export default [
             },
             {
                 name: "Vad kan jag ta med mig till en tenta?",
+                name_en: "What can I bring to an exam?",
                 content: `
                     <p>
                         Majoriteten av dina kurser faller under institutionen CSE, 
@@ -369,6 +382,7 @@ export default [
             },
             {
                 name: "Jag behöver extra hjälp, vad finns det för mig?",
+                name_en: "I need extra help, what can I apply for?",
                 content: `
                     <p>
                         Om du som student har dokumenterad funktionsnedsättning och har blivit beviljad pedagogiskt stöd,
@@ -381,6 +395,7 @@ export default [
             },
             {
                 name: "Jag har två tentor samtidigt, hur gör jag?",
+                name_en: "I have two exams at the same time, what do I do?",
                 content: `
                     <p>
                         Det händer extremt sällan men ibland har man otur och två av dina tentor krockar!
@@ -399,6 +414,7 @@ export default [
         questions: [
             {
                 name: "Vad är Datavetenskapsdivsionen?",
+                name_en: "What is the Computer Science Division?",
                 content: `
                     <p>
                         Datavetenskapsdivsionen är vår studentförening, vilket bland annat driver sidan du nu är inne på.
@@ -415,6 +431,7 @@ export default [
             },
             {
                 name: "Vad är Göta Studentkår?",
+                name: "What is the Göta Student Union?",
                 content: `
                     <p>
                         Datavetenskapsdivsionen är en förening under Göta Studentkår, vilket är vår studentkår.
