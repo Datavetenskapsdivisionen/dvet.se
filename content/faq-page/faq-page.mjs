@@ -37,6 +37,21 @@ export default [
                     <p>
                         Nedan finns ord som kan vara bra att kunna att kunna som student:
                         <ul>
+                            <li>
+                                <b>Canvas</b>: Den digitala lärplatformen universitetet använder, kan nås på
+                                <a href="https://canvas.gu.se">canvas.gu.se</a>.
+                            </li>
+                            <li>
+                                <b>Ladok</b>: Sidan universitetet använder för att låta dig se vilka kurser och utbildningar du är antagen på.
+                                Används för att registrera sig på kurser man har sökt och kommit in på med
+                                <a href="https://antagning.se">antagning.se</a>.
+                                Används även för att se dina betyg och för att registera sig på tentor.
+                                Kan nås på <a href="https://student.ladok.se">student.ladok.se</a>.
+                            </li>
+                            <li>
+                                <b>Antagning</b>: Sidan du använder för att söka kurser när du pluggar. 
+                                Kan nås på <a href="https://antagning.se">antagning.se</a>.
+                            </li>
                             <li><b>Termin</b>: Ett läsår är indelat i två terminer: en hösttermin (HT) och en vårtermin (VT).</li>
                             <li>
                                 <b>Läsperiod</b>: Brukar förkortas till LP, och kan kallas för studieperiod.<br/>
@@ -281,7 +296,14 @@ export default [
                         <a href="https://www.chalmers.se/utbildning/dina-studier/planera-och-genomfora-studier/datum-och-tider-for-lasaret/">
                             dessa går att hitta här
                         </a>.
-                    <p/>`
+                    <p/>
+                    <p>
+                        Kom ihåg att för att du ska få skriva en sals-tenta så måste du registera dig
+                        innan på <a href="https://student.ladok.se">student.ladok.se</a>. 
+                        Se till att göra detta i början av kursen, eller mitt under kursens gång, 
+                        då registreringen brukar stänga någon vecka innan tentan.
+                    </p>
+                    `
             },
             {
                 name: "Jag misslyckades med en tenta, vad gör jag?",
@@ -292,17 +314,70 @@ export default [
                         då om du ej uppfyller förkunskapskraven för en kurs får du inte gå den.
                     </p>
                     <p>
-                        Dock gäller detta inte under första året under din kandidat då du har platsgaranti på alla dina kurser då.
+                        Dock gäller detta inte under första året under din kandidat då du har platsgaranti på alla dina kurser.
                     </p>`
             },
             {
-                name: "<i>Vart</i> är min tenta?"
+                name: "<i>Vart</i> är min tenta?",
+                content: `
+                    <p>
+                        De flesta tentors salar är listade här: 
+                        <a href="https://cloud.timeedit.net/chalmers/web/exampublic/">
+                            cloud.timeedit.net/chalmers/web/exampublic/
+                        </a>.
+                    </p>
+                    <p>
+                        Kom ihåg att dubbelchecka på Canvas-sidan för kursen om något annat gäller, 
+                        speciellt om det är en hem-tenta eller munta.
+                    </p>`
             },
             {
-                name: "Vad kan jag ta med mig till en tenta?"
+                name: "Vad kan jag ta med mig till en tenta?",
+                content: `
+                    <p>
+                        Majoriteten av dina kurser faller under institutionen CSE, 
+                        vilket följer Chalmers tenta-regler som går att hitta här: 
+                        <a href="https://www.chalmers.se/utbildning/dina-studier/tentamen-och-ovrig-examination/pa-tentamensdagen-och-efter-tentan/">
+                            chalmers.se/utbildning/dina-studier/tentamen-och-ovrig-examination/pa-tentamensdagen-och-efter-tentan/
+                        </a>.
+                    </p>
+                    <p>
+                        I korta drag så gäller detta:
+                        <ul>
+                            <li>
+                                <b>Penna och något att sudda med</b>:
+                                Självfallet behöver du kunna skriva under tentamen, men du får <b>INTE</b> använda en röd penna,
+                                då det är färgen som används under rättning.
+                            </li>
+                            <li>
+                                <b>Bläckpenna</b>: Används för att skriva ditt namn, personnummer m.m på tentan.
+                                Igen så är röda bläckpennor <b>INTE</b> tillåtna.
+                            </li>
+                            <li>
+                                <b>Något att äta</b>: 
+                                Så länge du inte stör de andra som sitter i salen får du ta med fika och något att dricka.
+                                Jordnötter, baljväxter och mandlar är förbjudna.
+                            </li>
+                            <li>
+                                <b>Andra saker</b>: Varje tenta kan ha olika regler, då vissa tillåter dig att ta med
+                                ordböker, kursmaterial t.ex. 
+                                Det är viktigt att titta på kursens Canvas-sida för att se vilket extra material du får ta med.
+                            </li>
+                        </ul>
+                    </p>
+                `
             },
             {
-                name: "Jag behöver extra hjälp, vad finns det för mig?"
+                name: "Jag behöver extra hjälp, vad finns det för mig?",
+                content: `
+                    <p>
+                        Om du som student har dokumenterad funktionsnedsättning och har blivit beviljad pedagogiskt stöd,
+                        har du rätt till att begära en anpassad examination. Mer information om detta går att hitta här:
+                        <a href="https://studentportal.gu.se/dina-studier/tentamen-och-examination?f_it=1&i_da=1#anpassad-examination">
+                            studentportal.gu.se/dina-studier/tentamen-och-examination#anpassad-examination
+                        </a>.
+                    </p>
+                `
             },
             {
                 name: "Jag har två tentor samtidigt, hur gör jag?"
@@ -314,10 +389,30 @@ export default [
         name_en: "Student Life",
         questions: [
             {
-                name: "Vad är Datavetenskapsdivsionen?"
+                name: "Vad är Datavetenskapsdivsionen?",
+                content: `
+                    <p>
+                        Datavetenskapsdivsionen är vår studentförening, vilket bland annat driver sidan du nu är inne på.
+                        Vi arrangerar din mottagning, håller ett flertal event under året, och vi ser till att du har
+                        det bra när du studerar med oss!
+                    </p>
+                    <p>
+                        Om du har frågor, behöver hjälp, eller råka falla illa ut, med examinatorer, tentor eller andra studenter etc, 
+                        så är vi här för att hjälpa dig!
+                        Du kan hitta vår kontakt information under <a href="/dviki">kontakt tabben</a>, och mer information om oss på våran 
+                        <a href="/dviki">wiki</a>!
+                    </p>
+                    `
             },
             {
-                name: "Vad är Göta Studentkår?"
+                name: "Vad är Göta Studentkår?",
+                content: `
+                    <p>
+                        Datavetenskapsdivsionen är en förening under Göta Studentkår, vilket är vår studentkår.
+                        De är också här för att stödja dig under dina studier, och går även att kontakta om du behöver
+                        hjälp. Mer information om dom går att hitta här: <a href="https://www.gotastudentkar.se">gotastudentkar.se</a>.
+                    </p>
+                `
             }
         ]
     }
