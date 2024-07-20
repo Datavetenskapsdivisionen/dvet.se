@@ -380,7 +380,16 @@ export default [
                 `
             },
             {
-                name: "Jag har två tentor samtidigt, hur gör jag?"
+                name: "Jag har två tentor samtidigt, hur gör jag?",
+                content: `
+                    <p>
+                        Det händer extremt sällan men ibland har man otur och två av dina tentor krockar!
+                        Detta går att lösa men du kommer få göra båda tentorna under ett långt tillfälle.
+                        Följ följande länk för att se hur man löser det: 
+                        <a href="chalmers.se/utbildning/dina-studier/tentamen-och-ovrig-examination/fore-examination/#plussning-dubbeltentamen-och-omtenta">
+                            https://www.chalmers.se/utbildning/dina-studier/tentamen-och-ovrig-examination/fore-examination/#plussning-dubbeltentamen-och-omtenta
+                        </a>.
+                    </p>`
             }
         ]
     },
