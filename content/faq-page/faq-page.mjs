@@ -116,16 +116,16 @@ export default [
                             Can be found at <a href="https://student.ladok.se">student.ladok.se</a>.
                         </li>
                         <li>
-                            <b>Antagning</b>: The site you use to apply to courses if you are a swedish student. 
+                            <b>Antagning</b>: The site you use to apply to courses if you are a Swedish student. 
                             Can be found at <a href="https://antagning.se">antagning.se</a>.
                         </li>
                         <li>
                             <b>Term</b>: An academic year is dividied into two terms,
                             a fall term, and a spring term. Respectively these are called hösttermin (HT) and vårtermin (VT)
-                            in swedish.
+                            in Swedish.
                         </li>
                         <li>
-                            <b>Study period</b>: Called läsperiod in swedish, so it is commonly abbreviated to LP.<br/>
+                            <b>Study period</b>: Called läsperiod in Swedish, so it is commonly abbreviated to LP.<br/>
                             An academic year is divided into 4 study periods.
                             Study period one and two are during the fall term, and study period three and four are during the sprin term. 
                             <a href="https://www.chalmers.se/en/education/your-studies/plan-and-conduct-your-studies/the-academic-year/">
@@ -144,7 +144,7 @@ export default [
                             one of your courses!
                         </li>
                         <li>
-                            <b>Credits</b>: called högskolepoäng in swedish which is usually abbreviated to <b>hp</b>.<br/>
+                            <b>Credits</b>: called högskolepoäng in Swedish which is usually abbreviated to <b>hp</b>.<br/>
                             Every course you take is worth x credits. Under our institution (CSE) the majority of courses
                             are worth 7.5 credits. A bachelor programme consists of 180 credits and a 
                             master programme consists of 120 credits.
@@ -154,7 +154,7 @@ export default [
                         <li><b>Oral exam</b>: A oral test, where instead of writing, you talk with your examinator.</li>
                         <li><b>Program abbreviations</b>:</li>
                         <ul>
-                            <li><b>N1COS</b> / <b>DV</b>: Computer Science (Bachelor) or Datavetenskapligt program in swedish.</li>
+                            <li><b>N1COS</b> / <b>DV</b>: Computer Science (Bachelor) or Datavetenskapligt program in Swedish.</li>
                             <li><b>N2COS</b> / <b>CS</b>: Computer Science, Master's Programme.</li>
                             <li><b>N2ADS</b> / <b>ADS</b>: Applied Data Science, Master's Programme.</li>
                         </ul>
@@ -412,7 +412,7 @@ export default [
                     If you are an international student <b>INSERT GUIDE HERE</b>.
                 </p>
                 <p>
-                    If you are a swedish student, you use <a href="https://antagning.se">antagning.se</a> just like when you applied to the
+                    If you are a Swedish student, you use <a href="https://antagning.se">antagning.se</a> just like when you applied to the
                     programme. A hot tip is to select that you are only looking for courses and to enable the 
                     "Visa endast kurser inom mitt program som jag kan söka" option (requires that you are logged in), unless you are looking for courses
                     outside your programme.
