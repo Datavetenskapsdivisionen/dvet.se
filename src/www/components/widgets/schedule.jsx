@@ -218,21 +218,20 @@ const getCalenderData = async (full, eventUrl, _restUrl, _eventLimit, openModal,
     if (!full) {
         for (const y in years) {
             for (const m in years[y]) {
-                let mod = true;
-                while (mod) {
-                    let good = false;
-                    let keys = Object.keys(years[y][m]).map(Number).sort((a, b) => a - b);
-                    //while (!good) {
-                    let splicer = [];
+                let keys = Object.keys(years[y][m]).map(Number).sort((a, b) => a - b);
 
-                    for (let i = 0; i < 14 && years[y][m][keys[i]]; i++) {
-                        good = good || years[y][m][keys[i]].length > 0;
-                        splicer.push(keys[i]);
+                let max = 0;
+                let splice = [];
+                for (const d of keys) {
+                    if (years[y][m][d].length == 0) {
+                        max += 1;
+                        splice.push(d);
                     }
-                    if (!good) {
-                        splicer.forEach(v => delete years[y][m][v]);
-                    }
-                    mod = !good;
+                    else break;
+                }
+                let closest = Math.floor(max / 7) * 7;
+                for (let i = 0; i < closest; i++) {
+                    delete years[y][m][keys[i]];
                 }
             }
         }
@@ -242,7 +241,6 @@ const getCalenderData = async (full, eventUrl, _restUrl, _eventLimit, openModal,
             for (const m in years[y]) {
                 let keys = Object.keys(years[y][m]).map(Number).sort((a, b) => a - b);
                 keys.reverse();
-                console.log(keys);
 
                 for (const d of keys) {
                     if (years[y][m][d].length == 0) {
@@ -306,7 +304,7 @@ const getCalenderData = async (full, eventUrl, _restUrl, _eventLimit, openModal,
                     });
                     content.push(<div className={years[y][m][d].length > 0 ? "calender-slot" : "calender-slot empty-calender-slot"}>
                         <div className="event-container">{events}</div>
-                        <div className="event-date-container"><span>{monthName(m)}</span>{d}</div>
+                        <div className="event-date-container">{d} <span>{dayName((new Date(y, m, d).getDay() + 6) % 7)}</span></div>
                     </div >);
                 }
             }
