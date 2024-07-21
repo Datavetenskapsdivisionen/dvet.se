@@ -41,3 +41,13 @@
         max-height: 12em;
     }
 }
+
+.dvrk-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 2em;
+
+    @media screen and (max-width: 766px) {
+        grid-template-columns: 1fr;
+    }
+}
