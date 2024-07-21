@@ -101,36 +101,36 @@ const DVRKbar = () => {
 
 const IframePage = (props) => (
     isIOS() ?
-    <>
-        <button
-            className="kickoff-info-button"
-            onClick={() => window.open(props.url, "_this")}
-            style={{ padding: "20px" }}
-        >
-            Click here to get to the document!
-        </button>
-    </>
-    :
-    <>
-        <h1>{props.title}</h1>
-        <iframe
-            src={props.url}
-            frameBorder="0"
-            style={{
-                width: "100%",
-                height: "90vh",
-                overflow: "auto",
-                WebkitOverflowScrolling: "touch",
-            }}
-            scrolling="yes"
-        >
-        </iframe>
-    </>
+        <>
+            <button
+                className="kickoff-info-button"
+                onClick={() => window.open(props.url, "_this")}
+                style={{ padding: "20px" }}
+            >
+                Click here to get to the document!
+            </button>
+        </>
+        :
+        <>
+            <h1>{props.title}</h1>
+            <iframe
+                src={props.url}
+                frameBorder="0"
+                style={{
+                    width: "100%",
+                    height: "90vh",
+                    overflow: "auto",
+                    WebkitOverflowScrolling: "touch",
+                }}
+                scrolling="yes"
+            >
+            </iframe>
+        </>
 );
 
 // If you know a better way to do this, plz pull request :)
 const ContentHolder = (props) => (
-    <>
+    <div>
         <DVRKbar />
         <main>
             <div className="dvrk-page">
@@ -138,7 +138,7 @@ const ContentHolder = (props) => (
             </div>
         </main>
         <Footer />
-    </>
+    </div>
 );
 
 const MainPage = () => {
@@ -162,8 +162,8 @@ const SchedulePage = (props) => {
     return (
         <ContentHolder element={
             <>
-            <h1>{props.title ?? "Schedule"}</h1>
-            <Schedule full={true} eventUrl={"/getKickoffEvents" + (props.extension ?? "")} />
+                <h1>{props.title ?? "Schedule"}</h1>
+                <Schedule full={true} eventUrl={"/getKickoffEvents" + (props.extension ?? "")} />
             </>
         } />
     );
