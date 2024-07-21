@@ -129,7 +129,6 @@ const getEventData = async (full, eventUrl, restUrl, eventLimit, openModal, setM
 };
 
 const Schedule = (props) => {
-    let subtitle;
     const [modalIsOpen, setIsOpen] = React.useState(false);
     const openModal = () => setIsOpen(true);
     const afterOpenModal = () => { };
@@ -356,7 +355,6 @@ const getCalenderData = async (full, eventUrl, _restUrl, _eventLimit, openModal,
 };
 
 const CalenderSchedule = (props) => {
-    let subtitle;
     const [modalIsOpen, setIsOpen] = React.useState(false);
     const openModal = () => setIsOpen(true);
     const afterOpenModal = () => { };
