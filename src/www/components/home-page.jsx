@@ -7,7 +7,7 @@ import textEn from "../../../content/home-page/home-page-en.md";
 import InfoButton from "./widgets/info-button.jsx";
 import KickoffInfoButton from "./widgets/kickoff-info-button";
 import NewsFeed from "./widgets/newsfeed";
-import Schedule from "./widgets/schedule";
+import { Schedule } from "./widgets/schedule";
 import { isEnglish, isReception } from "../util";
 
 const text = isEnglish() ? textEn : textSe;

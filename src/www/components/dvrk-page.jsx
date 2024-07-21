@@ -6,7 +6,7 @@ import text from "../../../content/committees/dvrk/dvrk.md";
 import contact from "../../../content/committees/dvrk/dvrkcontact.md";
 import textEn from "../../../content/committees/dvrk/dvrk-en.md";
 import contactEn from "../../../content/committees/dvrk/dvrkcontact-en.md";
-import Schedule from "./widgets/schedule";
+import { CalenderSchedule, Schedule } from "./widgets/schedule";
 import "./../dvrk-styles.less";
 import { NavLink, useNavigate } from "react-router-dom";
 import DVRKLogo from "../../../assets/committee-logos/dvrk-logo.png";
@@ -160,26 +160,25 @@ const ContactPage = () => {
 
 const SchedulePage = (props) => {
     return (
-        <ContentHolder element={
-            <>
-                <h1>{props.title ?? "Schedule"}</h1>
-                <Schedule full={true} eventUrl={"/getKickoffEvents" + (props.extension ?? "")} />
-            </>
-        } />
+        <>
+            <ContentHolder element={
+                <>
+                    <h1>{props.title ?? "Schedule"}</h1>
+                    <CalenderSchedule full={false} eventUrl={"/getKickoffEvents" + (props.extension ?? "")} />
+                    {/* <Schedule full={true} eventUrl={"/getKickoffEvents" + (props.extension ?? "")} /> */}
+                    <div style={{ height: "2em" }}></div>
+                </>
+            } />
+        </>
+
     );
 };
 
-const BachelorSchedulePage = () => {
-    return (
-        <SchedulePage extension="?type=Kandidat" title={isEnglish() ? "Bachelor schedule" : "Kandidatschema"} />
-    );
-};
+const BachelorSchedulePage = () =>
+    <SchedulePage extension="?type=Kandidat" title={isEnglish() ? "Bachelor schedule" : "Kandidatschema"} />;
 
-const MasterSchedulePage = () => {
-    return (
-        <SchedulePage extension="?type=Master" title="Master schedule" />
-    );
-};
+const MasterSchedulePage = () =>
+    <SchedulePage extension="?type=Master" title="Master schedule" />;
 
 const FormPage = () => {
     return (
