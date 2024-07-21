@@ -10,7 +10,7 @@ Letar du efter Insparks-schemat så kan du antingen trycka på schema-knappen i 
 ## Vad ska jag göra nu?
 <div class="dvrk-grid">
     <div>
-        <div class="dvrk-grid-title"><h3>1. Bli medlem i Göta Studentkår!</h3></div>
+        <h4><span class="dvrk-grid-title">1.</span>Bli medlem i Göta Studentkår!</h4>
         <p>
             Som medlem i Göta Studentkår får du tillgång till massa roliga och användbara förmåner. 
             Läs mer om <a href="https://www.gotastudentkar.se/sv/medlemsformaner">medlemsförmånerna här</a>. 
@@ -19,7 +19,7 @@ Letar du efter Insparks-schemat så kan du antingen trycka på schema-knappen i 
         </p>
     </div>
     <div>
-        <div class="dvrk-grid-title"><h3>2. Registrera dig på Orbi!</h3></div>
+        <h4><span class="dvrk-grid-title">2.</span>Registrera dig på Orbi!</h4>
         <p>
             Orbi är en plattform som hela Göta Studentkår använder för att annonsera om evenemang som
             arrangeras av alla föreningar. Våra evenemang kommer också att synas här! 
@@ -28,7 +28,7 @@ Letar du efter Insparks-schemat så kan du antingen trycka på schema-knappen i 
         </p>
     </div>
     <div>
-        <div class="dvrk-grid-title"><h3>3. Fyll i recentiorsdeklarationen!</h3></div>
+        <h4><span class="dvrk-grid-title">3.</span>Fyll i recentiorsdeklarationen!</h4>
         <p>
             För att vi ska kunna göra Insparken så bra som möjligt ber vi dig att ge oss lite
             information om dig själv. Även om du inte planerar att delta så mycket uppmuntrar
@@ -37,7 +37,7 @@ Letar du efter Insparks-schemat så kan du antingen trycka på schema-knappen i 
         </p>
     </div>
     <div>
-        <div class="dvrk-grid-title"><h3>4. Läs recentiorsguiden!</h3></div>
+        <h4><span class="dvrk-grid-title">4.</span>Läs recentiorsguiden!</h4>
         <p>
             Vad är en recentior? Vad är DVRK? Allt detta och mer hittar du i vår guide
             för nya studenter! Du hittar <a href="/committees/dvrk/bachelor">recentiorsguiden här</a>. 
@@ -45,7 +45,7 @@ Letar du efter Insparks-schemat så kan du antingen trycka på schema-knappen i 
         </p>
     </div>
     <div>
-        <div class="dvrk-grid-title"><h3>5. Gå med i våra kanaler!</h3></div>
+        <h4><span class="dvrk-grid-title">5.</span>Gå med i våra kanaler!</h4>
         <p>
             Vi rekommenderar starkt att ni går med i vår 
             <a href="https://www.facebook.com/groups/868507685108910/?rdid=YORi62wGgLHYgWqM&amp;share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2Fqe8fWdeHw3SD8tzs%2F">Facebookgrupp</a> och vår 
@@ -54,7 +54,7 @@ Letar du efter Insparks-schemat så kan du antingen trycka på schema-knappen i 
         </p>
     </div>
     <div>
-        <div class="dvrk-grid-title"><h3>6. Följ våra sociala medier!</h3></div>
+        <h4><span class="dvrk-grid-title">6.</span>Följ våra sociala medier!</h4>
         <p>
             Ni hittar oss både på vår Instagram, <a href="https://www.instagram.com/dvrk_gu/">@dvrk_gu</a>, 
             och på Facebook som <a href="https://www.facebook.com/guDVRK">@guDVRK</a>.

@@ -10,7 +10,7 @@ If you're looking for the Inspark schedule, you can either click on the "Schema"
 ## What should I do now?
 <div class="dvrk-grid">
     <div>
-        <div class="dvrk-grid-title"><h3>1. Become a member of the Göta Student Union!</h3></div>
+        <h4><span class="dvrk-grid-title">1.</span>Become a member of the Göta Student Union!</h4>
         <p>
             As a member of Göta Studentunion, you&#39;ll have access to many fun and useful benefits. 
             Learn more about the <a href="https://www.gotastudentkar.se/en/medlemsformaner">membership benefits here</a>. 
@@ -19,7 +19,7 @@ If you're looking for the Inspark schedule, you can either click on the "Schema"
         </p>
     </div>
     <div>
-        <div class="dvrk-grid-title"><h3>2. Register on Orbi!</h3></div>
+        <h4><span class="dvrk-grid-title">2.</span>Register on Orbi!</h4>
         <p>
             Orbi is a platform used by Göta Studentkår to advertise events organized by all the associations. 
             Our events will also be listed here! This is the best way to stay informed about what's 
@@ -27,7 +27,7 @@ If you're looking for the Inspark schedule, you can either click on the "Schema"
         </p>
     </div>
     <div>
-        <div class="dvrk-grid-title"><h3>3. Fill out the reccentiors form!</h3></div>
+        <h4><span class="dvrk-grid-title">3.</span>Fill out the reccentiors form!</h4>
         <p>
             To make Insparken as great as possible, we ask for some information about you as a person. 
             Even if you don&#39;t think you&#39;re interested in participating in Insparken, 
@@ -36,7 +36,7 @@ If you're looking for the Inspark schedule, you can either click on the "Schema"
         </p>
     </div>
     <div>
-        <div class="dvrk-grid-title"><h3>4. Read the reccentiors guide!</h3></div>
+        <h4><span class="dvrk-grid-title">4.</span>Read the reccentiors guide!</h4>
         <p>
             What is a reccentior? What is DVRK? You can find all of this and more in our guide for new students. 
             Hopefully, you&#39;ve already seen it, but if you missed it, you can find the 
@@ -45,7 +45,7 @@ If you're looking for the Inspark schedule, you can either click on the "Schema"
         </p>
     </div>
     <div>
-        <div class="dvrk-grid-title"><h3>5. Join our channels!</h3></div>
+        <h4><span class="dvrk-grid-title">5.</span>Join our channels!</h4>
         <p>
             To get information and connect with your fellow students, we recommend joining:
             <ul>
@@ -55,7 +55,7 @@ If you're looking for the Inspark schedule, you can either click on the "Schema"
         </p>
     </div>
     <div>
-        <div class="dvrk-grid-title"><h3>6. Follow us!</h3></div>
+        <h4><span class="dvrk-grid-title">6.</span>Follow us!</h4>
         <p>
             On Instagram, we are <a href="https://www.instagram.com/dvrk_gu/">@dvrk_gu</a>, 
             and on Facebook, you can find us as <a href="https://www.facebook.com/guDVRK">@guDVRK</a>.
