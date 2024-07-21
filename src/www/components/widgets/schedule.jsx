@@ -321,7 +321,7 @@ const getCalenderData = async (full, eventUrl, _restUrl, _eventLimit, openModal,
                     });
                     content.push(<div className={(years[y][m][d].length > 0 ? "calender-slot" : "calender-slot empty-calender-slot") + cl}>
                         <div className="event-container">{events}</div>
-                        <div className="event-date-container">{numberSuffix(d)} <span>{dayName((new Date(y, m, d).getDay() + 6) % 7)}</span></div>
+                        <div className="event-date-container"><span>{dayName((new Date(y, m, d).getDay() + 6) % 7)}</span>{numberSuffix(d)}</div>
                     </div >);
                 }
             }
