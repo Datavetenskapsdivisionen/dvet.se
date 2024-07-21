@@ -46,10 +46,24 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     column-gap: 2em;
+    row-gap: 20px;
+
+    >div {
+        word-wrap: break-word;
+        position: relative;
+        background-color: #f0f0f0;
+        border-radius: 0 0 10px 10px;
+        box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.5);
+    }
+
+    p {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
 
     .dvrk-grid-title {
         background-color: #161616;
-        height: 70px;
+        height: 60px;
         display: flex;
         align-items: center;
 
@@ -59,11 +73,15 @@
             padding: 1em;
             color: white;
             font-family: "Press Start 2P";
-            font-size: 1em;
+            font-size: 0.8em;
         }
     }
 
     @media screen and (max-width: 766px) {
         grid-template-columns: 1fr;
     }
+}
+
+.bottom-pad {
+    height: 2.5em;
 }
