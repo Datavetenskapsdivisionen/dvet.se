@@ -261,6 +261,9 @@ const getCalenderData = async (full, eventUrl, _restUrl, _eventLimit, openModal,
         }
     }
 
+    const currentDay = new Date();
+    // const currentDay = new Date(2024, 7, 21);
+
     let children = [];
     for (const y in years) {
         let calender = [];
@@ -268,8 +271,12 @@ const getCalenderData = async (full, eventUrl, _restUrl, _eventLimit, openModal,
             let content = [];
 
             for (const d of Object.keys(years[y][m]).map(Number).sort((a, b) => a - b)) {
+                const cl = (currentDay.getFullYear() == y && currentDay.getMonth() == m && currentDay.getDate() == d)
+                    ? " current"
+                    : currentDay.getTime() - new Date(y, m, d) > 0 ? " passed" : "";
+
                 if (years[y][m][d].beforeDay) {
-                    content.push(<div className="calender-slot previous-calender-slot">
+                    content.push(<div className={"calender-slot previous-calender-slot"}>
                         <div className="event-container"></div>
                         <div className="event-date-container">...</div>
                     </div >);
@@ -312,7 +319,7 @@ const getCalenderData = async (full, eventUrl, _restUrl, _eventLimit, openModal,
                             </>;
                         return <button onClick={action}>{e.summary.replace("/", " / ")}{time}</button>;
                     });
-                    content.push(<div className={years[y][m][d].length > 0 ? "calender-slot" : "calender-slot empty-calender-slot"}>
+                    content.push(<div className={(years[y][m][d].length > 0 ? "calender-slot" : "calender-slot empty-calender-slot") + cl}>
                         <div className="event-container">{events}</div>
                         <div className="event-date-container">{numberSuffix(d)} <span>{dayName((new Date(y, m, d).getDay() + 6) % 7)}</span></div>
                     </div >);
