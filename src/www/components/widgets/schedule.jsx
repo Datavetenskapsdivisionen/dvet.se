@@ -178,6 +178,16 @@ const monthName = i => isEnglish()
 const dayName = i => isEnglish()
     ? ["Monday", "Tuesday", "Wendesday", "Thursday", "Friday", "Saturday", "Sunday"][i]
     : ["Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag", "Söndag"][i];
+const numberSuffix = i => {
+    if (isEnglish()) switch (i % 10) {
+        case 1: return `${i}st`;
+        case 2: return `${i}nd`;
+        case 3: return `${i}rd`;
+        default: return `${i}th`;
+
+    }
+    else return [1, 2].includes(i % 10) ? `${i}:a` : `${i}:e`;
+};
 const getCalenderData = async (full, eventUrl, _restUrl, _eventLimit, openModal, setModalData, _navigate) => {
     const json = await (await fetch(eventUrl)).json();
     let data = json
@@ -304,7 +314,7 @@ const getCalenderData = async (full, eventUrl, _restUrl, _eventLimit, openModal,
                     });
                     content.push(<div className={years[y][m][d].length > 0 ? "calender-slot" : "calender-slot empty-calender-slot"}>
                         <div className="event-container">{events}</div>
-                        <div className="event-date-container">{d} <span>{dayName((new Date(y, m, d).getDay() + 6) % 7)}</span></div>
+                        <div className="event-date-container">{numberSuffix(d)} <span>{dayName((new Date(y, m, d).getDay() + 6) % 7)}</span></div>
                     </div >);
                 }
             }
