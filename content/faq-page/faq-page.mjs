@@ -10,7 +10,7 @@ export default [
                     <p>Ja!!</p>
                     <p>
                         Mottagningen är inte obligatorisk att närvara på
-                        men det rekommenderas <b>STARKT</b> då det är ett bra sätt att lära 
+                        mehttps://www.universityadmissions.sen det rekommenderas <b>STARKT</b> då det är ett bra sätt att lära 
                         känna de andra studenterna i din klass.
                         Evenemangen är dessutom mycket roliga och helt gratis!
                     </p>
@@ -50,8 +50,12 @@ export default [
                                 Kan nås på <a href="https://student.ladok.se">student.ladok.se</a>.
                             </li>
                             <li>
-                                <b>Antagning</b>: Sidan du använder för att söka kurser när du pluggar. 
+                                <b>Antagning</b>: Sidan du använder för att söka kurser som svensk student när du pluggar. 
                                 Kan nås på <a href="https://antagning.se">antagning.se</a>.
+                            </li>
+                            <li>
+                                <b>University Admissions</b>: Sidan du använder för att söka kurser som international student 
+                                när du pluggar. Kan nås på <a href="https://www.universityadmissions.se">universityadmissions.se</a>.
                             </li>
                             <li><b>Termin</b>: Ett läsår är indelat i två terminer: en hösttermin (HT) och en vårtermin (VT).</li>
                             <li>
@@ -116,9 +120,14 @@ export default [
                             Can be found at <a href="https://student.ladok.se">student.ladok.se</a>.
                         </li>
                         <li>
-                            <b>Antagning</b>: The site you use to apply to courses if you are a Swedish student. 
+                            <b>Antagning</b>: The site you use to apply to courses/programmes if you are a Swedish student. 
                             Can be found at <a href="https://antagning.se">antagning.se</a>.
                         </li>
+                        <li>
+                            <b>University Admissions</b>: The site you use to apply to courses/programmes if you are 
+                            an international student. Can be found at 
+                            <a href="https://www.universityadmissions.se">universityadmissions.se</a>.
+                        <li/>
                         <li>
                             <b>Term</b>: An academic year is dividied into two terms,
                             a fall term, and a spring term. Respectively these are called hösttermin (HT) and vårtermin (VT)
@@ -380,7 +389,9 @@ export default [
                     Utöver dessa speciella regler så gäller följande:
                 </p>
                 <p>
-                    För att söka kurser använder man <a href="https://antagning.se">antagning.se</a> precis som när du sökte
+                    För att söka kurser använder man <a href="https://antagning.se">antagning.se</a> (
+                    <a href="https://www.universityadmissions.se">universityadmissions.se</a> om du är en international student) 
+                    precis som när du sökte
                     programmet. Tips är att trycka i att du endast söker efter kurser och "Visa endast kurser inom mitt program som jag kan söka" 
                     (kräver att du är inloggad) om du inte letar efter kurser utanför programmet.
                 </p>
@@ -409,11 +420,9 @@ export default [
                     Outside of these rules the following applies:
                 </p>
                 <p>
-                    If you are an international student <b>INSERT GUIDE HERE</b>.
-                </p>
-                <p>
-                    If you are a Swedish student, you use <a href="https://antagning.se">antagning.se</a> just like when you applied to the
-                    programme. A hot tip is to select that you are only looking for courses and to enable the 
+                    Just like when you applied for the program, you use <a href="https://www.universityadmissions.se">universityadmissions.se</a> 
+                    (or <a href="https://antagning.se">antagning.se</a> if you are a Swedish student). 
+                    A hot tip is to select that you are only looking for courses and to enable the 
                     "Visa endast kurser inom mitt program som jag kan söka" option (requires that you are logged in), unless you are looking for courses
                     outside your programme.
                 </p>
@@ -440,7 +449,9 @@ export default [
                     vilket låter dig hitta alla kurser under institution och GU. 
                     Det är dock viktigt att komma ihåg att alla dessa kurser är inte nödvändigtvis ligger inom ditt program, och lättaste
                     sättet att dubbelchecka detta är om kursen kommer upp efter du har tryckt i "Visa endast kurser inom mitt program som jag kan söka"
-                    när du söker kurser på <a href="http://antagning.se">antagning.se</a>.
+                    när du söker kurser på <a href="http://antagning.se">antagning.se</a>, eller 
+                    "Only show courses that I can apply to within my programme"
+                    om du använder <a href="https://www.universityadmissions.se">universityadmissions.se</a>.
                 </p>`,
                 content_en: `
                 <p>
@@ -455,10 +466,10 @@ export default [
                     which lets you find all courses under the institution and Gothenburgs University.
                     Keep in mind that you may not necessarily count all these courses towards your exam, as they may overlap
                     with courses you have already taken, or they lie outside your programme plan.
-                    The easiest way to doublecheck this is to enable the "Visa endast kurser inom mitt program som jag kan söka" option
-                    when looking for courses on <a href="http://antagning.se">antagning.se</a>.
-                    
-                    <b>INSERT INTERNATIONAL STUDENT THINGS</b>
+                    The easiest way to doublecheck this is to enable the "Only show courses that I can apply to within my programme"
+                    option when looking for courses on <a href="https://www.universityadmissions.se">universityadmissions.se</a>,
+                    or "Visa endast kurser inom mitt program som jag kan söka" if you use
+                    <a href="http://antagning.se">antagning.se</a>.
                 </p>`
             },
             {
