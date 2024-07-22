@@ -618,7 +618,7 @@ export default [
                     </a>.
                 </p>
                 <p>
-                    Remember to doublecheck with the courses Canvas-page if something special applies,
+                    Remember to double check with the course's Canvas-page if something special applies,
                     especially if its a home exam or oral exam.
                 </p>`
             },
