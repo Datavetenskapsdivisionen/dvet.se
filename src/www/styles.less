@@ -623,6 +623,127 @@ code {
         cursor: pointer;
     }
 
+    .kickoff-calender-container {
+        display: flex;
+        flex-direction: column;
+        border-radius: 0 0 10px 10px;
+        overflow: hidden;
+        box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.5);
+        border: solid gray 0px;
+        border-left-width: 1px;
+        border-right-width: 1px;
+
+        button {
+            box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 1);
+        }
+
+        .calender {
+            background-color: #e6e6e6;
+        }
+
+        .calender-title {
+            background-color: #161616;
+            color: white;
+            font-family: "Press Start 2P";
+            margin: 0;
+            padding: 1em 0 1em 0;
+        }
+
+        .day-name {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: solid gray;
+            border-width: 0px 1px 1px 1px;
+            margin-left: -1px;
+        }
+
+        .calender-slot {
+            border: solid gray;
+            border-width: 0px 1px 1px 1px;
+            background-color: #f0f0f0;
+            margin-left: -1px;
+
+            display: grid;
+            grid-template-rows: 1fr 2em;
+
+            button {
+                font-family: "Quicksand", sans-serif;
+                font-size: 1em;
+                margin: 0;
+            }
+
+            .event-container {
+                min-height: 100px;
+                display: grid;
+                grid-template-columns: 1fr;
+            }
+
+            .event-date-container {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                span {
+                    display: none;
+                    margin-right: 5px;
+                }
+            }
+        }
+
+        .passed {
+            background-color: lightpink;
+
+            button {
+                background-color: lightpink;
+            }
+        }
+
+        .current {
+            background-color: lightgreen;
+
+            button {
+                background-color: lightgreen;
+            }
+        }
+
+        .calender-slot-container {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+        }
+
+        .empty-calender-slot {
+            background-color: #e6e6e6;
+            color: gray;
+        }
+
+        .previous-calender-slot {
+            background-color: #e6e6e6;
+            color: gray;
+        }
+
+        @media screen and (max-width: 820px) {
+            .calender-slot-container {
+                grid-template-columns: 1fr;
+            }
+
+            .event-date-container span {
+                display: inline !important;
+            }
+
+            .calender-slot {
+                margin: 10px;
+            }
+
+            .previous-calender-slot,
+            .empty-calender-slot,
+            .day-name {
+                display: none;
+            }
+        }
+    }
+
+
     .kickoff-schedule {
         display: flex;
         flex-wrap: wrap;
@@ -1232,6 +1353,7 @@ footer {
 
     .button-container {
         display: flex;
+
         &.right {
             justify-content: end;
             align-items: end;
@@ -1627,17 +1749,17 @@ nav {
     padding-top: 50px;
 
     .popo {
-        position:fixed;
+        position: fixed;
         top: 0;
         left: 0;
         background-image: url(https://dvet.se/uploads/Samuel%20Hammersberg%20-%20e4708955ed42ceee6182c3cf9fa72980%20-%20police.gif);
-    
+
         background-size: contain;
         background-repeat: no-repeat;
         height: 250px;
         width: 250px;
         background-position: center;
-        transform: translate(-50%,-50%);
+        transform: translate(-50%, -50%);
 
         transition: top 3s linear, left 3s linear, transform 0.5s;
         pointer-events: none;

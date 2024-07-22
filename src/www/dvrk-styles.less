@@ -2,6 +2,7 @@
 
 .dvrk-page {
     transition-duration: 250ms;
+    flex: 1;
 
     @media (max-width: 775px) {
         padding-left: 5px;
@@ -40,4 +41,31 @@
     img {
         max-height: 12em;
     }
+}
+
+.dvrk-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 2em;
+
+    .dvrk-grid-title {
+        background-color: #161616;
+        color: white;
+        font-family: "Press Start 2P";
+        padding: 8px 0 8px 8px;
+        margin-right: 8px;
+        font-size: 0.8em;
+    }
+
+    h4 {
+        font-size: 1.2em;
+    }
+
+    @media screen and (max-width: 766px) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.bottom-pad {
+    height: 2.5em;
 }

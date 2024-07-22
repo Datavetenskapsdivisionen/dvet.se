@@ -13,14 +13,14 @@ import CommitteePage from "./components/committee-page";
 import ToolsPage from "./components/tools-page";
 import PhotosPage from "./components/photos-page";
 import WikiPage from "./components/wiki-page";
-import Schedule from "./components/widgets/schedule";
+import { Schedule } from "./components/widgets/schedule";
 import PrivacyPolicy from "./components/privacy-policy";
 import InfoScreen from "./components/info-screen";
 import EditInfoScreen from "./components/edit-info-screen";
 import PhotoHostScreen from "./components/photo-host";
 import NewsScreen from "./components/newscreen";
 import ScheduleScreen from "./components/schedulescreen";
-import Popo from "./components/widgets/popo"
+import Popo from "./components/widgets/popo";
 // import WIP from "./components/widgets/wip";
 import IndividualCommitteePage from "./components/individual-committee-page";
 import { getLanguageCookie, isEnglish } from "./util";
@@ -141,7 +141,7 @@ const router = createBrowserRouter([
       { path: "/documents", element: <DocumentPage /> },
       { path: "/photos", element: <PhotosPage /> },
       { path: "/schedule", element: <SchedulePage /> },
-	  { path: "/privacy-policy", element: <PrivacyPolicy /> },
+      { path: "/privacy-policy", element: <PrivacyPolicy /> },
       {
         path: "/dviki", element: <WikiPage />, children: [
           { path: ":id/*", element: <WikiPage /> }
