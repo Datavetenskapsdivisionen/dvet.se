@@ -47,4 +47,14 @@ const getEndOfDayTime = (date = new Date()) => {
     return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 23, 59, 59, 999).getTime();
 };
 
-export { isReception, isEnglish, getLanguageCookie, dateToLocalISO, getEndOfDayTime, isAuth };
+const shuffleArray = (array) => {
+    let currentIndex = array.length;
+    while (currentIndex !== 0) {
+        let randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+        [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+    }
+    return array;
+}
+
+export { isReception, isEnglish, getLanguageCookie, dateToLocalISO, getEndOfDayTime, isAuth, shuffleArray };
