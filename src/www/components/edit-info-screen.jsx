@@ -147,7 +147,7 @@ const me = () => {
                 <td><a className={"btn " + (onOffStates[i] ? "green" : "red")} onClick={() => onActiveClick(i)}>{onOffStates[i] ? (isEnglish() ? "ON" : "PÅ") : (isEnglish() ? "OFF" : "AV")}</a></td>
                 <td><a className="btn blue" onClick={() => onEditClick(i)}>{isEnglish() ? "EDIT" : "REDIGERA"}</a></td>
                 <td><a className="btn red" onClick={() => onDeleteClick(i)}>{isEnglish() ? "DELETE" : "TA BORT"}</a></td>
-                <td style={{textAlign: "right"}}><a href={s.lastEdit ? `mailto:${s.lastEdit}?subject=[DVD info screen]: ` : ""}>{s.lastEdit ? s.lastEdit.split('@')[0] : ""}</a></td>
+                <td style={{textAlign: "right"}}><a href={s.lastEdit ? `mailto:${s.lastEdit}?subject=[DVD info screen]: ` : ""} style={{textDecoration: "none"}}>{s.lastEdit ? s.lastEdit.split('@')[0] : ""}</a></td>
             </tr>
         );
     };
