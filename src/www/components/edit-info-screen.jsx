@@ -14,7 +14,7 @@ const me = () => {
     const slidesJSON = jsonData.slides;
     const [modalIsOpen, setIsOpen] = React.useState(false);
     const [selectedSlideIndex, setSelectedSlideIndex] = React.useState(null);
-    const defaultState = {nameValue: "", typeValue: "iframe", valueValue: "", durationValue: 10, startValue: "", endValue: "", activeValue: true, lastEditValue: ""};
+    const defaultState = {nameValue: "", typeValue: "iframe", valueValue: "", durationValue: 10, startValue: "", endValue: "", activeValue: true, lastEditValue: decodeJwt(Cookies.get("dv-token")).email};
     const [values, setValues] = React.useState(defaultState);
     const [onOffStates, setOnOffStates] = React.useState([]);
     const [isShuffleOn, setIsShuffleOn] = React.useState(jsonData.shuffle ?? false);
