@@ -7,13 +7,14 @@ import { draggable, dropTargetForElements, monitorForElements } from "@atlaskit/
 import invariant from "tiny-invariant";
 import Cookies from "js-cookie";
 import { dateToLocalISO } from "../util";
+import { decodeJwt } from "jose";
 
 const me = () => {
     const jsonData = useLoaderData();
     const slidesJSON = jsonData.slides;
     const [modalIsOpen, setIsOpen] = React.useState(false);
     const [selectedSlideIndex, setSelectedSlideIndex] = React.useState(null);
-    const defaultState = {nameValue: "", typeValue: "iframe", valueValue: "", durationValue: 10, startValue: "", endValue: "", activeValue: true};
+    const defaultState = {nameValue: "", typeValue: "iframe", valueValue: "", durationValue: 10, startValue: "", endValue: "", activeValue: true, lastEditValue: decodeJwt(Cookies.get("dv-token")).email};
     const [values, setValues] = React.useState(defaultState);
     const [onOffStates, setOnOffStates] = React.useState([]);
     const [isShuffleOn, setIsShuffleOn] = React.useState(jsonData.shuffle ?? false);
@@ -41,6 +42,7 @@ const me = () => {
 
     const onEditClick = (index) => {
         setSelectedSlideIndex(index);
+        const user = decodeJwt(Cookies.get("dv-token"));
         const s = slidesJSON[index];
         setValues({
             nameValue:     s.name,
@@ -49,7 +51,8 @@ const me = () => {
             startValue:    s.start ? dateToLocalISO(new Date(s.start)) : "",
             endValue:      s.end ? dateToLocalISO(new Date(s.end)) : "",
             activeValue:   s.active ?? true,
-            valueValue:    s.slide.value ?? ""
+            valueValue:    s.slide.value ?? "",
+            lastEditValue: user.email
         });
         setIsOpen(true);
     };
@@ -79,7 +82,7 @@ const me = () => {
         e.preventDefault();
 
         const slide = {slideType: values.typeValue, value: values.valueValue};
-        const newSlideData = {name: values.nameValue, duration: values.durationValue, active: values.activeValue, start: new Date(values.startValue).getTime(), end: new Date(values.endValue).getTime(), slide: slide};
+        const newSlideData = {name: values.nameValue, duration: values.durationValue, active: values.activeValue, start: new Date(values.startValue).getTime(), end: new Date(values.endValue).getTime(), lastEdit: values.lastEditValue, slide: slide};
         
         if (selectedSlideIndex != null) {
             slidesJSON[selectedSlideIndex] = newSlideData;
@@ -126,7 +129,7 @@ const me = () => {
             <tr className={(dragged ? "dragged " : "") + (isDraggedOver ? "dragged-over" : "")} key={i} ref={rowRef}>
                 <td ref={dragRef}>
                     <svg width="32" height="32" viewBox="0 0 24 24" role="presentation">
-                        <g fill="currentColor" fill-rule="evenodd">
+                        <g fill="currentColor" fillRule="evenodd">
                             <circle cx="10" cy="8"  r="1" />
                             <circle cx="14" cy="8"  r="1" />
                             <circle cx="10" cy="16" r="1" />
@@ -144,6 +147,7 @@ const me = () => {
                 <td><a className={"btn " + (onOffStates[i] ? "green" : "red")} onClick={() => onActiveClick(i)}>{onOffStates[i] ? (isEnglish() ? "ON" : "PÅ") : (isEnglish() ? "OFF" : "AV")}</a></td>
                 <td><a className="btn blue" onClick={() => onEditClick(i)}>{isEnglish() ? "EDIT" : "REDIGERA"}</a></td>
                 <td><a className="btn red" onClick={() => onDeleteClick(i)}>{isEnglish() ? "DELETE" : "TA BORT"}</a></td>
+                <td style={{textAlign: "right"}}><a href={s.lastEdit ? `mailto:${s.lastEdit}?subject=[DVD info screen]: ` : ""} style={{textDecoration: "none"}}>{s.lastEdit ? s.lastEdit.split('@')[0] : ""}</a></td>
             </tr>
         );
     };
@@ -181,6 +185,9 @@ const me = () => {
                         <th>Start</th>
                         <th>{isEnglish() ? "End" : "Slut"}</th>
                         <th>{isEnglish() ? "Active" : "Aktiv"}</th>
+                        <th></th>
+                        <th></th>
+                        <th>{isEnglish() ? "Edited by" : "Redigerad av"}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -198,9 +205,9 @@ const me = () => {
                 <div>
                     <a onClick={() => setIsOpen(true)} className="btn blue">{isEnglish() ? "ADD SLIDE" : "LÄGG TILL"}</a>
                     
-                    <label class="switch">
+                    <label className="switch">
                         <input name="shuffle" type="checkbox" checked={isShuffleOn} onChange={onShuffleClick} />
-                        <span class="slider" />
+                        <span className="slider" />
                     </label>
                     <span>{isEnglish() ? "Shuffle order" : "Blanda ordning"}</span>
                 </div>
