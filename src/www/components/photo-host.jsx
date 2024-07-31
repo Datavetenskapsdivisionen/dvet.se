@@ -36,8 +36,13 @@ const me = () => {
             if (r.ok) {
                 resField.innerHTML = `${isEnglish() ? "Your uploaded files can be accessed from:" : "Dina uppladdade foton kan nås från:"} ${r.ok}`;
                 setMyPhotos(mp => {
-                    mp.push(...r.files);
-                    return mp.sort();
+                    if (mp) {
+                        mp.push(...r.files);
+                        return mp.sort();
+                    } else {
+                        return [...r.files].sort();
+                    }
+                    
                 });
             } else {
                 resField.innerHTML = `Error: ${r.err}`;
