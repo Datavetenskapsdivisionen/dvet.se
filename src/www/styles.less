@@ -127,6 +127,12 @@ code {
         }
     }
 
+    .buttons {
+        .btn {
+            margin: 10px 0 0 10px;
+        }
+    }
+
     .switch {
         position: relative;
         display: inline-block;
@@ -182,7 +188,6 @@ code {
     border: none;
     border-radius: 2px;
     padding: 8px 10px;
-    margin: 10px 0 0 10px;
     color: white;
     cursor: pointer;
     white-space: nowrap;
@@ -197,6 +202,11 @@ code {
 
     &.green {
         background-color: #26d776;
+    }
+
+    &.big-text {
+        font-size: 16px;
+        padding: 2px 2px 2px 5px;
     }
 }
 
@@ -1767,4 +1777,11 @@ nav {
         transition: top 3s linear, left 3s linear, transform 0.5s;
         pointer-events: none;
     }
+}
+
+.my-photo-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
 }
