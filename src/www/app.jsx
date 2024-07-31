@@ -43,7 +43,7 @@ const GoogleAuth = () => {
 
   const onSuccess = async (res) => {
     if (res.credential) {
-      await fetch("/google-auth", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(res) })
+      await fetch("/google-auth", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(res), referrerPolicy: 'strict-origin-when-cross-origin' })
         .then(res => setIsLoggedIn(res.ok))
         .catch(setIsLoggedIn(false));
     }
