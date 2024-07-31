@@ -40,19 +40,15 @@ const compressImage = async (file, to_path) => {
     return buffer;
 };
 
-const photoHostPost = async (req, res) => {
-    if (req.body.folder == null || req.body.folder.includes("..") || req.body.folder.startsWith("/")) {
-        res.status(401).json({ err: `invalid :(` });
-        req.files.forEach(file => {
-            fs.unlinkSync(file.path);
-        });
-        return;
-    }
-    const token = req.headers.authorization;
+const getUserFolder = (token) => {
     const decoded = decodeJwt(token);
-    const user = decoded.name.replace('.', '');
+    const user = decoded.email.split("@")[0];
+    return `dist/uploads/${user}`;
+}
 
-    let folder = `dist/uploads/${req.body.folder}`;
+const photoHostPost = async (req, res) => {
+    const folder = getUserFolder(req.headers.authorization);
+
     let createDir = false;
     try {
         let folderInfo = fs.statSync(folder, {});
@@ -61,30 +57,70 @@ const photoHostPost = async (req, res) => {
         createDir = true;
     }
     if (createDir) fs.mkdirSync(folder, { recursive: true });
-    let newPaths = [];
+    let filePaths = [];
 
     const fileTypesToCompress = ["image/jpeg", "image/png", "image/tiff", "image/webp", "image/heic"];
     for (const file of req.files) {
-        const newPath = `${folder.endsWith("/") ? folder : `${folder}/`}${user} - ${file.filename} - ${file.originalname}`;
+        const dotAt = file.originalname.lastIndexOf('.');
+        const filename = [file.originalname.substring(0, dotAt), file.originalname.substring(dotAt)]; // [name, extension]
+        const filePath = `${folder}/${filename[0].replaceAll(' ', '-')}_${file.filename}${filename[1]}`;
         if (fileTypesToCompress.includes(file.mimetype)) {
-            const compressedFile = await compressImage(file, newPath);
-            fs.writeFileSync(newPath, compressedFile);
+            const compressedFile = await compressImage(file, filePath);
+            fs.writeFileSync(filePath, compressedFile);
         } else {
-            fs.copyFileSync(file.path, newPath);
+            fs.copyFileSync(file.path, filePath);
         }
 
         fs.unlinkSync(file.path);
-        newPaths.push(newPath);
+        filePaths.push(filePath);
     }
 
-    let newPathsLinks = "<ul>";
-    newPaths.forEach(pathy => {
-        let path = pathy.substring(5);
-        newPathsLinks += `<li><a href="/${path}" target="_blank">https://dvet.se/${path}</a></li>`;
+    let filePathsLinks = "<ul>";
+    filePaths.forEach(pathy => {
+        let path = pathy.substring("dist/".length);
+        filePathsLinks += `<li><a href="/${path}" target="_blank">https://dvet.se/${path}</a></li>`;
     });
-    newPathsLinks += "</ul>";
-    res.status(200).json({ ok: `Your uploaded files can be accessed from: ${newPathsLinks}` });
+    filePathsLinks += "</ul>";
+    res.status(200).json({ ok: filePathsLinks, files: filePaths.map(f => f.substring(`${folder}/`.length)) });
 
 };
 
-export { photoHostPost };
+const getFilesFromDir = async (dir) => {
+    await fs.promises.access(dir);
+    return fs.readdirSync(dir, (err, files) => files );
+};
+
+const getUserPhotos = async (req, res) => {
+    const userFolder = getUserFolder(req.headers.authorization);
+    try {
+        const files = await getFilesFromDir(userFolder);
+        res.status(200).json({ photos: files });
+    } catch {
+        res.status(200).json({ msg: "User does not own any photos." });
+    }
+};
+
+const deleteUserPhoto = async (req, res) => {
+    const hash = req.params.hash;
+    if (!hash) {
+        res.status(400).json({ msg: "No file was specified." });
+        return;
+    }
+
+    const userFolder = getUserFolder(req.headers.authorization);
+    try {
+        const files = await getFilesFromDir(userFolder);
+        for (const file of files) {
+            const path = `${userFolder}/${file}`;
+            if (file.includes(hash)) {
+                fs.unlink(path, err => !err && res.status(200).json({ msg: "Photo has been deleted.", ok: true }));
+                return;
+            }
+        }
+        res.status(404).json({ msg: "Photo does not exist." });
+    } catch {
+        res.status(400).json({ msg: "User does not own any photos." });
+    }
+}
+
+export { photoHostPost, getUserPhotos, deleteUserPhoto };

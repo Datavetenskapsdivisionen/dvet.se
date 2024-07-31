@@ -202,7 +202,7 @@ const me = () => {
             <h1>{isEnglish() ? "Edit info screen" : "Redigera infoskärmen"}</h1>
             <div className="edit-slides-container">
                 <Slides />
-                <div>
+                <div className="buttons">
                     <a onClick={() => setIsOpen(true)} className="btn blue">{isEnglish() ? "ADD SLIDE" : "LÄGG TILL"}</a>
                     
                     <label className="switch">

@@ -29,7 +29,7 @@ import getPhotos from "./photos.mjs";
 import { getSlides, updateSlides } from "./info-screen.mjs";
 import { getKickOffEvents, getDVEvents } from "./events.mjs";
 import killerBean from "./killerbean.mjs";
-import { photoHostPost } from "./photo-host.mjs";
+import { deleteUserPhoto, getUserPhotos, photoHostPost } from "./photo-host.mjs";
 import { googleLogin } from "./googleApi.mjs";
 import { verifyToken, verifyCookieOrElse } from "./auth.mjs";
 
@@ -96,6 +96,8 @@ app.get("/getInfoScreenSlides", getSlides);
 
 app.get("/photos/host", callback);
 app.post("/photos/post", verifyToken, upload.array("files"), photoHostPost);
+app.get("/user/photos", verifyToken, getUserPhotos);
+app.delete("/user/photos/:hash", verifyToken, deleteUserPhoto);
 
 app.get("/getKickoffEvents", getKickOffEvents);
 app.get("/getEvents", getDVEvents);
