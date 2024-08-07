@@ -8,8 +8,10 @@ rehypeRaw({ allowDangerousHtml: true });
 import datavetenskapLogo from "../../../assets/main.png";
 import { getEndOfDayTime, shuffleArray } from "../util";
 import { useLoaderData } from "react-router-dom";
+import { useOnlineStatus } from "../hooks/useOnlineStatus";
 
 const DEFAULT_DURATION = 20;
+let isOnline;
 
 class InfoScreen {
     constructor(loaderData) {
@@ -28,14 +30,18 @@ class InfoScreen {
 
     next = async () => {
         if (!this.slides || this.slides.length === 0) {
-            const data = (await fetch("/getInfoScreenSlides").then(s => s.json()));
-            this.shuffle = data.shuffle;
-            if (this.shuffle) {
-                this.slides = shuffleArray(this.filterSlidesData(data.slides));
+            if (isOnline) {
+                const data = (await fetch("/getInfoScreenSlides").then(s => s.json()));
+                this.shuffle = data.shuffle;
+                if (this.shuffle) {
+                    this.slides = shuffleArray(this.filterSlidesData(data.slides));
+                } else {
+                    this.slides = this.filterSlidesData(data.slides);
+                }
+                this.allSlides = structuredClone(this.slides);
             } else {
-                this.slides = this.filterSlidesData(data.slides);
+                this.slides = this.allSlides;
             }
-            this.allSlides = structuredClone(this.slides);
         }
 
         return this.slides.pop() ?? null;
@@ -104,6 +110,7 @@ const me = () => {
     const [percentage, setPercentage] = React.useState(null);
     const stepRef = React.useRef(0);
     const flipRef = React.useRef(0);
+    isOnline = useOnlineStatus();
 
     const currentSlide = slideElems.current[flipRef.current];
 
@@ -155,8 +162,8 @@ const me = () => {
     }, []);
 
     return <>
-        { !currentSlide[0] && <div className="default-banner"><img src={datavetenskapLogo} /></div> }
-        {  currentSlide && currentSlide[1] &&
+        { (!isOnline || !currentSlide[0]) && <div className="default-banner"><img src={datavetenskapLogo} /></div> }
+        { currentSlide && currentSlide[1] &&
             <div id="slideshow">
                 { slideElems.current.map((slide,i) => <div style={{
                     opacity: i === flipRef.current ? 1 : 0,
