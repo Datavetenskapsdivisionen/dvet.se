@@ -198,7 +198,7 @@ const me = () => {
     };
     
     return <>
-        <div className="page overflow">
+        <div className="page">
             <h1>{isEnglish() ? "Edit info screen" : "Redigera infoskärmen"}</h1>
             <div className="edit-slides-container">
                 <Slides />
