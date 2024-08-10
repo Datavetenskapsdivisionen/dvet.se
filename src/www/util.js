@@ -1,12 +1,12 @@
 import Cookies from "js-cookie";
 
 const isAuth = async () => {
-    return await fetch("/verify-token", {
-        method: "POST",
-        headers: {
-            "Authorization": `Bearer ${Cookies.get("dv-token")}`
-        },
-    })
+    const dv_token = Cookies.get("dv-token");
+    if (!dv_token) {
+        return false;
+    }
+
+    return await fetch("/verify-token", { method: "POST", headers: { "Authorization": `Bearer ${Cookies.get("dv-token")}` }})
         .then(r => r.ok)
         .catch(e => false);
 };
