@@ -159,6 +159,8 @@ const me = () => {
         
         infoScreen.start();
         startTimer(updateFrequency);
+
+        setTimeout(() => window.location.reload(), 1800000); // Temp: refresh page every 30 minutes
     }, []);
 
     return <>
