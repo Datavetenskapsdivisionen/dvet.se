@@ -10,7 +10,7 @@ export default [
                     <p>Ja!!</p>
                     <p>
                         Mottagningen är inte obligatorisk att närvara på
-                        mehttps://www.universityadmissions.sen det rekommenderas <b>STARKT</b> då det är ett bra sätt att lära 
+                        men det rekommenderas <b>STARKT</b> då det är ett bra sätt att lära 
                         känna de andra studenterna i din klass.
                         Evenemangen är dessutom mycket roliga och helt gratis!
                     </p>
@@ -36,48 +36,44 @@ export default [
                 name_en: "Dictionary",
                 content: `
                     <p>
-                        Nedan finns ord som kan vara bra att kunna att kunna som student:
+                        Nedan finns ord som kan vara bra att kunna som student:
                         <ul>
                             <li>
-                                <b>Canvas</b>: Den digitala lärplatformen universitetet använder, kan nås på
-                                <a href="https://canvas.gu.se">canvas.gu.se</a>.
+                                <b><a href="https://canvas.gu.se" target="_blank">Canvas</a></b>: Den digitala lärplatformen universitetet använder för dina kurser.
                             </li>
                             <li>
-                                <b>Ladok</b>: Sidan universitetet använder för att låta dig se vilka kurser och utbildningar du är antagen på.
-                                Används för att registrera sig på kurser man har sökt och kommit in på med
-                                <a href="https://antagning.se">antagning.se</a>.
-                                Används även för att se dina betyg och för att registera sig på tentor.
-                                Kan nås på <a href="https://student.ladok.se">student.ladok.se</a>.
+                                <b><a href="https://student.ladok.se" target="_blank">Ladok</a></b>: Här kan du se dina kurser, betyg, och utbildningar. 
+                                Du kommer också här registrera dig på dina antagna kurser (från <a href="https://antagning.se" target="_blank">antagning.se</a>), 
+                                registrera dig på tentor, samt plocka ut din examen när du är färdig med programmet.
                             </li>
                             <li>
-                                <b>Antagning</b>: Sidan du använder för att söka kurser som svensk student när du pluggar. 
-                                Kan nås på <a href="https://antagning.se">antagning.se</a>.
+                                <b><a href="https://antagning.se" target="_blank">Antagning</a></b>: Sidan du använder för att söka kurser och program som svensk student.
                             </li>
                             <li>
-                                <b>University Admissions</b>: Sidan du använder för att söka kurser som international student 
-                                när du pluggar. Kan nås på <a href="https://www.universityadmissions.se">universityadmissions.se</a>.
+                                <b><a href="https://www.universityadmissions.se" target="_blank">University Admissions</a></b>: Sidan du använder för att söka kurser och program som internationell student.
                             </li>
                             <li><b>Termin</b>: Ett läsår är indelat i två terminer: en hösttermin (HT) och en vårtermin (VT).</li>
                             <li>
-                                <b>Läsperiod</b>: Brukar förkortas till LP, och kan kallas för studieperiod.<br/>
+                                <b>Läsperiod</b>: Brukar förkortas till LP och kallas även ibland för studieperiod.<br/>
                                 Ett läsår är indelat i fyra läsperioder. Läsperiod 1 & 2 är under höstterminen och läsperiod 3 & 4 är under vårterminen.
-                                <a href="https://www.chalmers.se/utbildning/dina-studier/planera-och-genomfora-studier/datum-och-tider-for-lasaret/">
+                                <a href="https://www.chalmers.se/utbildning/dina-studier/planera-och-genomfora-studier/datum-och-tider-for-lasaret/" target="_blank">
                                     Exakta datum för läsperioderna går att hitta här
                                 </a>.
                             </li>
-                            <li><b>Laboration</b>: De flesta kurserna kommer att ha laborationer (aka labbpass) och är delmoment i kursen för att applicera praktiska moment i det du lär dig under kursens gång.</li>
+                            <li><b>Laboration</b>: De flesta kurserna har laborationer (aka labbpass) och är delmoment i kursen för att applicera praktiska moment i det du lär dig under kursens gång.</li>
                             <li>
-                                <b>Teaching Assistant</b>: Brukar förkortas till TA och kallas för lärarassistant på svenska.<br />
-                                TAs brukar vara äldre studenter eller doktorander som är anställda av institutionen och de är där för att hjälpa dig och din lärare i dina kurser. Du kommer att stöta på dem på dina lektioner och de rättar oftast dina inlämningar. Kontakta gärna dem om du behöver hjälp i din kurs!<br />
+                                <b>Teaching Assistant</b>: Förkortas till TA och kallas för lärarassistant på svenska.<br />
+                                TAs brukar vara äldre studenter eller doktorander som är anställda av institutionen och de är där för att hjälpa dig och din lärare i dina kurser. 
+                                Du kommer att stöta på dem på dina lektioner och de rättar oftast dina inlämningar. Kontakta gärna dem om du behöver hjälp i din kurs!<br />
                             </li>
                             <li>
-                                <b>Högskolepoäng</b>: Brukar förkortas till <b>hp</b>.<br/>
+                                <b>Högskolepoäng</b>: Förkortas till <b>hp</b>.<br/>
                                 Varje kurs du går är värd x antal hp. Under vår institution (CSE) är majoriteten av kurserna värda 7,5hp. 
                                 Kandidatprogram kräver att du har tagit 180hp och masterprogram kräver 120hp.
                             </li>
-                            <li><b>Tenta</b>: Ett prov, oftast gjord skriftligt i sal under fyra timmar.</li>
+                            <li><b>Tenta</b>: Ett prov som oftast görs skriftligt i sal under fyra timmar.</li>
                             <li><b>Hemtenta</b>: Ett prov som kan göras hemma, oftast över längre tid.</li>
-                            <li><b>Munta</b>: Ett muntligt prov, ganska sällsynt.</li>
+                            <li><b>Munta</b>: Ett muntligt prov (ganska sällsynt).</li>
                             <li><b>Dugga</b>: Ett miniprov i en kurs. Det varierar mellan kurser om dessa är betygsgrundade eller ej.</li>
                             <li><b>Programförkortningar</b>:</li>
                             <ul>
@@ -91,18 +87,19 @@ export default [
                                 De har oftast mindre förkunskapskrav jämnfört med avancerade kurser.
                                 <br/>
                                 <br/>
-                                Kallas ibland för kandidatkurser av studenter men detta är ingen officiell term.
+                                Kallas ibland för <i>kandidatkurser</i> av studenter men detta är ingen officiell term.
                             </li>
                             <li>
                                 <b>Avancerade kurser</b>: 
-                                Kallas ibland <b>fördjupningskurser</b>.<br/>
-                                Detta är kurser som har som mål att fördjupa en students, redan grundläggande, kunskap inom ett ämne.
+                                Kallas ibland <b>fördjupningskurser</b>. Detta är kurser som har som mål att fördjupa en students 
+                                redan grundläggande kunskap inom ett ämne. Kallas även för <i>masterkurser</i> av studenter men detta är ingen officiell term.
                                 <br/>
                                 <br/>
-                                <i>Viktigt att komma ihåg att en avancerad kurs behöver nödvändigtvis inte vara en svår kurs!</i>
+                                <i>Viktigt att komma ihåg är att en avancerad kurs behöver nödvändigtvis inte vara en svår kurs och kan läsas av både DV & CS!</i>
                                 <br/>
                                 <br/>
-                                Kallas ibland för masterkurser av studenter men detta är ingen officiell term.
+                                Om du går N1COS (DV) och redan nu planerar att senare läsa N2COS (CS) kan det vara bra att spara dina avancerade kurser till mastern 
+                                eftersom utbudet inte är lika stort samt att det finns krav på att ha tagit minst 60hp avancerade kurser för att kunna skriva sin masteruppsats.
                             </li>
                         </ul>
                     </p>`,
@@ -111,75 +108,60 @@ export default [
                     The following is a list of words which will prove useful to you as a student:
                     <ul>
                         <li>
-                            <b>Canvas</b>: The digital teaching platform the university uses.
-                            Can be found at <a href="https://canvas.gu.se">canvas.gu.se</a>.
+                            <b><a href="https://canvas.gu.se" target="_blank">Canvas</a></b>: The digital teaching platform the university uses for your courses.
                         </li>
                         <li>
-                            <b>Ladok</b>: The site the university uses to manage your courses and education.
-                            It is used to registerer to courses you have applied for, see your grades and register for exams.
-                            Can be found at <a href="https://student.ladok.se">student.ladok.se</a>.
+                            <b><a href="https://student.ladok.se" target="_blank">Ladok</a></b>: Here you can see your courses, grades, and education. 
+                            You will also register for your courses here (from <a href="https://universityadmissions.se" target="_blank">universityadmissions.se</a>), 
+                            register for exams, and apply for your degree when you are done with the programme.
                         </li>
                         <li>
-                            <b>Antagning</b>: The site you use to apply to courses/programmes if you are a Swedish student. 
-                            Can be found at <a href="https://antagning.se">antagning.se</a>.
+                            <b><a href="https://antagning.se" target="_blank">Antagning</a></b>: The page used for applying to courses and programmes as a Swedish student.
                         </li>
                         <li>
-                            <b>University Admissions</b>: The site you use to apply to courses/programmes if you are 
-                            an international student. Can be found at 
-                            <a href="https://www.universityadmissions.se">universityadmissions.se</a>.
-                        <li/>
-                        <li>
-                            <b>Term</b>: An academic year is dividied into two terms,
-                            a fall term, and a spring term. Respectively these are called hösttermin (HT) and vårtermin (VT)
-                            in Swedish.
+                            <b><a href="https://www.universityadmissions.se" target="_blank">University Admissions</a></b>: The page used for applying to courses and programmes as an international student.
                         </li>
                         <li>
-                            <b>Study period</b>: Called läsperiod in Swedish, so it is commonly abbreviated to LP.<br/>
-                            An academic year is divided into 4 study periods.
-                            Study period one and two are during the fall term, and study period three and four are during the sprin term. 
-                            <a href="https://www.chalmers.se/en/education/your-studies/plan-and-conduct-your-studies/the-academic-year/">
-                                Exact dates for the different study periods can be found here
-                            </a>.
-                        </li>
-                        <li><b>Labs</b>: 
-                            The majority of courses will have labs (aka lab sessions) and 
-                            these are parts of your courses which focus on the practical parts of what you learn during your courses.
+                            <b>Semester</b>: An academic year is divided into two semesters (<i>termin</i> in Swedish): An autumn semester (<i>HT for hösttermin</i> in Swedish) and a spring semester (<i>VT for vårtermin</i> in Swedish), each lasting for 20 weeks.
                         </li>
                         <li>
-                            <b>Teaching Assistant</b>: Usually abbreviated to TA.<br />
-                            TAs are usually older students or Phd students which are hired by the institution
-                            to help you and your teacher in your courses you will meet these during your lab sessions,
-                            and they will most likely grade your submissions. Feel free to contact them any time you need help in 
-                            one of your courses!
+                            <b>Study period</b>: A semester at CSE is also divided into two study periods. Study period 1 & 2 is during the autumn semester and study period 3 & 4 is during the spring semester. This is called LP, short for läsperiod in Swedish.
+                            <a href="https://www.chalmers.se/en/education/your-studies/plan-and-conduct-your-studies/the-academic-year/" target="_blank">Exact dates for the study periods can be found here</a>.
                         </li>
                         <li>
-                            <b>Credits</b>: called högskolepoäng in Swedish which is usually abbreviated to <b>hp</b>.<br/>
-                            Every course you take is worth x credits. Under our institution (CSE) the majority of courses
-                            are worth 7.5 credits. A bachelor programme consists of 180 credits and a 
-                            master programme consists of 120 credits.
+                            <b>Laboration</b>: Most courses have laborations (or labs) and they are a part of the course where you get to apply what you learn in practice.
                         </li>
-                        <li><b>Exam</b>: A test, often done in writing on campus during four hours.</li>
-                        <li><b>Home exam</b>: A test that can be done at home, and often during a longer period.</li>
-                        <li><b>Oral exam</b>: A oral test, where instead of writing, you talk with your examinator.</li>
-                        <li><b>Program abbreviations</b>:</li>
+                        <li>
+                            <b>Teaching Assistant</b>: Usually called <b>TA</b>. They are most often older students or doctorals that are employed by the institution and they are there to help you and your teacher in your courses. You will encounter them during lectures and they will be grading your assignments. Feel free to contact them if you need help in your course!
+                        </li>
+                        <li>
+                            <b>Credits</b>: Each course you take is worth x number of credits. Under our institution (CSE), the majority of courses are worth 7.5 credits. Bachelor programmes require 180 credits and master programmes require 120 credits.<br/>
+                            This is called <b>hp</b> in Swedish, short for högskolepoäng.
+                        </li>
+                        <li><b>Exam</b>: A test that is often written with pen and paper in a hall for four hours.</li>
+                        <li><b>Take-home exam</b>: A test that can be done at home, often over a longer period of time.</li>
+                        <li><b>"Munta"</b>: An oral test (kind of rare).</li>
+                        <li><b>"Dugga"</b>: A small test. It varies from course to course whether they are part of your grade.</li>
+                        <li><b>Programme acronyms</b>:</li>
                         <ul>
-                            <li><b>N1COS</b> / <b>DV</b>: Computer Science (Bachelor) or Datavetenskapligt program in Swedish.</li>
+                            <li><b>N1COS</b> / <b>DV</b>: Computer Science, Bachelor's Programme (Datavetenskapligt Program).</li>
                             <li><b>N2COS</b> / <b>CS</b>: Computer Science, Master's Programme.</li>
-                            <li><b>N2ADS</b> / <b>ADS</b>: Applied Data Science, Master's Programme.</li>
+                            <li><b>N2ADS</b> / <b>ADS</b>: Applied Data Science Master's Programme.</li>
                         </ul>
                         <li>
-                            <b>First cycle course</b>:
-                            These are courses which focuses on the basics in different areas.
-                            They often have less prerequisites compared to second cycle courses.
-                            <br/>
-                            <br/>
-                            Sometimes called bachelor courses by students but this is not an official term.
+                            <b>First cycle courses</b>: 
+                            These are courses that will cover the grounds to the subject. They are also known as bachelor's level courses or basic courses.
                         </li>
                         <li>
-                            <b>Second cycle course</b>: 
-                            This is a course which focuses on expanding a students already basic knowledge about something.
+                            <b>Second cycle courses</b>: 
+                            These are courses with the goal of deepening the student's already basic knowledge in the subject. They are also known as master's level courses or advanced courses.
                             <br/>
-                            Sometimes called master courses by students but this is not an official term.
+                            <br/>
+                            <i>What is important to remember is that a second cycle course does not necessarily have to be a difficult course and can be taken by both DV & CS students!</i>
+                            <br/>
+                            <br/>
+                            If you are a student in N1COS (DV) and you are already planning to take N2COS (CS), it can be a good idea to save your second cycle courses for your master's since the 
+                            selection of those courses is not as broad and you will have to fulfill certain requirements such as having taken 60 credits of second cycle courses to write your master's thesis.
                         </li>
                     </ul>
                 </p>`
@@ -390,7 +372,7 @@ export default [
                 </p>
                 <p>
                     För att söka kurser använder man <a href="https://antagning.se">antagning.se</a> (
-                    <a href="https://www.universityadmissions.se">universityadmissions.se</a> om du är en international student) 
+                    <a href="https://www.universityadmissions.se">universityadmissions.se</a> om du är en internationell student) 
                     precis som när du sökte
                     programmet. Tips är att trycka i att du endast söker efter kurser och "Visa endast kurser inom mitt program som jag kan söka" 
                     (kräver att du är inloggad) om du inte letar efter kurser utanför programmet.
@@ -584,16 +566,18 @@ export default [
                 content_en: `
                 <p>
                     Usually you do not have to worry about this! 
-                    You can retake exams however many times it takes, but it can make an impact on the courses you can apply for,
-                    because if you do not fulfill the prerequisites for a courses, you can not take it!
-                    Keep an on <a href="https://student.ladok.se">student.ladok.se</a> to see when re-exams popup.
+                    You can re-take exams as many times as it takes, but keep in mind the prerequisites of your future courses. 
+                    Unlike students at Chalmers, GU enforces the course prerequisites rule and you cannot be admitted to courses without meeting all requirements.
+                    Keep an eye on <a href="https://student.ladok.se" target="_blank">student.ladok.se</a> to see when re-exams are available for signup.
                 </p>
                 <p>
-                    Note: this does not apply if it is your first year of your bachelor, as you have guaranteed admission
-                    to your courses.
+                    Note: this does not apply if it is your first year of your bachelor as you have guaranteed admission to your courses.
                 </p>
                 <p>
-                    Insert INTERNATIONAL information
+                    <b>Important information to international students outside EU/EEA</b>: If failing an exam leads to delaying your studies, keep in mind that you have to 
+                    contact Migrationsverket about extending your residence permit. Please refer to 
+                    <a href="https://www.migrationsverket.se/English/Private-individuals/Studying-in-Sweden/Higher-education/Extend-residence-permit-for-higher-education.html" target="_blank">their website</a> 
+                    for more information about this.
                 </p>`
             },
             {
@@ -792,4 +776,4 @@ export default [
             }
         ]
     }
-];;;
+];
