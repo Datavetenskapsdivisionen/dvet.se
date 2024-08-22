@@ -6,8 +6,8 @@
   "scripts": {
     "start": "node src/server.mjs",
     "dev": "webpack serve --hot --open",
-    "build": "node src/build/faq-builder.mjs && node src/wikibuilder/builder.mjs && webpack --config webpack.config.js --mode production",
-    "build_debug": " node src/build/faq-builder.mjs && node src/wikibuilder/builder.mjs && webpack --config webpack.config.js",
+    "build": "node src/build/faq-builder.mjs && node src/build/builder.mjs && webpack --config webpack.config.js --mode production",
+    "build_debug": " node src/build/faq-builder.mjs && node src/build/builder.mjs && webpack --config webpack.config.js",
     "deps": "webpack --json > dist/stats.json && webpack-bundle-analyzer dist/stats.json"
   },
   "keywords": [],
