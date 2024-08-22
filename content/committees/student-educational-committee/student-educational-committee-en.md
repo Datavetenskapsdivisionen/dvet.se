@@ -95,12 +95,12 @@
 <div class="flex-co">
   <div class="ctxt">
     <div class="grid-header">
-      <h1>Board of studies</h1>
+      <h1>Student Educational Committee</h1>
     </div>
     <div class="grid-txt">
       <p>
         We at the Computer Science education committee (studienämnden) are here to ensure the quality of education and
-        studies in the bachelor program. We work to represent students’ opinions by actively participating in course
+        studies in the bachelor program. We work to represent students' opinions by actively participating in course
         evaluation meetings for the mandatory courses.
       </p>
       <p>

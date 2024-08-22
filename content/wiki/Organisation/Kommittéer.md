@@ -8,7 +8,7 @@ Här är en kort lista av kommittéerna och deras mål:
     - Kommittéens namn är *DVRK*, vilket är en akronym för *Datavetenskaps recentiorskommitté*.
     - *DVRK* är Datavetenskapsdivisionens mottagningskommitté och ansvarar för föreningens mottagning av nya studenter. Kommittéens ska planera och genomföra mottagningen av nya studenter till kandidatprogrammet och institutionens masterprogram vid universitetet baserade på campus Johanneberg.
 
-* [Studienämnden](/committees/board-of-studies)
+* [Studienämnden](/committees/student-educational-committee)
     - Kommittéens namn är Datavetenskaps Studienämnd.
     - Datavetenskaps Studienämnd har till uppgift att arbeta för en mer rättvis och tryggare relation mellan kurser och studenter.
 

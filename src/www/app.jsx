@@ -149,7 +149,7 @@ const router = createBrowserRouter([
         ]
       },
       { path: "/committees/the-board", element: <IndividualCommitteePage committee={"the-board"} /> },
-      { path: "/committees/board-of-studies", element: <IndividualCommitteePage committee={"board-of-studies"} /> },
+      { path: "/committees/student-educational-committee", element: <IndividualCommitteePage committee={"student-educational-committee"} /> },
       { path: "/committees/mega6", element: <IndividualCommitteePage committee={"mega6"} /> },
       { path: "/committees/concats", element: <IndividualCommitteePage committee={"concats"} /> },
       { path: "/committees/femmepp", element: <IndividualCommitteePage committee={"femmepp"} /> },
