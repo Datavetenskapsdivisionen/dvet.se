@@ -12,7 +12,7 @@ import CommitteePage from "./components/committee-page";
 import ToolsPage from "./components/tools-page";
 import PhotosPage from "./components/photos-page";
 import WikiPage from "./components/wiki-page";
-import Schedule from "./components/widgets/schedule";
+import { Schedule } from "./components/widgets/schedule";
 import PrivacyPolicy from "./components/privacy-policy";
 import InfoScreen from "./components/info-screen";
 import EditInfoScreen from "./components/edit-info-screen";
@@ -21,6 +21,7 @@ import NewsScreen from "./components/newscreen";
 import ScheduleScreen from "./components/schedulescreen";
 import Popo from "./components/widgets/popo";
 import FaqPage from "./components/faq-page";
+
 // import WIP from "./components/widgets/wip";
 import IndividualCommitteePage from "./components/individual-committee-page";
 import { getLanguageCookie, isEnglish } from "./util";
@@ -43,7 +44,7 @@ const GoogleAuth = () => {
 
   const onSuccess = async (res) => {
     if (res.credential) {
-      await fetch("/google-auth", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(res) })
+      await fetch("/google-auth", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(res), referrerPolicy: 'strict-origin-when-cross-origin' })
         .then(res => setIsLoggedIn(res.ok))
         .catch(setIsLoggedIn(false));
     }

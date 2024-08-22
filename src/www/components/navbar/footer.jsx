@@ -8,8 +8,12 @@ const footer = () => {
     const [loggedIn, setLoggedIn] = useState(false);
 
     useEffect(() => {
-        const eff = async () => setLoggedIn(await isAuth());
-        eff();
+        if (Cookies.get("dv-token")) {
+            const verifyToken = async () => setLoggedIn(await isAuth());
+            verifyToken();
+        } else {
+            setLoggedIn(false);
+        }
     }, []);
 
     const logOutButton = loggedIn

@@ -1,14 +1,14 @@
 import React from "react";
 import { useSearchParams } from "react-router-dom";
-import Schedule from "./widgets/schedule";
+import { Schedule } from "./widgets/schedule";
 
 const Types = {
     KANDIDAT: "kandidat",
-    MASTER:   "master",
-    DEFAULT:  ""
+    MASTER: "master",
+    DEFAULT: ""
 };
 
-const fetchSchedule = ({type = Types.DEFAULT, limit = 6, title = ""}) => {
+const fetchSchedule = ({ type = Types.DEFAULT, limit = 6, title = "" }) => {
     const t = title ? <h1>{title}</h1> : <></>;
     switch (type) {
         case Types.KANDIDAT:
@@ -22,7 +22,7 @@ const fetchSchedule = ({type = Types.DEFAULT, limit = 6, title = ""}) => {
 const me = () => {
     const params = useSearchParams();
     const [schedule, setSchedule] = React.useState(<Schedule />);
-    
+
     React.useEffect(() => {
         const type = params[0].get("type");
         const limit = params[0].get("limit");
@@ -30,10 +30,10 @@ const me = () => {
         switch (type) {
             case Types.KANDIDAT:
             case Types.MASTER:
-                setSchedule(fetchSchedule({type, limit, title}));
+                setSchedule(fetchSchedule({ type, limit, title }));
                 break;
             default:
-                setSchedule(fetchSchedule({limit, title}));
+                setSchedule(fetchSchedule({ limit, title }));
         }
     }, []);
 

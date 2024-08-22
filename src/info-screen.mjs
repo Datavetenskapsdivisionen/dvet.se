@@ -15,6 +15,7 @@ const schema = {
                     start:    { type: ["integer", "null"] },
                     end:      { type: ["integer", "null"] },
                     active:   { type: "boolean" },
+                    lastEdit: { type: "string" },
                     slide: {
                         type: "object",
                         properties: {
