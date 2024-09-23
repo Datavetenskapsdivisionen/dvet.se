@@ -159,11 +159,18 @@ const ContactPage = () => {
 };
 
 const SchedulePage = (props) => {
+    const openUri = () => {
+        window.open("https://calendar.google.com/calendar/embed?src=c_18d270d79e0911aa0be7a499c2190b616bbebf8462b3936d67cf4966757db7cb%40group.calendar.google.com&ctz=Europe%2FStockholm", "_blank");
+    };
     return (
         <>
             <ContentHolder element={
                 <>
-                    <h1>{props.title ?? "Schedule"}</h1>
+                    <h1>{props.title ?? "Schedule"}
+                        <button className="calender-button" onClick={openUri}>
+                            <span>📅</span>
+                        </button>
+                    </h1>
                     <CalenderSchedule full={false} eventUrl={"/getKickoffEvents" + (props.extension ?? "")} />
                     {/* <Schedule full={true} eventUrl={"/getKickoffEvents" + (props.extension ?? "")} /> */}
                     <div style={{ height: "2em" }}></div>
