@@ -1879,3 +1879,36 @@ nav {
     align-items: center;
     gap: 10px;
 }
+
+.calender-button {
+    position: relative;
+    background-color: black;
+    line-height: 1em;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+    font-size: 1em;
+    margin-left: 10px;
+
+    span {
+        transition-duration: 0.2s;
+        filter: grayscale(100%);
+    }
+}
+
+.calender-button::after {
+    border: black 2px solid;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: -2px;
+    top: -2px;
+    content: "";
+    border-radius: 8px;
+}
+
+.calender-button:hover {
+    span {
+        filter: grayscale(0%)
+    }
+}
