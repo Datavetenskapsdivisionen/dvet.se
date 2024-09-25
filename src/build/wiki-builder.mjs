@@ -134,13 +134,14 @@ class Directory {
         }
         const buttonId = this.path + "__button";
         const divId = this.path + "__div";
-        const hide = this.children.length >= 10
+        const actLen = this.children.filter(p => p.extension && p.extension != "hidden").length;
+        const hide = actLen >= 15
             ? `<button class="wiki-navtree-button" id="${buttonId}" onClick={() => hideTree("${buttonId}", "${divId}")}>${this.path} ⇓</button>`
             : "<></>";
-        const show = this.children.length >= 10
+        const show = actLen >= 15
             ? "<></>"
             : `${this.path}`;
-        const hideStyle = this.children.length >= 10
+        const hideStyle = actLen >= 15
             ? "{{display: \"none\"}}"
             : "{{}}";
 
@@ -154,7 +155,7 @@ class Directory {
             children[1] += secret;
         }
         if (isSecret) children[0] += `<div><a class="wiki-navtree-link" href="dviki/${SECRET_DIR}/Info">{'\t'}Logga In 🔒</a></div>`;
-        if (this.children.filter(p => p.extension && p.extension != "hidden").length > 0) {
+        if (actLen > 0) {
             const res = f => `<div class="wiki-navtree">${f}</div></div>`;
             return [res(children[0]), res(children[1])];
         } else {
