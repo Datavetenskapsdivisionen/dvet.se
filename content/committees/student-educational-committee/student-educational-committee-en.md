@@ -113,12 +113,12 @@
       </p>
       <a href="mailto:studienamnd@dvet.se">studienamnd@dvet.se</a>
       <p>
-        Josefin & Alva
+        Nikhil "Minaj" & Ida "iceByte"
       </p>
     </div>
   </div>
   <div class="cimg">
     <img
-      src="https://dvet.se/uploads/committee-images/loafey%20-%20566065dbcc415e9853a7c081cb7f9bbc%20-%20studienamnd.JPG" />
+      src="https://dvet.se/uploads/nikhil/2024_bild_croped_5b552915493eb48bd6270da6566a3ae6.JPG" />
   </div>
 </div>
