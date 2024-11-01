@@ -164,6 +164,9 @@ const me = () => {
     }, []);
 
     return <>
+        <div style={{position: "absolute"}}>
+            <div className="info-screen-clock">{new Date().toLocaleTimeString('sv-SE', { hour: '2-digit', minute: '2-digit' })}</div>
+        </div>
         { (!isOnline || !currentSlide[0]) && <div className="default-banner"><img src={datavetenskapLogo} /></div> }
         { currentSlide && currentSlide[1] &&
             <div id="slideshow">
