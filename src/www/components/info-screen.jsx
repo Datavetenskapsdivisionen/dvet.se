@@ -177,8 +177,8 @@ const me = () => {
                     <div className="duration-progress">
                         <CircularProgressbar
                             value={percentage}
-                            text={Math.ceil(currentSlide[1].duration * (1 - percentage / 100))}
-                            styles={buildStyles({ pathTransition: "none", strokeLinecap: "butt", textSize: "2em" })}
+                            text={<tspan dy={2}>{Math.ceil(currentSlide[1].duration * (1 - percentage / 100))}</tspan>}
+                            styles={buildStyles({ pathTransition: "none", strokeLinecap: "butt" })}
                         />
                     </div>
                 }
