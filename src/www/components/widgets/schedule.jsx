@@ -20,81 +20,81 @@ const hasPassed = (date) => (date < new Date());
 
 const getEventData = async (full, eventUrl, restUrl, eventLimit, openModal, setModalData, navigate) => {
     const json = await (await fetch(eventUrl)).json();
-    let data = json
-        .map(o => {
-            o.dateData.start = new Date(Date.parse(o.dateData.start));
-            o.dateData.end = new Date(Date.parse(o.dateData.end));
-            return o;
+    let eventData = json
+        .map(event => {
+            event.dateData.start = new Date(Date.parse(event.dateData.start));
+            event.dateData.end = new Date(Date.parse(event.dateData.end));
+            return event;
         })
-        .filter(o => {
+        .filter(event => {
             if (full === true) return true;
-            if (isToday(o.dateData.start)) {
+            if (isToday(event.dateData.start)) {
                 return true;
-            } else if (hasPassed(o.dateData.start)) {
+            } else if (hasPassed(event.dateData.start)) {
                 return false;
             } else {
                 return true;
             }
         });
-    const hidingEvents = data.length > eventLimit;
+    const hidingEvents = eventData.length > eventLimit;
     if (full !== true) {
-        data = data.slice(0, eventLimit);
+        eventData = eventData.slice(0, eventLimit);
     }
-    data = data.map(o => {
-        const dateElem = o.dateData.isDay
+    eventData = eventData.map(event => {
+        const dateElem = event.dateData.isDay
             ? <>
-                <span>{o.dateData.start.toLocaleDateString("se-SE")}</span>
+                <span>{event.dateData.start.toLocaleDateString("se-SE")}</span>
                 {/* <br /> */}
                 <span>&nbsp;</span>
             </>
             : <>
-                <span>{o.dateData.start.toLocaleDateString("se-SE")}</span>
+                <span>{event.dateData.start.toLocaleDateString("se-SE")}</span>
                 &nbsp;|
                 <span>
                     {`
-                        ${o.dateData.start.toLocaleTimeString("se-SE", { hour: "2-digit", minute: "2-digit" })} - 
-                        ${o.dateData.end.toLocaleTimeString("se-SE", { hour: "2-digit", minute: "2-digit" })}
+                        ${event.dateData.start.toLocaleTimeString("se-SE", { hour: "2-digit", minute: "2-digit" })} - 
+                        ${event.dateData.end.toLocaleTimeString("se-SE", { hour: "2-digit", minute: "2-digit" })}
                     `}
                 </span>
             </>;
         let className = "schedule-item";
-        if (isToday(o.dateData.start)) {
+        if (isToday(event.dateData.start)) {
             className += " active";
-        } else if (hasPassed(o.dateData.start)) {
+        } else if (hasPassed(event.dateData.start)) {
             className += " passed";
         } else {
             className += " upcoming";
-            if (isNew(o.dateData.created, 3)) {
+            if (isNew(event.dateData.created, 3)) {
                 className += " new";
             }
         }
 
-        const location = o.location
-            ? o.location.split(",").slice(0, 2).join(", ")
+        const location = event.location
+            ? event.location.split(",").slice(0, 2).join(", ")
             : <>&nbsp;</>;
 
         let newTag = null;
-        if (isNew(o.dateData.created, 3)) newTag = <div className="new-tag">
+        if (isNew(event.dateData.created, 3)) newTag = <div className="new-tag">
             N<br />
             E<br />
             W
         </div>;
         let infoTag = null;
-        if (o.description) className += " clickable";
-        if (o.description) infoTag = <div className="info-tag">
+        if (event.description) className += " clickable";
+        if (event.description) infoTag = <div className="info-tag">
             I<br />
             N<br />
             F<br />
             O
         </div>;
-        const action = (o.description) ? () => {
-            setModalData([o.summary, o.description, dateElem, o.committee, location]);
+        const action = (event.description) ? () => {
+            setModalData([event.summary, event.description, dateElem, event.committee, location]);
             openModal();
         } : () => { };
 
         return <div className={className} onClick={action}>
             <div className="post-title">
-                <h3 dangerouslySetInnerHTML={{ __html: o.summary }} ></h3>
+                <h3 dangerouslySetInnerHTML={{ __html: event.summary }}></h3>
                 {(newTag || infoTag) &&
                     <div className="tags">
                         {newTag}
@@ -104,11 +104,11 @@ const getEventData = async (full, eventUrl, restUrl, eventLimit, openModal, setM
             </div>
             <h4>{dateElem}</h4>
             <h4>{location}</h4>
-            <p>Host: {o.committee}</p>
+            <p>Host: {event.committee}</p>
         </div>;
     });
     if (full !== true && hidingEvents) {
-        data.push(
+        eventData.push(
             <div
                 className="schedule-item upcoming-button"
                 onClick={() => navigate(restUrl)}
@@ -118,11 +118,11 @@ const getEventData = async (full, eventUrl, restUrl, eventLimit, openModal, setM
             </div>
         );
     }
-    if (data.length == 0) {
+    if (eventData.length == 0) {
         return <h1>{isEnglish() ? "No upcoming events" : "Inga uppkommande event"}</h1>;
     } else {
         return <div className="kickoff-schedule">
-            {data}
+            {eventData}
             {/* <pre style={{ textAlign: "left" }}>{JSON.stringify(json, null, 4)}</pre> */}
         </div>;
     };
@@ -135,9 +135,9 @@ const Schedule = (props) => {
     const closeModal = () => setIsOpen(false);
     const navigate = useNavigate();
 
-    const [[modalTitle, modalContent, modalWhen, modalWho, modalWhere], setModalData] = React.useState(["event", "about", "2020", "whom", "where"]);
+    const [modalData, setModalData] = React.useState(["event", "about", "2020", "whom", "where"]);
 
-    const [csv, setState] = React.useState(<div className="loading"></div>);
+    const [calendarData, setState] = React.useState(<div className="loading"></div>);
     React.useEffect(() => {
         getEventData(
             props.full, props.eventUrl ?? "/getEvents",
@@ -149,25 +149,7 @@ const Schedule = (props) => {
             .catch(() => setState(<div>{isEnglish() ? "Unable to fetch events " : "Det gick inte att hämta events"}</div>));
     }, [getEventData]);
 
-    return <div className="schedule-holder">
-        {csv}
-        <Modal
-            isOpen={modalIsOpen}
-            onAfterOpen={afterOpenModal}
-            onRequestClose={closeModal}
-            contentLabel="Example Modal"
-            appElement={document.getElementById("app")}
-            className="schedule-modal"
-            overlayClassName="schedule-modal-overlay"
-        >
-            <h2 ref={(_subtitle) => (subtitle = _subtitle)}>{modalTitle}</h2>
-            <p>{modalContent}</p>
-            <p>When: {modalWhen}</p>
-            <p>Where: {modalWhere}</p>
-            <p>Who is hosting: {modalWho}</p>
-            <button onClick={closeModal} className="close-button">X</button>
-        </Modal>
-    </div>;
+    return createScheduleModal(calendarData, modalIsOpen, afterOpenModal, closeModal, modalData);
 };
 
 
@@ -189,15 +171,15 @@ const numberSuffix = i => {
 };
 const getCalenderData = async (full, eventUrl, _restUrl, _eventLimit, openModal, setModalData, _navigate) => {
     const json = await (await fetch(eventUrl)).json();
-    let data = json
-        .map(o => {
-            o.dateData.start = new Date(Date.parse(o.dateData.start));
-            o.dateData.end = new Date(Date.parse(o.dateData.end));
-            return o;
+    let eventData = json
+        .map(event => {
+            event.dateData.start = new Date(Date.parse(event.dateData.start));
+            event.dateData.end = new Date(Date.parse(event.dateData.end));
+            return event;
         });
 
     let years = {};
-    for (const event of data) {
+    for (const event of eventData) {
         const year = event.dateData.start.getFullYear();
         if (!years[year]) years[year] = {};
 
@@ -339,7 +321,7 @@ const getCalenderData = async (full, eventUrl, _restUrl, _eventLimit, openModal,
         children.push(calender);
     }
 
-    if (data.length == 0) {
+    if (eventData.length == 0) {
         return <h1>{isEnglish() ? "No upcoming events" : "Inga uppkommande event"}</h1>;
     } else {
         return <div className="kickoff-calender-container">
@@ -361,9 +343,9 @@ const CalenderSchedule = (props) => {
     const closeModal = () => setIsOpen(false);
     const navigate = useNavigate();
 
-    const [[modalTitle, modalContent, modalWhen, modalWho, modalWhere], setModalData] = React.useState(["event", "about", "2020", "whom", "where"]);
+    const [modalData, setModalData] = React.useState(["event", "about", "2020", "whom", "where"]);
 
-    const [csv, setState] = React.useState(<div className="loading"></div>);
+    const [calendarData, setState] = React.useState(<div className="loading"></div>);
     React.useEffect(() => {
         getCalenderData(
             props.full, props.eventUrl ?? "/getEvents",
@@ -375,13 +357,17 @@ const CalenderSchedule = (props) => {
             .catch(() => setState(<div>{isEnglish() ? "Unable to fetch events " : "Det gick inte att hämta events"}</div>));
     }, [getEventData]);
 
+    return createScheduleModal(calendarData, modalIsOpen, afterOpenModal, closeModal, modalData);
+};
+
+const createScheduleModal = (calendarData, modalIsOpen, afterOpenModal, closeModal, modalData) => {
+    [modalTitle, modalContent, modalWhen, modalWho, modalWhere] = modalData;
     return <div className="schedule-holder">
-        {csv}
+        {calendarData}
         <Modal
             isOpen={modalIsOpen}
             onAfterOpen={afterOpenModal}
             onRequestClose={closeModal}
-            contentLabel="Example Modal"
             appElement={document.getElementById("app")}
             className="schedule-modal"
             overlayClassName="schedule-modal-overlay"
@@ -394,6 +380,6 @@ const CalenderSchedule = (props) => {
             <button onClick={closeModal} className="close-button">X</button>
         </Modal>
     </div>;
-};
+}
 
 export { Schedule, CalenderSchedule };
