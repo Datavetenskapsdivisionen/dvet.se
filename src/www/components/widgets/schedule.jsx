@@ -374,7 +374,7 @@ const createScheduleModal = (calendarData, modalIsOpen, afterOpenModal, closeMod
             overlayClassName="schedule-modal-overlay"
         >
             <h2 ref={(_subtitle) => (subtitle = _subtitle)}>{modalTitle}</h2>
-            <p>{modalContent}</p>
+            <p dangerouslySetInnerHTML={{ __html: modalContent }}></p>
             <p>When: {modalWhen}</p>
             <p>Where: {modalWhere}</p>
             <p>Who is hosting: {modalWho}</p>
