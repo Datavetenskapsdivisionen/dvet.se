@@ -41,6 +41,7 @@ const getEventData = async (full, eventUrl, restUrl, eventLimit, openModal, setM
         eventData = eventData.slice(0, eventLimit);
     }
     eventData = eventData.map(event => {
+        const eventTitle = event.summary.replace(/\s+/g, ' ').trim();
         const dateElem = event.dateData.isDay
             ? <>
                 <span>{event.dateData.start.toLocaleDateString("se-SE")}</span>
@@ -88,13 +89,13 @@ const getEventData = async (full, eventUrl, restUrl, eventLimit, openModal, setM
             O
         </div>;
         const action = (event.description) ? () => {
-            setModalData([event.summary, event.description, dateElem, event.committee, location]);
+            setModalData([eventTitle, event.description, dateElem, event.committee, location]);
             openModal();
         } : () => { };
 
         return <div className={className} onClick={action}>
             <div className="post-title">
-                <h3 dangerouslySetInnerHTML={{ __html: event.summary }}></h3>
+                <h3 title={eventTitle}>{eventTitle}</h3>
                 {(newTag || infoTag) &&
                     <div className="tags">
                         {newTag}
