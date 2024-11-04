@@ -164,6 +164,9 @@ const me = () => {
     }, []);
 
     return <>
+        <div style={{position: "absolute"}}>
+            <div className="info-screen-clock">{new Date().toLocaleTimeString('sv-SE', { hour: '2-digit', minute: '2-digit' })}</div>
+        </div>
         { (!isOnline || !currentSlide[0]) && <div className="default-banner"><img src={datavetenskapLogo} /></div> }
         { currentSlide && currentSlide[1] &&
             <div id="slideshow">
@@ -177,8 +180,8 @@ const me = () => {
                     <div className="duration-progress">
                         <CircularProgressbar
                             value={percentage}
-                            text={Math.ceil(currentSlide[1].duration * (1 - percentage / 100))}
-                            styles={buildStyles({ pathTransition: "none", strokeLinecap: "butt", textSize: "2em" })}
+                            text={<tspan dy={2}>{Math.ceil(currentSlide[1].duration * (1 - percentage / 100))}</tspan>}
+                            styles={buildStyles({ pathTransition: "none", strokeLinecap: "butt" })}
                         />
                     </div>
                 }
