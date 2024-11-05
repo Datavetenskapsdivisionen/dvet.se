@@ -1,5 +1,4 @@
 import React from "react";
-import Modal from "react-modal";
 import { useLoaderData } from "react-router-dom";
 import { isEnglish } from "../util";
 import { draggable, dropTargetForElements, monitorForElements } from "@atlaskit/pragmatic-drag-and-drop/element/adapter";
@@ -8,6 +7,7 @@ import invariant from "tiny-invariant";
 import Cookies from "js-cookie";
 import { dateToLocalISO } from "../util";
 import { decodeJwt } from "jose";
+import DvetModal from "./widgets/dvet-modal";
 
 const me = () => {
     const jsonData = useLoaderData();
@@ -214,18 +214,11 @@ const me = () => {
             </div>
         </div>
         
-        <Modal
-            isOpen={modalIsOpen}
-            onRequestClose={onModalClose}
-            appElement={document.getElementById("app")}
-            className="schedule-modal"
-            overlayClassName="schedule-modal-overlay"
-        >
-            <button onClick={onModalClose} className="close-button">X</button>
+        <DvetModal modalIsOpen={modalIsOpen} onModalClose={onModalClose}>
             <h2>{selectedSlideIndex != null ? (isEnglish() ? "Edit slide" : "Redigera slide") : (isEnglish() ? "Add slide" : "Lägg till slide")}</h2>
 
             <form onSubmit={handleSubmit}>
-                <label for="name">{isEnglish() ? "Name" : "Namn"}:</label>
+                <label htmlFor="name">{isEnglish() ? "Name" : "Namn"}:</label>
                 <input name="name"
                     type="text"
                     value={values.nameValue}
@@ -233,7 +226,7 @@ const me = () => {
                     required
                 />
 
-                <label for="type">{isEnglish() ? "Type" : "Typ"}:</label>
+                <label htmlFor="type">{isEnglish() ? "Type" : "Typ"}:</label>
                 <select name="type" value={values.typeValue} onChange={e => setValues(v => { return {...v, typeValue: e.target.value} })} required>
                     <option value="iframe">{isEnglish() ? "Website" : "Hemsida"}</option>
                     <option value="img">{isEnglish() ? "Image" : "Bild"}</option>
@@ -241,7 +234,7 @@ const me = () => {
                 </select>
                 <br />
 
-                <label for="duration">{isEnglish() ? "Duration" : "Varaktighet"}:</label>
+                <label htmlFor="duration">{isEnglish() ? "Duration" : "Varaktighet"}:</label>
                 <input name="duration"
                     type="range"
                     min="1"
@@ -253,7 +246,7 @@ const me = () => {
                 <span>{values.durationValue}s</span>
                 <br />
 
-                <label for="start">Start:</label>
+                <label htmlFor="start">Start:</label>
                 <input name="start"
                     type="date"
                     min={dateToLocalISO(new Date())}
@@ -263,7 +256,7 @@ const me = () => {
                 <span>({isEnglish() ? "optional" : "valfri"})</span>
                 <br />
 
-                <label for="end">{isEnglish() ? "End" : "Slut"}:</label>
+                <label htmlFor="end">{isEnglish() ? "End" : "Slut"}:</label>
                 <input name="end"
                     type="date"
                     min={dateToLocalISO(values.startValue ? new Date(values.startValue) : new Date())}
@@ -275,20 +268,26 @@ const me = () => {
 
                 { values.typeValue === "markdown" ? <>
                     <p>{isEnglish() ? "Content" : "Innehåll"}:</p>
-                    <textarea name="value" rows="6" cols="30" onChange={e => setValues(v => { return {...v, valueValue: e.target.value} })} required>
-                        {values.valueValue}
-                    </textarea>
+                    <textarea
+                        name="value"
+                        rows="6"
+                        cols="30"
+                        defaultValue={values.valueValue}
+                        onChange={e => setValues(v => { return {...v, valueValue: e.target.value} })}
+                        required
+                    />
                 </> : <>
-                    <label for="value">URL:</label>
+                    <label htmlFor="value">URL:</label>
                     <input type="text" name="value" value={values.valueValue} onChange={e => setValues(v => { return {...v, valueValue: e.target.value} })} required />
                 </> }
+                <br />
                 <br />
 
                 <button onClick={handleSubmit} className="btn blue">
                     {selectedSlideIndex != null ? (isEnglish() ? "UPDATE SLIDE" : "UPPDATERA SLIDE") : (isEnglish() ? "ADD SLIDE" : "LÄGG TILL")}
                 </button>
             </form>
-        </Modal>
+        </DvetModal>
     </>
 };
 

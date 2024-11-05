@@ -1,5 +1,5 @@
 import React from "react";
-import Modal from "react-modal";
+import DvetModal from "./dvet-modal";
 import { isEnglish } from "../../util";
 import { useNavigate } from 'react-router-dom';
 
@@ -132,11 +132,10 @@ const getEventData = async (full, eventUrl, restUrl, eventLimit, openModal, setM
 const Schedule = (props) => {
     const [modalIsOpen, setIsOpen] = React.useState(false);
     const openModal = () => setIsOpen(true);
-    const afterOpenModal = () => { };
     const closeModal = () => setIsOpen(false);
     const navigate = useNavigate();
 
-    const [modalData, setModalData] = React.useState(["event", "about", "2020", "whom", "where"]);
+    const [modalData, setModalData] = React.useState(["title", "content", "when", "who", "where"]);
 
     const [calendarData, setState] = React.useState(<div className="loading"></div>);
     React.useEffect(() => {
@@ -147,10 +146,10 @@ const Schedule = (props) => {
             openModal, setModalData,
             navigate
         ).then((res) => setState(res))
-            .catch(() => setState(<div>{isEnglish() ? "Unable to fetch events " : "Det gick inte att hämta events"}</div>));
+            .catch(() => setState(<div>{isEnglish() ? "Unable to fetch events" : "Det gick inte att hämta events"}</div>));
     }, [getEventData]);
 
-    return createScheduleModal(calendarData, modalIsOpen, afterOpenModal, closeModal, modalData);
+    return createScheduleModal(calendarData, modalIsOpen, closeModal, modalData);
 };
 
 
@@ -340,11 +339,10 @@ const getCalenderData = async (full, eventUrl, _restUrl, _eventLimit, openModal,
 const CalenderSchedule = (props) => {
     const [modalIsOpen, setIsOpen] = React.useState(false);
     const openModal = () => setIsOpen(true);
-    const afterOpenModal = () => { };
-    const closeModal = () => setIsOpen(false);
+    const onCloseModal = () => setIsOpen(false);
     const navigate = useNavigate();
 
-    const [modalData, setModalData] = React.useState(["event", "about", "2020", "whom", "where"]);
+    const [modalData, setModalData] = React.useState(["title", "content", "when", "who", "where"]);
 
     const [calendarData, setState] = React.useState(<div className="loading"></div>);
     React.useEffect(() => {
@@ -355,31 +353,23 @@ const CalenderSchedule = (props) => {
             openModal, setModalData,
             navigate
         ).then((res) => setState(res))
-            .catch(() => setState(<div>{isEnglish() ? "Unable to fetch events " : "Det gick inte att hämta events"}</div>));
+            .catch(() => setState(<div>{isEnglish() ? "Unable to fetch events" : "Det gick inte att hämta events"}</div>));
     }, [getEventData]);
 
-    return createScheduleModal(calendarData, modalIsOpen, afterOpenModal, closeModal, modalData);
+    return createScheduleModal(calendarData, modalIsOpen, onCloseModal, modalData);
 };
 
-const createScheduleModal = (calendarData, modalIsOpen, afterOpenModal, closeModal, modalData) => {
+const createScheduleModal = (calendarData, modalIsOpen, onCloseModal, modalData) => {
     [modalTitle, modalContent, modalWhen, modalWho, modalWhere] = modalData;
     return <div className="schedule-holder">
         {calendarData}
-        <Modal
-            isOpen={modalIsOpen}
-            onAfterOpen={afterOpenModal}
-            onRequestClose={closeModal}
-            appElement={document.getElementById("app")}
-            className="schedule-modal"
-            overlayClassName="schedule-modal-overlay"
-        >
+        <DvetModal modalIsOpen={modalIsOpen} onModalClose={onCloseModal}>
             <h2 ref={(_subtitle) => (subtitle = _subtitle)}>{modalTitle}</h2>
             <p dangerouslySetInnerHTML={{ __html: modalContent }}></p>
             <p>When: {modalWhen}</p>
             <p>Where: {modalWhere}</p>
             <p>Who is hosting: {modalWho}</p>
-            <button onClick={closeModal} className="close-button">X</button>
-        </Modal>
+        </DvetModal>
     </div>;
 }
 
