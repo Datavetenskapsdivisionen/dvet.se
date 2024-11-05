@@ -1,13 +1,12 @@
 import React from "react";
 import { useLoaderData } from "react-router-dom";
-import { isEnglish } from "../util";
+import { isEnglish, dateToLocalISO } from "/src/www/util";
 import { draggable, dropTargetForElements, monitorForElements } from "@atlaskit/pragmatic-drag-and-drop/element/adapter";
 // import { attachClosestEdge, Edge, extractClosestEdge, } from '@atlaskit/pragmatic-drag-and-drop-hitbox/addon/closest-edge';
 import invariant from "tiny-invariant";
 import Cookies from "js-cookie";
-import { dateToLocalISO } from "../util";
 import { decodeJwt } from "jose";
-import DvetModal from "./widgets/dvet-modal";
+import DvetModal from "/src/www/components/widgets/dvet-modal";
 
 const me = () => {
     const jsonData = useLoaderData();

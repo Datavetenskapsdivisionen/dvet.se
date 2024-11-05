@@ -1,17 +1,17 @@
 import React from "react";
-import CommitteeBadge from "./widgets/committee-badge";
-import { isEnglish } from "../util";
+import CommitteeBadge from "/src/www/components/widgets/committee-badge";
+import { isEnglish } from "/src/www/util";
 
-import DVRKLogo from "../../../assets/committee-logos/dvrk-logo.png";
-import ConCatsLogo from "../../../assets/committee-logos/concats-logo.png";
-import ConCatsText from "../../../assets/committee-logos/concats-text-alt.png";
-import Mega6Logo from "../../../assets/committee-logos/mega6-logo.png";
-import Mega7Logo from "../../../assets/committee-logos/mega7-logo.png";
-import TheBoardLogo from "../../../assets/committee-logos/styrelsen.png";
-import StudentEducationalCommittee from "../../../assets/committee-logos/student-educational-committee-logo.png";
-import FemmePPLogo from "../../../assets/committee-logos/femmepp-logo.png";
-import DV_OpsLogo from "../../../assets/committee-logos/dv_ops-logo.svg";
-import DVArmLogo from "../../../assets/committee-logos/dvarm-logo.png";
+import DVRKLogo from "/assets/committee-logos/dvrk-logo.png";
+import ConCatsLogo from "/assets/committee-logos/concats-logo.png";
+import ConCatsText from "/assets/committee-logos/concats-text-alt.png";
+import Mega6Logo from "/assets/committee-logos/mega6-logo.png";
+import Mega7Logo from "/assets/committee-logos/mega7-logo.png";
+import TheBoardLogo from "/assets/committee-logos/styrelsen.png";
+import StudentEducationalCommittee from "/assets/committee-logos/student-educational-committee-logo.png";
+import FemmePPLogo from "/assets/committee-logos/femmepp-logo.png";
+import DV_OpsLogo from "/assets/committee-logos/dv_ops-logo.svg";
+import DVArmLogo from "/assets/committee-logos/dvarm-logo.png";
 
 const me = () => (
   <div className="page">

@@ -23,15 +23,15 @@ const callback = (req, res) => {
     res.sendFile(path.join(__dirname, "../dist/index.html"));
 };
 
-import { newsfeed } from "./newsfeed.mjs";
-import { postHook } from "./githookhandle.mjs";
-import getPhotos from "./photos.mjs";
-import { getSlides, updateSlides } from "./info-screen.mjs";
-import { getKickOffEvents, getDVEvents } from "./events.mjs";
-import killerBean from "./killerbean.mjs";
-import { deleteUserPhoto, getUserPhotos, photoHostPost } from "./photo-host.mjs";
-import { googleLogin } from "./googleApi.mjs";
-import { verifyToken, verifyCookieOrElse } from "./auth.mjs";
+import { newsfeed } from "./route-handlers/newsfeed.mjs";
+import { postHook } from "./route-handlers/githookhandle.mjs";
+import getPhotos from "./route-handlers/photos.mjs";
+import { getSlides, updateSlides } from "./route-handlers/info-screen.mjs";
+import { getKickOffEvents, getDVEvents } from "./route-handlers/events.mjs";
+import killerBean from "./route-handlers/killerbean.mjs";
+import { deleteUserPhoto, getUserPhotos, photoHostPost } from "./route-handlers/photo-host.mjs";
+import { googleLogin } from "./route-handlers/googleApi.mjs";
+import { verifyToken, verifyCookieOrElse } from "./route-handlers/auth.mjs";
 
 
 app.get("/dist-secret/:path*", (req, res) => {

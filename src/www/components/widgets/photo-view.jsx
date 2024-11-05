@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { isEnglish } from "../../util";
+import { isEnglish } from "/src/www/util";
 
 /**
  * Renders a photo viewer with previous and next buttons and a photo counter.

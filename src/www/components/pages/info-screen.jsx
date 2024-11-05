@@ -5,10 +5,10 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 rehypeRaw({ allowDangerousHtml: true });
-import datavetenskapLogo from "../../../assets/main.png";
-import { getEndOfDayTime, shuffleArray } from "../util";
+import datavetenskapLogo from "/assets/main.png";
+import { getEndOfDayTime, shuffleArray } from "/src/www/util";
 import { useLoaderData } from "react-router-dom";
-import { useOnlineStatus } from "../hooks/useOnlineStatus";
+import { useOnlineStatus } from "/src/www/hooks/useOnlineStatus";
 
 const DEFAULT_DURATION = 20;
 let isOnline;

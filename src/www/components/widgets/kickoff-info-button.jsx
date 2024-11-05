@@ -1,7 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { isReception } from "../../util";
-import { isEnglish } from "../../util";
+import { isReception, isEnglish } from "src/www/util";
 
 const me = () => {
     const month = new Date().getMonth() + 1;

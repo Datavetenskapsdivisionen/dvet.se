@@ -1,6 +1,6 @@
 import React from "react";
 import DvetModal from "./dvet-modal";
-import { isEnglish } from "../../util";
+import { isEnglish } from "/src/www/util";
 import { useNavigate } from 'react-router-dom';
 
 const isToday = (date) => {

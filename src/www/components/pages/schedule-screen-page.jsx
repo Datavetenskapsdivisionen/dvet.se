@@ -1,6 +1,6 @@
 import React from "react";
 import { useSearchParams } from "react-router-dom";
-import { Schedule } from "./widgets/schedule";
+import { Schedule } from "/src/www/components/widgets/schedule";
 
 const Types = {
     KANDIDAT: "kandidat",

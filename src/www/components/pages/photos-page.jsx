@@ -1,7 +1,7 @@
 import React from "react";
 import { useSearchParams } from "react-router-dom";
-import { isEnglish } from "../util";
-import PhotoView from "../components/widgets/photo-view";
+import { isEnglish } from "/src/www/util";
+import PhotoView from "/src/www/components/widgets/photo-view";
 
 const BackIcon = () => (
     <svg xmlns="http://www.w3.org/2000/svg" height="99" viewBox="-5 0 24 24" width="160">

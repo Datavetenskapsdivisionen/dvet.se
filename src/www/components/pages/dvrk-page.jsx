@@ -2,20 +2,20 @@ import React from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
-import text from "../../../content/committees/dvrk/dvrk.md";
-import contact from "../../../content/committees/dvrk/dvrkcontact.md";
-import textEn from "../../../content/committees/dvrk/dvrk-en.md";
-import contactEn from "../../../content/committees/dvrk/dvrkcontact-en.md";
-import { CalenderSchedule, Schedule } from "./widgets/schedule";
-import "./../dvrk-styles.less";
+import text from "/content/committees/dvrk/dvrk.md";
+import contact from "/content/committees/dvrk/dvrkcontact.md";
+import textEn from "/content/committees/dvrk/dvrk-en.md";
+import contactEn from "/content/committees/dvrk/dvrkcontact-en.md";
+import { CalenderSchedule, Schedule } from "/src/www/components/widgets/schedule";
+import "/src/www/styles/dvrk-styles.less";
 import { NavLink, useNavigate } from "react-router-dom";
-import DVRKLogo from "../../../assets/committee-logos/dvrk-logo.png";
-import DURKMAN from "../../../assets/dvrk.jpg";
+import DVRKLogo from "/assets/committee-logos/dvrk-logo.png";
+import DURKMAN from "/assets/dvrk.jpg";
 const DURKMAN_URL = "url(" + new String(DURKMAN) + ")";
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
-import { isEnglish } from "../util";
-import Footer from "../components/navbar/footer";
+import { isEnglish } from "/src/www/util";
+import Footer from "/src/www/components/navbar/footer";
 
 // Yoinked from https://stackoverflow.com/a/21742107
 const isIOS = () => {
