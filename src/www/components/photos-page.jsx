@@ -3,6 +3,31 @@ import { useSearchParams } from "react-router-dom";
 import { isEnglish } from "../util";
 import PhotoView from "../components/widgets/photo-view";
 
+const BackIcon = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" height="99" viewBox="-5 0 24 24" width="160">
+        <path d="M0 0h24v24H0z" fill="none" />
+        <path d="M11.67 3.87L9.9 2.1 0 12l9.9 9.9 1.77-1.77L3.54 12z" />
+    </svg>
+);
+
+const DirectoryIcon = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" height="99" viewBox="0 0 24 24" width="160">
+        <path d="M0 0h24v24H0z" fill="none" />
+        <path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z" />
+    </svg>
+);
+
+const VideoPlayIcon = () => (
+    <svg viewBox="0 0 200 200" width="60px" height="60px" alt="Play video">
+        <circle cx="100" cy="100" r="90" fill="none" strokeWidth="12" stroke="#fff" strokeOpacity="0.8" />
+        <circle cx="100" cy="100" r="97" fill="none" stroke="black" strokeWidth="1px" />
+        <circle cx="100" cy="100" r="83" fill="none" stroke="black" strokeWidth="1px" />
+        <polygon points="70, 55 70, 145 145, 100" fill="none" stroke="#fff" strokeOpacity="0.8" strokeWidth="8" />
+        <polygon points="65, 46 65, 154 155, 100" fill="none" stroke="black" strokeWidth="1px" />
+        <polygon points="75, 64 75, 136 135, 100" fill="none" stroke="black" strokeWidth="1px" />
+    </svg>
+);
+
 const createElements = (data, searchParams, setSearchParams, setSelectedIndex) => {
     if (data.error) return [<></>, data.error];
     const location = searchParams.get("location");
@@ -27,10 +52,7 @@ const createElements = (data, searchParams, setSearchParams, setSelectedIndex) =
                 updatePath();
             }}
         >
-            <svg xmlns="http://www.w3.org/2000/svg" height="99" viewBox="-5 0 24 24" width="160">
-                <path d="M0 0h24v24H0z" fill="none" />
-                <path d="M11.67 3.87L9.9 2.1 0 12l9.9 9.9 1.77-1.77L3.54 12z" />
-            </svg>
+            <BackIcon />
             <span>{isEnglish() ? "Go back" : "Backa"}</span>
         </div>;
 
@@ -44,10 +66,7 @@ const createElements = (data, searchParams, setSearchParams, setSelectedIndex) =
                         updatePath();
                     }}>
                     <span className="dir-count">{c.childrenCount}</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" height="99" viewBox="0 0 24 24" width="160">
-                        <path d="M0 0h24v24H0z" fill="none" />
-                        <path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z" />
-                    </svg>
+                    <DirectoryIcon />
                     <span className="title-bar">{c.name}</span>
                 </div>;
             }
@@ -59,14 +78,7 @@ const createElements = (data, searchParams, setSearchParams, setSelectedIndex) =
             >
                 { c.mimeType.includes("video") ? 
                     <div className="overlay">
-                        <svg viewBox="0 0 200 200" width="60px" height="60px" alt="Play video">
-                            <circle cx="100" cy="100" r="90" fill="none" stroke-width="12" stroke="#fff" stroke-opacity="0.8" />
-                            <circle cx="100" cy="100" r="97" fill="none" stroke="black" stroke-width="1px" />
-                            <circle cx="100" cy="100" r="83" fill="none" stroke="black" stroke-width="1px" />
-                            <polygon points="70, 55 70, 145 145, 100" fill="none" stroke="#fff" stroke-opacity="0.8" stroke-width="8" />
-                            <polygon points="65, 46 65, 154 155, 100" fill="none" stroke="black" stroke-width="1px" />
-                            <polygon points="75, 64 75, 136 135, 100" fill="none" stroke="black" stroke-width="1px" />
-                        </svg>
+                        <VideoPlayIcon />
                     </div>
                 : <></> }
                 <img className="preview" src={c.thumbnailUrl} referrerPolicy="no-referrer" />
@@ -99,9 +111,9 @@ const me = () => {
 
     const photoView = (
         <PhotoView
-            prev={selectedIndex >= 1 && selectedIndex < data.children.length}    
-            curr={selectedIndex >= 0 && selectedIndex < data.children.length ? data.children[selectedIndex] : ""}
-            next={selectedIndex >= 0 && selectedIndex < data.children.length-1}
+            hasPrev={selectedIndex >= 1 && selectedIndex < data.children.length}    
+            currentPhoto={selectedIndex >= 0 && selectedIndex < data.children.length ? data.children[selectedIndex] : ""}
+            hasNext={selectedIndex >= 0 && selectedIndex < data.children.length-1}
             onClose={() => setSelectedIndex(-1)}
             onPrev={() => setSelectedIndex(selectedIndex - 1)}
             onNext={() => setSelectedIndex(selectedIndex + 1)}
