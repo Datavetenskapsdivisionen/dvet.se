@@ -137,70 +137,74 @@ const me = () => {
             <h2>{selectedSlideIndex != null ? (isEnglish() ? "Edit slide" : "Redigera slide") : (isEnglish() ? "Add slide" : "Lägg till slide")}</h2>
 
             <form onSubmit={handleSubmit}>
-                <label htmlFor="name">{isEnglish() ? "Name" : "Namn"}:</label>
-                <input name="name"
-                    type="text"
-                    value={modalValues.nameValue}
-                    onChange={e => setModalValues(v => { return {...v, nameValue: e.target.value} })}
-                    required
-                />
-
-                <label htmlFor="type">{isEnglish() ? "Type" : "Typ"}:</label>
-                <select name="type" value={modalValues.typeValue} onChange={e => setModalValues(v => { return {...v, typeValue: e.target.value} })} required>
-                    <option value="iframe">{isEnglish() ? "Website" : "Hemsida"}</option>
-                    <option value="img">{isEnglish() ? "Image" : "Bild"}</option>
-                    <option value="markdown">Markdown</option>
-                </select>
-                <br />
-
-                <label htmlFor="duration">{isEnglish() ? "Duration" : "Varaktighet"}:</label>
-                <input name="duration"
-                    type="range"
-                    min="1"
-                    max="30"
-                    value={modalValues.durationValue}
-                    onChange={e => setModalValues(v => { return {...v, durationValue: parseInt(e.target.value)} })}
-                    required
-                />
-                <span>{modalValues.durationValue}s</span>
-                <br />
-
-                <label htmlFor="start">Start:</label>
-                <input name="start"
-                    type="date"
-                    min={dateToLocalISO(new Date())}
-                    max={modalValues.endValue ? dateToLocalISO(new Date(modalValues.endValue)) : ""}
-                    value={modalValues.startValue}
-                    onChange={e => setModalValues(v => { return {...v, startValue: dateToLocalISO(new Date(e.target.value))} })} />
-                <span>({isEnglish() ? "optional" : "valfri"})</span>
-                <br />
-
-                <label htmlFor="end">{isEnglish() ? "End" : "Slut"}:</label>
-                <input name="end"
-                    type="date"
-                    min={dateToLocalISO(modalValues.startValue ? new Date(modalValues.startValue) : new Date())}
-                    value={modalValues.endValue}
-                    onChange={e => setModalValues(v => { return {...v, endValue: modalValues.startValue ? (new Date(e.target.value) >= new Date(modalValues.startValue) ? dateToLocalISO(new Date(e.target.value)) : "") : e.target.value} })}
-                />
-                <span>({isEnglish() ? "optional" : "valfri"})</span>
-                <br />
-
-                { modalValues.typeValue === "markdown" ? <>
-                    <p>{isEnglish() ? "Content" : "Innehåll"}:</p>
-                    <textarea
-                        name="value"
-                        rows="6"
-                        cols="30"
-                        defaultValue={modalValues.valueValue}
-                        onChange={e => setModalValues(v => { return {...v, valueValue: e.target.value} })}
+                <div className="row">
+                    <label htmlFor="name">{isEnglish() ? "Name" : "Namn"}:</label>
+                    <input name="name"
+                        type="text"
+                        value={modalValues.nameValue}
+                        onChange={e => setModalValues(v => { return {...v, nameValue: e.target.value} })}
                         required
                     />
-                </> : <>
-                    <label htmlFor="value">URL:</label>
-                    <input type="text" name="value" value={modalValues.valueValue} onChange={e => setModalValues(v => { return {...v, valueValue: e.target.value} })} required />
-                </> }
-                <br />
-                <br />
+
+                    <label htmlFor="type">{isEnglish() ? "Type" : "Typ"}:</label>
+                    <select name="type" value={modalValues.typeValue} onChange={e => setModalValues(v => { return {...v, typeValue: e.target.value} })} required>
+                        <option value="iframe">{isEnglish() ? "Website" : "Hemsida"}</option>
+                        <option value="img">{isEnglish() ? "Image" : "Bild"}</option>
+                        <option value="markdown">Markdown</option>
+                    </select>
+                </div>
+
+                <div className="row full">
+                    <label htmlFor="duration">{isEnglish() ? "Duration" : "Varaktighet"}:</label>
+                    <input name="duration"
+                        type="range"
+                        min="1"
+                        max="30"
+                        value={modalValues.durationValue}
+                        onChange={e => setModalValues(v => { return {...v, durationValue: parseInt(e.target.value)} })}
+                        required
+                    />
+                    <span>{modalValues.durationValue}s</span>
+                </div>
+
+                <div className="row">
+                    <label htmlFor="start">Start:</label>
+                    <input name="start"
+                        type="date"
+                        min={dateToLocalISO(new Date())}
+                        max={modalValues.endValue ? dateToLocalISO(new Date(modalValues.endValue)) : ""}
+                        value={modalValues.startValue}
+                        onChange={e => setModalValues(v => { return {...v, startValue: dateToLocalISO(new Date(e.target.value))} })} />
+                    <span>({isEnglish() ? "optional" : "valfri"})</span>
+                </div>
+
+                <div className="row">
+                    <label htmlFor="end">{isEnglish() ? "End" : "Slut"}:</label>
+                    <input name="end"
+                        type="date"
+                        min={dateToLocalISO(modalValues.startValue ? new Date(modalValues.startValue) : new Date())}
+                        value={modalValues.endValue}
+                        onChange={e => setModalValues(v => { return {...v, endValue: modalValues.startValue ? (new Date(e.target.value) >= new Date(modalValues.startValue) ? dateToLocalISO(new Date(e.target.value)) : "") : e.target.value} })}
+                    />
+                    <span>({isEnglish() ? "optional" : "valfri"})</span>
+                </div>
+
+                <div className="row full">
+                    { modalValues.typeValue === "markdown" ? <>
+                        <p>{isEnglish() ? "Content" : "Innehåll"}:</p>
+                        <textarea
+                            name="value"
+                            rows="6"
+                            cols="30"
+                            defaultValue={modalValues.valueValue}
+                            onChange={e => setModalValues(v => { return {...v, valueValue: e.target.value} })}
+                            required
+                        />
+                    </> : <>
+                        <label htmlFor="value">URL:</label>
+                        <input type="text" id="url-bar" name="value" value={modalValues.valueValue} onChange={e => setModalValues(v => { return {...v, valueValue: e.target.value} })} required />
+                    </> }
+                </div>
 
                 <button onClick={handleSubmit} className="btn blue">
                     {selectedSlideIndex != null ? (isEnglish() ? "UPDATE SLIDE" : "UPPDATERA SLIDE") : (isEnglish() ? "ADD SLIDE" : "LÄGG TILL")}
