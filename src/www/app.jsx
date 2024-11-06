@@ -53,7 +53,7 @@ const GoogleAuth = () => {
 
   return <GoogleOAuthProvider clientId="420624855220-dad51rlh0qhf2p0fco7s37h685clivps">
     {(isLoggedIn && <Outlet />) ?? (<div className="login-page">
-      <img class="login-flame1" src={Fire} />
+      <img className="login-flame1" src={Fire} />
       <h1>{isEnglish()
         ? "Stop right there, criminal scum!"
         : "Stanna där, kriminella avskum!"}
