@@ -85,19 +85,21 @@ const DraggableTable = (props) => {
     };
 
     return (
-        <table className="edit-slides">
-            <thead>
-                <tr>
-                    <th></th>
-                    {columns.map((col, index) => (
-                        <th key={index}>{col}</th>
-                    ))}
-                </tr>
-            </thead>
-            <tbody>
-                {rows.map((row, index) => <SlideRow key={index} row={row} index={index} />)}
-            </tbody>
-        </table>
+        <div className="draggable-table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        {columns.map((col, index) => (
+                            <th key={index}>{col}</th>
+                        ))}
+                    </tr>
+                </thead>
+                <tbody>
+                    {rows.map((row, index) => <SlideRow key={index} row={row} index={index} />)}
+                </tbody>
+            </table>
+        </div>
     );
 };
 

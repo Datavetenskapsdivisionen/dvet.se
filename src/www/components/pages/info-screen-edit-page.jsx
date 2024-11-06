@@ -122,17 +122,14 @@ const me = () => {
     return <>
         <div className="page">
             <h1>{isEnglish() ? "Edit info screen" : "Redigera infoskärmen"}</h1>
-            <div className="edit-slides-container">
-                <DraggableTable columns={createColumns()} rows={jsonData.slides.map(createRow)} onMove={handleMove} />
-                
-                <div className="buttons">
-                    <a onClick={() => setModalIsOpen(true)} className="btn blue">{isEnglish() ? "ADD SLIDE" : "LÄGG TILL"}</a>    
-                    <label className="switch">
-                        <input name="shuffle" type="checkbox" checked={jsonData.shuffle} onChange={onShuffleClick} />
-                        <span className="slider" />
-                    </label>
-                    <span>{isEnglish() ? "Shuffle order" : "Blanda ordning"}</span>
-                </div>
+            <DraggableTable columns={createColumns()} rows={jsonData.slides.map(createRow)} onMove={handleMove} />
+            <div>
+                <a onClick={() => setModalIsOpen(true)} className="btn blue">{isEnglish() ? "ADD SLIDE" : "LÄGG TILL"}</a>    
+                <label className="switch">
+                    <input name="shuffle" type="checkbox" checked={jsonData.shuffle} onChange={onShuffleClick} />
+                    <span className="slider" />
+                </label>
+                <span>{isEnglish() ? "Shuffle order" : "Blanda ordning"}</span>
             </div>
         </div>
 
