@@ -1,49 +1,42 @@
 import React from "react";
 import { useLoaderData } from "react-router-dom";
 import { isEnglish, dateToLocalISO } from "/src/www/util";
-import { draggable, dropTargetForElements, monitorForElements } from "@atlaskit/pragmatic-drag-and-drop/element/adapter";
-// import { attachClosestEdge, Edge, extractClosestEdge, } from '@atlaskit/pragmatic-drag-and-drop-hitbox/addon/closest-edge';
-import invariant from "tiny-invariant";
-import Cookies from "js-cookie";
 import { decodeJwt } from "jose";
+import Cookies from "js-cookie";
+import DraggableTable from "/src/www/components/widgets/draggable-table";
 import DvetModal from "/src/www/components/widgets/dvet-modal";
 
 const me = () => {
-    const jsonData = useLoaderData();
-    const slidesJSON = jsonData.slides;
-    const [modalIsOpen, setIsOpen] = React.useState(false);
+    const [jsonData, setJsonData] = React.useState(useLoaderData());
     const [selectedSlideIndex, setSelectedSlideIndex] = React.useState(null);
-    const defaultState = {nameValue: "", typeValue: "iframe", valueValue: "", durationValue: 10, startValue: "", endValue: "", activeValue: true, lastEditValue: decodeJwt(Cookies.get("dv-token")).email};
-    const [values, setValues] = React.useState(defaultState);
-    const [onOffStates, setOnOffStates] = React.useState([]);
-    const [isShuffleOn, setIsShuffleOn] = React.useState(jsonData.shuffle ?? false);
+    const [modalValues, setModalValues] = React.useState(getDefaultState());
+    const [modalIsOpen, setModalIsOpen] = React.useState(false);
 
-    const updateOnOffStates = () => {
-        setOnOffStates(slidesJSON.map(s => s.active ?? true));
-    };
-    React.useEffect(() => {updateOnOffStates()}, [slidesJSON]);
+    React.useEffect(() => saveEdits(), [jsonData]);
 
     const saveEdits = () => {
         const token = Cookies.get("dv-token");
         fetch("/info-screen/update", {
             method: "PUT",
             headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
-            body: JSON.stringify({...jsonData, slides: slidesJSON})
+            body: JSON.stringify({...jsonData, slides: jsonData.slides})
         });
     };
 
     const onActiveClick = (index) => {
-        const currVal = slidesJSON[index].active ?? true;
-        slidesJSON[index].active = !currVal;
-        updateOnOffStates();
-        saveEdits();
+        setJsonData(oldData => {
+            const newData = {...oldData};
+            const newSlides = [...oldData.slides];
+            newSlides[index].active = !newSlides[index].active;
+            return {...newData, slides: newSlides};
+        });
     };
-
+    
     const onEditClick = (index) => {
         setSelectedSlideIndex(index);
         const user = decodeJwt(Cookies.get("dv-token"));
-        const s = slidesJSON[index];
-        setValues({
+        const s = jsonData.slides[index];
+        setModalValues({
             nameValue:     s.name,
             typeValue:     s.slide.slideType,
             durationValue: s.duration,
@@ -53,166 +46,96 @@ const me = () => {
             valueValue:    s.slide.value ?? "",
             lastEditValue: user.email
         });
-        setIsOpen(true);
+        setModalIsOpen(true);
     };
-
+    
     const onDeleteClick = (index) => {
-        if (window.confirm("Are you sure you want to delete `" + slidesJSON[index].name + "`?")) {
-            slidesJSON.splice(index, 1);
-            updateOnOffStates();
-            saveEdits();
+        if (window.confirm("Are you sure you want to delete `" + jsonData.slides[index].name + "`?")) {
+            setJsonData(oldData => {
+                const newData = {...oldData};
+                const newSlides = [...oldData.slides];
+                newSlides.splice(index, 1);
+                return {...newData, slides: newSlides};
+            });
         }
     };
 
     const onShuffleClick = () => {
-        const shuffle = jsonData.shuffle;
-        jsonData.shuffle = !shuffle;
-        setIsShuffleOn(!shuffle);
-        saveEdits();
-    }
-
-    const onModalClose = () => {
-        setValues(defaultState);
-        setSelectedSlideIndex(null);
-        setIsOpen(false);
+        setJsonData(oldData => {
+            const newData = {...oldData};
+            return {...newData, shuffle: !newData.shuffle};
+        });
     };
 
-    const handleSubmit = async (e) => {
+    const onModalClose = () => {
+        setSelectedSlideIndex(null);
+        setModalValues(getDefaultState());
+        setModalIsOpen(false);
+    };
+
+    const createRow = (slide, id) => [
+        slide.name,
+        slide.slide.slideType,
+        `${slide.duration}s`,
+        slide.start ? dateToLocalISO(new Date(slide.start)) : "",
+        slide.end ? dateToLocalISO(new Date(slide.end)) : "",
+        <label className="switch">
+            <input type="checkbox" checked={slide.active} onChange={() => onActiveClick(id)} />
+            <span className="slider green" />
+        </label>,
+        <a className="btn blue" onClick={() => onEditClick(id)}>{isEnglish() ? "EDIT" : "REDIGERA"}</a>,
+        <a className="btn red" onClick={() => onDeleteClick(id)}>{isEnglish() ? "DELETE" : "TA BORT"}</a>,
+        <a href={slide.lastEdit ? `mailto:${slide.lastEdit}?subject=[DVD info screen]: ` : ""} style={{textDecoration: "none", textAlign: "right"}}>{slide.lastEdit ? slide.lastEdit.split('@')[0] : ""}</a>
+    ];
+
+    const handleSubmit = (e) => {
         e.preventDefault();
 
-        const slide = {slideType: values.typeValue, value: values.valueValue};
-        const newSlideData = {name: values.nameValue, duration: values.durationValue, active: values.activeValue, start: new Date(values.startValue).getTime(), end: new Date(values.endValue).getTime(), lastEdit: values.lastEditValue, slide: slide};
+        const slide = {slideType: modalValues.typeValue, value: modalValues.valueValue};
+        const newSlideData = {name: modalValues.nameValue, duration: modalValues.durationValue, active: modalValues.activeValue, start: new Date(modalValues.startValue).getTime(), end: new Date(modalValues.endValue).getTime(), lastEdit: modalValues.lastEditValue, slide: slide};
         
-        if (selectedSlideIndex != null) {
-            slidesJSON[selectedSlideIndex] = newSlideData;
-        } else {
-            slidesJSON.push(newSlideData);
-        }
+        setJsonData(oldData => {
+            const newData = {...oldData};
+            const newSlides = [...oldData.slides];
+            if (selectedSlideIndex != null) {
+                newSlides[selectedSlideIndex] = newSlideData;
+            } else {
+                newSlides.push(newSlideData);
+            }
+            return {...newData, slides: newSlides};
+        });
 
-        updateOnOffStates();
-        saveEdits();
         onModalClose();
     };
 
-    const SlideRow = (props) => {
-        const s = props.slide;
-        const i = props.id;
-
-        const [dragged, setDragged] = React.useState(false);
-        const [isDraggedOver, setIsDraggedOver] = React.useState(false);
-        
-        const rowRef  = React.useRef(null);
-        const dragRef = React.useRef(null);
-
-        React.useEffect(() => {
-            const row = rowRef.current;
-            const drag = dragRef.current;
-            invariant(row);
-            draggable({
-                element: row,
-                dragHandle: drag,
-                getInitialData: () => ({ index: i }),
-                onDragStart: () => setDragged(true),
-                onDrop: () => setDragged(false)
-            });
-            dropTargetForElements({
-                element: row,
-                getData: () => ({ index: i }),
-                onDragEnter: () => setIsDraggedOver(true),
-                onDragLeave: () => setIsDraggedOver(false),
-                onDrop: () => setIsDraggedOver(false)
-            });
-        }, [slidesJSON]);
-
-        return (
-            <tr className={(dragged ? "dragged " : "") + (isDraggedOver ? "dragged-over" : "")} key={i} ref={rowRef}>
-                <td ref={dragRef}>
-                    <svg width="32" height="32" viewBox="0 0 24 24" role="presentation">
-                        <g fill="currentColor" fillRule="evenodd">
-                            <circle cx="10" cy="8"  r="1" />
-                            <circle cx="14" cy="8"  r="1" />
-                            <circle cx="10" cy="16" r="1" />
-                            <circle cx="14" cy="16" r="1" />
-                            <circle cx="10" cy="12" r="1" />
-                            <circle cx="14" cy="12" r="1" /> 
-                        </g>
-                    </svg>
-                </td>
-                <td>{s.name}</td>
-                <td>{s.slide.slideType}</td>
-                <td>{s.duration}s</td>
-                <td>{s.start ? dateToLocalISO(new Date(s.start)) : ""}</td>
-                <td>{s.end ? dateToLocalISO(new Date(s.end)) : ""}</td>
-                <td><a className={"btn " + (onOffStates[i] ? "green" : "red")} onClick={() => onActiveClick(i)}>{onOffStates[i] ? (isEnglish() ? "ON" : "PÅ") : (isEnglish() ? "OFF" : "AV")}</a></td>
-                <td><a className="btn blue" onClick={() => onEditClick(i)}>{isEnglish() ? "EDIT" : "REDIGERA"}</a></td>
-                <td><a className="btn red" onClick={() => onDeleteClick(i)}>{isEnglish() ? "DELETE" : "TA BORT"}</a></td>
-                <td style={{textAlign: "right"}}><a href={s.lastEdit ? `mailto:${s.lastEdit}?subject=[DVD info screen]: ` : ""} style={{textDecoration: "none"}}>{s.lastEdit ? s.lastEdit.split('@')[0] : ""}</a></td>
-            </tr>
-        );
+    const handleMove = (from, to) => {
+        setJsonData(oldData => {
+            const newData = {...oldData};
+            const newSlides = [...oldData.slides];
+            const temp = newSlides[from];
+            newSlides[from] = newSlides[to];
+            newSlides[to] = temp;
+            return {...newData, slides: newSlides};
+        });
     };
 
-    const moveRow = (from, to) => {
-        slidesJSON.splice(to, 0, slidesJSON.splice(from, 1)[0]);
-        updateOnOffStates();
-        saveEdits();
-    };
-
-    const Slides = () => {
-        const slideRows = slidesJSON.map((s, i) => <SlideRow slide={s} id={i} />);
-
-        React.useEffect(() => {
-            return monitorForElements({
-                onDrop({ source, location }) {
-                    const destination = location.current.dropTargets[0];
-                    if (!destination) { return; }
-
-                    const sourceIndex = source.data.index;
-                    const destinationIndex = destination.data.index;
-                    moveRow(sourceIndex, destinationIndex);
-                }
-            });
-        }, [slideRows]);
-
-        return (
-            <table className="edit-slides">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>{isEnglish() ? "Name" : "Namn"}</th>
-                        <th>{isEnglish() ? "Type" : "Typ"}</th>
-                        <th>{isEnglish() ? "Duration" : "Varaktighet"}</th>
-                        <th>Start</th>
-                        <th>{isEnglish() ? "End" : "Slut"}</th>
-                        <th>{isEnglish() ? "Active" : "Aktiv"}</th>
-                        <th></th>
-                        <th></th>
-                        <th>{isEnglish() ? "Edited by" : "Redigerad av"}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                { slideRows }
-                </tbody>
-            </table>
-        );
-    };
-    
     return <>
         <div className="page">
             <h1>{isEnglish() ? "Edit info screen" : "Redigera infoskärmen"}</h1>
             <div className="edit-slides-container">
-                <Slides />
+                <DraggableTable columns={createColumns()} rows={jsonData.slides.map(createRow)} onMove={handleMove} />
+                
                 <div className="buttons">
-                    <a onClick={() => setIsOpen(true)} className="btn blue">{isEnglish() ? "ADD SLIDE" : "LÄGG TILL"}</a>
-                    
+                    <a onClick={() => setModalIsOpen(true)} className="btn blue">{isEnglish() ? "ADD SLIDE" : "LÄGG TILL"}</a>    
                     <label className="switch">
-                        <input name="shuffle" type="checkbox" checked={isShuffleOn} onChange={onShuffleClick} />
+                        <input name="shuffle" type="checkbox" checked={jsonData.shuffle} onChange={onShuffleClick} />
                         <span className="slider" />
                     </label>
                     <span>{isEnglish() ? "Shuffle order" : "Blanda ordning"}</span>
                 </div>
             </div>
         </div>
-        
+
         <DvetModal modalIsOpen={modalIsOpen} onModalClose={onModalClose}>
             <h2>{selectedSlideIndex != null ? (isEnglish() ? "Edit slide" : "Redigera slide") : (isEnglish() ? "Add slide" : "Lägg till slide")}</h2>
 
@@ -220,13 +143,13 @@ const me = () => {
                 <label htmlFor="name">{isEnglish() ? "Name" : "Namn"}:</label>
                 <input name="name"
                     type="text"
-                    value={values.nameValue}
-                    onChange={e => setValues(v => { return {...v, nameValue: e.target.value} })}
+                    value={modalValues.nameValue}
+                    onChange={e => setModalValues(v => { return {...v, nameValue: e.target.value} })}
                     required
                 />
 
                 <label htmlFor="type">{isEnglish() ? "Type" : "Typ"}:</label>
-                <select name="type" value={values.typeValue} onChange={e => setValues(v => { return {...v, typeValue: e.target.value} })} required>
+                <select name="type" value={modalValues.typeValue} onChange={e => setModalValues(v => { return {...v, typeValue: e.target.value} })} required>
                     <option value="iframe">{isEnglish() ? "Website" : "Hemsida"}</option>
                     <option value="img">{isEnglish() ? "Image" : "Bild"}</option>
                     <option value="markdown">Markdown</option>
@@ -238,46 +161,46 @@ const me = () => {
                     type="range"
                     min="1"
                     max="30"
-                    value={values.durationValue}
-                    onChange={e => setValues(v => { return {...v, durationValue: parseInt(e.target.value)} })}
+                    value={modalValues.durationValue}
+                    onChange={e => setModalValues(v => { return {...v, durationValue: parseInt(e.target.value)} })}
                     required
                 />
-                <span>{values.durationValue}s</span>
+                <span>{modalValues.durationValue}s</span>
                 <br />
 
                 <label htmlFor="start">Start:</label>
                 <input name="start"
                     type="date"
                     min={dateToLocalISO(new Date())}
-                    max={values.endValue ? dateToLocalISO(new Date(values.endValue)) : ""}
-                    value={values.startValue}
-                    onChange={e => setValues(v => { return {...v, startValue: dateToLocalISO(new Date(e.target.value))} })} />
+                    max={modalValues.endValue ? dateToLocalISO(new Date(modalValues.endValue)) : ""}
+                    value={modalValues.startValue}
+                    onChange={e => setModalValues(v => { return {...v, startValue: dateToLocalISO(new Date(e.target.value))} })} />
                 <span>({isEnglish() ? "optional" : "valfri"})</span>
                 <br />
 
                 <label htmlFor="end">{isEnglish() ? "End" : "Slut"}:</label>
                 <input name="end"
                     type="date"
-                    min={dateToLocalISO(values.startValue ? new Date(values.startValue) : new Date())}
-                    value={values.endValue}
-                    onChange={e => setValues(v => { return {...v, endValue: values.startValue ? (new Date(e.target.value) >= new Date(values.startValue) ? dateToLocalISO(new Date(e.target.value)) : "") : e.target.value} })}
+                    min={dateToLocalISO(modalValues.startValue ? new Date(modalValues.startValue) : new Date())}
+                    value={modalValues.endValue}
+                    onChange={e => setModalValues(v => { return {...v, endValue: modalValues.startValue ? (new Date(e.target.value) >= new Date(modalValues.startValue) ? dateToLocalISO(new Date(e.target.value)) : "") : e.target.value} })}
                 />
                 <span>({isEnglish() ? "optional" : "valfri"})</span>
                 <br />
 
-                { values.typeValue === "markdown" ? <>
+                { modalValues.typeValue === "markdown" ? <>
                     <p>{isEnglish() ? "Content" : "Innehåll"}:</p>
                     <textarea
                         name="value"
                         rows="6"
                         cols="30"
-                        defaultValue={values.valueValue}
-                        onChange={e => setValues(v => { return {...v, valueValue: e.target.value} })}
+                        defaultValue={modalValues.valueValue}
+                        onChange={e => setModalValues(v => { return {...v, valueValue: e.target.value} })}
                         required
                     />
                 </> : <>
                     <label htmlFor="value">URL:</label>
-                    <input type="text" name="value" value={values.valueValue} onChange={e => setValues(v => { return {...v, valueValue: e.target.value} })} required />
+                    <input type="text" name="value" value={modalValues.valueValue} onChange={e => setModalValues(v => { return {...v, valueValue: e.target.value} })} required />
                 </> }
                 <br />
                 <br />
@@ -289,5 +212,30 @@ const me = () => {
         </DvetModal>
     </>
 };
+
+const getDefaultState = () => {
+    return {
+        nameValue: "",
+        typeValue: "iframe",
+        valueValue: "",
+        durationValue: 10,
+        startValue: "",
+        endValue: "",
+        activeValue: true,
+        lastEditValue: decodeJwt(Cookies.get("dv-token")).email
+    }
+};
+
+const createColumns = () => [
+    isEnglish() ? "Name" : "Namn",
+    isEnglish() ? "Type" : "Typ",
+    isEnglish() ? "Duration" : "Varaktighet",
+    "Start",
+    isEnglish() ? "End" : "Slut",
+    isEnglish() ? "Active" : "Aktiv",
+    "",
+    "",
+    isEnglish() ? "Edited by" : "Redigerad av"
+];
 
 export default me;
