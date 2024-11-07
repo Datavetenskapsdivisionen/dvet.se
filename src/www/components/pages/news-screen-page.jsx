@@ -1,5 +1,5 @@
 import React from "react";
-import NewsFeed from "./widgets/newsfeed";
+import NewsFeed from "/src/www/components/widgets/newsfeed";
 
 const me = () => (
     <div className="page">

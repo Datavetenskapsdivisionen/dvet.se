@@ -1,33 +1,34 @@
 import React, { Suspense, lazy } from "react";
-import Toolbar from "./components/toolbar";
-import "./styles.less";
+import Toolbar from "./components/widgets/toolbar";
+import "./styles/styles.less";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import Navbar from "./components/navbar/navbar";
 import Footer from "./components/navbar/footer";
-import ContactPage from "./components/contact-page";
-import DVRK from "./components/dvrk-page";
-import AboutPage from "./components/about-page";
-import HomePage from "./components/home-page";
-import CommitteePage from "./components/committee-page";
-import ToolsPage from "./components/tools-page";
-import PhotosPage from "./components/photos-page";
-import WikiPage from "./components/wiki-page";
+import ContactPage from "./components/pages/contact-page";
+import DVRK from "./components/pages/dvrk-page";
+import AboutPage from "./components/pages/about-page";
+import HomePage from "./components/pages/home-page";
+import CommitteePage from "./components/pages/committee-page";
+import ToolsPage from "./components/pages/tools-page";
+import PhotosPage from "./components/pages/photos-page";
+import WikiPage from "./components/pages/wiki-page";
 import { Schedule } from "./components/widgets/schedule";
-import PrivacyPolicy from "./components/privacy-policy";
-import InfoScreen from "./components/info-screen";
-import EditInfoScreen from "./components/edit-info-screen";
-import PhotoHostScreen from "./components/photo-host";
-import NewsScreen from "./components/newscreen";
-import ScheduleScreen from "./components/schedulescreen";
+import PrivacyPolicy from "./components/pages/privacy-policy-page";
+import InfoScreen from "./components/pages/info-screen";
+import EditInfoScreen from "./components/pages/info-screen-edit-page";
+import PhotoHostScreen from "./components/pages/photo-host-page";
+import NewsScreen from "./components/pages/news-screen-page";
+import ScheduleScreen from "./components/pages/schedule-screen-page";
 import Popo from "./components/widgets/popo";
-import FaqPage from "./components/faq-page";
+import FaqPage from "./components/pages/faq-page";
 
 // import WIP from "./components/widgets/wip";
-import IndividualCommitteePage from "./components/individual-committee-page";
+import IndividualCommitteePage from "./components/pages/individual-committee-page";
 import { getLanguageCookie, isEnglish } from "./util";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 import Cookies from "js-cookie";
 import Loading from "./components/widgets/loading";
+import Fire from "/assets/fire.gif";
 
 const GoogleAuth = () => {
   const [token, setToken] = React.useState(Cookies.get("dv-token"));
@@ -52,7 +53,7 @@ const GoogleAuth = () => {
 
   return <GoogleOAuthProvider clientId="420624855220-dad51rlh0qhf2p0fco7s37h685clivps">
     {(isLoggedIn && <Outlet />) ?? (<div className="login-page">
-      <img class="login-flame1" src="https://dvet.se/uploads/Lukas%20Gartman%20-%203b003e2ecb00e9221907f4a3f0a21f38%20-%20fire.gif" />
+      <img className="login-flame1" src={Fire} />
       <h1>{isEnglish()
         ? "Stop right there, criminal scum!"
         : "Stanna där, kriminella avskum!"}
@@ -65,7 +66,7 @@ const GoogleAuth = () => {
           : <>Sidan du försöker komma åt kräver inlogg.<br />Logga in med din <code>@dvet.se</code> mail!</>
         }</p>
       </div>
-      <img src="https://dvet.se/uploads/Lukas%20Gartman%20-%203b003e2ecb00e9221907f4a3f0a21f38%20-%20fire.gif" />
+      <img src={Fire} />
     </div>)}
   </GoogleOAuthProvider>;
 };
@@ -88,9 +89,9 @@ const LanguageSelector = () => {
       <button className="kickoff-info-button" onClick={() => {
         let english = document.getElementById("language-en");
         if (english.checked) {
-          document.cookie = "language=en; path=/";
+          Cookies.set("language", "en");
         } else {
-          document.cookie = "language=se; path=/";
+          Cookies.set("language", "se");
         }
         location.reload();
       }}>Ok</button>

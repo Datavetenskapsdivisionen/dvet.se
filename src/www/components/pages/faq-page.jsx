@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
-import text from "../../../faq-cache/faq.html";
-import textEn from "../../../faq-cache/faq-en.html";
-import { isEnglish } from "../util";
+import text from "/faq-cache/faq.html";
+import textEn from "/faq-cache/faq-en.html";
+import { isEnglish } from "/src/www/util";
 
 const me = () => {
     useEffect(() => {

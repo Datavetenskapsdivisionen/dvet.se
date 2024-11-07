@@ -32,7 +32,7 @@ const footer = () => {
             <div className="button-container right">
                 {logOutButton}
                 <button onClick={() => {
-                    Cookies.set("language", "null");
+                    Cookies.remove("language");
                     location.reload();
                 }}>Language</button>
             </div>

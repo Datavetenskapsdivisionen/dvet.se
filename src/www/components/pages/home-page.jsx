@@ -2,13 +2,13 @@ import React from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
-import textSe from "../../../content/home-page/home-page.md";
-import textEn from "../../../content/home-page/home-page-en.md";
-import InfoButton from "./widgets/info-button.jsx";
-import KickoffInfoButton from "./widgets/kickoff-info-button";
-import NewsFeed from "./widgets/newsfeed";
-import { Schedule } from "./widgets/schedule";
-import { isEnglish, isReception } from "../util";
+import textSe from "/content/home-page/home-page.md";
+import textEn from "/content/home-page/home-page-en.md";
+import InfoButton from "/src/www/components/widgets/info-button.jsx";
+import KickoffInfoButton from "/src/www/components/widgets/kickoff-info-button";
+import NewsFeed from "/src/www/components/widgets/newsfeed";
+import { Schedule } from "/src/www/components/widgets/schedule";
+import { isEnglish, isReception } from "/src/www/util";
 
 const text = isEnglish() ? textEn : textSe;
 

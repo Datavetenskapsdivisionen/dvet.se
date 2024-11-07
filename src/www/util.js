@@ -20,21 +20,14 @@ const isReception = () => {
 };
 
 const getLanguageCookie = () => {
-    let match = document.cookie.match(new RegExp('(^| )language=([^;]+)'));
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
-    const lang = urlParams.get("lang");
-    if (lang) {
-        return lang;
-    } else {
-        return match ? (match[2] == "null" ? null : match[2]) : null;
-    }
+    return urlParams.get("lang") ?? Cookies.get("language");
 };
-const cook = getLanguageCookie();
-const english = cook ? cook == "en" : false;
 
 const isEnglish = () => {
-    return english;
+    const cook = getLanguageCookie();
+    return cook ? cook === "en" : false;
 };
 
 const dateToLocalISO = (date = new Date()) => {

@@ -1,7 +1,7 @@
 import React from "react";
 import Cookies from "js-cookie";
 import { decodeJwt } from "jose";
-import { isEnglish } from "../util";
+import { isEnglish } from "/src/www/util";
 
 const me = () => {
     const [isUploading, setIsUploading] = React.useState(false);

@@ -1,4 +1,5 @@
 import { jwtVerify, SignJWT } from "jose";
+import Cookies from "js-cookie";
 
 const signToken = async (content) => {
     return new SignJWT(content)
@@ -9,12 +10,8 @@ const signToken = async (content) => {
 };
 
 const verifyCookieOrElse = async (req, res, ok, orElse) => {
-    const cookies = req.headers.cookie;
-    if (!cookies) return orElse(req, res);
-    const match = cookies.match(new RegExp('(^| )dv-token=([^;]+)'));
-    if (!match) return orElse(req, res);
-    const token = "Bearer " + match[2];
-    if (!token) return orElse(req, res);
+    const token = Cookies.get('dv-token');
+    if (!token || !token.startsWith('Bearer ')) return orElse(req, res);
 
     try {
         const encodedToken = new TextEncoder().encode(token.split(" ")[1]);

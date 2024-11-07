@@ -1,5 +1,5 @@
 import RSS from "rss";
-import { octokit, fetchName } from "./octokit.mjs";
+import { octokit, fetchName } from "../helpers/octokit.mjs";
 
 const MAX_FETCH = 100;
 let posts = [];

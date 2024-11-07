@@ -1,6 +1,6 @@
 import React from 'react';
-import logo from "../../../assets/main.png";
-import { isEnglish } from "../util";
+import logo from "/assets/main.png";
+import { isEnglish } from "/src/www/util";
 import { NavLink } from "react-router-dom";
 
 const randomNumber = (limit) => Math.floor(Math.random() * limit) + 1;
