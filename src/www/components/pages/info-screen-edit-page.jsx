@@ -120,11 +120,11 @@ const me = () => {
     };
 
     return <>
-        <div className="page">
+        <div className="page edit-info-screen">
             <h1>{isEnglish() ? "Edit info screen" : "Redigera infoskärmen"}</h1>
             <DraggableTable columns={createColumns()} rows={jsonData.slides.map(createRow)} onMove={handleMove} />
             <div>
-                <a onClick={() => setModalIsOpen(true)} className="btn blue">{isEnglish() ? "ADD SLIDE" : "LÄGG TILL"}</a>    
+                <a onClick={() => setModalIsOpen(true)} className="btn blue">{isEnglish() ? "ADD SLIDE" : "LÄGG TILL"}</a>
                 <label className="switch">
                     <input name="shuffle" type="checkbox" checked={jsonData.shuffle} onChange={onShuffleClick} />
                     <span className="slider" />
@@ -155,7 +155,7 @@ const me = () => {
                 </div>
 
                 <div className="row full">
-                    <label htmlFor="duration">{isEnglish() ? "Duration" : "Varaktighet"}:</label>
+                    <label htmlFor="duration">Duration:</label>
                     <input name="duration"
                         type="range"
                         min="1"
@@ -191,7 +191,7 @@ const me = () => {
 
                 <div className="row full">
                     { modalValues.typeValue === "markdown" ? <>
-                        <p>{isEnglish() ? "Content" : "Innehåll"}:</p>
+                        <span>{isEnglish() ? "Content" : "Innehåll"}:</span>
                         <textarea
                             name="value"
                             rows="6"
