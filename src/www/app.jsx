@@ -89,9 +89,9 @@ const LanguageSelector = () => {
       <button className="kickoff-info-button" onClick={() => {
         let english = document.getElementById("language-en");
         if (english.checked) {
-          document.cookie = "language=en; path=/";
+          Cookies.set("language", "en");
         } else {
-          document.cookie = "language=se; path=/";
+          Cookies.set("language", "se");
         }
         location.reload();
       }}>Ok</button>
