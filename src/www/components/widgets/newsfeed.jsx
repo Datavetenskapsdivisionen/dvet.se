@@ -4,8 +4,8 @@ import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import { isEnglish } from "/src/www/util";
 
-const fetchNews = (num) => (
-    fetch(`/newsfeed?num=${num}`)
+const fetchNews = (num, page) => (
+    fetch(`/newsfeed?num=${num}&page=${page}`)
         .then(res => res.json())
         .catch(e => ({
             error: "failed to fetch news"
@@ -89,15 +89,22 @@ const createElements = (data, liteVersion) => {
 const me = (props) => {
     const liteVersion = props.liteVersion == true;
     const num = props.num ? props.num : 5;
-    const [data, setData] = React.useState(<div className="loading"></div>);
+    const [page, setPage] = React.useState(1);
+    const [showLoadButton, setShowLoadButton] = React.useState(true);
+    const [newsElements, setNewsElements] = React.useState(<div className="loading"></div>);
+    const data = React.useRef([]);
     React.useEffect(() => {
-        fetchNews(num).then((res) => setData(createElements(res, liteVersion)));
-    }, [fetchNews]);
+        fetchNews(num, page).then((res) => {
+            const newData = data.current.concat(res.posts);
+            data.current = newData;
+            if (page*num >= res.totalPostCount) {
+                setShowLoadButton(false);
+            }
+            setNewsElements(createElements(newData, liteVersion));
+        });
+    }, [fetchNews, page]);
 
-    const content = data.error ?
-        <h3>{data.error}</h3>
-        :
-        data;
+    const content = newsElements.error ? <h3>{newsElements.error}</h3> : newsElements;
     return <div className="news-holder">
         {liteVersion ? <></> : <h2>
             {isEnglish() ? "News" : "Nyheter"}
@@ -109,10 +116,8 @@ const me = (props) => {
             </a>
         </h2>}
         {content}
-        {liteVersion ? <></> : <div className="center">
-            <button onClick={
-                () => window.open("https://github.com/Datavetenskapsdivisionen/posts/issues")
-            }>{isEnglish() ? "See older news" : "Se äldre nyheter"}</button>
+        {liteVersion || !showLoadButton ? <></> : <div className="center">
+            <button onClick={() => setPage(p => p+1)}>{isEnglish() ? "See older news" : "Se äldre nyheter"}</button>
         </div>}
     </div >;
 };
