@@ -9,6 +9,8 @@ import datavetenskapLogo from "/assets/main.png";
 import { getEndOfDayTime, shuffleArray } from "/src/www/util";
 import { useLoaderData } from "react-router-dom";
 import { useOnlineStatus } from "/src/www/hooks/useOnlineStatus";
+import InstagramLogo from "/assets/instagram.png";
+import DiscordLogo from "/assets/discord-mark-blue.svg";
 
 const DEFAULT_DURATION = 20;
 let isOnline;
@@ -106,6 +108,7 @@ function createInfoScreen(infoScreen) {
 
 const me = () => {
     const [infoScreenData, _] = React.useState(new InfoScreen(useLoaderData()));
+    const [weatherComponent, setWeatherComponent] = React.useState(null);
     const slideElems = React.useRef([[null, null], [null, null]]);
     const [percentage, setPercentage] = React.useState(null);
     const stepRef = React.useRef(0);
@@ -114,11 +117,27 @@ const me = () => {
 
     const currentSlide = slideElems.current[flipRef.current];
 
-    const startTimer = (updateFrequency) => {
+    const createWeatherComponent = () => {
+        fetch("/weather").then(r => r.json()).then(r => {
+            setWeatherComponent(<>
+                <img src={r.current.weatherIcon} />
+                {r.current.temperature.toFixed(1)}°C
+            </>);
+        });
+    };
+
+    const startWeatherTimer = () => {
+        createWeatherComponent();
+        setInterval(() => {
+            createWeatherComponent();
+        }, 1000*60*16); // 16 min (accomodates for the 30 minute hard refresh)
+    };
+
+    const startInfoScreenTimer = (updateFrequency) => {
         setInterval(() => {
             setPercentage(currPercent => (currPercent + stepRef.current) <= 100 ? currPercent + stepRef.current : 100);
         }, updateFrequency);
-    }
+    };
     
     React.useEffect(() => {
         const updateFrequency = 40;
@@ -158,35 +177,44 @@ const me = () => {
         });
         
         infoScreen.start();
-        startTimer(updateFrequency);
+        startWeatherTimer();
+        startInfoScreenTimer(updateFrequency);
 
-        setTimeout(() => window.location.reload(), 1800000); // Temp: refresh page every 30 minutes
+        setTimeout(() => window.location.reload(), 1800000); // refresh page every 30 minutes
     }, []);
 
     return <>
-        <div style={{position: "absolute"}}>
-            <div className="info-screen-clock">{new Date().toLocaleTimeString('sv-SE', { hour: '2-digit', minute: '2-digit' })}</div>
-        </div>
-        { (!isOnline || !currentSlide[0]) && <div className="default-banner"><img src={datavetenskapLogo} /></div> }
-        { currentSlide && currentSlide[1] &&
-            <div id="slideshow">
-                { slideElems.current.map((slide,i) => <div style={{
-                    opacity: i === flipRef.current ? 1 : 0,
-                    transition: infoScreenData.allSlides.length > 1 ? "opacity 0.25s" : "",
-                    willChange: "opacity",
-                    position:   "absolute"
-                }}>{ slide[0] }</div>) }
-                { infoScreenData.allSlides.length > 1 &&
-                    <div className="duration-progress">
-                        <CircularProgressbar
-                            value={percentage}
-                            text={<tspan dy={2}>{Math.ceil(currentSlide[1].duration * (1 - percentage / 100))}</tspan>}
-                            styles={buildStyles({ pathTransition: "none", strokeLinecap: "butt" })}
-                        />
-                    </div>
-                }
+        <div className="info-screen">
+            <div>
+                <span><img src={InstagramLogo} alt="Instagram" />@datavetenskapsdivisionen</span>
+                <span><img src={DiscordLogo} alt="Discord" />dvet.se/discord</span>
+                <span className="big">
+                    {weatherComponent}
+                    <div style={{marginRight: "25px"}}></div>
+                    {new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })} {new Date().toLocaleTimeString('sv-SE', { hour: '2-digit', minute: '2-digit' })}
+                </span>
             </div>
-        }
+            { (!isOnline || !currentSlide[0]) && <div className="default-banner"><img src={datavetenskapLogo} /></div> }
+            { currentSlide && currentSlide[1] &&
+                <div id="slideshow">
+                    { slideElems.current.map((slide,i) => <div style={{
+                        opacity: i === flipRef.current ? 1 : 0,
+                        transition: infoScreenData.allSlides.length > 1 ? "opacity 0.25s" : "",
+                        willChange: "opacity",
+                        position:   "absolute"
+                    }}>{ slide[0] }</div>) }
+                    { infoScreenData.allSlides.length > 1 &&
+                        <div className="duration-progress">
+                            <CircularProgressbar
+                                value={percentage}
+                                text={<tspan dy={2}>{Math.ceil(currentSlide[1].duration * (1 - percentage / 100))}</tspan>}
+                                styles={buildStyles({ pathTransition: "none", strokeLinecap: "butt" })}
+                            />
+                        </div>
+                    }
+                </div>
+            }
+        </div>
     </>
 };
 
