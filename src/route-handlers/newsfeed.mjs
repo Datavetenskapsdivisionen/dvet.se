@@ -62,9 +62,14 @@ const newsfeed = async (req, res) => {
     const diff = Math.abs(new Date() - lastTime);
 
     let amount = MAX_FETCH;
+    let page = 1;
     if (req.query.num) {
-        let res = parseInt(req.query.num, 10);
+        let res = parseInt(req.query.num);
         if (res != NaN) amount = res;
+    }
+    if (req.query.page) {
+        let res = parseInt(req.query.page);
+        if (res != NaN) page = res;
     }
 
     const minutes = (diff / 1000) / 60;
@@ -77,10 +82,14 @@ const newsfeed = async (req, res) => {
         res.set('Content-Type', 'text/xml');
         res.send(rss);
     } else {
-        if (posts.slice)
-            res.json(posts.slice(0, amount));
-        else
+        if (posts.slice) {
+            res.json({
+                totalPostCount: posts.length,
+                posts: posts.slice((page-1)*amount, amount+(page-1)*amount)
+            });
+        } else {
             res.json([]);
+        }
     }
 };
 
