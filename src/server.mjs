@@ -33,6 +33,16 @@ import { deleteUserPhoto, getUserPhotos, photoHostPost } from "./route-handlers/
 import { googleLogin } from "./route-handlers/googleApi.mjs";
 import { verifyToken, verifyCookieOrElse } from "./route-handlers/auth.mjs";
 
+// Middleware for handling trailing slashes
+app.use((req, res, next) => {
+    if (req.path.slice(-1) === '/' && req.path.length > 1) {
+        const query = req.url.slice(req.path.length);
+        const safepath = req.path.slice(0, -1).replace(/\/+/g, '/');
+        res.redirect(301, safepath + query);
+    } else {
+       next();
+    }
+});
 
 app.get("/dist-secret/:path*", (req, res) => {
     res.set("Content-Type", "application/javascript");
