@@ -21,8 +21,6 @@ import NewsScreen from "./components/pages/news-screen-page";
 import ScheduleScreen from "./components/pages/schedule-screen-page";
 import Popo from "./components/widgets/popo";
 import FaqPage from "./components/pages/faq-page";
-
-// import WIP from "./components/widgets/wip";
 import IndividualCommitteePage from "./components/pages/individual-committee-page";
 import { getLanguageCookie, isEnglish } from "./util";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
@@ -52,7 +50,7 @@ const GoogleAuth = () => {
   };
 
   return <GoogleOAuthProvider clientId="420624855220-dad51rlh0qhf2p0fco7s37h685clivps">
-    {(isLoggedIn && <Outlet />) ?? (<div className="login-page">
+    {(isLoggedIn && <Outlet />) ?? (<div className="auth">
       <img className="login-flame1" src={Fire} />
       <h1>{isEnglish()
         ? "Stop right there, criminal scum!"

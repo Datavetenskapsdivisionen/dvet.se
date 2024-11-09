@@ -1,0 +1,56 @@
+.draggable-table-container {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    overflow-x: scroll;
+    padding-bottom: 20px;
+
+    table {
+        border-collapse: separate;
+        border-spacing: 0 15px;
+        margin: 0 10px;
+
+        thead tr th,
+        tbody tr td {
+            padding: 0 10px;
+            text-align: left;
+            font-family: 'IBM Plex Mono', monospace;
+
+            .btn {
+                display: block;
+                margin: 0;
+            }
+        }
+
+        tbody {
+            tr td {
+                padding: 5px 10px;
+
+                svg {
+                    cursor: grab;
+                    margin: 5px 0 0 5px;
+                    touch-action: none;
+                }
+
+                svg:active {
+                    cursor: grabbing;
+                    touch-action: none;
+                }
+            }
+
+            tr {
+                outline: 1px lightblue solid;
+                box-shadow: 0 0 5px lightblue;
+                border-radius: 2px;
+            }
+
+            .dragged {
+                outline: 4px lightblue solid;
+            }
+
+            .dragged-over {
+                outline: 4px @megaman-blue solid;
+            }
+        }
+    }
+}

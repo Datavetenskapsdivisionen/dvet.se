@@ -1,3 +1,5 @@
+import "/src/www/styles/pages/dvrk-styles.less";
+
 import React from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -7,7 +9,6 @@ import contact from "/content/committees/dvrk/dvrkcontact.md";
 import textEn from "/content/committees/dvrk/dvrk-en.md";
 import contactEn from "/content/committees/dvrk/dvrkcontact-en.md";
 import { CalenderSchedule, Schedule } from "/src/www/components/widgets/schedule";
-import "/src/www/styles/dvrk-styles.less";
 import { NavLink, useNavigate } from "react-router-dom";
 import DVRKLogo from "/assets/committee-logos/dvrk-logo.png";
 import DURKMAN from "/assets/dvrk.jpg";

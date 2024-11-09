@@ -1,0 +1,191 @@
+@mobile-size: 900px;
+
+.committee-holder {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: end;
+    flex-direction: row;
+    transition-duration: 100ms;
+    margin: 20px 0;
+
+    * {
+        transition-duration: inherit;
+    }
+
+    @media (min-width: @mobile-size) {
+        gap: 40px;
+    }
+
+    @media (max-width: @mobile-size) {
+        gap: 20px;
+    }
+
+    .committee-badge:hover {
+        box-shadow: 0px 0px 31px 1px rgba(0, 0, 0, 0.75);
+    }
+
+    .committee-badge {
+        display: flex;
+
+        @media (max-width: @mobile-size) {
+            box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.75);
+
+            .image-holder {
+                width: 140px;
+                height: 110px;
+
+                >img {
+                    max-width: 100px;
+                    max-height: 100px;
+                }
+            }
+
+            width: 100%;
+
+            .text-holder {
+                display: flex;
+                box-shadow: 100px 0px 8px 100px rgba(0, 0, 0, 0.75);
+                height: 110px;
+                justify-content: center;
+                align-items: center;
+
+                >h1 {
+                    font-size: 1em !important;
+                }
+
+                >img {
+                    height: 1.1em;
+                }
+            }
+
+        }
+
+        @media (min-width: @mobile-size) {
+            box-shadow: 0px 0px 7px 1px rgba(0, 0, 0, 0.75);
+            width: 100%;
+            max-width: 360px;
+            width: 100%;
+            flex-direction: column;
+
+            .image-holder {
+                width: 300px;
+                height: 300px;
+
+                >img {
+                    max-width: 256px;
+                    max-height: 256px;
+                    width: 100%;
+                }
+            }
+
+            .text-holder {
+                box-shadow: 0px -15px 56px 4px rgba(0, 0, 0, 0.75);
+
+                >img {
+                    height: 34px;
+                }
+            }
+        }
+
+        .image-holder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        transition-duration: 0.25s;
+        background-color: #161616;
+        cursor: pointer;
+
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+        margin: auto;
+
+        * {
+            user-select: none;
+        }
+
+        >div {
+            width: 100%;
+            overflow: hidden;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        .text-holder {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 85px;
+            background-color: #161616;
+
+            >h1 {
+                font-family: "Press Start 2P";
+                color: white;
+                word-wrap: break-word;
+                margin-top: 24px;
+                margin-bottom: 24px;
+            }
+
+            >img {
+                margin: auto;
+                margin-top: 24px;
+                margin-bottom: 24px;
+            }
+        }
+
+        .concats-holder {
+            >img {
+                image-rendering: pixelated;
+            }
+        }
+
+        .dvOps-holder:hover {
+            >img {
+                animation: spin 0.6s linear infinite;
+            }
+        }
+
+        .dvOps-holder {
+            >h1 {
+                color: tomato;
+                animation: colors 2s ease infinite;
+            }
+
+            @keyframes colors {
+                0% {
+                    color: #ff0000;
+                }
+
+                14.28% {
+                    color: #ffa500;
+                }
+
+                28.56% {
+                    color: #ffff00;
+                }
+
+                43% {
+                    color: #008000;
+                }
+
+                57% {
+                    color: #0000ff;
+                }
+
+                71% {
+                    color: #4b0082;
+                }
+
+                85% {
+                    color: #ee82ee;
+                }
+
+                100% {
+                    color: #ff0000;
+                }
+            }
+        }
+    }
+}
