@@ -188,7 +188,7 @@ const me = () => {
             <div className="top-bar">
                 <div><span><img src={InstagramLogo} alt="Instagram" />@datavetenskapsdivisionen</span></div>
                 <div><span><img src={DiscordLogo} alt="Discord" />dvet.se/discord</span></div>
-                <div>
+                <div className="big">
                     <span>{weatherComponent}</span>
                     <span>{new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })} {new Date().toLocaleTimeString('sv-SE', { hour: '2-digit', minute: '2-digit' })}</span>
                 </div>
