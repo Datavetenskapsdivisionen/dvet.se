@@ -1,0 +1,84 @@
+.photo-viewer {
+    &#mobile {
+        display: none;
+    }
+
+    @media (max-width: 620px) {
+        &#mobile {
+            display: flex;
+        }
+
+        &#mobile>div {
+            display: flex;
+            flex-direction: column;
+
+            .nav-buttons {
+                width: 100%;
+                justify-content: space-around;
+            }
+        }
+
+        &#desktop {
+            display: none;
+        }
+    }
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    width: 100%;
+    height: 80%;
+
+    div {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+
+    div:nth-child(1) {
+        width: 100%;
+        height: 100%;
+
+        .loaded {
+            width: 100%;
+            height: 100%;
+            border: none;
+            box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.5);
+            object-fit: contain;
+            background-color: #282a2c; // Matches the background color of Google's image viewer
+        }
+
+        .hidden {
+            display: none;
+        }
+    }
+
+    label {
+        font-size: 1.2em;
+        color: white;
+        margin-top: 5px;
+    }
+
+    span svg {
+        display: flex;
+        cursor: pointer;
+        margin: 5px;
+    }
+}
+
+.background-dim {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}

@@ -1,0 +1,308 @@
+.v2 {
+    grid-row: span 2;
+}
+
+.v3 {
+    grid-row: span 3;
+}
+
+.h2 {
+    grid-column: span 2;
+}
+
+.h3 {
+    grid-column: span 3;
+}
+
+.c1 {
+    background: @blue-1;
+}
+
+.c2 {
+    background: @blue-2;
+}
+
+.c3 {
+    background: @blue-3;
+}
+
+.c4 {
+    background: @blue-4;
+}
+
+.c5 {
+    background: @yellow;
+}
+
+.c6 {
+    background: @skin;
+}
+
+.c7 {
+    background: @red;
+}
+
+.c8 {
+    background: @black;
+}
+
+nav {
+    font-family: "Press Start 2P", cursive;
+    font-size: 9px;
+    background: @black;
+    min-height: 60px;
+    display: flex;
+    justify-content: center;
+    position: relative;
+
+    >div {
+        display: flex;
+        flex-wrap: wrap;
+        width: @width;
+        justify-content: center;
+    }
+}
+
+@media (min-width: 768px) {
+    .nav__link {
+        margin-left: 10px;
+    }
+
+    .nav__link:hover:nth-child(1),
+    .nav__link:nth-child(1).active {
+        border-color: @red;
+    }
+
+    .nav__link:hover:nth-child(2),
+    .nav__link:nth-child(2).active {
+        border-color: @yellow;
+    }
+
+    .nav__link:hover:nth-child(3),
+    .nav__link:nth-child(3).active {
+        border-color: @blue-2;
+    }
+
+    .nav__link:hover:nth-child(4),
+    .nav__link:nth-child(4).active {
+        border-color: @skin;
+    }
+
+    .nav__link:hover:nth-child(5),
+    .nav__link:nth-child(5).active {
+        border-color: @cyan;
+    }
+
+    .nav__link:hover:nth-child(6),
+    .nav__link:nth-child(6).active {
+        border-color: @white;
+    }
+}
+
+.nav__link {
+    display: flex;
+    padding: 24px 20px 20px 20px;
+    text-decoration: none;
+    color: white;
+    text-transform: uppercase;
+    white-space: nowrap;
+    border-bottom: 5px solid transparent;
+}
+
+.nav__dropdown_parent {
+    cursor: pointer;
+    margin-left: 10px;
+
+    * {
+        text-transform: uppercase;
+    }
+
+    .Dropdown-arrow {
+        transform: translate(4px, 12px);
+        // border-color: white transparent transparent !important;
+    }
+
+    .nav__dropdown {
+        cursor: pointer;
+        padding: 24px 20px 20px 20px;
+        position: relative !important;
+        color: white;
+        height: 100%;
+        width: 100%;
+        background-color: transparent !important;
+        border: none !important;
+
+        .placeholder {
+            color: white;
+
+            span {
+                display: none;
+            }
+        }
+
+        .placeholder-document::after {
+            display: inline;
+            font-size: 1em;
+        }
+
+
+        .document-swedish::after {
+            content: "Reccéguide";
+        }
+
+        .document-english::after {
+            content: "Guides"
+        }
+
+        .placeholder-schedule::after {
+            display: inline;
+            font-size: 1em;
+        }
+
+        .schedule-swedish::after {
+            content: "Schema";
+        }
+
+        .schedule-english::after {
+            content: "Schedule"
+        }
+    }
+
+    border-bottom: 5px solid transparent;
+}
+
+.nav__dropdown_parent:hover {
+    border-color: @cyan;
+}
+
+.nav__link.active--exact:nth-child(1),
+.nav__link:nth-child(1).active {
+    border-color: @red;
+}
+
+.nav__link.active--exact:nth-child(2),
+.nav__link:nth-child(2).active {
+    border-color: @yellow;
+}
+
+.nav__link.active--exact:nth-child(3),
+.nav__link:nth-child(3).active {
+    border-color: @blue-2;
+}
+
+.nav__link.active--exact:nth-child(4),
+.nav__link:nth-child(4).active {
+    border-color: @skin;
+}
+
+.nav__link.active--exact:nth-child(5),
+.nav__link:nth-child(5).active {
+    border-color: @cyan;
+}
+
+.nav__link.active--exact:nth-child(6),
+.nav__link:nth-child(6).active {
+    border-color: @white;
+}
+
+.nav__link:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+@media (min-width: 768px) {
+    .dv-header {
+        align-items: center;
+
+        #logo {
+            width: @width;
+
+            a {
+                font-size: 2rem;
+            }
+        }
+    }
+}
+
+.dv-header {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    min-height: 80px;
+
+
+    .headwrapper {
+        display: flex;
+        flex-direction: row;
+        position: relative;
+        overflow: auto;
+
+        #logopic {
+            max-height: 80px;
+            margin-top: 0.5vh;
+            margin-bottom: 0.5vh;
+
+            @media (max-width: 520px) {
+                display: none;
+            }
+        }
+
+        #logo {
+            order: 1;
+            padding: 0 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+
+            a {
+                display: inline-block;
+                font-family: "Press Start 2P", cursive;
+                font-size: 2rem;
+                color: white;
+                font-weight: 950;
+                padding: 0.25em 0.2em 0.12em 0.25em;
+                text-transform: uppercase;
+                text-decoration: none;
+                background: @black;
+
+                @media(max-width: 450px) {
+                    font-size: 1.2rem;
+                }
+            }
+
+        }
+    }
+
+
+    #subheader {
+        background: @black;
+        color: @white;
+        padding: 3px 5px;
+        font-size: 0.8rem;
+        font-family: "Press Start 2P", cursive;
+        text-transform: uppercase;
+
+        @media(max-width: 450px) {
+            font-size: 0.6rem;
+        }
+    }
+
+    .header-bg-grid {
+        z-index: -1;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 0;
+        max-height: 12rem;
+        overflow: hidden;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, 20px);
+        grid-auto-rows: 20px;
+        grid-auto-flow: dense;
+    }
+}

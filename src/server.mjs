@@ -32,6 +32,7 @@ import killerBean from "./route-handlers/killerbean.mjs";
 import { deleteUserPhoto, getUserPhotos, photoHostPost } from "./route-handlers/photo-host.mjs";
 import { googleLogin } from "./route-handlers/googleApi.mjs";
 import { verifyToken, verifyCookieOrElse } from "./route-handlers/auth.mjs";
+import { getWeather } from "./route-handlers/weather.mjs";
 
 // Middleware for handling trailing slashes
 app.use((req, res, next) => {
@@ -121,7 +122,8 @@ app.get("/recceform", (req, res) => res.status(301).redirect("https://dvet.se/co
 app.get("/recceguiden", (req, res) => servePdf(req, res, "assets/kick-off/recceguiden.pdf"));
 app.get("/masterguide", (req, res) => servePdf(req, res, "assets/kick-off/masterguiden.pdf"));
 
-
+app.get("/discord", (req, res) => res.redirect("https://discord.gg/BVyhSv4rVw"));
+app.get("/weather", getWeather);
 
 const servePdf = (req, res, pdf) => {
     const filePath = path.join(process.cwd(), pdf);
