@@ -32,30 +32,50 @@ code {
 
     @top-bar-height: 60px;
     
-    >div:first-child {
+    >.top-bar {
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
         height: @top-bar-height;
         background-color: @vasttrafik-bg;
         box-shadow: 0 0 10px @vasttrafik-bg;
         font: bold 1.5em 'Arial';
         color: white;
         
-        span {
+        div {
             display: flex;
+            flex: 1;
+            justify-content: center;
             align-items: center;
             padding: 10px 20px;
+
+            span {
+                display: flex;
+                align-items: center;
+            }
+
+            span + span {
+                margin-left: 25px;
+            }
 
             img {
                 width: 45px;
                 margin-right: 10px;
+                &.big {
+                    width: @top-bar-height;
+                }
             }
 
             &.big {
                 font-size: 1.5em;
             }
+        }
+
+        div:first-child {
+            justify-content: start;
+        }
+
+        div:last-child {
+            justify-content: end;
         }
     }
 
@@ -96,6 +116,21 @@ code {
             }
         }
     }
+
+    .default-banner {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: black;
+        width: 100vw;
+        height: calc(100vh - @top-bar-height);
+    
+        img {
+            object-fit: contain;
+            margin: auto 0;
+            height: 80%;
+        }
+    }
 }
 
 .departure-table-clock {
@@ -118,16 +153,6 @@ code {
     h1,
     span {
         font-family: 'IBM Plex Mono', monospace;
-    }
-}
-
-.default-banner {
-    background-color: black;
-    max-height: 100vh;
-
-    img {
-        object-fit: contain;
-        margin: auto 0;
     }
 }
 

@@ -5,7 +5,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 rehypeRaw({ allowDangerousHtml: true });
-import datavetenskapLogo from "/assets/main.png";
+import datavetenskapLogo from "/assets/datavetenskap-logo-gold.png";
 import { getEndOfDayTime, shuffleArray } from "/src/www/util";
 import { useLoaderData } from "react-router-dom";
 import { useOnlineStatus } from "/src/www/hooks/useOnlineStatus";
@@ -120,7 +120,7 @@ const me = () => {
     const createWeatherComponent = () => {
         fetch("/weather").then(r => r.json()).then(r => {
             setWeatherComponent(<>
-                <img src={r.current.weatherIcon} />
+                <img className="big" src={r.current.weatherIcon} />
                 {r.current.temperature.toFixed(1)}°C
             </>);
         });
@@ -185,14 +185,13 @@ const me = () => {
 
     return <>
         <div className="info-screen">
-            <div>
-                <span><img src={InstagramLogo} alt="Instagram" />@datavetenskapsdivisionen</span>
-                <span><img src={DiscordLogo} alt="Discord" />dvet.se/discord</span>
-                <span className="big">
-                    {weatherComponent}
-                    <div style={{marginRight: "25px"}}></div>
-                    {new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })} {new Date().toLocaleTimeString('sv-SE', { hour: '2-digit', minute: '2-digit' })}
-                </span>
+            <div className="top-bar">
+                <div><span><img src={InstagramLogo} alt="Instagram" />@datavetenskapsdivisionen</span></div>
+                <div><span><img src={DiscordLogo} alt="Discord" />dvet.se/discord</span></div>
+                <div>
+                    <span>{weatherComponent}</span>
+                    <span>{new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })} {new Date().toLocaleTimeString('sv-SE', { hour: '2-digit', minute: '2-digit' })}</span>
+                </div>
             </div>
             { (!isOnline || !currentSlide[0]) && <div className="default-banner"><img src={datavetenskapLogo} /></div> }
             { currentSlide && currentSlide[1] &&
