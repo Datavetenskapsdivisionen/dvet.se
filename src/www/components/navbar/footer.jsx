@@ -5,23 +5,29 @@ import Cookies from "js-cookie";
 
 const footer = () => {
     const nav = useNavigate();
-    const [loggedIn, setLoggedIn] = useState(false);
+    const [loggedIn, setLoggedIn] = useState(Cookies.get("dv-token") !== undefined);
     const [darkMode, setDarkMode] = useState(false);
 
-    useEffect(() => {
-        setLoggedIn(Cookies.get("dv-token") !== undefined);
-    }, [loggedIn]);
-
-    useEffect(() => {
+    useEffect(() => {        
         const darkModeCookie = Cookies.get("dv-dark-mode");
         if (darkModeCookie) {
-            setDarkMode(darkModeCookie === "true");
             document.documentElement.setAttribute("data-theme", darkModeCookie === "true" ? "dark" : "light");
+            setDarkMode(darkModeCookie === "true");
         } else {
-            setDarkMode(false);
             document.documentElement.setAttribute("data-theme", "light");
+            setDarkMode(false);
         }
-    }, [darkMode]);
+    }, []);
+
+    if (!loggedIn && Cookies.get("dv-token") !== undefined) {
+        setLoggedIn(true);
+    }
+
+    const onDarkModeToggle = () => {
+        Cookies.set("dv-dark-mode", !darkMode);
+        document.documentElement.setAttribute("data-theme", !darkMode ? "dark" : "light");
+        setDarkMode(!darkMode);
+    };
 
     const logOutButton = loggedIn
         ? <button onClick={() => {
@@ -38,10 +44,7 @@ const footer = () => {
             <span>© dvet.se {new Date().getFullYear()}</span>
             <div className="button-container">
                 {logOutButton}
-                <button onClick={() => {
-                    Cookies.set("dv-dark-mode", !darkMode);
-                    location.reload();
-                }}>{darkMode ? (isEnglish() ? "Light mode" : "Ljust läge") : (isEnglish() ? "Dark mode" : "Mörkt läge")}</button>
+                <button onClick={onDarkModeToggle}>{darkMode ? (isEnglish() ? "Light mode" : "Ljust läge") : (isEnglish() ? "Dark mode" : "Mörkt läge")}</button>
                 <button onClick={() => {
                     Cookies.remove("language");
                     location.reload();
