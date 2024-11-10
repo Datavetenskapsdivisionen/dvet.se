@@ -148,8 +148,8 @@ const me = () => {
 
                     <label htmlFor="type">{isEnglish() ? "Type" : "Typ"}:</label>
                     <select name="type" value={modalValues.typeValue} onChange={e => setModalValues(v => { return {...v, typeValue: e.target.value} })} required>
-                        <option value="iframe">{isEnglish() ? "Website" : "Hemsida"}</option>
                         <option value="img">{isEnglish() ? "Image" : "Bild"}</option>
+                        <option value="iframe">{isEnglish() ? "Website" : "Hemsida"}</option>
                         <option value="markdown">Markdown</option>
                     </select>
                 </div>
@@ -206,6 +206,13 @@ const me = () => {
                     </> }
                 </div>
 
+                { modalValues.typeValue === "img" &&
+                    <div className="row">
+                        <span></span>
+                        <a className="btn blue" href="/photos/host" target="_blank">{isEnglish() ? "UPLOAD IMAGE" : "LADDA UPP BILD"}</a>
+                    </div>
+                }
+
                 <button onClick={handleSubmit} className="btn blue">
                     {selectedSlideIndex != null ? (isEnglish() ? "UPDATE SLIDE" : "UPPDATERA SLIDE") : (isEnglish() ? "ADD SLIDE" : "LÄGG TILL")}
                 </button>
@@ -217,7 +224,7 @@ const me = () => {
 const getDefaultState = () => {
     return {
         nameValue: "",
-        typeValue: "iframe",
+        typeValue: "img",
         valueValue: "",
         durationValue: 10,
         startValue: "",
