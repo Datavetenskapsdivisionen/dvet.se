@@ -6,15 +6,22 @@ import Cookies from "js-cookie";
 const footer = () => {
     const nav = useNavigate();
     const [loggedIn, setLoggedIn] = useState(false);
+    const [darkMode, setDarkMode] = useState(false);
 
     useEffect(() => {
-        if (Cookies.get("dv-token")) {
-            const verifyToken = async () => setLoggedIn(await isAuth());
-            verifyToken();
+        setLoggedIn(Cookies.get("dv-token") !== undefined);
+    }, [loggedIn]);
+
+    useEffect(() => {
+        const darkModeCookie = Cookies.get("dv-dark-mode");
+        if (darkModeCookie) {
+            setDarkMode(darkModeCookie === "true");
+            document.documentElement.setAttribute("data-theme", darkModeCookie === "true" ? "dark" : "light");
         } else {
-            setLoggedIn(false);
+            setDarkMode(false);
+            document.documentElement.setAttribute("data-theme", "light");
         }
-    }, []);
+    }, [darkMode]);
 
     const logOutButton = loggedIn
         ? <button onClick={() => {
@@ -29,8 +36,12 @@ const footer = () => {
                 <button onClick={() => nav("/privacy-policy")}>{isEnglish() ? "Privacy policy" : "Integritetspolicy"}</button>
             </div>
             <span>© dvet.se {new Date().getFullYear()}</span>
-            <div className="button-container right">
+            <div className="button-container">
                 {logOutButton}
+                <button onClick={() => {
+                    Cookies.set("dv-dark-mode", !darkMode);
+                    location.reload();
+                }}>{darkMode ? "Light mode" : "Dark mode"}</button>
                 <button onClick={() => {
                     Cookies.remove("language");
                     location.reload();

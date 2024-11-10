@@ -172,7 +172,7 @@ code {
     width: 1.2em;
     height: calc(1.2em - 5px);
     border: 5px solid transparent;
-    border-top: #161616 5px solid;
+    border-top: var(--text-color) 5px solid;
     border-radius: 50%;
     animation: spin 2s linear infinite;
 }
@@ -188,7 +188,7 @@ code {
 }
 
 .loading::before {
-    content: "Loading...";
+    content: "Loading... ";
     font-size: 1.5em;
     font-weight: bold;
 }

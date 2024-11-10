@@ -14,9 +14,10 @@
 
 .dvet-modal {
     position: absolute;
-    background-color: white;
+    background-color: var(--component-color);
     padding: 20px;
     width: 480px;
+    outline: 1px solid var(--component-accent-hover-color);
 
     .row {
         display: grid;
@@ -53,6 +54,8 @@
         border: 1px solid @megaman-blue;
         border-radius: 4px;
         padding: 5px;
+        color: var(--text-color);
+        background-color: var(--component-accent-color);
     }
 
     input,
@@ -73,6 +76,11 @@
         font-size: 2em;
         padding: 5px 5px 0px 8px;
         cursor: pointer;
+        background-color: var(--component-accent-color);
+
+        &:hover {
+            background-color: var(--component-accent-hover-color);
+        }
     }
 
     @media (max-width: 525px) {

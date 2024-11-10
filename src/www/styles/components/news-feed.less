@@ -34,16 +34,15 @@
 
     .news-item {
         position: relative;
-        background-color: white;
         border-radius: 0px 0px 10px 10px;
         display: grid;
         grid-template-columns: 1fr;
         grid-template-rows: auto auto auto;
         box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.5);
-        background-color: #e6e6e6;
+        background-color: var(--component-accent-color);
 
         .top {
-            background-color: #161616;
+            background-color: var(--title-bg-color);
             display: grid;
             align-items: center;
             grid-template-columns: 48px auto auto;
@@ -86,7 +85,7 @@
         .content {
             word-wrap: break-word;
             position: relative;
-            background-color: #f0f0f0;
+            background-color: var(--component-color);
             padding-left: 10px;
             padding-right: 10px;
 
@@ -104,9 +103,9 @@
             padding: 2px;
             padding-left: 6px;
             padding-right: 6px;
-            background-color: #e9e9e9;
+            background-color: var(--component-accent-color);
             border-radius: 32px;
-            color: #595959;
+            color: var(--text-color-faint);
             transition-duration: 250ms;
             cursor: pointer;
         }
@@ -118,7 +117,7 @@
             flex-wrap: wrap;
 
             >.reaction:hover {
-                background-color: #c5c5c5;
+                background-color: var(--component-accent-hover-color);
             }
         }
     }
@@ -137,6 +136,11 @@
             font-family: "Press Start 2P";
             font-size: 1em;
             box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.5);
+            background-color: var(--component-color);
+
+            &:hover {
+                background-color: var(--component-accent-hover-color);
+            }
         }
     }
 }

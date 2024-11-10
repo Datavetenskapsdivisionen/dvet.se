@@ -7,11 +7,45 @@
 @cyan: #acf7fb;
 @red: #fe6054;
 @black: #161616;
-@white: #e4e4e4;
+@white: #f1f1f1;
+@light-gray: #f0f0f0;
 
 @megaman-blue: #265ed7;
 @protoman-red: #e8010b;
 
 @vasttrafik-bg: #1e242a;
+
+:root,
+:root[data-theme="light"] {
+    background-color: white;
+
+    --text-color: @black;
+    --text-color-faint: #595959;
+    --component-color: @light-gray;
+    --component-accent-color: @white;
+    --component-accent-hover-color: #d3d3d3;
+    --title-bg-color: @black;
+    --accent-color: @blue-2;
+    --card-color: transparent;
+    --card-active-color: lightgreen;
+    --card-passed-color: lightcoral;
+}
+:root[data-theme="dark"] {
+    background-color: #1b1b1b;
+    h1,h2,h3,h4,h5,h6,p,span,div,ul,ol,li,table,tr,th,td,blockquote,pre,code,button {
+        color: @white;
+    }
+
+    --text-color: @white;
+    --text-color-faint: @light-gray;
+    --component-color: #131313;
+    --component-accent-color: #1f1f1f;
+    --component-accent-hover-color: #353535;
+    --title-bg-color: #222846;
+    --accent-color: @blue-4;
+    --card-color: #1f1f1f;
+    --card-active-color: #558455;
+    --card-passed-color: #9f211f;
+}
 
 @width: 768px;
