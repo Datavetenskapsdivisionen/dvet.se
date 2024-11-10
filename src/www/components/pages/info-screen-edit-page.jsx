@@ -122,7 +122,7 @@ const me = () => {
     return <>
         <div className="page edit-info-screen">
             <h1>{isEnglish() ? "Edit info screen" : "Redigera infoskärmen"}</h1>
-            <DraggableTable columns={createColumns()} rows={jsonData.slides.map(createRow)} onMove={handleMove} />
+            <DraggableTable columns={createColumns()} rows={jsonData.slides.map(createRow)} onMove={handleMove} columnMaxWidth="250px" />
             <div>
                 <a onClick={() => setModalIsOpen(true)} className="btn blue">{isEnglish() ? "ADD SLIDE" : "LÄGG TILL"}</a>
                 <label className="switch">

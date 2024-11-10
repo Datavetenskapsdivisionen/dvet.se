@@ -9,6 +9,7 @@ import { draggable, dropTargetForElements, monitorForElements } from "@atlaskit/
  * @param {string[]} props.columns - Array of column headers.
  * @param {Array.<Array.<React.ReactNode>>} [props.rows] - Array of rows, each row is an array of cells.
  * @param {function} [props.onMove] - Callback function to handle row move, receives source and destination indices.
+ * @param {string} [props.columnMaxWidth] - Maximum width of columns.
  * 
  * @example
  * const columns = ["Name", "Age", "Address"];
@@ -27,6 +28,7 @@ const DraggableTable = (props) => {
     const columns = props.columns;
     const rows = props.rows || [];
     const onMove = props.onMove || (() => {});
+    const columnMaxWidth = props.columnMaxWidth;
 
     React.useEffect(() => {
         monitorForElements({
@@ -78,7 +80,7 @@ const DraggableTable = (props) => {
             >
                 <td key={"drag-handle"} ref={dragRef}><DragHandleIcon /></td>
                 {row.map((cell, cellIndex) => (
-                    <td key={cellIndex}>{cell}</td>
+                    <td key={cellIndex} style={{maxWidth: columnMaxWidth}}>{cell}</td>
                 ))}
             </tr>
         );
