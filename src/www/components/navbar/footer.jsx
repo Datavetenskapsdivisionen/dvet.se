@@ -41,7 +41,7 @@ const footer = () => {
                 <button onClick={() => {
                     Cookies.set("dv-dark-mode", !darkMode);
                     location.reload();
-                }}>{darkMode ? "Light mode" : "Dark mode"}</button>
+                }}>{darkMode ? (isEnglish() ? "Light mode" : "Ljust läge") : (isEnglish() ? "Dark mode" : "Mörkt läge")}</button>
                 <button onClick={() => {
                     Cookies.remove("language");
                     location.reload();
