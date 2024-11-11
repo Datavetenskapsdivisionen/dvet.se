@@ -51,14 +51,14 @@ const GoogleAuth = () => {
 
   return <GoogleOAuthProvider clientId="420624855220-dad51rlh0qhf2p0fco7s37h685clivps">
     {(isLoggedIn && <Outlet />) ?? (<div className="auth">
-      <img className="login-flame1" src={Fire} />
-      <h1>{isEnglish()
-        ? "Stop right there, criminal scum!"
-        : "Stanna där, kriminella avskum!"}
-      </h1>
       <Popo />
+      <img src={Fire} />
       <div>
-        <GoogleLogin onSuccess={onSuccess} onError={() => setIsLoggedIn(false)} />
+        <h1>{isEnglish()
+          ? "Stop right there, criminal scum!"
+          : "Stanna där, kriminella avskum!"}
+        </h1>
+        <GoogleLogin onSuccess={onSuccess} onError={() => setIsLoggedIn(false)} theme={Cookies.get("dv-dark-mode") === "true" ? "filled_black" : "outline"} locale={isEnglish() ? "en_GB" : "sv_SE"} />
         <p>{isEnglish()
           ? <>The page you are trying to view requires authentication.<br />Please log in with your <code>@dvet.se</code> mail!</>
           : <>Sidan du försöker komma åt kräver inlogg.<br />Logga in med din <code>@dvet.se</code> mail!</>
