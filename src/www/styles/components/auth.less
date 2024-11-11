@@ -11,8 +11,8 @@
     @media (min-width: 768px) {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
-        grid-template-rows: auto auto;
-        justify-items: center;
+        grid-template-rows: auto;
+        align-items: start;
 
         img:nth-of-type(1) {
             grid-column: 1;
@@ -29,7 +29,7 @@
         h1 {
             font-size: 3em;
             padding: 0;
-            margin: 0;
+            margin: 0 0 10px 0;
         }
     }
 
@@ -40,7 +40,7 @@
             font-size: 2em;
         }
 
-        .login-flame1 {
+        img:nth-last-of-type(1) {
             display: none;
         }
     }
