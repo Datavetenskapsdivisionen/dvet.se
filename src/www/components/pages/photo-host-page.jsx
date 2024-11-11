@@ -75,7 +75,7 @@ const me = () => {
         <form id="photos-post-data" action="/photos/post" method="post" encType="multipart/form-data">
             <label htmlFor="files" className="btn blue" style={{marginRight: "10px"}}>{isEnglish() ? "Browse photos..." : "Bläddra foton..."}</label>
             <input type="file" id="files" name="files" onChange={onInputChange} multiple accept="image/png, image/gif, image/jpeg, video/mp4" style={{display: "none"}} />
-            <input onClick={onSubmitAction} type="submit" value={isUploading ? (isEnglish() ? "Uploading..." : "Laddar upp...") : (isEnglish() ? "Upload" : "Ladda upp")} disabled={isUploading || !selectedFiles} className="btn green" />
+            <input onClick={onSubmitAction} type="submit" value={isUploading ? (isEnglish() ? "UPLOADING..." : "LADDAR UPP...") : (isEnglish() ? "UPLOAD" : "LADDA UPP")} disabled={isUploading || !selectedFiles} className="btn green" />
             { selectedFiles ? selectedFiles.map(f => <p>{f.name}</p>) : <p>{isEnglish() ? "No photos selected." : "Inga foton har valts."}</p> }
         </form>
         <div id="photos-response-field"></div>

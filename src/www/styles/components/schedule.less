@@ -27,11 +27,11 @@
         }
 
         .calender {
-            background-color: #e6e6e6;
+            background-color: var(--component-accent-color);
         }
 
         .calender-title {
-            background-color: #161616;
+            background-color: var(--title-bg-color);
             color: white;
             font-family: "Press Start 2P";
             margin: 0;
@@ -50,7 +50,7 @@
         .calender-slot {
             border: solid gray;
             border-width: 0px 1px 1px 1px;
-            background-color: #f0f0f0;
+            background-color: var(--component-color);
             margin-left: -1px;
 
             display: grid;
@@ -102,12 +102,12 @@
         }
 
         .empty-calender-slot {
-            background-color: #e6e6e6;
+            background-color: var(--component-accent-color);
             color: gray;
         }
 
         .previous-calender-slot {
-            background-color: #e6e6e6;
+            background-color: var(--component-accent-color);
             color: gray;
         }
 
@@ -163,8 +163,7 @@
                 height: 58px;
                 min-height: 58px;
                 font-family: "Press Start 2P";
-                background-color: #161616;
-                color: white;
+                background-color: var(--title-bg-color);
                 justify-content: center;
                 align-items: center;
                 padding-left: 10px;
@@ -176,6 +175,7 @@
                     line-height: 1em;
                     overflow: hidden;
                     text-overflow: ellipsis;
+                    color: white;
                 }
 
                 .tags {
@@ -199,11 +199,11 @@
         }
 
         .active {
-            background-color: lightgreen;
+            background-color: var(--card-active-color);
         }
 
         .passed {
-            background-color: lightcoral;
+            background-color: var(--card-passed-color);
         }
 
         .new {
@@ -212,11 +212,11 @@
         }
 
         .upcoming {
-            background-color: transparent;
+            background-color: var(--card-color);
         }
 
         .upcoming-button {
-            background-color: lightblue;
+            background-color: var(--accent-color);
             cursor: pointer;
             animation-name: pulsate;
             animation-duration: 2s;

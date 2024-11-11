@@ -70,6 +70,21 @@ const GoogleAuth = () => {
 };
 
 const LanguageSelector = () => {
+  const [prefersDarkMode, setDarkMode] = React.useState(Cookies.get("dv-dark-mode") === "true");
+
+  React.useEffect(() => {
+    if (Cookies.get("dv-dark-mode") === undefined) {
+      const systemThemePrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      setDarkMode(systemThemePrefersDark);
+      Cookies.set("dv-dark-mode", systemThemePrefersDark);
+    }
+  }, []);
+
+  const onDarkModeSwitch = () => {
+    Cookies.set("dv-dark-mode", !prefersDarkMode);
+    setDarkMode(!prefersDarkMode);
+  };
+
   return <main>
     <div className="language-picker page">
       <h1>Hi - language selection!</h1>
@@ -81,16 +96,20 @@ const LanguageSelector = () => {
         <input type="radio" name="language" id="language-en" />
         <label htmlFor="language-en">English</label>
         <br /><br />
+        <div>
+          <label className="switch">
+            <input name="shuffle" type="checkbox" checked={prefersDarkMode} onChange={onDarkModeSwitch} />
+            <span className="slider" />
+          </label>
+          <span>Enable dark mode</span>
+        </div>
+        <br />
         <i>By clicking <b>Ok</b>, you agree to our <a href="/privacy-policy?lang=en" target="_blank">privacy policy</a>.</i>
         <br /><br />
       </form>
       <button className="kickoff-info-button" onClick={() => {
         let english = document.getElementById("language-en");
-        if (english.checked) {
-          Cookies.set("language", "en");
-        } else {
-          Cookies.set("language", "se");
-        }
+        Cookies.set("language", english.checked ? "en" : "se");
         location.reload();
       }}>Ok</button>
     </div>
