@@ -1,4 +1,5 @@
 import express from "express";
+import cookieParser from "cookie-parser";
 import path from "path";
 import expressStaticGzip from "express-static-gzip";
 import { fileURLToPath } from "url";
@@ -18,6 +19,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
+app.use(cookieParser());
 
 const callback = (req, res) => {
     res.sendFile(path.join(__dirname, "../dist/index.html"));
@@ -30,6 +32,7 @@ import { getSlides, updateSlides } from "./route-handlers/info-screen.mjs";
 import { getKickOffEvents, getDVEvents } from "./route-handlers/events.mjs";
 import killerBean from "./route-handlers/killerbean.mjs";
 import { deleteUserPhoto, getUserPhotos, photoHostPost } from "./route-handlers/photo-host.mjs";
+import { isAuthWithGithub, githubLogin, githubCallback } from "./route-handlers/github-auth.mjs";
 import { googleLogin } from "./route-handlers/googleApi.mjs";
 import { verifyToken, verifyCookieOrElse } from "./route-handlers/auth.mjs";
 import { getWeather } from "./route-handlers/weather.mjs";
@@ -113,6 +116,9 @@ app.delete("/user/photos/:hash", verifyToken, deleteUserPhoto);
 
 app.get("/getKickoffEvents", getKickOffEvents);
 app.get("/getEvents", getDVEvents);
+app.get("/github-auth", githubLogin);
+app.get("/github-auth/authorised", githubCallback, callback);
+app.post("/github-auth", isAuthWithGithub);
 app.post("/postHook", postHook);
 app.post("/killerBean", killerBean);
 app.post("/google-auth", googleLogin);

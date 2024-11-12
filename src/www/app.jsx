@@ -69,6 +69,15 @@ const GoogleAuth = () => {
   </GoogleOAuthProvider>;
 };
 
+const GithubAuth = () => {
+  React.useEffect(() => { window.close(); }, []);
+
+  return <div>
+      <h1>Authorised!</h1>
+      <p>You can now close this window.</p>
+  </div>;
+};
+
 const LanguageSelector = () => {
   const [prefersDarkMode, setDarkMode] = React.useState(Cookies.get("dv-dark-mode") === "true");
 
@@ -188,6 +197,7 @@ const router = createBrowserRouter([
       }
     ]
   },
+  { path: "/github-auth/authorised", element: <GithubAuth /> },
   { path: "/info-screen", element: <InfoScreen />, loader: async () => await fetch("/getInfoScreenSlides") },
   { path: "/newsscreen", element: <NewsScreen /> },
   { path: "/scscreen", element: <ScheduleScreen /> },
