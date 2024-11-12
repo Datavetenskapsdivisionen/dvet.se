@@ -18,7 +18,7 @@ Efter evenemanget ansvarar __du__ som bokat för att det städas. Följ städsch
 **NOTERA** att under Insparken bestämmer DVRK över Monadens bokningar och alla bokningar skall godkännas av dom.
 
 Bokningsformulär: [här](https://forms.gle/u7m5iTYhLqtQbNhe6)
-Kolla tillgänglighet innan du bokar i kanalen `#monaden-bokningar` i `MonadenDV`.
+Kolla tillgänglighet innan du bokar [här](https://calendar.google.com/calendar/ical/c_23b61efa8547af53e1866a055e04261c5422116403099d5293d68264ecf9dc59%40group.calendar.google.com/public/basic.ics).
 
 ## Andra föreningar
 
