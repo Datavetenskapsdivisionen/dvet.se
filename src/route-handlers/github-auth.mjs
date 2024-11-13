@@ -1,3 +1,6 @@
+import { Octokit } from "octokit";
+import jwt from 'jsonwebtoken';
+
 let redirectUri;
 
 const isAuthWithGithub = async (req, res) => {
@@ -36,7 +39,12 @@ const githubCallback = async (req, res, next) => {
 
     const tokenResponseJson = await tokenResponse.json();
     const accessToken = tokenResponseJson.access_token;
+    
+    const octokit = new Octokit({ auth: accessToken });
+    const { data: user } = await octokit.rest.users.getAuthenticated();
 
+    const userJwt = jwt.sign(user, process.env.JWT_SECRET_KEY);
+    res.cookie("dv-github-user", userJwt);
     res.cookie("dv-github-token", accessToken, { httpOnly: true, secure: true });
     next();
 };
