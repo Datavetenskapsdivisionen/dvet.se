@@ -11,12 +11,15 @@ const isAuthWithGithub = async (req, res) => {
 };
 
 const githubLogin = async (req, res) => {
-    const clientId = process.env.GITHUB_APP_CLIENT_ID;
-    redirectUri = `${req.protocol}://${req.get('host')}/github-auth/authorised`;
+    const isLocalhost = req.hostname !== "dvet.se";
+    const port = process.env.PORT || 8080;
+    const clientId = isLocalhost ? process.env.GITHUB_DEV_APP_CLIENT_ID : process.env.GITHUB_APP_CLIENT_ID;
+    redirectUri = `${isLocalhost ? ("http://localhost:"+port) : "https://dvet.se"}/github-auth/authorised`;
     res.status(302).redirect(`https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}`);
 };
 
 const githubCallback = async (req, res, next) => {
+    const isLocalhost = req.hostname !== "dvet.se";
     const code = req.query.code;
     const tokenResponse = await fetch('https://github.com/login/oauth/access_token', {
         method: 'POST',
@@ -25,8 +28,8 @@ const githubCallback = async (req, res, next) => {
             'Accept': 'application/json'
         },
         body: JSON.stringify({
-            client_id: process.env.GITHUB_APP_CLIENT_ID,
-            client_secret: process.env.GITHUB_APP_SECRET,
+            client_id: isLocalhost ? process.env.GITHUB_DEV_APP_CLIENT_ID : process.env.GITHUB_APP_CLIENT_ID,
+            client_secret: isLocalhost ? process.env.GITHUB_DEV_APP_SECRET : process.env.GITHUB_APP_SECRET,
             code: code,
             redirect_uri: redirectUri,
         }),
