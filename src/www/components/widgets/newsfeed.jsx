@@ -187,7 +187,7 @@ const NewsItem = (props) => {
                         <strong><a href={c.user.html_url} target="_blank">{c.user.login}</a></strong>
                         <span>
                             {isEnglish() ? "commented on " : "kommenterade den "}
-                            {dateToLocalISO(new Date(c.created_at))}
+                            {dateToLocalISO(new Date(c.created_at), true)}
                         </span>
                     </div>
                     <ReactMarkdown children={c.body} rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}></ReactMarkdown>

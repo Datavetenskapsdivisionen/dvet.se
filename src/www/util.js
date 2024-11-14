@@ -30,10 +30,17 @@ const isEnglish = () => {
     return cook ? cook === "en" : false;
 };
 
-const dateToLocalISO = (date = new Date()) => {
+const dateToLocalISO = (date = new Date(), withTime = false) => {
     const month = date.getMonth() + 1; // we love zero based months 😌
     const day = date.getDate();
-    return `${date.getFullYear()}-${month < 10 ? '0' + month : month}-${day < 10 ? '0' + day : day}`;
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    const pad = (num) => num.toString().padStart(2, '0');
+    if (withTime) {
+        return `${date.getFullYear()}-${pad(month)}-${pad(day)} ${pad(hours)}:${pad(minutes)}`;
+    } else {
+        return `${date.getFullYear()}-${pad(month)}-${pad(day)}`;
+    }
 };
 
 const getEndOfDayTime = (date = new Date()) => {
