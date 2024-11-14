@@ -4,7 +4,7 @@ import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import Cookies from "js-cookie";
 import { decodeJwt } from "jose";
-import { isEnglish } from "/src/www/util";
+import { isEnglish, dateToLocalISO } from "/src/www/util";
 
 const userCookie = Cookies.get("dv-github-user");
 
@@ -178,6 +178,29 @@ const NewsItem = (props) => {
         </>;
     };
 
+    const Comments = () => {
+        return <div className="comments">
+            {data.commentsData.map(c => <div key={c.id} id={`comment-${c.id}`} className="comment">
+                <img draggable="false" className="avatar" src={c.user.avatar_url} alt="avatar" />
+                <div className="comment-content">
+                    <div>
+                        <strong><a href={c.user.html_url} target="_blank">{c.user.login}</a></strong>
+                        <span>
+                            {isEnglish() ? "commented on " : "kommenterade den "}
+                            {dateToLocalISO(new Date(c.created_at))}
+                        </span>
+                    </div>
+                    <ReactMarkdown children={c.body} rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}></ReactMarkdown>
+                </div>
+            </div>)}
+            <div className={"create-comment"}>
+                <img draggable="false" className="avatar" src={userData.avatar_url} alt="avatar" />
+                <textarea placeholder={isEnglish() ? "Write a comment..." : "Skriv en kommentar..."}></textarea>
+                <button className="btn blue">{isEnglish() ? "Comment" : "Kommentera"}</button>
+            </div>
+        </div>;
+    };
+
     return <div className="news-item" id={postId} >
         <div className="top">
             <img draggable="false" className="avatar" src={data.user.avatar_url} alt="avatar" />
@@ -197,11 +220,11 @@ const NewsItem = (props) => {
             </div>
             <span>- {data.user.full_name}</span>
         </div>
+        {showComments && <Comments />}
     </div >;
 };
 
 const createElements = (data, liteVersion) => {
-    if (data.error) return <p>Could not fetch news!</p>;
     const titles = data.map(e => <NewsItem key={e.id} data={e} liteVersion={liteVersion} />);
     return <div className="news">{titles}</div>;
 };

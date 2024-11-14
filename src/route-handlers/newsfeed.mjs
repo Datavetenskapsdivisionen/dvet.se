@@ -22,12 +22,24 @@ const fetchPosts = async (options = { desc: true }) => {
             labels: "state:published,type:post"
         });
 
-        const data = response.data.filter(e => (
+        // Filter out posts that are not published
+        const publishedPosts = response.data.filter(e => (
             e.labels.find(l => l.name === "state:published") &&
             e.labels.find(l => l.name === "type:post")
         ));
 
-        allPosts = allPosts.concat(data);
+        const commentsRes = await octokit.rest.issues.listCommentsForRepo({
+            owner: "Datavetenskapsdivisionen",
+            repo: "posts",
+            per_page: MAX_FETCH,
+            page: page
+        });
+
+        publishedPosts.forEach(post => {
+            post.commentsData = commentsRes.data.filter(c => c.issue_url === post.url);
+        });
+
+        allPosts = allPosts.concat(publishedPosts);
         page++;
 
         if (response.data.length < MAX_FETCH) break;

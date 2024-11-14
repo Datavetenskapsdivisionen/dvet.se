@@ -37,18 +37,18 @@
         box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.5);
         background-color: var(--component-accent-color);
 
+        .avatar {
+            width: 48px;
+            border-radius: 100%;
+            box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.5);
+        }
+
         .top {
             background-color: var(--title-bg-color);
             display: grid;
             align-items: center;
             grid-template-columns: 48px auto auto;
             padding: 10px;
-
-            .avatar {
-                width: 48px;
-                border-radius: 100%;
-                box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.5);
-            }
 
             h3 {
                 margin: 0;
@@ -91,6 +91,65 @@
             }
 
             box-shadow: 0px 1px 1px -1px rgba(0, 0, 0, 0.2);
+        }
+
+        .comments {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 10px;
+
+            .comment,
+            .create-comment {
+                display: grid;
+                grid-template-columns: 48px 1fr 120px;
+                align-items: start;
+                gap: 10px;
+
+                .avatar {
+                    margin-top: 5px;
+                }
+
+                button {
+                    margin-top: 16px;
+                }
+            }
+
+            .comment-content {
+                padding: 10px;
+                border-radius: 5px;
+                background-color: var(--component-color);
+                grid-column: span 2;
+
+                div:first-of-type {
+                    display: flex;
+                    flex-direction: row;
+                    gap: 5px;
+                    background-color: var(--component-accent-color);
+                    padding: 8px 10px;
+
+                    strong {
+                        font-weight: 900;
+                        >a {
+                            color: var(--link-color);
+                            text-decoration: none;
+                            &:hover {
+                                text-decoration: underline;
+                            }
+                        }
+                    }
+                }
+            }
+
+            textarea {
+                padding: 5px 10px;
+                box-shadow: 0px 0px 1px 0px #000000;
+                border: none;
+                border-radius: 5px;
+                resize: vertical;
+                min-height: 52px;
+                font-size: 1.2em;
+            }
         }
 
         .emoji-panel {

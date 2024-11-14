@@ -59,7 +59,7 @@ html {
     background-color: var(--background-color);
 }
 
-h1,h2,h3,h4,h5,h6,p,span,div,ul,ol,li,table,tr,th,td,blockquote,pre,code,button {
+h1,h2,h3,h4,h5,h6,p,span,div,ul,ol,li,table,tr,th,td,blockquote,pre,code,button,textarea {
     color: var(--text-color);
 }
 
@@ -78,5 +78,13 @@ button {
     }
     &:active {
         background-color: var(--component-accent-active-color);
+    }
+}
+
+textarea {
+    background-color: var(--component-color);
+    border: 1px var(--component-accent-color) solid;
+    &:focus {
+        outline: 2px var(--accent-color) solid;
     }
 }
