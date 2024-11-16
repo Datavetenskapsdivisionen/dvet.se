@@ -56,7 +56,9 @@ const dateToPrettyTimestamp = (date = new Date()) => {
         return `${isEnglish() ? "yesterday at" : "igår kl"} ${pad(date.getHours())}:${pad(date.getMinutes())}`;
     } else if (diffInHours >= 24) {
         const yearOption = date.getFullYear() === now.getFullYear() ? undefined : "numeric";
-        return `${date.toLocaleDateString(isEnglish() ? "en-GB" : "sv-SE", { year: yearOption, month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" })}`;
+        const d = date.toLocaleDateString(isEnglish() ? "en-GB" : "sv-SE", { year: yearOption, month: "short", day: "numeric" });
+        const t = date.toLocaleTimeString(isEnglish() ? "en-GB" : "sv-SE", { hour: "2-digit", minute: "2-digit" });
+        return `${d} ${t}`;
     } else if (diffInHours >= 1) {
         return `${isEnglish() ? "today at" : "idag kl"} ${pad(date.getHours())}:${pad(date.getMinutes())}`;
     } else if (diffInMinutes >= 1) {
