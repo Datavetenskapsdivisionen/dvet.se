@@ -25,7 +25,7 @@ const callback = (req, res) => {
     res.sendFile(path.join(__dirname, "../dist/index.html"));
 };
 
-import { newsfeed, addReaction, deleteReaction } from "./route-handlers/newsfeed.mjs";
+import { newsfeed, addReaction, deleteReaction, addComment, editComment, deleteComment } from "./route-handlers/newsfeed.mjs";
 import { postHook } from "./route-handlers/githookhandle.mjs";
 import getPhotos from "./route-handlers/photos.mjs";
 import { getSlides, updateSlides } from "./route-handlers/info-screen.mjs";
@@ -108,6 +108,10 @@ app.get("/wiki-data", (req, res) => verifyCookieOrElse(req, res,
 app.get("/newsfeed", newsfeed);
 app.post("/newsfeed/:postId/react", addReaction);
 app.delete("/newsfeed/:postId/react/:reactionId", deleteReaction);
+app.post("/newsfeed/:postId/comment", addComment);
+app.put("/newsfeed/:postId/comment/:commentId", editComment);
+app.delete("/newsfeed/:postId/comment/:commentId", deleteComment);
+
 app.get("/getPhotos", getPhotos);
 app.get("/getInfoScreenSlides", getSlides);
 

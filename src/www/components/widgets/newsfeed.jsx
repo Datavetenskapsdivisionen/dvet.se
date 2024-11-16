@@ -41,7 +41,7 @@ const me = (props) => {
 
     const NewsItem = (props) => {
         if (props.data === undefined) throw new Error("missing data parameter");
-        const data = props.data;
+        let data = props.data;
     
         const body = data.body;
         const postId = "post-" + data.id;
@@ -55,12 +55,17 @@ const me = (props) => {
     
         const [showEmojiPanel, setShowEmojiPanel] = React.useState(false);
         const [showComments, setShowComments] = React.useState(false);
+        const [emojiPanelElement, setEmojiPanelElement] = React.useState(<></>);
         const [reactionsElement, setReactionsElement] = React.useState(<></>);
+        const [commentsElement, setCommentsElement] = React.useState(<></>);
+        const [waitingForResponse, setWaitingForResponse] = React.useState(false);
         const [timerRunning, setTimerRunning] = React.useState(false);
         
     
         React.useEffect(() => {
+            setEmojiPanelElement(createEmojiPanel());
             setReactionsElement(createReactions());
+            setCommentsElement(createComments());
     
             const handleClickOutside = (event) => {
                 if (!event.target.closest(`#${postId} .emoji-panel`)) {
@@ -109,27 +114,29 @@ const me = (props) => {
             authenticateWithGithub();
         };
     
-        const onReact = (postId, reaction) => {
+        const onReact = (reaction) => {
             if (!userData) {
                 authenticateWithGithub();
                 return;
             }
-    
+
+            if (waitingForResponse) return;
+            setWaitingForResponse(true);
+
             const reacted = hasReacted(reaction);
-            const url = reacted ? `/newsfeed/${postId}/react/${reacted.id}` : `/newsfeed/${postId}/react`;
+            const url = reacted ? `/newsfeed/${data.number}/react/${reacted.id}` : `/newsfeed/${data.number}/react`;
             const method = reacted ? "DELETE" : "POST";
             fetch(url, {
                 method: method,
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ reaction: reaction })
             }).then(res => res.json()).then(response => {
-                if (response.ok) { // visual updates are a bit slow to ensure proper sync for now. PR to fix this is welcome.
-                    const updatedPost = response.post;
-                    data.reactionData = updatedPost.reactionData;
-                    data.reactions = updatedPost.reactions;
+                if (response.ok) { // visual updates are slightly delayed to ensure proper sync for now. PR to fix this is welcome.
+                    data = response.post;
+                    setEmojiPanelElement(createEmojiPanel());
                     setReactionsElement(createReactions());
                 }
-            });
+            }).finally(() => setWaitingForResponse(false));
     
             setShowEmojiPanel(false);
         };
@@ -137,12 +144,18 @@ const me = (props) => {
         const onCommentsClick = () => {
             setShowComments(!showComments);
         };
+
+        const onCreateCommentTextareaClick = () => {
+            if (!userData) {
+                authenticateWithGithub();
+            }
+        };
     
         const createReactions = () => {
             if (data.reactions.total_count === 0) return <></>;
 
             const getNames = (emojiText) => {
-                const names = data.reactionData.filter(r => r.content === emojiText).map(r => r.user.full_name);
+                const names = data.reactionData.filter(r => r.content === emojiText).map(r => r.user.login);
                 const numOfNames = 3;
                 if (names.length > numOfNames) {
                     const andMore = isEnglish() ? (" and " + (names.length - numOfNames) + " more") : (" och " + (names.length - 3) + " till");
@@ -161,20 +174,85 @@ const me = (props) => {
                             key={`${data.number}-${k_emojiText}`}
                             className={"reaction" + (hasReacted(k_emojiText) ? " active" : "")}
                             title={getNames(k_emojiText)}
-                            onClick={() => onReact(data.number, k_emojiText)}
+                            onClick={() => !waitingForResponse && onReact(k_emojiText)}
                         >{emoji} {v_count}</div>
                         : null;
                 }) }
             </>
         };
+        
+        const createComments = (editCommentId = null) => {
+            const editIcon = <svg width="24px" height="24px" viewBox="0 -960 960 960"><path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z"/></svg>;
+            const deleteIcon = <svg width="24px" height="24px" viewBox="0 -960 960 960"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>;
+            const defaultAvatar = <svg width="48px" height="48px" viewBox="0 0 338 338"><path d="m169,.5a169,169 0 1,0 2,0zm0,86a76,76 0 1 1-2,0zM57,287q27-35 67-35h92q40,0 67,35a164,164 0 0,1-226,0"/></svg>
+            
+            const Comment = (props) => {
+                const c = props.comment;
+                const prettyTimestamp = dateToPrettyTimestamp(new Date(c.created_at), true);
+                const timestamp = (
+                    prettyTimestamp.includes("ago") ||
+                    prettyTimestamp.includes("sedan") ||
+                    prettyTimestamp.includes("at") ||
+                    prettyTimestamp.includes("kl"))
+                        ? prettyTimestamp
+                        : (isEnglish() ? "on " : "den ") + prettyTimestamp;
+                
+                let edited;
+                if (c.created_at !== c.updated_at) {
+                    edited = isEnglish() ? " (edited)" : " (redigerad)";
+                }
+                
+                return <div key={c.id} id={`comment-${c.id}`} className="comment">
+                    <img draggable="false" className="avatar" src={c.user.avatar_url} alt="avatar" />
+                    <div className="comment-content">
+                        <div className="comment-header">
+                            <strong><a href={c.user.html_url} target="_blank">{c.user.login}</a></strong>
+                            <span>{timestamp}{edited ? <i>{edited}</i> : <></>}</span>
+                            { c.user.login === userData?.login &&
+                                <div className="options">
+                                    <button className="edit" onClick={() => !waitingForResponse && onCommentEdit(c.id)}>{editIcon}</button>
+                                    <button className="delete" onClick={() => !waitingForResponse && onCommentDelete(c.id)}>{deleteIcon}</button>
+                                </div>
+                            }
+                        </div>
+                        <ReactMarkdown children={c.body} rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}></ReactMarkdown>
+                    </div>
+                </div>;
+            };
+
+            const CreateComment = (props) => {
+                const editComment = props.editComment;
+                
+                return <div className={"create-comment"}>
+                    { userData
+                        ? <img draggable="false" className="avatar" src={userData.avatar_url} alt="avatar" />
+                        : <span className="avatar default">{defaultAvatar}</span>
+                    }
+                    { editComment
+                        ? <textarea defaultValue={editComment.body}></textarea>
+                        : <textarea placeholder={isEnglish() ? "Write a comment..." : "Skriv en kommentar..."} onClick={onCreateCommentTextareaClick}></textarea>
+                    }
+                    <button className="btn blue" onClick={() => !waitingForResponse && editComment ? onCommentEditSave(editComment.id) : onComment()}>
+                        {editComment ? (isEnglish() ? "SAVE" : "SPARA") : (isEnglish() ? "COMMENT" : "KOMMENTERA")}
+                    </button>
+                </div>;
+            }
+
+            return <div className="comments">
+                {data.commentsData.map(c => {
+                    return editCommentId === c.id ? <CreateComment editComment={c} /> : <Comment comment={c} />;
+                })}
+                <CreateComment />
+            </div>;
+        };
     
-        const EmojiPanel = () => {
+        const createEmojiPanel = () => {
             return <div className="emoji-panel">
-                {Object.keys(reactionEmojis).map(e => <div
-                    className={"emoji" + (hasReacted(e) ? " active" : "")}
-                    onClick={() => { onReact(data.number, e) }}
-                    key={e}>
-                        {stringToEmoji(e)}
+                {Object.keys(reactionEmojis).map(emojiText => <div
+                    className={"emoji" + (hasReacted(emojiText) ? " active" : "")}
+                    onClick={() => { !waitingForResponse && onReact(emojiText) }}
+                    key={emojiText}>
+                        {stringToEmoji(emojiText)}
                     </div>
                 )}
             </div>;
@@ -190,49 +268,82 @@ const me = (props) => {
                 </div>
             </>;
         };
-    
-        const Comments = () => {
-            const editIcon = <svg width="24px" height="24px" viewBox="0 -960 960 960"><path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z"/></svg>;
-            const deleteIcon = <svg width="24px" height="24px" viewBox="0 -960 960 960"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>;
-            const defaultAvatar = <svg width="48px" height="48px" viewBox="0 0 338 338"><path d="m169,.5a169,169 0 1,0 2,0zm0,86a76,76 0 1 1-2,0zM57,287q27-35 67-35h92q40,0 67,35a164,164 0 0,1-226,0"/></svg>
+
+        const onComment = () => {
+            if (!userData) {
+                authenticateWithGithub();
+                return;
+            }
+
+            if (waitingForResponse) return;
+            setWaitingForResponse(true);
+
+            const commentText = document.querySelector(`#${postId} .comments .create-comment textarea`).value.trim();
+            if (!commentText || commentText.length > 5000) return;
+
+            fetch(`/newsfeed/${data.number}/comment`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ comment: commentText })
+            }).then(res => res.json()).then(response => {
+                if (response.ok) {
+                    data = response.post;
+                    document.querySelector(`#${postId} .comments .create-comment textarea`).value = "";
+                    setCommentsElement(createComments());
+                }
+            }).finally(() => setWaitingForResponse(false));
+        };
+
+        const onCommentEdit = (commentId) => {
+            setCommentsElement(createComments(commentId));
+        };
+
+        const onCommentEditSave = (commentId) => {
+            if (!userData) {
+                authenticateWithGithub();
+                return;
+            }
+
+            if (waitingForResponse) return;
+            setWaitingForResponse(true);
+
+            const commentText = document.querySelector(`#${postId} .comments .create-comment textarea`).value.trim();
+            if (!commentText || commentText.length > 5000) return;
+
+            fetch(`/newsfeed/${data.number}/comment/${commentId}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ comment: commentText })
+            }).then(res => res.json()).then(response => {
+                if (response.ok) {
+                    data = response.post;
+                    setCommentsElement(createComments());
+                }
+            }).finally(() => setWaitingForResponse(false));
+        };
+
+        const onCommentDelete = (commentId) => {
+            if (!userData) {
+                authenticateWithGithub();
+                return;
+            }
+
+            if (waitingForResponse) return;
+            setWaitingForResponse(true);
+
+            const dialogText = isEnglish() ? "Are you sure you want to delete this comment?" : "Är du säker på att du vill ta bort denna kommentar?";
+            if (!window.confirm(dialogText)) return;
             
-            return <div className="comments">
-                {data.commentsData.map(c => {
-                    const prettyTimestamp = dateToPrettyTimestamp(new Date(c.created_at), true);
-                    const timestamp = (
-                        prettyTimestamp.includes("ago") ||
-                        prettyTimestamp.includes("sedan") ||
-                        prettyTimestamp.includes("at") ||
-                        prettyTimestamp.includes("kl"))
-                            ? isEnglish() ? "commented " : "kommenterade " + prettyTimestamp
-                            : isEnglish() ? "commented on " : "kommenterade den " + prettyTimestamp;
-    
-                    return <div key={c.id} id={`comment-${c.id}`} className="comment">
-                        <img draggable="false" className="avatar" src={c.user.avatar_url} alt="avatar" />
-                        <div className="comment-content">
-                            <div className="comment-header">
-                                <strong><a href={c.user.html_url} target="_blank">{c.user.login}</a></strong>
-                                <span>{timestamp}</span>
-                                { c.user.login === userData?.login &&
-                                    <div className="options">
-                                        <button className="edit">{editIcon}</button>
-                                        <button className="delete">{deleteIcon}</button>
-                                    </div>
-                                }
-                            </div>
-                            <ReactMarkdown children={c.body} rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}></ReactMarkdown>
-                        </div>
-                    </div>;
-                })}
-                <div className={"create-comment"}>
-                    { userData
-                        ? <img draggable="false" className="avatar" src={userData.avatar_url} alt="avatar" />
-                        : <span className="avatar default">{defaultAvatar}</span>
-                    }
-                    <textarea placeholder={isEnglish() ? "Write a comment..." : "Skriv en kommentar..."}></textarea>
-                    <button className="btn blue">{isEnglish() ? "Comment" : "Kommentera"}</button>
-                </div>
-            </div>;
+            fetch(`/newsfeed/${data.number}/comment/${commentId}`, {
+                method: "DELETE",
+                headers: { "Content-Type": "application/json" }
+            }).then(res => res.json()).then(response => {
+                if (response.ok) {
+                    data.commentsData = data.commentsData.filter(c => c.id !== commentId);
+                    data.comments--;
+                    setCommentsElement(createComments());
+                }
+            }).finally(() => setWaitingForResponse(false));
         };
     
         return <div className="news-item" id={postId} >
@@ -248,13 +359,13 @@ const me = (props) => {
                 <div className="reactions">
                     {reactionsElement}
                     {!liteVersion && <>
-                        {showEmojiPanel && <EmojiPanel />}
+                        {showEmojiPanel && emojiPanelElement}
                         <NewsButtons />
                     </>}
                 </div>
                 <span>- {data.user.full_name}</span>
             </div>
-            {showComments && <Comments />}
+            {showComments && commentsElement}
         </div >;
     };
 
