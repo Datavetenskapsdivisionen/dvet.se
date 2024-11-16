@@ -1,34 +1,52 @@
 import RSS from "rss";
+import { Octokit } from "octokit";
 import { octokit, fetchName } from "../helpers/octokit.mjs";
 
+const REFRESH_RATE = 2;
 const MAX_FETCH = 100;
 let posts = [];
-const fetchPosts = async () => {
-    const onSuccess = async (r) => {
-        const data = r.data.filter(e => (
-            e.labels.filter(e => e.name == "state:published" || e.name == "type:post").length == 2
-            && e.state == "open"
+
+const fetchPosts = async (options = { desc: true }) => {
+    let page = 1;
+    let allPosts = [];
+    const { desc } = options;
+
+    // GitHub's max limit is 100 issues per request
+    while (true) {
+        const response = await octokit.rest.issues.listForRepo({
+            owner: "Datavetenskapsdivisionen",
+            repo: "posts",
+            per_page: MAX_FETCH,
+            page: page,
+            direction: desc ? "desc" : "asc",
+            labels: "state:published,type:post"
+        });
+
+        // Filter out posts that are not published
+        const publishedPosts = response.data.filter(e => (
+            e.labels.find(l => l.name === "state:published") &&
+            e.labels.find(l => l.name === "type:post")
         ));
 
-        await Promise.all(data.map(async e => {
-            e.reactions = Object.entries(e.reactions)
-                .filter(([e, _]) => e != "url" && e != "total_count");
-            e.user.name = await fetchName(e.user.login);
-        }));
-        posts = data;
-    };
+        const commentsRes = await octokit.rest.issues.listCommentsForRepo({
+            owner: "Datavetenskapsdivisionen",
+            repo: "posts",
+            per_page: MAX_FETCH,
+            page: page
+        });
 
-    return await
-        octokit.rest.issues.listForRepo(
-            {
-                owner: "Datavetenskapsdivisionen",
-                repo: "posts",
-                per_page: MAX_FETCH,
-            })
-            .then(onSuccess)
-            .catch(e => posts = { error: e });
+        publishedPosts.forEach(post => {
+            post.commentsData = commentsRes.data.filter(c => c.issue_url === post.url);
+        });
+
+        allPosts = allPosts.concat(publishedPosts);
+        page++;
+
+        if (response.data.length < MAX_FETCH) break;
+    }
+
+    return allPosts;
 };
-await fetchPosts();
 
 let rss = "";
 const fetchRSS = async () => {
@@ -54,43 +72,199 @@ const fetchRSS = async () => {
         rss = feed.xml({ indent: true });
     } catch { }
 };
-await fetchRSS();
 
 let lastTime = new Date(Date.parse("1970-01-01"));
+
+const populateWithExtraData = async (post) => {
+    post.user.full_name = await fetchName(post.user.login);
+    
+    // Add reactions data
+    if (post.reactions.total_count > 0) {
+        const reactionsResponse = await octokit.rest.reactions.listForIssue({
+            owner: "Datavetenskapsdivisionen",
+            repo: "posts",
+            issue_number: post.number
+        });
+        post.reactionData = reactionsResponse.data;
+    } else {
+        post.reactionData = [];
+    }
+
+    // Add comments data
+    if (post.comments > 0) {
+        const commentRes = await octokit.rest.issues.listComments({
+            owner: "Datavetenskapsdivisionen",
+            repo: "posts",
+            issue_number: post.number
+        });
+        post.commentsData = commentRes.data;
+    } else {
+        post.commentsData = [];
+    }
+
+    return post;
+}
+
+const updatePosts = async () => {
+    if (posts.length === 0) {
+        posts = await fetchPosts({ desc: true });
+        return;
+    }
+
+    const newPosts = await fetchPosts({ desc: false });
+    await Promise.all(newPosts.map(async newPost => {
+        const existingPostIndex = posts.findIndex(post => post.id === newPost.id);
+        if (existingPostIndex !== -1) {
+            if (posts[existingPostIndex].reactionData !== undefined) {
+                newPost.user = posts[existingPostIndex].user;
+                newPost.reactions = posts[existingPostIndex].reactions;
+                newPost.reactionData = posts[existingPostIndex].reactionData;
+            }
+            posts[existingPostIndex] = newPost;
+        } else {
+            posts.push(newPost);
+        }
+    }));
+}
 
 const newsfeed = async (req, res) => {
     const diff = Math.abs(new Date() - lastTime);
 
-    let amount = MAX_FETCH;
+    let pageSize = MAX_FETCH;
     let page = 1;
     if (req.query.num) {
-        let res = parseInt(req.query.num);
-        if (res != NaN) amount = res;
+        let num = parseInt(req.query.num);
+        if (num != NaN) pageSize = num;
     }
     if (req.query.page) {
-        let res = parseInt(req.query.page);
-        if (res != NaN) page = res;
+        let p = parseInt(req.query.page);
+        if (p != NaN) page = p;
     }
 
     const minutes = (diff / 1000) / 60;
-    if (minutes >= 1) {
+    if (minutes >= REFRESH_RATE) {
         lastTime = new Date();
-        await fetchPosts();
+        await updatePosts();
         await fetchRSS();
     }
     if (req.query.type == "rss") {
         res.set('Content-Type', 'text/xml');
         res.send(rss);
+        return;
     } else {
-        if (posts.slice) {
-            res.json({
-                totalPostCount: posts.length,
-                posts: posts.slice((page-1)*amount, amount+(page-1)*amount)
-            });
-        } else {
-            res.json([]);
+        const startRange = (page-1)*pageSize;
+        const endRange = pageSize+startRange;
+        const currentPagePosts = posts.slice(startRange, endRange);
+
+        if (currentPagePosts.length > 0 && currentPagePosts[0].reactionData !== undefined) {
+            return res.json({ totalPostCount: posts.length, posts: currentPagePosts });
         }
+
+        for (let i = 0; i < currentPagePosts.length; i++) {
+            currentPagePosts[i] = await populateWithExtraData(currentPagePosts[i]);
+        }
+
+        posts.splice(startRange, pageSize, ...currentPagePosts);
+        res.json({
+            totalPostCount: posts.length,
+            posts: currentPagePosts
+        });
     }
 };
 
-export { newsfeed };
+const newsPostReact = async (req, res, isAdd) => {
+    const { postId, reactionId } = req.params;
+    const { reaction } = req.body;
+
+    try {
+        const o = "Datavetenskapsdivisionen";
+        const r = "posts";
+        const i = postId;
+        const c = reaction;
+        const id = reactionId;
+
+        const postIndex = posts.findIndex(post => post.number === parseInt(postId));
+
+        if (postIndex === -1) {
+            return res.status(404).json({ error: "Post not found" });
+        }
+
+        const userOctokit = new Octokit({ auth: req.cookies["dv-github-token"] });
+        let response;
+        if (isAdd) {
+            response = await userOctokit.rest.reactions.createForIssue({ owner: o, repo: r, issue_number: i, content: c });
+        } else {
+            response = await userOctokit.rest.reactions.deleteForIssue({ owner: o, repo: r, issue_number: i, reaction_id: id });
+        }
+        
+        if (response) {
+            const updatedPost = await octokit.rest.issues.get({ owner: o, repo: r, issue_number: i });
+            posts[postIndex] = await populateWithExtraData(updatedPost.data);
+            res.status(200).json({ ok: true, post: posts[postIndex] });
+        } else {
+            res.status(204).json({});
+        }
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+const addReaction = async (req, res) => {
+    newsPostReact(req, res, true);
+};
+
+const deleteReaction = async (req, res) => {
+    newsPostReact(req, res, false);
+};
+
+const newsPostComment = async (req, res, method) => {
+    const { postId, commentId } = req.params;
+    const { comment } = req.body;
+
+    try {
+        const o = "Datavetenskapsdivisionen";
+        const r = "posts";
+        const i = postId;
+        const c = comment;
+        const id = commentId;
+
+        const postIndex = posts.findIndex(post => post.number === parseInt(postId));
+
+        if (postIndex === -1) {
+            return res.status(404).json({ error: "Post not found" });
+        }
+
+        const userOctokit = new Octokit({ auth: req.cookies["dv-github-token"] });
+        let response;
+        switch (method) {
+            case "add":    response = await userOctokit.rest.issues.createComment({ owner: o, repo: r, issue_number: i, body: c }); break;
+            case "edit":   response = await userOctokit.rest.issues.updateComment({ owner: o, repo: r, comment_id: id,  body: c }); break;
+            case "delete": response = await userOctokit.rest.issues.deleteComment({ owner: o, repo: r, comment_id: id }); break;
+            default: throw new Error("Invalid method");
+        }
+        
+        if (response) {
+            const updatedPost = await octokit.rest.issues.get({ owner: o, repo: r, issue_number: i });
+            posts[postIndex] = await populateWithExtraData(updatedPost.data);
+            res.status(200).json({ ok: true, post: posts[postIndex] });
+        } else {
+            res.status(204).json({});
+        }
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
+
+const addComment = async (req, res) => {
+    newsPostComment(req, res, "add");
+};
+
+const editComment = async (req, res) => {
+    newsPostComment(req, res, "edit");
+};
+
+const deleteComment = async (req, res) => {
+    newsPostComment(req, res, "delete");
+};
+
+export { newsfeed, addReaction, deleteReaction, addComment, editComment, deleteComment };

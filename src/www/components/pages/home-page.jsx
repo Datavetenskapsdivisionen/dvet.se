@@ -1,20 +1,12 @@
 import React from "react";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
-import rehypeRaw from "rehype-raw";
-import textSe from "/content/home-page/home-page.md";
-import textEn from "/content/home-page/home-page-en.md";
 import KickoffInfoButton from "/src/www/components/widgets/kickoff-info-button";
 import NewsFeed from "/src/www/components/widgets/newsfeed";
 import { Schedule } from "/src/www/components/widgets/schedule";
-import { isEnglish, isReception } from "/src/www/util";
-
-const text = isEnglish() ? textEn : textSe;
+import { isReception } from "/src/www/util";
 
 const me = () => (
     <div className="page">
         <KickoffInfoButton />
-        <ReactMarkdown children={text} rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}></ReactMarkdown>
         {!isReception()
             ?
             <>

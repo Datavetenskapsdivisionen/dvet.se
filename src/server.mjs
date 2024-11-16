@@ -1,4 +1,5 @@
 import express from "express";
+import cookieParser from "cookie-parser";
 import path from "path";
 import expressStaticGzip from "express-static-gzip";
 import { fileURLToPath } from "url";
@@ -18,18 +19,20 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
+app.use(cookieParser());
 
 const callback = (req, res) => {
     res.sendFile(path.join(__dirname, "../dist/index.html"));
 };
 
-import { newsfeed } from "./route-handlers/newsfeed.mjs";
+import { newsfeed, addReaction, deleteReaction, addComment, editComment, deleteComment } from "./route-handlers/newsfeed.mjs";
 import { postHook } from "./route-handlers/githookhandle.mjs";
 import getPhotos from "./route-handlers/photos.mjs";
 import { getSlides, updateSlides } from "./route-handlers/info-screen.mjs";
 import { getKickOffEvents, getDVEvents } from "./route-handlers/events.mjs";
 import killerBean from "./route-handlers/killerbean.mjs";
 import { deleteUserPhoto, getUserPhotos, photoHostPost } from "./route-handlers/photo-host.mjs";
+import { isAuthWithGithub, githubLogin, githubCallback } from "./route-handlers/github-auth.mjs";
 import { googleLogin } from "./route-handlers/googleApi.mjs";
 import { verifyToken, verifyCookieOrElse } from "./route-handlers/auth.mjs";
 import { getWeather } from "./route-handlers/weather.mjs";
@@ -103,6 +106,12 @@ app.get("/wiki-data", (req, res) => verifyCookieOrElse(req, res,
 );
 
 app.get("/newsfeed", newsfeed);
+app.post("/newsfeed/:postId/react", addReaction);
+app.delete("/newsfeed/:postId/react/:reactionId", deleteReaction);
+app.post("/newsfeed/:postId/comment", addComment);
+app.put("/newsfeed/:postId/comment/:commentId", editComment);
+app.delete("/newsfeed/:postId/comment/:commentId", deleteComment);
+
 app.get("/getPhotos", getPhotos);
 app.get("/getInfoScreenSlides", getSlides);
 
@@ -113,6 +122,9 @@ app.delete("/user/photos/:hash", verifyToken, deleteUserPhoto);
 
 app.get("/getKickoffEvents", getKickOffEvents);
 app.get("/getEvents", getDVEvents);
+app.get("/github-auth", githubLogin);
+app.get("/github-auth/authorised", githubCallback, callback);
+app.post("/github-auth", isAuthWithGithub);
 app.post("/postHook", postHook);
 app.post("/killerBean", killerBean);
 app.post("/google-auth", googleLogin);

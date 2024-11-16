@@ -30,10 +30,46 @@ const isEnglish = () => {
     return cook ? cook === "en" : false;
 };
 
-const dateToLocalISO = (date = new Date()) => {
+const dateToLocalISO = (date = new Date(), withTime = false) => {
     const month = date.getMonth() + 1; // we love zero based months 😌
     const day = date.getDate();
-    return `${date.getFullYear()}-${month < 10 ? '0' + month : month}-${day < 10 ? '0' + day : day}`;
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    const pad = (num) => num.toString().padStart(2, '0');
+    if (withTime) {
+        return `${date.getFullYear()}-${pad(month)}-${pad(day)} ${pad(hours)}:${pad(minutes)}`;
+    } else {
+        return `${date.getFullYear()}-${pad(month)}-${pad(day)}`;
+    }
+};
+
+const dateToPrettyTimestamp = (date = new Date()) => {
+    const now = new Date();
+    const diff = now - date;
+    const diffInSeconds = Math.floor(diff / 1000);
+    const diffInMinutes = Math.floor(diffInSeconds / 60);
+    const diffInHours = Math.floor(diffInMinutes / 60);
+
+    const isYesterday = (now.getDate() - date.getDate() === 1) && (now.getMonth() === date.getMonth()) && (now.getFullYear() === date.getFullYear());
+    const pad = (num) => num.toString().padStart(2, '0');
+    if (isYesterday) {
+        return `${isEnglish() ? "yesterday at" : "igår kl"} ${pad(date.getHours())}:${pad(date.getMinutes())}`;
+    } else if (diffInHours >= 24) {
+        const yearOption = date.getFullYear() === now.getFullYear() ? undefined : "numeric";
+        const d = date.toLocaleDateString(isEnglish() ? "en-GB" : "sv-SE", { year: yearOption, month: "short", day: "numeric" });
+        const t = date.toLocaleTimeString(isEnglish() ? "en-GB" : "sv-SE", { hour: "2-digit", minute: "2-digit" });
+        return `${d} ${t}`;
+    } else if (diffInHours >= 1) {
+        return `${isEnglish() ? "today at" : "idag kl"} ${pad(date.getHours())}:${pad(date.getMinutes())}`;
+    } else if (diffInMinutes >= 1) {
+        return `${diffInMinutes} ${isEnglish()
+            ? (diffInMinutes === 1 ? "minute ago" : "minutes ago")
+            : (diffInMinutes === 1 ? "minut sedan" : "minuter sedan")}`;
+    } else {
+        return `${diffInSeconds} ${isEnglish()
+            ? (diffInSeconds === 1 ? "second ago" : "seconds ago")
+            : (diffInSeconds === 1 ? "sekund sedan" : "sekunder sedan")}`;
+    }
 };
 
 const getEndOfDayTime = (date = new Date()) => {
@@ -50,4 +86,4 @@ const shuffleArray = (array) => {
     return array;
 }
 
-export { isReception, isEnglish, getLanguageCookie, dateToLocalISO, getEndOfDayTime, isAuth, shuffleArray };
+export { isReception, isEnglish, getLanguageCookie, dateToLocalISO, dateToPrettyTimestamp, getEndOfDayTime, isAuth, shuffleArray };

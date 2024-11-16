@@ -18,6 +18,7 @@
     "@googleapis/drive": "^8.7.0",
     "@react-oauth/google": "^0.12.1",
     "ajv": "^8.12.0",
+    "cookie-parser": "^1.4.7",
     "crypto": "^1.0.1",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
