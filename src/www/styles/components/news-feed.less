@@ -119,6 +119,17 @@
                 }
             }
 
+            @media (max-width: 455px) {
+                .comment,
+                .create-comment {
+                    grid-template-columns: 1fr 120px;
+                }
+
+                .avatar {
+                    display: none;
+                }
+            }
+
             .comment-content {
                 padding: 10px 10px 0 10px;
                 border-radius: 5px;
@@ -137,6 +148,7 @@
 
                     strong {
                         font-weight: 900;
+                        white-space: nowrap;
                         >a {
                             color: var(--link-color);
                             text-decoration: none;
@@ -144,6 +156,18 @@
                                 text-decoration: underline;
                             }
                         }
+                    }
+
+                    span {
+                        display: -webkit-box;
+                        line-clamp: 2;
+                        -webkit-line-clamp: 2;
+                        -webkit-box-orient: vertical;
+                        word-wrap: break-word;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        line-height: 0.9em; // fit 2 lines on small devices
+                        padding: 2px 1px; // prevents slight cutoff of certain characters
                     }
 
                     .options {
