@@ -39,7 +39,7 @@ const githubCallback = async (req, res, next) => {
 
     const tokenResponseJson = await tokenResponse.json();
 
-    if (!tokenResponseJson.ok || !tokenResponseJson.access_token) {
+    if (!tokenResponse.ok || !tokenResponseJson.access_token) {
         console.log(tokenResponse);
         return res.status(401).send("Unable to authenticate with GitHub.");
     }
