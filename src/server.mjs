@@ -57,6 +57,10 @@ app.use(expressStaticGzip("dist", {
 }));
 app.use(express.json());
 app.get("/", callback);
+app.post("/language", (req, res) => {
+    res.cookie("language", req.body.lang, { maxAge: 1000*60*60*24*365 });
+    res.status(200).json({ ok: true });
+});
 app.get("/committees", callback);
 app.get("/info-screen", callback);
 app.get("/info-screen/edit", callback);

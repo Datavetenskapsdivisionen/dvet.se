@@ -118,8 +118,11 @@ const LanguageSelector = () => {
       </form>
       <button className="kickoff-info-button" onClick={() => {
         let english = document.getElementById("language-en");
-        Cookies.set("language", english.checked ? "en" : "se");
-        location.reload();
+        fetch("/language", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ lang: english.checked ? "en" : "se" })
+        }).then(() => window.location.reload());
       }}>Ok</button>
     </div>
   </main>;
