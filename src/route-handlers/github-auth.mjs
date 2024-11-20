@@ -1,7 +1,11 @@
 import { Octokit } from "octokit";
 import jwt from 'jsonwebtoken';
 
-let redirectUri;
+const port = process.env.PORT || 8080;
+const nodeEnv = process.env.NODE_ENV;
+const redirectUri = nodeEnv === 'development'
+    ? `http://localhost:${port}/github-auth/authorised`
+    : `https://dvet.se/github-auth/authorised`;
 
 const isAuthWithGithub = async (req, res) => {
     if (req.cookies["dv-github-token"]) {
@@ -11,17 +15,13 @@ const isAuthWithGithub = async (req, res) => {
 };
 
 const githubLogin = async (req, res) => {
-    const isLocalhost = process.env.GITHUB_DEV_APP_SECRET !== undefined;
-    const port = process.env.PORT || 8080;
-    const clientId = isLocalhost ? process.env.GITHUB_DEV_APP_CLIENT_ID : process.env.GITHUB_APP_CLIENT_ID;
-    redirectUri = `${isLocalhost ? ("http://localhost:"+port) : "https://dvet.se"}/github-auth/authorised`;
+    const clientId = process.env.GITHUB_APP_CLIENT_ID;    
     res.status(302).redirect(`https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}`);
 };
 
 const githubCallback = async (req, res, next) => {
-    const isLocalhost = process.env.GITHUB_DEV_APP_SECRET !== undefined;
     const code = req.query.code;
-    if (!code) { return res.status(405).redirect("/"); }
+    if (!code) { return next(); }
     
     const tokenResponse = await fetch('https://github.com/login/oauth/access_token', {
         method: 'POST',
@@ -30,8 +30,8 @@ const githubCallback = async (req, res, next) => {
             'Accept': 'application/json'
         },
         body: JSON.stringify({
-            client_id: isLocalhost ? process.env.GITHUB_DEV_APP_CLIENT_ID : process.env.GITHUB_APP_CLIENT_ID,
-            client_secret: isLocalhost ? process.env.GITHUB_DEV_APP_SECRET : process.env.GITHUB_APP_SECRET,
+            client_id: process.env.GITHUB_APP_CLIENT_ID,
+            client_secret: process.env.GITHUB_APP_SECRET,
             code: code,
             redirect_uri: redirectUri,
         }),
