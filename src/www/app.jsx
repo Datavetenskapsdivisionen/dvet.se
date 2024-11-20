@@ -122,7 +122,7 @@ const LanguageSelector = () => {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ lang: english.checked ? "en" : "se" })
-        }).then(() => window.location.reload());
+        }).then(r => r.ok && window.location.reload());
       }}>Ok</button>
     </div>
   </main>;
