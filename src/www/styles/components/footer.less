@@ -1,4 +1,5 @@
 footer {
+    display: grid;
     font-family: "Press Start 2P";
     font-size: 7px;
     background: #161616;
@@ -10,24 +11,67 @@ footer {
     padding-right: 10px;
     padding-left: 10px;
 
-    @media (min-width: 600px) {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        gap: 40px;
-    }
-
-    @media (max-width: 600px) {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-    }
-
     .button-container {
         display: flex;
+        width: 33vw;
 
         &:last-child {
             justify-content: end;
             align-items: end;
+        }
+    }
+
+    @media (min-width: 715px) {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    @media (max-width: 715px) {
+        grid-template-rows: auto 1fr;
+
+        span {
+            padding: 10px 0;
+        }
+        
+        .button-container {
+            grid-column: 1;
+            grid-row: 2;
+            margin: 5px 0;
+            width: calc(100vw - 20px);
+
+            &:first-child {
+                justify-content: start;
+            }
+
+            &:last-child {
+                justify-content: end;
+            }
+        }
+    }
+
+    @media (max-width: 428px) {
+        .button-container > button {
+            margin: 0 5px;
+        }
+    }
+
+    @media (max-width: 384px) {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
+
+        .button-container {
+            span {
+                grid-row: 1;
+            }
+
+            &:first-child {
+                grid-row: 2;
+                justify-content: center;
+            }
+
+            &:last-child {
+                grid-row: 3;
+                justify-content: center;
+            }
         }
     }
 
