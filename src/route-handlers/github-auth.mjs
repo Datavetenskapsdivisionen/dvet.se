@@ -5,7 +5,7 @@ const port = process.env.PORT || 8080;
 const nodeEnv = process.env.NODE_ENV;
 const redirectUri = nodeEnv === 'development'
     ? `http://localhost:${port}/github-auth/authorised?lang=en`
-    : `https://dvet.se/github-auth/authorised?lang=en`;
+    : `https://www.dvet.se/github-auth/authorised?lang=en`;
 
 const isAuthWithGithub = async (req, res) => {
     if (req.cookies["dv-github-token"]) {
@@ -41,8 +41,7 @@ const githubCallback = async (req, res, next) => {
 
     if (!tokenResponse.ok || !tokenResponseJson.access_token) {
         console.log(tokenResponse);
-        // return res.status(401).send("Unable to authenticate with GitHub.");
-        return res.status(401).json(tokenResponseJson);
+        return res.status(401).send("Unable to authenticate with GitHub.");
     }
 
     try {
@@ -56,8 +55,7 @@ const githubCallback = async (req, res, next) => {
         next();
     } catch (e) {
         console.log(e);
-        // res.status(401).send("Unable to authenticate with GitHub");
-        res.status(401).json(e);
+        res.status(401).send("Unable to authenticate with GitHub");\
     }
 };
 
