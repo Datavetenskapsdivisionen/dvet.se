@@ -55,7 +55,7 @@ const githubCallback = async (req, res, next) => {
         next();
     } catch (e) {
         console.log(e);
-        res.status(401).send("Unable to authenticate with GitHub");\
+        res.status(401).send("Unable to authenticate with GitHub");
     }
 };
 
