@@ -70,11 +70,15 @@ const GoogleAuth = () => {
 };
 
 const GithubAuth = () => {
-  React.useEffect(() => { window.close(); }, []);
+  const githubToken = Cookies.get("dv-github-user");
+  
+  React.useEffect(() => { githubToken && window.close(); }, []);
 
-  return <div>
-      <h1>Authorised!</h1>
-      <p>You can now close this window.</p>
+  return <div className="page">
+    { githubToken
+      ? <><h1>Authorised!</h1><p>You can now close this window.</p></>
+      : <p>Authorisation failed.</p>
+    }
   </div>;
 };
 
