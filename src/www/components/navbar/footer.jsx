@@ -24,7 +24,7 @@ const footer = () => {
     }
 
     const onDarkModeToggle = () => {
-        Cookies.set("dv-dark-mode", !darkMode);
+        Cookies.set("dv-dark-mode", !darkMode, { expires: 364 });
         document.documentElement.setAttribute("data-theme", !darkMode ? "dark" : "light");
         setDarkMode(!darkMode);
     };

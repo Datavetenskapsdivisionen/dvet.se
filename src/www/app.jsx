@@ -71,7 +71,7 @@ const GoogleAuth = () => {
 
 const GithubAuth = () => {
   const githubToken = Cookies.get("dv-github-user");
-  
+
   React.useEffect(() => { githubToken && window.close(); }, []);
 
   return <div className="page">
@@ -83,19 +83,19 @@ const GithubAuth = () => {
 };
 
 const LanguageSelector = () => {
-  const [prefersDarkMode, setDarkMode] = React.useState(Cookies.get("dv-dark-mode") === "true");
+  const [prefersDarkMode, setPrefersDarkMode] = React.useState(Cookies.get("dv-dark-mode") === "true");
 
   React.useEffect(() => {
     if (Cookies.get("dv-dark-mode") === undefined) {
       const systemThemePrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-      setDarkMode(systemThemePrefersDark);
-      Cookies.set("dv-dark-mode", systemThemePrefersDark);
+      setPrefersDarkMode(systemThemePrefersDark);
+      Cookies.set("dv-dark-mode", systemThemePrefersDark, { expires: 364 });
     }
   }, []);
 
   const onDarkModeSwitch = () => {
-    Cookies.set("dv-dark-mode", !prefersDarkMode);
-    setDarkMode(!prefersDarkMode);
+    Cookies.set("dv-dark-mode", !prefersDarkMode, { expires: 364 });
+    setPrefersDarkMode(!prefersDarkMode);
   };
 
   return <main>
@@ -122,11 +122,8 @@ const LanguageSelector = () => {
       </form>
       <button className="kickoff-info-button" onClick={() => {
         let english = document.getElementById("language-en");
-        fetch("/language", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ lang: english.checked ? "en" : "se" })
-        }).then(r => r.ok && window.location.reload());
+        Cookies.set("language", english.checked ? "en" : "se", { expires: 364 });
+        window.location.reload();
       }}>Ok</button>
     </div>
   </main>;
