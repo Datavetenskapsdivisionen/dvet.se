@@ -16,8 +16,8 @@ const getWeather = async (req, res) => {
     }
 
     const params = {
-        "latitude": 57.7072,
-        "longitude": 11.9668,
+        "latitude": 57.6876035,
+        "longitude": 11.9783998,
         "current": ["temperature_2m", "is_day", "weather_code"],
         "timezone": "Europe/Berlin",
         "forecast_days": 1
