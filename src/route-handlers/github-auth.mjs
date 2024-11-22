@@ -50,8 +50,8 @@ const githubCallback = async (req, res, next) => {
         const { data: user } = await octokit.rest.users.getAuthenticated();
 
         const userJwt = jwt.sign(user, process.env.JWT_SECRET_KEY);
-        res.cookie("dv-github-user", userJwt);
-        res.cookie("dv-github-token", accessToken, { httpOnly: true, secure: true });
+        res.cookie("dv-github-user", userJwt, { maxAge: 1000*60*60*24*364 });
+        res.cookie("dv-github-token", accessToken, { httpOnly: true, secure: true, maxAge: 1000*60*60*24*364 });
         next();
     } catch (e) {
         console.log(e);
