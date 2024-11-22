@@ -33,7 +33,7 @@ const footer = () => {
         ? <button onClick={() => {
             Cookies.remove("dv-token");
             location.reload();
-        }}>Logout</button>
+        }}>{isEnglish() ? "Logout" : "Logga ut"}</button>
         : <></>;
 
     return (
@@ -46,9 +46,9 @@ const footer = () => {
                 {logOutButton}
                 <button onClick={onDarkModeToggle}>{darkMode ? (isEnglish() ? "Light mode" : "Ljust läge") : (isEnglish() ? "Dark mode" : "Mörkt läge")}</button>
                 <button onClick={() => {
-                    Cookies.remove("language");
+                    Cookies.set("language", isEnglish() ? "se" : "en", { expires: 364 });
                     location.reload();
-                }}>Language</button>
+                }}>{isEnglish() ? "Svenska" : "English"}</button>
             </div>
         </footer>
     );
