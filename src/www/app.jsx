@@ -8,7 +8,7 @@ import ContactPage from "./components/pages/contact-page";
 import DVRK from "./components/pages/dvrk-page";
 import AboutPage from "./components/pages/about-page";
 import HomePage from "./components/pages/home-page";
-import CommitteePage from "./components/pages/committee-page";
+import CommitteesPage from "./components/pages/committees-page";
 import ToolsPage from "./components/pages/tools-page";
 import PhotosPage from "./components/pages/photos-page";
 import WikiPage from "./components/pages/wiki-page";
@@ -168,7 +168,7 @@ const router = createBrowserRouter([
       { path: "/", element: <HomePage /> },
       { path: "/contact", element: <ContactPage /> },
       { path: "/about", element: <AboutPage /> },
-      { path: "/committees", element: <CommitteePage /> },
+      { path: "/committees", element: <CommitteesPage /> },
       { path: "/tools", element: <ToolsPage /> },
       { path: "/faq", element: <FaqPage /> },
       { path: "/photos", element: <PhotosPage /> },
