@@ -209,7 +209,7 @@ nav {
     background: rgba(255, 255, 255, 0.05);
 }
 
-@media (min-width: 768px) {
+@media (min-width: 875px) {
     .dv-header {
         align-items: center;
 
@@ -268,8 +268,13 @@ nav {
                 text-transform: uppercase;
                 text-decoration: none;
                 background: @black;
+                white-space: nowrap;
 
-                @media(max-width: 450px) {
+                @media (max-width: 640px) {
+                    font-size: 1.5rem;
+                }
+
+                @media (max-width: 450px) {
                     font-size: 1.2rem;
                 }
             }
