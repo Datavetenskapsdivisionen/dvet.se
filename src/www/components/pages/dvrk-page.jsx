@@ -16,7 +16,7 @@ const DURKMAN_URL = "url(" + new String(DURKMAN) + ")";
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 import { isEnglish } from "/src/www/util";
-import Footer from "/src/www/components/navbar/footer";
+import Footer from "/src/www/components/widgets/footer";
 
 // Yoinked from https://stackoverflow.com/a/21742107
 const isIOS = () => {
