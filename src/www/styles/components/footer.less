@@ -11,6 +11,23 @@ footer {
     padding-right: 10px;
     padding-left: 10px;
 
+    .logout-options {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        position: absolute;
+        right: 210px;
+        bottom: 32px;
+        z-index: 999;
+        background-color: var(--component-color);
+        border-radius: 3px;
+        padding: 8px 0;
+
+        button {
+            width: 120px !important;
+        }
+    }
+
     .button-container {
         display: flex;
         width: 33vw;
@@ -18,14 +35,18 @@ footer {
         &:last-child {
             justify-content: end;
             align-items: end;
+
+            button {
+                min-width: 88px;
+            }
         }
     }
 
-    @media (min-width: 715px) {
+    @media (min-width: 768px) {
         grid-template-columns: 1fr 1fr 1fr;
     }
 
-    @media (max-width: 715px) {
+    @media (max-width: 768px) {
         grid-template-rows: auto 1fr;
 
         span {
@@ -48,13 +69,7 @@ footer {
         }
     }
 
-    @media (max-width: 428px) {
-        .button-container > button {
-            margin: 0 5px;
-        }
-    }
-
-    @media (max-width: 384px) {
+    @media (max-width: 480px) {
         grid-template-columns: 1fr;
         grid-template-rows: 1fr 1fr 1fr;
 

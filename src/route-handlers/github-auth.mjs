@@ -19,6 +19,11 @@ const githubLogin = async (req, res) => {
     res.status(302).redirect(`https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}`);
 };
 
+const githubLogout = async (req, res) => {
+    res.clearCookie("dv-github-token");
+    res.status(200).send("Logged out from GitHub");
+}
+
 const githubCallback = async (req, res, next) => {
     const code = req.query.code;
     if (!code) { return next(); }
@@ -59,4 +64,4 @@ const githubCallback = async (req, res, next) => {
     }
 };
 
-export { isAuthWithGithub, githubLogin, githubCallback };
+export { isAuthWithGithub, githubLogin, githubLogout, githubCallback };
