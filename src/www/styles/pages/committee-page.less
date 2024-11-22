@@ -1,3 +1,24 @@
+.individual-committee-page {
+    display: grid;
+    grid-template-columns: 3em 1fr;
+    align-items: center;
+
+    .back-button {
+        color: var(--text-color);
+        font-size: 2em;
+        text-decoration: none;
+        grid-column: 1;
+    }
+
+    h1:first-child {
+        grid-column: 2;
+    }
+
+    .committee-page-holder {
+        grid-column: span 2;
+    }
+}
+
 @mobile-size: 900px;
 
 .committee-holder {
