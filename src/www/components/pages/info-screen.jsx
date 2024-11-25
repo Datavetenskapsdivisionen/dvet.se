@@ -33,14 +33,23 @@ class InfoScreen {
     next = async () => {
         if (!this.slides || this.slides.length === 0) {
             if (isOnline) {
-                const data = (await fetch("/getInfoScreenSlides").then(s => s.json()));
-                this.shuffle = data.shuffle;
-                if (this.shuffle) {
-                    this.slides = shuffleArray(this.filterSlidesData(data.slides));
-                } else {
-                    this.slides = this.filterSlidesData(data.slides);
+                try {
+                    const response = await fetch("/getInfoScreenSlides");
+                    if (response.ok) {
+                        const data = await response.json();
+                        this.shuffle = data.shuffle;
+                        if (this.shuffle) {
+                            this.slides = shuffleArray(this.filterSlidesData(data.slides));
+                        } else {
+                            this.slides = this.filterSlidesData(data.slides);
+                        }
+                        this.allSlides = structuredClone(this.slides);
+                    } else {
+                        this.slides = this.allSlides;
+                    }
+                } catch {
+                    this.slides = this.allSlides;
                 }
-                this.allSlides = structuredClone(this.slides);
             } else {
                 this.slides = this.allSlides;
             }
