@@ -180,7 +180,7 @@ const me = () => {
         startWeatherTimer();
         startInfoScreenTimer(updateFrequency);
 
-        setTimeout(() => window.location.reload(), 1800000); // refresh page every 30 minutes
+        setTimeout(() => isOnline && window.location.reload(), 1800000); // refresh page every 30 minutes
     }, []);
 
     return <>
