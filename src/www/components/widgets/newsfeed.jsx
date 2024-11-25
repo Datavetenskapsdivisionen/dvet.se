@@ -94,7 +94,7 @@ const me = (props) => {
         }, [timerRunning]);
     
         const hasReacted = (reaction) => {
-            return data.reactionData.find(r => r.user.login === userData?.login && r.content === reaction);
+            return data.reactionData && data.reactionData.find(r => r.user.login === userData?.login && r.content === reaction);
         };
     
         const authenticateWithGithub = async () => {
@@ -155,6 +155,8 @@ const me = (props) => {
             if (data.reactions.total_count === 0) return <></>;
 
             const getNames = (emojiText) => {
+                if (!data.reactionData) { return ""; }
+
                 const names = data.reactionData.filter(r => r.content === emojiText).map(r => r.user.login);
                 const numOfNames = 3;
                 if (names.length > numOfNames) {
@@ -239,7 +241,7 @@ const me = (props) => {
             }
 
             return <div className="comments">
-                {data.commentsData.map(c => {
+                {data.commentsData && data.commentsData.map(c => {
                     return editCommentId === c.id ? <CreateComment editComment={c} /> : <Comment comment={c} />;
                 })}
                 <CreateComment />

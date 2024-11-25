@@ -21,6 +21,8 @@ const fetchPosts = async (options = { desc: true }) => {
             direction: desc ? "desc" : "asc",
             labels: "state:published,type:post"
         });
+        
+        if (!response.data) { return []; }
 
         // Filter out posts that are not published
         const publishedPosts = response.data.filter(e => (
@@ -35,9 +37,11 @@ const fetchPosts = async (options = { desc: true }) => {
             page: page
         });
 
-        publishedPosts.forEach(post => {
-            post.commentsData = commentsRes.data.filter(c => c.issue_url === post.url);
-        });
+        if (commentsRes.data) {
+            publishedPosts.forEach(post => {
+                post.commentsData = commentsRes.data.filter(c => c.issue_url === post.url);
+            });
+        }
 
         allPosts = allPosts.concat(publishedPosts);
         page++;
@@ -76,29 +80,38 @@ const fetchRSS = async () => {
 let lastTime = new Date(Date.parse("1970-01-01"));
 
 const populateWithExtraData = async (post) => {
-    post.user.full_name = await fetchName(post.user.login);
-    
-    // Add reactions data
-    if (post.reactions.total_count > 0) {
-        const reactionsResponse = await octokit.rest.reactions.listForIssue({
-            owner: "Datavetenskapsdivisionen",
-            repo: "posts",
-            issue_number: post.number
-        });
-        post.reactionData = reactionsResponse.data;
-    } else {
-        post.reactionData = [];
-    }
+    if (!post.user || !post.reactions || !post.number || post.comments === undefined) { console.log(post); return post; }
 
-    // Add comments data
-    if (post.comments > 0) {
-        const commentRes = await octokit.rest.issues.listComments({
-            owner: "Datavetenskapsdivisionen",
-            repo: "posts",
-            issue_number: post.number
-        });
-        post.commentsData = commentRes.data;
-    } else {
+    try {
+        post.user.full_name = await fetchName(post.user.login);
+        
+        // Add reactions data
+        if (post.reactions.total_count > 0) {
+            const reactionsResponse = await octokit.rest.reactions.listForIssue({
+                owner: "Datavetenskapsdivisionen",
+                repo: "posts",
+                issue_number: post.number
+            });
+            post.reactionData = reactionsResponse.data;
+        } else {
+            post.reactionData = [];
+        }
+
+        // Add comments data
+        if (post.comments > 0) {
+            const commentRes = await octokit.rest.issues.listComments({
+                owner: "Datavetenskapsdivisionen",
+                repo: "posts",
+                issue_number: post.number
+            });
+            post.commentsData = commentRes.data;
+        } else {
+            post.commentsData = [];
+        }
+    } catch (e) {
+        console.log(e);
+        post.user.full_name = post.user.login;
+        post.reactionData = [];
         post.commentsData = [];
     }
 
@@ -199,6 +212,8 @@ const newsPostReact = async (req, res, isAdd) => {
         
         if (response) {
             const updatedPost = await octokit.rest.issues.get({ owner: o, repo: r, issue_number: i });
+            if (!updatedPost.data) { return res.status(204).json({}); }
+            
             posts[postIndex] = await populateWithExtraData(updatedPost.data);
             res.status(200).json({ ok: true, post: posts[postIndex] });
         } else {
@@ -245,6 +260,8 @@ const newsPostComment = async (req, res, method) => {
         
         if (response) {
             const updatedPost = await octokit.rest.issues.get({ owner: o, repo: r, issue_number: i });
+            if (!updatedPost.data) { return res.status(204).json({}); }
+
             posts[postIndex] = await populateWithExtraData(updatedPost.data);
             res.status(200).json({ ok: true, post: posts[postIndex] });
         } else {
