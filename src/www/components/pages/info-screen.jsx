@@ -228,7 +228,7 @@ const me = () => {
                         willChange: "opacity",
                         position:   "absolute"
                     }}>{ slide[0] }</div>) }
-                    { infoScreenData.allSlides.length > 1 &&
+                    { isOnline && infoScreenData.allSlides.length > 1 &&
                         <div className="duration-progress">
                             <CircularProgressbar
                                 value={percentage}
