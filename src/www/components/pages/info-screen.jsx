@@ -182,7 +182,10 @@ const me = () => {
 
         setTimeout(() => {
             if (isOnline) {
-                window.location.href = window.location.href.split('?')[0] + '?refresh=' + new Date().getTime();
+                fetch("/ping").then(r => {
+                    if (!r.ok) { return; }
+                    window.location.href = window.location.href.split('?')[0] + '?refresh=' + new Date().getTime();
+                });
             }
         }, 1000*60*30); // refresh page every 30 minutes
 

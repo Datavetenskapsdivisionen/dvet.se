@@ -146,6 +146,8 @@ app.get("/masterguide", (req, res) => servePdf(req, res, "assets/kick-off/master
 app.get("/discord", (req, res) => res.redirect("https://discord.gg/BVyhSv4rVw"));
 app.get("/weather", getWeather);
 
+app.get("/ping", (req, res) => res.status(200).send("pong"));
+
 const servePdf = (req, res, pdf) => {
     const filePath = path.join(process.cwd(), pdf);
     res.sendFile(filePath);
