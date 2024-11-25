@@ -180,7 +180,11 @@ const me = () => {
         startWeatherTimer();
         startInfoScreenTimer(updateFrequency);
 
-        setTimeout(() => isOnline && window.location.reload(), 1800000); // refresh page every 30 minutes
+        setTimeout(() => {
+            if (isOnline) {
+                window.location.href = window.location.href.split('?')[0] + '?refresh=' + new Date().getTime();
+            }
+        }, 1000*60*30); // refresh page every 30 minutes
 
         const handleKeyDown = (e) => { if (e.key === "Control") document.querySelector(".info-screen").style.cursor = "default"; };
         const handleKeyUp   = (e) => { if (e.key === "Control") document.querySelector(".info-screen").style.cursor = "none"; };
