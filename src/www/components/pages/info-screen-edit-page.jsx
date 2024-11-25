@@ -9,7 +9,7 @@ import DvetModal from "/src/www/components/widgets/dvet-modal";
 const me = () => {
     const [jsonData, setJsonData] = React.useState(useLoaderData());
     const [selectedSlideIndex, setSelectedSlideIndex] = React.useState(null);
-    const [modalValues, setModalValues] = React.useState(getDefaultState());
+    const [mv, setModalValues] = React.useState(getDefaultState());
     const [modalIsOpen, setModalIsOpen] = React.useState(false);
 
     React.useEffect(() => saveEdits(), [jsonData]);
@@ -42,6 +42,7 @@ const me = () => {
             durationValue: s.duration,
             startValue:    s.start ? dateToLocalISO(new Date(s.start)) : "",
             endValue:      s.end ? dateToLocalISO(new Date(s.end)) : "",
+            bgValue:       s.bg ?? "#1e242a",
             activeValue:   s.active ?? true,
             valueValue:    s.slide.value ?? "",
             lastEditValue: user.email
@@ -91,8 +92,8 @@ const me = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const slide = {slideType: modalValues.typeValue, value: modalValues.valueValue};
-        const newSlideData = {name: modalValues.nameValue, duration: modalValues.durationValue, active: modalValues.activeValue, start: new Date(modalValues.startValue).getTime(), end: new Date(modalValues.endValue).getTime(), lastEdit: modalValues.lastEditValue, slide: slide};
+        const slide = {slideType: mv.typeValue, value: mv.valueValue};
+        const newSlideData = {name: mv.nameValue, duration: mv.durationValue, active: mv.activeValue, start: new Date(mv.startValue).getTime(), end: new Date(mv.endValue).getTime(), bg: mv.bgValue, lastEdit: mv.lastEditValue, slide: slide};
         
         setJsonData(oldData => {
             const newData = {...oldData};
@@ -141,13 +142,13 @@ const me = () => {
                     <label htmlFor="name">{isEnglish() ? "Name" : "Namn"}:</label>
                     <input name="name"
                         type="text"
-                        value={modalValues.nameValue}
+                        value={mv.nameValue}
                         onChange={e => setModalValues(v => { return {...v, nameValue: e.target.value} })}
                         required
                     />
 
                     <label htmlFor="type">{isEnglish() ? "Type" : "Typ"}:</label>
-                    <select name="type" value={modalValues.typeValue} onChange={e => setModalValues(v => { return {...v, typeValue: e.target.value} })} required>
+                    <select name="type" value={mv.typeValue} onChange={e => setModalValues(v => { return {...v, typeValue: e.target.value} })} required>
                         <option value="img">{isEnglish() ? "Image" : "Bild"}</option>
                         <option value="iframe">{isEnglish() ? "Website" : "Hemsida"}</option>
                         <option value="markdown">Markdown</option>
@@ -160,11 +161,11 @@ const me = () => {
                         type="range"
                         min="1"
                         max="30"
-                        value={modalValues.durationValue}
+                        value={mv.durationValue}
                         onChange={e => setModalValues(v => { return {...v, durationValue: parseInt(e.target.value)} })}
                         required
                     />
-                    <span>{modalValues.durationValue}s</span>
+                    <span>{mv.durationValue}s</span>
                 </div>
 
                 <div className="row">
@@ -172,8 +173,8 @@ const me = () => {
                     <input name="start"
                         type="date"
                         min={dateToLocalISO(new Date())}
-                        max={modalValues.endValue ? dateToLocalISO(new Date(modalValues.endValue)) : ""}
-                        value={modalValues.startValue}
+                        max={mv.endValue ? dateToLocalISO(new Date(mv.endValue)) : ""}
+                        value={mv.startValue}
                         onChange={e => setModalValues(v => { return {...v, startValue: dateToLocalISO(new Date(e.target.value))} })} />
                     <span>({isEnglish() ? "optional" : "valfri"})</span>
                 </div>
@@ -182,31 +183,51 @@ const me = () => {
                     <label htmlFor="end">{isEnglish() ? "End" : "Slut"}:</label>
                     <input name="end"
                         type="date"
-                        min={dateToLocalISO(modalValues.startValue ? new Date(modalValues.startValue) : new Date())}
-                        value={modalValues.endValue}
-                        onChange={e => setModalValues(v => { return {...v, endValue: modalValues.startValue ? (new Date(e.target.value) >= new Date(modalValues.startValue) ? dateToLocalISO(new Date(e.target.value)) : "") : e.target.value} })}
+                        min={dateToLocalISO(mv.startValue ? new Date(mv.startValue) : new Date())}
+                        value={mv.endValue}
+                        onChange={e => setModalValues(v => { return {...v, endValue: mv.startValue ? (new Date(e.target.value) >= new Date(mv.startValue) ? dateToLocalISO(new Date(e.target.value)) : "") : e.target.value} })}
                     />
                     <span>({isEnglish() ? "optional" : "valfri"})</span>
                 </div>
 
+                { mv.typeValue === "img" &&
+                    <div className="row">
+                        <label htmlFor="bg">{isEnglish() ? "Colour" : "Färg"}:</label>
+                        <div style={{display: "flex", alignItems: "center"}}>
+                            <input name="bg"
+                                type="color"
+                                value={mv.bgValue}
+                                onChange={e => setModalValues(v => { return {...v, bgValue: e.target.value} })}
+                            />
+                            <a className="btn blue"
+                                style={{margin: "0"}}
+                                onClick={() => setModalValues(v => { return {...v, bgValue: "#1e242a"} })}>
+                            RESET</a>
+                        </div>
+                        <div style={{gridColumn: "span 2"}}>
+                            <span>({isEnglish() ? "tip: match the image background colour" : "tips: matcha bildens bakgrundsfärg"})</span>
+                        </div>
+                    </div>
+                }
+
                 <div className="row full">
-                    { modalValues.typeValue === "markdown" ? <>
+                    { mv.typeValue === "markdown" ? <>
                         <span>{isEnglish() ? "Content" : "Innehåll"}:</span>
                         <textarea
                             name="value"
                             rows="6"
                             cols="30"
-                            defaultValue={modalValues.valueValue}
+                            defaultValue={mv.valueValue}
                             onChange={e => setModalValues(v => { return {...v, valueValue: e.target.value} })}
                             required
                         />
                     </> : <>
                         <label htmlFor="value">URL:</label>
-                        <input type="text" id="url-bar" name="value" value={modalValues.valueValue} onChange={e => setModalValues(v => { return {...v, valueValue: e.target.value} })} required />
+                        <input type="text" id="url-bar" name="value" value={mv.valueValue} onChange={e => setModalValues(v => { return {...v, valueValue: e.target.value} })} required />
                     </> }
                 </div>
 
-                { modalValues.typeValue === "img" &&
+                { mv.typeValue === "img" &&
                     <div className="row">
                         <span></span>
                         <a className="btn blue" href="/photos/host" target="_blank">{isEnglish() ? "UPLOAD IMAGE" : "LADDA UPP BILD"}</a>
@@ -229,6 +250,7 @@ const getDefaultState = () => {
         durationValue: 10,
         startValue: "",
         endValue: "",
+        bgValue: "#1e242a",
         activeValue: true,
         lastEditValue: decodeJwt(Cookies.get("dv-token")).email
     }

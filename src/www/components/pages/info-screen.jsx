@@ -108,7 +108,7 @@ function createInfoScreen(infoScreen) {
     
             switch (s.slide.slideType) {
                 case "iframe":   return <iframe src={s.slide.value} />;
-                case "img":      return <img src={s.slide.value} />;
+                case "img":      return <img src={s.slide.value} style={{backgroundColor: s.bg}} />;
                 case "markdown": return <markdown><ReactMarkdown children={s.slide.value} rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]} /></markdown>;
             }
         }

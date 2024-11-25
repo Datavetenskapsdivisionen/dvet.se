@@ -14,6 +14,7 @@ const schema = {
                     duration: { type: "integer" },
                     start:    { type: ["integer", "null"] },
                     end:      { type: ["integer", "null"] },
+                    bg:       { type: ["string",  "null"] },
                     active:   { type: "boolean" },
                     lastEdit: { type: "string" },
                     slide: {
