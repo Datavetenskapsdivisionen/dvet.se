@@ -197,16 +197,6 @@ const me = () => {
                 });
             }
         }, 1000*60*30); // refresh page every 30 minutes
-
-        const handleKeyDown = (e) => { if (e.key === "Control") document.querySelector(".info-screen").style.cursor = "default"; };
-        const handleKeyUp   = (e) => { if (e.key === "Control") document.querySelector(".info-screen").style.cursor = "none"; };
-        document.addEventListener("keydown", handleKeyDown);
-        document.addEventListener("keyup", handleKeyUp);
-
-        return () => {
-            document.removeEventListener("keydown", handleKeyDown);
-            document.removeEventListener("keyup", handleKeyUp);
-        };
     }, []);
 
     return <>
