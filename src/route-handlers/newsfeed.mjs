@@ -5,6 +5,7 @@ import { octokit, fetchName } from "../helpers/octokit.mjs";
 const REFRESH_RATE = 2;
 const MAX_FETCH = 100;
 let posts = [];
+let loginFullNames = {};
 
 const fetchPosts = async (options = { desc: true }) => {
     let page = 1;
@@ -82,8 +83,17 @@ let lastTime = new Date(Date.parse("1970-01-01"));
 const populateWithExtraData = async (post) => {
     if (!post.user || !post.reactions || !post.number || post.comments === undefined) { console.log(post); return post; }
 
+    const addFullName = async (user) => {
+        if (!loginFullNames[user.login]) {
+            user.full_name = await fetchName(user.login);
+            loginFullNames[user.login] = user.full_name;
+        } else {
+            user.full_name = loginFullNames[user.login];
+        }
+    }
+
     try {
-        post.user.full_name = await fetchName(post.user.login);
+        addFullName(post.user);
         
         // Add reactions data
         if (post.reactions.total_count > 0) {
@@ -93,6 +103,9 @@ const populateWithExtraData = async (post) => {
                 issue_number: post.number
             });
             post.reactionData = reactionsResponse.data;
+            for (let reaction of post.reactionData) {
+                addFullName(reaction.user);
+            }
         } else {
             post.reactionData = [];
         }
@@ -105,6 +118,9 @@ const populateWithExtraData = async (post) => {
                 issue_number: post.number
             });
             post.commentsData = commentRes.data;
+            for (let comment of post.commentsData) {
+                addFullName(comment.user);
+            }
         } else {
             post.commentsData = [];
         }

@@ -157,7 +157,7 @@ const me = (props) => {
             const getNames = (emojiText) => {
                 if (!data.reactionData) { return ""; }
 
-                const names = data.reactionData.filter(r => r.content === emojiText).map(r => r.user.login);
+                const names = data.reactionData.filter(r => r.content === emojiText).map(r => r.user.full_name);
                 const numOfNames = 3;
                 if (names.length > numOfNames) {
                     const andMore = isEnglish() ? (" and " + (names.length - numOfNames) + " more") : (" och " + (names.length - 3) + " till");
@@ -208,7 +208,7 @@ const me = (props) => {
                     <img draggable="false" className="avatar" src={c.user.avatar_url} alt="avatar" />
                     <div className="comment-content">
                         <div className="comment-header">
-                            <strong><a href={c.user.html_url} target="_blank">{c.user.login}</a></strong>
+                            <strong><a href={c.user.html_url} target="_blank">{c.user.full_name}</a></strong>
                             <span>{timestamp}{edited ? <i>{edited}</i> : <></>}</span>
                             { c.user.login === userData?.login &&
                                 <div className="options">
