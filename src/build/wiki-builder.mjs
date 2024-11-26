@@ -225,7 +225,7 @@ const showNavTree = () => {
             paths += `if (path == "${name}") {
         return <main-wiki>
             <button onClick={showNavTree} class="show-tree-button">≡ Show Tree</button>
-            <div id="navtree" class="wiki-navtree-root wiki-navtree-hidden"><div class="wiki-navtree-middle">{TREE}</div></div>
+            <div id="navtree" class="wiki-navtree-root wiki-navtree-hidden"><button onClick={hideNavTree} className="close">X</button><div class="wiki-navtree-middle">{TREE}</div></div>
             <div className="page" dangerouslySetInnerHTML={{ __html: ${name} }}></div>
         </main-wiki>;
     } else `;
