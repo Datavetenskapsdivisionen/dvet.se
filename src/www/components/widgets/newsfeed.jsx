@@ -377,8 +377,9 @@ const me = (props) => {
     };
 
     const [page, setPage] = React.useState(1);
-    const [showLoadButton, setShowLoadButton] = React.useState(true);
-    const [newsElements, setNewsElements] = React.useState(<div className="loading"></div>);
+    const [showLoadButton, setShowLoadButton] = React.useState(false);
+    const [newsElements, setNewsElements] = React.useState(null);
+    const [loading, setLoading] = React.useState(true);
     
     React.useEffect(() => {
         fetchNews(num, page).then((res) => {
@@ -387,13 +388,22 @@ const me = (props) => {
             if (page*num >= res.totalPostCount) {
                 setShowLoadButton(false);
             }
+            setLoading(false);
+            setShowLoadButton(true);
             setNewsElements(createElements(newData, liteVersion));
         });
     }, [page]);
 
     React.useEffect(() => {
+        if (!newsElements) { return; }
         setNewsElements(createElements());
     }, [updateTrigger]);
+
+    const onOlderNewsPressed = () => {
+        setLoading(true);
+        setShowLoadButton(false);
+        setPage(p => p+1);
+    };
 
     return <div className="news-holder">
         {liteVersion ? <></> : <h2>
@@ -406,8 +416,9 @@ const me = (props) => {
             </a>
         </h2>}
         {newsElements}
+        {loading ? <div className="loading"></div> : <></>}
         {liteVersion || !showLoadButton ? <></> : <div className="center">
-            <button onClick={() => setPage(p => p+1)}>{isEnglish() ? "See older news" : "Se äldre nyheter"}</button>
+            <button onClick={onOlderNewsPressed}>{isEnglish() ? "See older news" : "Se äldre nyheter"}</button>
         </div>}
     </div >;
 };
