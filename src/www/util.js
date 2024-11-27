@@ -43,6 +43,11 @@ const dateToLocalISO = (date = new Date(), withTime = false) => {
     }
 };
 
+const dateToShortDate = (date = new Date()) => {
+    const yearOption = date.getFullYear() === (new Date()).getFullYear() ? undefined : "numeric";
+    return date.toLocaleDateString("en-GB", { year: yearOption, month: "numeric", day: "numeric" });
+};
+
 const dateToPrettyTimestamp = (date = new Date()) => {
     const now = new Date();
     const diff = now - date;
@@ -86,4 +91,4 @@ const shuffleArray = (array) => {
     return array;
 }
 
-export { isReception, isEnglish, getLanguageCookie, dateToLocalISO, dateToPrettyTimestamp, getEndOfDayTime, isAuth, shuffleArray };
+export { isReception, isEnglish, getLanguageCookie, dateToLocalISO, dateToShortDate, dateToPrettyTimestamp, getEndOfDayTime, isAuth, shuffleArray };

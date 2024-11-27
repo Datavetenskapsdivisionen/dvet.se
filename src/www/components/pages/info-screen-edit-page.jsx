@@ -5,12 +5,14 @@ import { decodeJwt } from "jose";
 import Cookies from "js-cookie";
 import DraggableTable from "/src/www/components/widgets/draggable-table";
 import DvetModal from "/src/www/components/widgets/dvet-modal";
+import { dateToShortDate } from "../../util";
 
 const me = () => {
     const [jsonData, setJsonData] = React.useState(useLoaderData());
     const [selectedSlideIndex, setSelectedSlideIndex] = React.useState(null);
     const [mv, setModalValues] = React.useState(getDefaultState());
     const [modalIsOpen, setModalIsOpen] = React.useState(false);
+    const [errorText, setErrorText] = React.useState(null);
 
     React.useEffect(() => saveEdits(), [jsonData]);
 
@@ -37,15 +39,17 @@ const me = () => {
         const user = decodeJwt(Cookies.get("dv-token"));
         const s = jsonData.slides[index];
         setModalValues({
-            nameValue:     s.name,
-            typeValue:     s.slide.slideType,
-            durationValue: s.duration,
-            startValue:    s.start ? dateToLocalISO(new Date(s.start)) : "",
-            endValue:      s.end ? dateToLocalISO(new Date(s.end)) : "",
-            bgValue:       s.bg ?? "#1e242a",
-            activeValue:   s.active ?? true,
-            valueValue:    s.slide.value ?? "",
-            lastEditValue: user.email
+            nameValue:      s.name,
+            typeValue:      s.slide.slideType,
+            durationValue:  s.duration,
+            startValue:     s.start ? dateToLocalISO(new Date(s.start)) : "",
+            endValue:       s.end ? dateToLocalISO(new Date(s.end)) : "",
+            timeStartValue: s.timeStart ?? "",
+            timeEndValue:   s.timeEnd ?? "",
+            bgValue:        s.bg ?? "#1e242a",
+            activeValue:    s.active ?? true,
+            valueValue:     s.slide.value ?? "",
+            lastEditValue:  user.email
         });
         setModalIsOpen(true);
     };
@@ -72,14 +76,30 @@ const me = () => {
         setSelectedSlideIndex(null);
         setModalValues(getDefaultState());
         setModalIsOpen(false);
+        setErrorText(null);
     };
 
     const createRow = (slide, id) => [
         slide.name,
         slide.slide.slideType,
         `${slide.duration}s`,
-        slide.start ? dateToLocalISO(new Date(slide.start)) : "",
-        slide.end ? dateToLocalISO(new Date(slide.end)) : "",
+        <>
+            {slide.start && !slide.end
+                ? <span>{isEnglish() ? "starts" : "börjar"} {dateToShortDate(new Date(slide.start))}</span>
+                : <></>}
+            {slide.start && slide.end
+                ? <span>{dateToShortDate(new Date(slide.start))} - {dateToShortDate(new Date(slide.end))}</span>
+                : <></>}
+            {slide.end && !slide.start
+                ? <span>{isEnglish() ? "ends" : "slutar"} {dateToShortDate(new Date(slide.end))}</span>
+                : <></>}
+            {(slide.start || slide.end) && (slide.timeStart || slide.timeEnd)
+                ? <br />
+                : <></>}
+            {(slide.timeStart || slide.timeEnd)
+                ? <span>{slide.timeStart} - {slide.timeEnd}</span>
+                : <></>}
+        </>,
         <label className="switch">
             <input type="checkbox" checked={slide.active} onChange={() => onActiveClick(id)} />
             <span className="slider green" />
@@ -92,8 +112,25 @@ const me = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
+        if (mv.timeStartValue && !mv.timeEndValue) {
+            return setErrorText(isEnglish() ? "End time is missing" : "Sluttid saknas");
+        } else if (mv.timeEndValue && !mv.timeStartValue) {
+            return setErrorText(isEnglish() ? "Start time is missing" : "Starttid saknas");
+        }
+
         const slide = {slideType: mv.typeValue, value: mv.valueValue};
-        const newSlideData = {name: mv.nameValue, duration: mv.durationValue, active: mv.activeValue, start: new Date(mv.startValue).getTime(), end: new Date(mv.endValue).getTime(), bg: mv.bgValue, lastEdit: mv.lastEditValue, slide: slide};
+        const newSlideData = {
+            name: mv.nameValue,
+            duration: mv.durationValue,
+            active: mv.activeValue,
+            start: new Date(mv.startValue).getTime(),
+            end: new Date(mv.endValue).getTime(),
+            timeStart: mv.timeStartValue,
+            timeEnd: mv.timeEndValue,
+            bg: mv.bgValue,
+            lastEdit: mv.lastEditValue,
+            slide: slide
+        };
         
         setJsonData(oldData => {
             const newData = {...oldData};
@@ -190,6 +227,24 @@ const me = () => {
                     <span>({isEnglish() ? "optional" : "valfri"})</span>
                 </div>
 
+                <div className="row">
+                    <label>{isEnglish() ? "Active time" : "Aktiv tid"}:</label>
+                    <div style={{gridColumn: "span 2"}}>
+                        <input name="timeStart"
+                            type="time"
+                            value={mv.timeStartValue}
+                            onChange={e => setModalValues(v => { return {...v, timeStartValue: e.target.value} })}
+                        />
+                        <span>-</span>
+                        <input name="timeEnd"
+                            type="time"
+                            value={mv.timeEndValue}
+                            onChange={e => setModalValues(v => { return {...v, timeEndValue: e.target.value} })}
+                        />
+                    </div>
+                    <span>({isEnglish() ? "optional" : "valfri"})</span>
+                </div>
+
                 { mv.typeValue === "img" &&
                     <div className="row">
                         <label htmlFor="bg">{isEnglish() ? "Colour" : "Färg"}:</label>
@@ -200,7 +255,7 @@ const me = () => {
                                 onChange={e => setModalValues(v => { return {...v, bgValue: e.target.value} })}
                             />
                             <a className="btn blue"
-                                style={{margin: "0"}}
+                                style={{margin: "0 10px 0 0"}}
                                 onClick={() => setModalValues(v => { return {...v, bgValue: "#1e242a"} })}>
                             RESET</a>
                         </div>
@@ -237,6 +292,7 @@ const me = () => {
                 <button onClick={handleSubmit} className="btn blue">
                     {selectedSlideIndex != null ? (isEnglish() ? "UPDATE SLIDE" : "UPPDATERA SLIDE") : (isEnglish() ? "ADD SLIDE" : "LÄGG TILL")}
                 </button>
+                {errorText ? <span style={{color: "red"}}>{errorText}</span> : <></>}
             </form>
         </DvetModal>
     </>
@@ -250,6 +306,8 @@ const getDefaultState = () => {
         durationValue: 10,
         startValue: "",
         endValue: "",
+        timeStartValue: "",
+        timeEndValue: "",
         bgValue: "#1e242a",
         activeValue: true,
         lastEditValue: decodeJwt(Cookies.get("dv-token")).email
@@ -260,8 +318,7 @@ const createColumns = () => [
     isEnglish() ? "Name" : "Namn",
     isEnglish() ? "Type" : "Typ",
     isEnglish() ? "Duration" : "Varaktighet",
-    "Start",
-    isEnglish() ? "End" : "Slut",
+    "Period",
     isEnglish() ? "Active" : "Aktiv",
     "",
     "",

@@ -23,11 +23,20 @@ class InfoScreen {
     }
 
     filterSlidesData = (slides) => {
-        return slides.filter(s =>
-            (s.active ?? true) && 
-            (s.start ? new Date().getTime() >= s.start : true) && 
-            (s.end   ? new Date().getTime() <= getEndOfDayTime(new Date(s.end)) : true)
-        ).reverse();
+        return slides.filter(s => {
+            const isWithinTime = (timeStart, timeEnd) => {
+                if (!timeStart || !timeEnd) { return true; }
+                const now = new Date();
+                const [startHour, startMinute] = timeStart.split(':').map(Number);
+                const [endHour, endMinute] = timeEnd.split(':').map(Number);
+                return now >= new Date().setHours(startHour, startMinute, 0, 0)
+                    && now <= new Date().setHours(endHour, endMinute, 0, 0);
+            }
+            return (s.active ?? true) && 
+                (s.start ? new Date().getTime() >= s.start : true) && 
+                (s.end   ? new Date().getTime() <= getEndOfDayTime(new Date(s.end)) : true) &&
+                isWithinTime(s.timeStart, s.timeEnd);
+        }).reverse();
     }
 
     next = async () => {

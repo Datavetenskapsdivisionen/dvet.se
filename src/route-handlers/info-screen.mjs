@@ -10,13 +10,15 @@ const schema = {
             items: {
                 type: "object",
                 properties: {
-                    name:     { type: "string" },
-                    duration: { type: "integer" },
-                    start:    { type: ["integer", "null"] },
-                    end:      { type: ["integer", "null"] },
-                    bg:       { type: ["string",  "null"] },
-                    active:   { type: "boolean" },
-                    lastEdit: { type: "string" },
+                    name:      { type: "string" },
+                    duration:  { type: "integer" },
+                    start:     { type: ["integer", "null"] },
+                    end:       { type: ["integer", "null"] },
+                    timeStart: { type: ["string",  "null"] },
+                    timeEnd:   { type: ["string",  "null"] },
+                    bg:        { type: ["string",  "null"] },
+                    active:    { type: "boolean" },
+                    lastEdit:  { type: "string" },
                     slide: {
                         type: "object",
                         properties: {
