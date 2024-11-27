@@ -45,7 +45,7 @@ const dateToLocalISO = (date = new Date(), withTime = false) => {
 
 const dateToShortDate = (date = new Date()) => {
     const yearOption = date.getFullYear() === (new Date()).getFullYear() ? undefined : "numeric";
-    return date.toLocaleDateString("en-GB", { year: yearOption, month: "numeric", day: "numeric" });
+    return date.toLocaleDateString(isEnglish() ? "en-GB" : "sv-SE", { year: yearOption, month: "short", day: "numeric" });
 };
 
 const dateToPrettyTimestamp = (date = new Date()) => {
