@@ -1,5 +1,6 @@
 import React from "react";
 import Cookies from "js-cookie";
+import DvetModal from "/src/www/components/widgets/dvet-modal";
 import { decodeJwt } from "jose";
 import { isEnglish } from "/src/www/util";
 
@@ -7,6 +8,7 @@ const me = () => {
     const [isUploading, setIsUploading] = React.useState(false);
     const [selectedFiles, setSelectedFiles] = React.useState(null);
     const [myPhotos, setMyPhotos] = React.useState(null);
+    const [previewPhoto, setPreviewPhoto] = React.useState(null);
     const user = decodeJwt(Cookies.get("dv-token"));
 
     React.useEffect(() => {
@@ -72,6 +74,14 @@ const me = () => {
         }
     }
 
+    const onPreview = (e) => {
+        setPreviewPhoto(e.target.src);
+    };
+
+    const onClosePreview = () => {
+        setPreviewPhoto(null);
+    };
+
     return <div className="page">
         <h1>Photo host</h1>
         <form id="photos-post-data" action="/photos/post" method="post" encType="multipart/form-data">
@@ -88,12 +98,15 @@ const me = () => {
                 const hash = p.substring(p.lastIndexOf('_'), p.lastIndexOf('.'));
                 const pUrl = `/uploads/${user.email.split("@")[0]}/${p}`;
                 return <div className="my-photo-item" key={hash}>
-                    <img src={pUrl} width="35" height="35" />
+                    <img src={pUrl} width="35" height="35" onClick={onPreview} />
                     <a href={pUrl} target="_blank">{name}</a>
                     <button onClick={() => onDelete(name, hash)} className="btn red big-text">X</button>
                 </div>  
             }) }
         </>}
+        { previewPhoto && <DvetModal modalIsOpen={previewPhoto !== undefined} onModalClose={onClosePreview}>
+            <img src={previewPhoto} />
+        </DvetModal> }
     </div>;
 };
 
