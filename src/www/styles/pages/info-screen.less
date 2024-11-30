@@ -114,3 +114,17 @@
         font-family: 'IBM Plex Mono', monospace;
     }
 }
+
+.dvet-modal {
+    width: 480px;
+    
+    .row {
+        display: grid;
+        grid-template-columns: 90px auto 50px 1fr;
+        align-items: center;
+    
+        &.full {
+            grid-template-columns: 90px 1fr auto;
+        }
+    }
+}
