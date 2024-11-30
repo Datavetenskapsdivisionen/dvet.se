@@ -28,72 +28,6 @@ const VideoPlayIcon = () => (
     </svg>
 );
 
-const createElements = (data, searchParams, setSearchParams, setSelectedIndex) => {
-    if (data.error) return [<></>, data.error];
-    const location = searchParams.get("location");
-    const path = location ? location.split("%2F").filter(r => r) : [];
-    const updatePath = () => {
-        let newPath = "";
-        path.forEach(p => newPath += p + "%2F");
-        searchParams.set("location", newPath);
-        setSearchParams(searchParams);
-    };
-    let displayPath = "/";
-    path.forEach(p => {
-        data = data.children.find(c => c.id == p);
-        displayPath += data.name + "/";
-    });
-
-    const backButton = path.length == 0 ? <></> :
-        <div
-            className="item"
-            onClick={() => {
-                path.pop();
-                updatePath();
-            }}
-        >
-            <BackIcon />
-            <span>{isEnglish() ? "Go back" : "Backa"}</span>
-        </div>;
-
-    const children = data.children ? data.children.map((c, i) => {
-        if (c.mimeType == "application/vnd.google-apps.folder") {
-            if (c.childrenCount > 0) {
-                return <div
-                    className="item"
-                    onClick={() => {
-                        path.push(c.id);
-                        updatePath();
-                    }}>
-                    <span className="dir-count">{c.childrenCount}</span>
-                    <DirectoryIcon />
-                    <span className="title-bar">{c.name}</span>
-                </div>;
-            }
-        } else {
-            return <div
-                className="item preview-holder"
-                // onClick={() => window.open(c.url)}
-                onClick={() => setSelectedIndex(i)}
-            >
-                { c.mimeType.includes("video") ? 
-                    <div className="overlay">
-                        <VideoPlayIcon />
-                    </div>
-                : <></> }
-                <img className="preview" src={c.thumbnailUrl} referrerPolicy="no-referrer" />
-                {/* <span className="title-bar">{c.name}</span> */}
-            </div>;
-        }
-    }) : [];
-    const page = <>
-        <div className="photo-holder">{backButton}{children}</div>
-        {/* <pre>{JSON.stringify(data, null, 4)}</pre> */}
-    </>
-        ;
-    return [page, displayPath, data];
-};
-
 
 const fetchImageData = () => (
     fetch("/getPhotos")
@@ -105,8 +39,96 @@ const me = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const [[pageData, folderName, data], setPageData] = React.useState([<div className="loading"></div>, "Loading"]);
     const [selectedIndex, setSelectedIndex] = React.useState(-1);
+
+    const onPreviewOpen = (i) => {
+        setSelectedIndex(i);
+        searchParams.set("selectedPhoto", i);
+        setSearchParams(searchParams);
+    };
+    
+    const onPreviewClose = () => {
+        setSelectedIndex(-1);
+        searchParams.delete("selectedPhoto");
+        setSearchParams(searchParams);
+    };
+
+    const createElements = (data) => {
+        if (data.error) return [<></>, data.error];
+        const location = searchParams.get("location");
+        const path = location ? location.split("%2F").filter(r => r) : [];
+        const updatePath = () => {
+            let newPath = "";
+            path.forEach(p => newPath += p + "%2F");
+            searchParams.set("location", newPath);
+            setSearchParams(searchParams);
+        };
+        let displayPath = "/";
+        path.forEach(p => {
+            data = data.children.find(c => c.id == p);
+            displayPath += data.name + "/";
+        });
+
+        const selectedPhoto = searchParams.get("selectedPhoto");
+        if (selectedPhoto) {
+            const i = parseInt(selectedPhoto);
+            if (i && i >= 0 && i < data.children.length) {
+                setSelectedIndex(i);
+            } else {
+                onPreviewClose();
+            }
+        } else {
+            onPreviewClose();
+        }
+    
+        const backButton = path.length == 0 ? <></> :
+            <div
+                className="item"
+                onClick={() => {
+                    path.pop();
+                    updatePath();
+                }}
+            >
+                <BackIcon />
+                <span>{isEnglish() ? "Go back" : "Backa"}</span>
+            </div>;
+    
+        const children = data.children ? data.children.map((c, i) => {
+            if (c.mimeType == "application/vnd.google-apps.folder") {
+                if (c.childrenCount > 0) {
+                    return <div
+                        className="item"
+                        onClick={() => {
+                            path.push(c.id);
+                            updatePath();
+                        }}>
+                        <span className="dir-count">{c.childrenCount}</span>
+                        <DirectoryIcon />
+                        <span className="title-bar">{c.name}</span>
+                    </div>;
+                }
+            } else {
+                return <div
+                    className="item preview-holder"
+                    onClick={() => onPreviewOpen(i) }
+                >
+                    { c.mimeType.includes("video") ? 
+                        <div className="overlay">
+                            <VideoPlayIcon />
+                        </div>
+                    : <></> }
+                    <img className="preview" src={c.thumbnailUrl} referrerPolicy="no-referrer" />
+                </div>;
+            }
+        }) : [];
+        const page = <>
+            <div className="photo-holder">{backButton}{children}</div>
+        </>
+            ;
+        return [page, displayPath, data];
+    };
+
     React.useEffect(() => {
-        fetchImageData().then(res => { setPageData(createElements(res, searchParams, setSearchParams, setSelectedIndex)) });
+        fetchImageData().then(res => { setPageData(createElements(res)) });
     }, [fetchImageData, searchParams]);
 
     const photoView = (
@@ -114,9 +136,9 @@ const me = () => {
             hasPrev={selectedIndex >= 1 && selectedIndex < data.children.length}    
             currentPhoto={selectedIndex >= 0 && selectedIndex < data.children.length ? data.children[selectedIndex] : ""}
             hasNext={selectedIndex >= 0 && selectedIndex < data.children.length-1}
-            onClose={() => setSelectedIndex(-1)}
-            onPrev={() => setSelectedIndex(selectedIndex - 1)}
-            onNext={() => setSelectedIndex(selectedIndex + 1)}
+            onClose={() => onPreviewClose()}
+            onPrev={() => onPreviewOpen(selectedIndex - 1)}
+            onNext={() => onPreviewOpen(selectedIndex + 1)}
             photoNums={{ curr: selectedIndex + 1, total: data ? data.children.length : 0 }}
         />
     );
