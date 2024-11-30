@@ -60,14 +60,16 @@ const me = () => {
         setSelectedFiles(files);
     };
 
-    const onDelete = (hash) => {
-        fetch(`/user/photos/${hash}`, {
-            method: "DELETE",
-            headers: { "Authorization": `Bearer ${Cookies.get("dv-token")}` }
-        })
-        .then(r => r.json())
-        .then(r => r.ok && setMyPhotos(mp => mp.filter(p => !p.includes(hash))))
-        .catch(e => resField.innerText = `Error: ${e}`);
+    const onDelete = (name, hash) => {
+        if (window.confirm(isEnglish() ? `Are you sure you want to delete "${name}"?` : `Är du säker på att du vill radera "${name}"?`)) {
+            fetch(`/user/photos/${hash}`, {
+                method: "DELETE",
+                headers: { "Authorization": `Bearer ${Cookies.get("dv-token")}` }
+            })
+            .then(r => r.json())
+            .then(r => r.ok && setMyPhotos(mp => mp.filter(p => !p.includes(hash))))
+            .catch(e => resField.innerText = `Error: ${e}`);
+        }
     }
 
     return <div className="page">
@@ -88,7 +90,7 @@ const me = () => {
                 return <div className="my-photo-item" key={hash}>
                     <img src={pUrl} width="35" height="35" />
                     <a href={pUrl} target="_blank">{name}</a>
-                    <button onClick={() => onDelete(hash)} className="btn red big-text">X</button>
+                    <button onClick={() => onDelete(name, hash)} className="btn red big-text">X</button>
                 </div>  
             }) }
         </>}
