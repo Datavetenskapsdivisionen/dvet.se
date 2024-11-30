@@ -82,11 +82,12 @@ const me = () => {
         { myPhotos && myPhotos.length > 0 && <>
             <h2>{isEnglish() ? "My photos" : "Mina foton"}</h2>
             { myPhotos.map(p => {
-                const hash = p.substring(p.lastIndexOf('_')+1).split('.')[0];
+                const name = p.substring(0, p.lastIndexOf('_'));
+                const hash = p.substring(p.lastIndexOf('_'), p.lastIndexOf('.'));
                 const pUrl = `/uploads/${user.email.split("@")[0]}/${p}`;
                 return <div className="my-photo-item" key={hash}>
                     <img src={pUrl} width="35" height="35" />
-                    <a href={pUrl} target="_blank">{p}</a>
+                    <a href={pUrl} target="_blank">{name}</a>
                     <button onClick={() => onDelete(hash)} className="btn red big-text">X</button>
                 </div>  
             }) }
