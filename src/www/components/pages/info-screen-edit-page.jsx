@@ -12,6 +12,7 @@ const me = () => {
     const [selectedSlideIndex, setSelectedSlideIndex] = React.useState(null);
     const [mv, setModalValues] = React.useState(getDefaultState());
     const [modalIsOpen, setModalIsOpen] = React.useState(false);
+    const [modalDropdownIsOpen, setModalDropdownIsOpen] = React.useState(false);
     const [errorText, setErrorText] = React.useState(null);
 
     React.useEffect(() => saveEdits(), [jsonData]);
@@ -76,6 +77,7 @@ const me = () => {
         setSelectedSlideIndex(null);
         setModalValues(getDefaultState());
         setModalIsOpen(false);
+        setModalDropdownIsOpen(false);
         setErrorText(null);
     };
 
@@ -205,66 +207,6 @@ const me = () => {
                     <span>{mv.durationValue}s</span>
                 </div>
 
-                <div className="row">
-                    <label htmlFor="start">Start:</label>
-                    <input name="start"
-                        type="date"
-                        min={dateToLocalISO(new Date())}
-                        max={mv.endValue ? dateToLocalISO(new Date(mv.endValue)) : ""}
-                        value={mv.startValue}
-                        onChange={e => setModalValues(v => { return {...v, startValue: dateToLocalISO(new Date(e.target.value))} })} />
-                    <span>({isEnglish() ? "optional" : "valfri"})</span>
-                </div>
-
-                <div className="row">
-                    <label htmlFor="end">{isEnglish() ? "End" : "Slut"}:</label>
-                    <input name="end"
-                        type="date"
-                        min={dateToLocalISO(mv.startValue ? new Date(mv.startValue) : new Date())}
-                        value={mv.endValue}
-                        onChange={e => setModalValues(v => { return {...v, endValue: mv.startValue ? (new Date(e.target.value) >= new Date(mv.startValue) ? dateToLocalISO(new Date(e.target.value)) : "") : e.target.value} })}
-                    />
-                    <span>({isEnglish() ? "optional" : "valfri"})</span>
-                </div>
-
-                <div className="row">
-                    <label>{isEnglish() ? "Active time" : "Aktiv tid"}:</label>
-                    <div style={{gridColumn: "span 2"}}>
-                        <input name="timeStart"
-                            type="time"
-                            value={mv.timeStartValue}
-                            onChange={e => setModalValues(v => { return {...v, timeStartValue: e.target.value} })}
-                        />
-                        <span>-</span>
-                        <input name="timeEnd"
-                            type="time"
-                            value={mv.timeEndValue}
-                            onChange={e => setModalValues(v => { return {...v, timeEndValue: e.target.value} })}
-                        />
-                    </div>
-                    <span>({isEnglish() ? "optional" : "valfri"})</span>
-                </div>
-
-                { mv.typeValue === "img" &&
-                    <div className="row">
-                        <label htmlFor="bg">{isEnglish() ? "Colour" : "Färg"}:</label>
-                        <div style={{display: "flex", alignItems: "center"}}>
-                            <input name="bg"
-                                type="color"
-                                value={mv.bgValue}
-                                onChange={e => setModalValues(v => { return {...v, bgValue: e.target.value} })}
-                            />
-                            <a className="btn blue"
-                                style={{margin: "0 10px 0 0"}}
-                                onClick={() => setModalValues(v => { return {...v, bgValue: "#1e242a"} })}>
-                            RESET</a>
-                        </div>
-                        <div style={{gridColumn: "span 2"}}>
-                            <span>({isEnglish() ? "tip: match the image background colour" : "tips: matcha bildens bakgrundsfärg"})</span>
-                        </div>
-                    </div>
-                }
-
                 <div className="row full">
                     { mv.typeValue === "markdown" ? <>
                         <span>{isEnglish() ? "Content" : "Innehåll"}:</span>
@@ -288,6 +230,72 @@ const me = () => {
                         <a className="btn blue" href="/photos/host" target="_blank">{isEnglish() ? "UPLOAD IMAGE" : "LADDA UPP BILD"}</a>
                     </div>
                 }
+
+                <div className="dropdown">
+                    <div className="dropdown-bar" onClick={() => setModalDropdownIsOpen(!modalDropdownIsOpen)}>
+                        <span>{isEnglish() ? "Optional settings" : "Valfria inställningar"}</span>
+                        {modalDropdownIsOpen ? <span>&#9650;</span> : <span>&#9660;</span>}
+                    </div>
+                    <div className={"dropdown-content" + (modalDropdownIsOpen ? "" : " hidden")}>
+                        <div className="row">
+                            <label htmlFor="start">Start:</label>
+                            <input name="start"
+                                type="date"
+                                min={dateToLocalISO(new Date())}
+                                max={mv.endValue ? dateToLocalISO(new Date(mv.endValue)) : ""}
+                                value={mv.startValue}
+                                onChange={e => setModalValues(v => { return {...v, startValue: dateToLocalISO(new Date(e.target.value))} })} />
+
+                            <label htmlFor="end">{isEnglish() ? "End" : "Slut"}:</label>
+                            <input name="end"
+                                type="date"
+                                min={dateToLocalISO(mv.startValue ? new Date(mv.startValue) : new Date())}
+                                value={mv.endValue}
+                                onChange={e => setModalValues(v => { return {...v, endValue: mv.startValue ? (new Date(e.target.value) >= new Date(mv.startValue) ? dateToLocalISO(new Date(e.target.value)) : "") : e.target.value} })} />
+                        </div>
+
+                        {/* <div className="row">
+                            
+                        </div> */}
+
+                        <div className="row">
+                            <label>{isEnglish() ? "Active time" : "Aktiv tid"}:</label>
+                            <div style={{gridColumn: "span 2"}}>
+                                <input name="timeStart"
+                                    type="time"
+                                    value={mv.timeStartValue}
+                                    onChange={e => setModalValues(v => { return {...v, timeStartValue: e.target.value} })}
+                                />
+                                <span>-</span>
+                                <input name="timeEnd"
+                                    type="time"
+                                    value={mv.timeEndValue}
+                                    onChange={e => setModalValues(v => { return {...v, timeEndValue: e.target.value} })}
+                                />
+                            </div>
+                        </div>
+
+                        { mv.typeValue === "img" &&
+                            <div className="row">
+                                <label htmlFor="bg">{isEnglish() ? "Colour" : "Färg"}:</label>
+                                <div style={{display: "flex", alignItems: "center"}}>
+                                    <input name="bg"
+                                        type="color"
+                                        value={mv.bgValue}
+                                        onChange={e => setModalValues(v => { return {...v, bgValue: e.target.value} })}
+                                    />
+                                    <a className="btn blue"
+                                        style={{margin: "0 10px 0 0"}}
+                                        onClick={() => setModalValues(v => { return {...v, bgValue: "#1e242a"} })}>
+                                    RESET</a>
+                                </div>
+                                <div style={{gridColumn: "span 2"}}>
+                                    <span>({isEnglish() ? "tip: match the image background colour" : "tips: matcha bildens bakgrundsfärg"})</span>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
 
                 <button onClick={handleSubmit} className="btn blue">
                     {selectedSlideIndex != null ? (isEnglish() ? "UPDATE SLIDE" : "UPPDATERA SLIDE") : (isEnglish() ? "ADD SLIDE" : "LÄGG TILL")}
