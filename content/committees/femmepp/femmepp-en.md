@@ -27,14 +27,17 @@
   .ctxt {
     background: #ffe2e4;
     padding: 10px 45px;
-    height: 50%;
+
+    h1,
+    p {
+      color: #161616;
+    }
   }
 
   .cimg {
     background: #ffe2e4;
     display: flex;
     flex-wrap: wrap;
-    height: 30%;
     justify-content: space-evenly;
   }
 

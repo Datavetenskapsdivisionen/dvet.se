@@ -24,6 +24,11 @@
     flex-direction: column;
     width: 70%;
     padding: 1%;
+
+    h1,
+    p {
+      color: #161616;
+    }
   }
 
   .cimg {
