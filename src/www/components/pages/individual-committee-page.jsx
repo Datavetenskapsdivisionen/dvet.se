@@ -15,7 +15,9 @@ const me = (props) => {
     return (
         <div className="page individual-committee-page">
             <NavLink to="/committees" className="back-button">←</NavLink>
-            <ReactMarkdown children={text} rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]} />
+            <div>
+                <ReactMarkdown children={text} rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]} />
+            </div>
         </div>
     );
 };
