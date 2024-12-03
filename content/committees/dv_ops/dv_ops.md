@@ -58,19 +58,19 @@
             DV_Ops är Datavetenskapsdivisionens IT-Komitté. 
         </p>
         <p>
-            Vi tycker att det är väldigt viktigt att alla i våra program 
+            Jag tycker att det är väldigt viktigt att alla i våra program 
             känner sig representerade och att de kan delta i vår organisation.
             Om ni har några frågor, funderingar eller förslag är det bara
-            att kontakta oss via vår kontakt information (se nedan), eller helt
-            enkelt prata med oss i Monaden. Vi tycker alltid om att tjöta med
+            att kontakta mig via vår kontakt information (se nedan), eller helt
+            enkelt prata med oss i Monaden. Jag tycker alltid om att tjöta med
             andra studenter!
         </p>
         <p>
-            Vi ansvarar för all IT i Monaden och saker
+            Jag ansvarar för all IT i Monaden och saker
             som vår fina hemsida. DV_Ops existerar även för att
             öppna upp IT-intresset till alla samt främja öppen mjukvara och
             hackerandan på programmet. Ni träffar oss under insparken på
-            bland annat Haskell workshopen där vi hjälper er komma igång
+            bland annat Haskell workshopen där jag hjälper er komma igång
             med alla verktyg i första kursen! 
             Under resten av året planeras
             gamejam, hackathon och kanske även ett LAN i Monaden.

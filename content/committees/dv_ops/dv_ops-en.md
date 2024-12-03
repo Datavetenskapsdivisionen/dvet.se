@@ -56,7 +56,7 @@
     <div lang="se-SE" class="committee-page-text">
         <p>
             DV_Ops is the IT Committee of
-            DVD. We are responsible for all
+            DVD. I am responsible for all
             IT-related matters in Monaden,
             including maintaining our wonderful website.
         </p>
@@ -68,14 +68,14 @@
             program.
         </p>
         <p>
-            Throughout the year, we plan
+            Throughout the year, I plan
             game jams, hackathons, and
             maybe even a LAN party in Monaden.
         </p>
         <p>
             Everyone is always welcome,
             regardless of your level of expertise. As long as you have an interest, that’s what matters! You
-            can recognize us by our constant
+            can recognize us by my constant
             preaching about why you should
             install Linux on your laptop..
         </p>
