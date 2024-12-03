@@ -12,7 +12,7 @@
     }
 
     .committee-page-text {
-        max-width: 620px;
+        max-width: 540px;
     }
 
     @media (max-width: 1100px) {
