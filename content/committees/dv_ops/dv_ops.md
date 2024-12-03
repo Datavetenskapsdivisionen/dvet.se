@@ -77,7 +77,7 @@
         </p>
         <p>
             Alla är alltid välkomna, spelar ingen roll hur mycket eller hur lite
-            du kan, så långe intresset finns! Ni känner igen mig på vårt konstanta
+            du kan, så långe intresset finns! Ni känner igen mig på mitt konstanta
             predikande om varför du bör installera Linux på din laptop
         </p>
         <p>
