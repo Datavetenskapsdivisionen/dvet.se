@@ -62,14 +62,14 @@
             känner sig representerade och att de kan delta i vår organisation.
             Om ni har några frågor, funderingar eller förslag är det bara
             att kontakta mig via vår kontakt information (se nedan), eller helt
-            enkelt prata med oss i Monaden. Jag tycker alltid om att tjöta med
+            enkelt prata med mig i Monaden. Jag tycker alltid om att tjöta med
             andra studenter!
         </p>
         <p>
             Jag ansvarar för all IT i Monaden och saker
             som vår fina hemsida. DV_Ops existerar även för att
             öppna upp IT-intresset till alla samt främja öppen mjukvara och
-            hackerandan på programmet. Ni träffar oss under insparken på
+            hackerandan på programmet. Ni träffar mig under insparken på
             bland annat Haskell workshopen där jag hjälper er komma igång
             med alla verktyg i första kursen! 
             Under resten av året planeras
@@ -77,7 +77,7 @@
         </p>
         <p>
             Alla är alltid välkomna, spelar ingen roll hur mycket eller hur lite
-            du kan, så långe intresset finns! Ni känner igen oss på vårt kon stanta
+            du kan, så långe intresset finns! Ni känner igen mig på vårt konstanta
             predikande om varför du bör installera Linux på din laptop
         </p>
         <p>
