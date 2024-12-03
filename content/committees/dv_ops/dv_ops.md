@@ -1,4 +1,3 @@
-# DV_Ops
 <style>
     .committee-page-holder {
         display: flex;
@@ -13,7 +12,7 @@
     }
 
     .committee-page-text {
-        max-width: 700px;
+        max-width: 620px;
     }
 
     @media (max-width: 1100px) {
