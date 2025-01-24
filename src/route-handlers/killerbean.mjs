@@ -1,5 +1,4 @@
-const KILL_TOKEN = process.env.KILL_TOKEN ?
-    process.env.KILL_TOKEN : process.exit(1);
+const KILL_TOKEN = process.env.KILL_TOKEN;
 
 const me = (req, res) => {
     const token = req.get("X-Dvet-Token");
