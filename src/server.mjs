@@ -5,6 +5,16 @@ import expressStaticGzip from "express-static-gzip";
 import { fileURLToPath } from "url";
 import "dotenv/config";
 import multer from "multer";
+import chalk from "chalk";
+
+if (!process.env.KILL_TOKEN)          console.warn(chalk.yellow("[WARNING] KILL_TOKEN was not found in .env - You won't be able to restart the server remotely."));
+if (!process.env.ENABLE_DRIVE)        console.warn(chalk.yellow("[WARNING] ENABLE_DRIVE is false or was not found in .env - Google Drive features will be disabled."));
+if (!process.env.WEBHOOK_SECRET)      console.warn(chalk.yellow("[WARNING] WEBHOOK_SECRET was not found in .env - GitHub webhook features will be disabled."));
+if (!process.env.WEBHOOK_URL)         console.warn(chalk.yellow("[WARNING] WEBHOOK_URL was not found in .env - Discord news posting will be disabled."));
+if (!process.env.GITHUB_TOKEN)        console.warn(chalk.yellow("[WARNING] GITHUB_TOKEN was not found in .env - The GitHub API will still work but you might get rate limited."));
+if (!process.env.GITHUB_APP_CLIENT_ID ||
+    !process.env.GITHUB_APP_SECRET)   console.warn(chalk.yellow("[WARNING] GITHUB_APP_CLIENT_ID and GITHUB_APP_SECRET were not found in .env - Certain GitHub features that requires logging in will be disabled."));
+if (!process.env.JWT_SECRET_KEY)      console.warn(chalk.yellow("[WARNING] JWT_SECRET_KEY was not found in .env - You won't be able to store user information."));
 
 const allowedTypes = ["audio/aac", "image/bmp", "text/csv", "image/gif", "image/jpeg", "video/mp4",
     "video/mpeg", "audio/ogg", "video/ogg", "image/png", "application/pdf", "image/tiff",
@@ -153,5 +163,5 @@ const servePdf = (req, res, pdf) => {
 };
 
 const port = process.env.PORT || 8080;
-console.log("Server starting at: http://localhost:" + port);
+console.log(chalk.green("Server starting at: http://localhost:" + port));
 app.listen(port);
