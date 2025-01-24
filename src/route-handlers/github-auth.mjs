@@ -8,6 +8,11 @@ const redirectUri = nodeEnv === 'development'
     : `https://www.dvet.se/github-auth/authorised?lang=en`;
 
 const isAuthWithGithub = async (req, res) => {
+    const clientId = process.env.GITHUB_APP_CLIENT_ID;
+    if (!clientId) {
+        return res.status(400).json({ msg: "This feature is currently disabled.", authenticated: false, enabled: false });
+    }
+
     if (req.cookies["dv-github-token"]) {
         return res.status(200).json({ authenticated: true });
     }
@@ -15,7 +20,10 @@ const isAuthWithGithub = async (req, res) => {
 };
 
 const githubLogin = async (req, res) => {
-    const clientId = process.env.GITHUB_APP_CLIENT_ID;    
+    const clientId = process.env.GITHUB_APP_CLIENT_ID;
+    if (!clientId) {
+        return res.status(400).json({ msg: "This feature is currently disabled.", enabled: false });
+    }
     res.status(302).redirect(`https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}`);
 };
 
@@ -26,7 +34,10 @@ const githubLogout = async (req, res) => {
 
 const githubCallback = async (req, res, next) => {
     const code = req.query.code;
-    if (!code) { return next(); }
+    const clientId = process.env.GITHUB_APP_CLIENT_ID;
+    const clientSecret = process.env.GITHUB_APP_SECRET;
+    const jwtSecret = process.env.JWT_SECRET_KEY;
+    if (!code || !clientId || !clientSecret || !jwtSecret) { return res.status(423).send("JWT signing is not enabled."); }
     
     const tokenResponse = await fetch('https://github.com/login/oauth/access_token', {
         method: 'POST',
@@ -35,8 +46,8 @@ const githubCallback = async (req, res, next) => {
             'Accept': 'application/json'
         },
         body: JSON.stringify({
-            client_id: process.env.GITHUB_APP_CLIENT_ID,
-            client_secret: process.env.GITHUB_APP_SECRET,
+            client_id: clientId,
+            client_secret: clientSecret,
             code: code,
             redirect_uri: redirectUri,
         }),

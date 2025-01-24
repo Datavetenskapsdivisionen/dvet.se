@@ -20,6 +20,8 @@ const hasPassed = (date) => (date < new Date());
 
 const getEventData = async (full, eventUrl, restUrl, eventLimit, openModal, setModalData, navigate) => {
     const json = await (await fetch(eventUrl)).json();
+    if (json.driveDisabled) throw json;
+
     let eventData = json
         .map(event => {
             event.dateData.start = new Date(Date.parse(event.dateData.start));
@@ -145,8 +147,15 @@ const Schedule = (props) => {
             props.eventLimit ?? 5,
             openModal, setModalData,
             navigate
-        ).then((res) => setState(res))
-            .catch(() => setState(<div>{isEnglish() ? "Unable to fetch events" : "Det gick inte att hämta events"}</div>));
+        )
+        .then((res) => setState(res))
+        .catch((err) => {
+            if (err.driveDisabled) {
+                setState(<div>{isEnglish() ? "The event API is disabled" : "Event API:t är inaktiverat"}</div>);
+            } else {
+                setState(<div>{isEnglish() ? "Unable to fetch events" : "Det gick inte att hämta events"}</div>);
+            }
+        });
     }, [getEventData]);
 
     return createScheduleModal(calendarData, modalIsOpen, closeModal, modalData);

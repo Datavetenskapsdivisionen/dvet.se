@@ -77,8 +77,7 @@ const getEvents = async (req, res, calendarId) => {
     };
 
     if (process.env.ENABLE_DRIVE != "true") {
-        res.json({ error: "Event API is down!" });
-        return;
+        return res.status(503).json({ error: "Event API is down!", driveDisabled: true });
     }
     if (!events[calendarId]) events[calendarId] = {
         lastTime: new Date(Date.parse("3000-01-01"))

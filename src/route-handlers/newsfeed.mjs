@@ -157,6 +157,14 @@ const updatePosts = async () => {
 }
 
 const newsfeed = async (req, res) => {
+    if (!process.env.GITHUB_TOKEN) {
+        const rateLimit = await octokit.request("GET /rate_limit");
+        const core = rateLimit.data.resources.core;
+        if (core.remaining <= 0) {
+            return res.status(429).json({ rateLimited: true, reset: core.reset, posts: [], totalPostCount: 0 });
+        }
+    }
+
     const diff = Math.abs(new Date() - lastTime);
 
     let pageSize = MAX_FETCH;

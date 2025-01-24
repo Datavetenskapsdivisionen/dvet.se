@@ -25,10 +25,13 @@ const verifyCookieOrElse = async (req, res, ok, orElse) => {
 };
 
 const verifyToken = async (req, res, next) => {
+    if (!process.env.JWT_SECRET_KEY) {
+        return res.status(423).json({ msg: "Google login is disabled.", disabled: true });
+    }
+
     const token = req.headers.authorization;
     if (!token) {
-        res.status(401).json({ msg: "No token provided" });
-        return;
+        return res.status(401).json({ msg: "No token provided" });
     }
 
     try {

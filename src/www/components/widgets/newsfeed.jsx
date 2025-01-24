@@ -102,7 +102,7 @@ const me = (props) => {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' }
             }).then(res => res.json()).then(data => {
-                if (!data.authenticated) {
+                if (!data.authenticated && data.enabled !== false) {
                     setTimerRunning(true);
                     window.open('/github-auth', 'popup', 'width=768,height=750');
                 }
@@ -383,6 +383,13 @@ const me = (props) => {
     
     React.useEffect(() => {
         fetchNews(num, page).then((res) => {
+            if (res.rateLimited) {
+                setLoading(false);
+                setShowLoadButton(false);
+                const reset = new Date(res.reset * 1000).toLocaleTimeString(isEnglish() ? "en-GB" : "sv-SE", {hour: '2-digit', minute:'2-digit'}); 
+                return setNewsElements(<div className="news" style={{alignItems: "center"}}>{isEnglish() ? "GitHub rate limit has been reached - will reset at" : "GitHub rate limit har nåtts - återställs kl"} {reset}</div>);
+            }
+
             const newData = data.current.concat(res.posts); // Loads older news
             data.current = newData;
             if (page*num >= res.totalPostCount) {
