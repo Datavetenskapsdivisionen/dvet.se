@@ -1,15 +1,24 @@
-name: Docker Image CI
-
-on:
-  push:
+name: Docker Build
+on: 
+ push:
     branches: [ "master" , "dockertest"]
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v4
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag dvet:$(date +%s) --tag dvet:latest
+      - uses: actions/checkout@v3
+      - name: Login to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and Push
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: | 
+            ghcr.io/${{ github.actor }}/dvetse:latest
+            ghcr.io/${{ github.actor }}/dvetse:$(date +%s)
+
+
