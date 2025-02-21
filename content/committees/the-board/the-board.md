@@ -74,35 +74,41 @@
             andra studenter!
         </p>
         <p>
-            Styrelsen består i nuläget av Samuel Hammersberg (divisionsordförande), Lukas Gartman (divisionskassör), Tim Persson (vice-divisionsordförande), Gustav Dalemo (sekreterare) och Josefin Kokkinakis (SAMO).
+            Styrelsen består i nuläget av Ida Vranvuk (divisionsordförande), Hannes Carlsson (divisionskassör), Ida Kjellerstedt (vice-divisionsordförande), Nikhil Olsson Mukhopadhyay (sekreterare) och Daniell Cole (SAMO).
         </p>
         <h2>Kontakt</h2>
         <p>
             Du kan nå hela styrelsen med: <a href="mailto:styrelsen@dvet.se">styrelsen@dvet.se</a>
         </p>
         <p>
-            Samuel kan nås genom att skicka ett mail till 
+            Ida kan nås genom att skicka ett mail till 
             <a href="mailto:ordforande@dvet.se">ordforande@dvet.se</a> (stående address) eller till
-            <a href="mailto:samuel@dvet.se">samuel@dvet.se</a>. 
-            Annars kan du också skicka ett meddelande på Discord (användarnamn <a href="https://discordapp.com/users/216650745271943168"><code>`loafey`</code></a>) 
+            <a href="mailto:ida@dvet.se">ida@dvet.se</a>. 
+            Annars kan du också skicka ett meddelande på Discord (användarnamn <a><code>`rashthelasagna`</code></a>) 
             eller på Facebook Messenger!
         </p>
         <p>
-            Lukas kan nås genom att skicka ett mail till 
-            <a href="mailto:lukas@dvet.se">lukas@dvet.se</a>. 
-            Går även bra att skriva på Discord (användarnamn <a href="https://discordapp.com/users/137933060644667392"><code>`nilvoid`</code></a>) 
+            Hannes kan nås genom att skicka ett mail till 
+            <a href="mailto:hannes@dvet.se">hannes@dvet.se</a>. 
+            Går även bra att skriva på Discord (användarnamn <a><code>`hannes0648`</code></a>) 
             eller på Facebook Messenger!
         </p>
         <p>
-            Tim kan nås genom att skicka ett mail till 
-            <a href="mailto:tim@dvet.se">tim@dvet.se</a>. 
-            Går även bra att skriva på Discord (användarnamn <a href="https://discordapp.com/users/170196311784685568"><code>`timheterjag`</code></a>) 
+            Ida kan nås genom att skicka ett mail till 
+            <a href="mailto:kjellerstedt@dvet.se">kjellerstedt@dvet.se</a>. 
+            Går även bra att skriva på Discord (användarnamn <a><code>`kjelllare`</code></a>) 
+            eller på Facebook Messenger!
+        </p>
+         <p>
+            Daniell kan nås genom att skicka ett mail till 
+            <a href="mailto:daniell@dvet.se">daniell@dvet.se</a>. 
+            Går även bra att skriva på Discord (användarnamn <a><code>`mindokruvaak`</code></a>) 
             eller på Facebook Messenger!
         </p>
     </div>
     <div class="committee-page-image">
         <div>
-            <img src="https://dvet.se/uploads/committee-images/timp - 403ebe4936c55dd40fbef46471e67488 - DSCF0867.JPG" />
+            <img src="https://www.dvet.se/uploads/ida/IMG_0493_16f12af7de22a1c5509d56962e513562.JPG" />
         </div>
         <span>Styrelsen</span>
     </div>
