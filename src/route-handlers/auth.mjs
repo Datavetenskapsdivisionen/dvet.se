@@ -31,16 +31,46 @@ const verifyToken = async (req, res, next) => {
         return;
     }
 
-    try {
-        const encodedToken = new TextEncoder().encode(token.split(" ")[1]);
-        const encodedSecret = new TextEncoder().encode(process.env.JWT_SECRET_KEY);
-        const jwt = await jwtVerify(encodedToken, encodedSecret);
-        //res.status(200).json(jwt);
+    if (await checkToken(token)) {
         next();
-    } catch (e) {
+    } else {
         console.log(e);
         res.status(401).json({ msg: "Invalid token" });
     }
 };
 
-export { verifyToken, signToken, verifyCookieOrElse };
+async function checkToken(token) {
+    try {
+        const encodedToken = new TextEncoder().encode(token.split(" ")[1]);
+        const encodedSecret = new TextEncoder().encode(process.env.JWT_SECRET_KEY);
+        const jwt = await jwtVerify(encodedToken, encodedSecret);
+        return jwt.payload;
+    } catch (e) {
+        return false;
+    }
+}
+
+const belongsToGroups = (groups) => {
+    return async (req, res, next) => {
+        const token = req.headers.authorization;
+        if (!token) {
+            res.status(401).json({ msg: "No token provided" });
+            return;
+        }
+
+        const payload = await checkToken(token);
+        console.log(payload);
+        if (payload) {
+            console.log("Groups allowed", groups);
+            console.log("the check", payload.userGroups.some(group => groups.includes(group.email.split("@")[0])));
+            console.log("email split", groups.map(group => group.split("@")[0]));
+            if (payload.userGroups.some(group => groups.includes(group.email.split("@")[0]))) {
+                next();
+            } else {
+                res.status(403).json({ msg: `This page is only accessible by the following groups: ${groups.join(", ")}` });
+            }
+        }
+    };
+};
+
+export { verifyToken, signToken, verifyCookieOrElse, belongsToGroups };

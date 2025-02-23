@@ -17,6 +17,7 @@ import PrivacyPolicy from "./components/pages/privacy-policy-page";
 import InfoScreen from "./components/pages/info-screen";
 import EditInfoScreen from "./components/pages/info-screen-edit-page";
 import PhotoHostScreen from "./components/pages/photo-host-page";
+import InvoiceGenerator from "./components/pages/invoice-generator-page";
 import NewsScreen from "./components/pages/news-screen-page";
 import ScheduleScreen from "./components/pages/schedule-screen-page";
 import Popo from "./components/widgets/popo";
@@ -197,6 +198,7 @@ const router = createBrowserRouter([
               { path: ":id/*", element: <WikiPage /> }
             ]
           },
+          { path: "/styrelsen/invoice-generator", element: <InvoiceGenerator /> }
         ]
       }
     ]
