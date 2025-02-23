@@ -35,6 +35,7 @@ const callback = (req, res) => {
     res.sendFile(path.join(__dirname, "../dist/index.html"));
 };
 
+import { getInvoiceData, getInvoice, createInvoice, createTempInvoice, addCustomer, deleteCustomer } from "./route-handlers/invoice.mjs";
 import { newsfeed, addReaction, deleteReaction, addComment, editComment, deleteComment } from "./route-handlers/newsfeed.mjs";
 import { postHook } from "./route-handlers/githookhandle.mjs";
 import getPhotos from "./route-handlers/photos.mjs";
@@ -44,7 +45,7 @@ import killerBean from "./route-handlers/killerbean.mjs";
 import { deleteUserPhoto, getUserPhotos, photoHostPost } from "./route-handlers/photo-host.mjs";
 import { isAuthWithGithub, githubLogin, githubCallback, githubLogout } from "./route-handlers/github-auth.mjs";
 import { googleLogin } from "./route-handlers/googleApi.mjs";
-import { verifyToken, verifyCookieOrElse } from "./route-handlers/auth.mjs";
+import { verifyToken, verifyCookieOrElse, belongsToGroups } from "./route-handlers/auth.mjs";
 import { getWeather } from "./route-handlers/weather.mjs";
 
 // Middleware for handling trailing slashes and non-www requests
@@ -121,6 +122,14 @@ app.get("/wiki-data", (req, res) => verifyCookieOrElse(req, res,
         res.sendFile(path.resolve(__dirname, "../dist-secret/wiki.js.gz"));
     })
 );
+
+app.get("/styrelsen/invoice-generator", callback);
+app.get("/styrelsen/invoice-data", verifyToken, belongsToGroups(["firmatecknare", "dv_ops"]), getInvoiceData);
+app.get("/styrelsen/invoice/:invoice", verifyToken, belongsToGroups(["firmatecknare", "dv_ops"]), getInvoice);
+app.post("/styrelsen/invoice", verifyToken, belongsToGroups(["firmatecknare", "dv_ops"]), createInvoice);
+app.post("/styrelsen/invoice/createPreview", verifyToken, belongsToGroups(["firmatecknare", "dv_ops"]), createTempInvoice);
+app.post("/styrelsen/invoice/add-customer", verifyToken, belongsToGroups(["firmatecknare", "dv_ops"]), addCustomer);
+app.delete("/styrelsen/invoice/delete-customer/:customer", verifyToken, belongsToGroups(["firmatecknare", "dv_ops"]), deleteCustomer);
 
 app.get("/newsfeed", newsfeed);
 app.post("/newsfeed/:postId/react", addReaction);

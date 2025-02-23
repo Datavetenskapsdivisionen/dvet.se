@@ -53,6 +53,15 @@
     --link-color: #005fee;
     --link-visited-color: #7744a7;
     --link-active-color: #FF0000;
+
+    textarea, input {
+        color: var(--text-color);
+        background-color: var(--component-color);
+        border: 1px grey solid;
+        &:focus {
+            outline: 2px var(--accent-color) solid;
+        }
+    }
 }
 
 html {
@@ -78,13 +87,5 @@ button {
     }
     &:active {
         background-color: var(--component-accent-active-color);
-    }
-}
-
-textarea {
-    background-color: var(--component-color);
-    border: 1px var(--component-accent-color) solid;
-    &:focus {
-        outline: 2px var(--accent-color) solid;
     }
 }
