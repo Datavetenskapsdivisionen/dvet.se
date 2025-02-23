@@ -62,11 +62,7 @@ const belongsToGroups = (groups) => {
         }
 
         const payload = await checkToken(token);
-        console.log(payload);
         if (payload) {
-            console.log("Groups allowed", groups);
-            console.log("the check", payload.userGroups.some(group => groups.includes(group.email.split("@")[0])));
-            console.log("email split", groups.map(group => group.split("@")[0]));
             if (payload.userGroups.some(group => groups.includes(group.email.split("@")[0]))) {
                 next();
             } else {

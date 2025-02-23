@@ -97,7 +97,6 @@ const createInvoice = async (req, res) => {
     fs.writeFileSync(`${dir}/invoice-temp.tex`, updatedTex, "utf8");
     
     const jobname = req.params.temp ? "invoice-temp" : sanitisedInvoice.ocr;
-    console.log(jobname);
 
     const command = `pdflatex -jobname=${jobname} -output-directory=${dir} -halt-on-error ${dir}/invoice-temp.tex | grep '^!.*' -A200 --color=always`;
     const child = exec(command);

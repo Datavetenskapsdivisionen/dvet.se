@@ -36,7 +36,6 @@ const me = () => {
             });
 
             fetch("/styrelsen/invoice-data", { headers: { Authorization: `Bearer ${token}` } }).then(res => {
-                console.log("fetching data");
                 if (res.ok) {
                     setAuthorised({ok: true, msg: ""});
                 } else {
