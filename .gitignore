@@ -6,6 +6,9 @@ credentials.json
 token.json
 photoPosters.json
 info-screen-slides.json
+invoice-data.json
+src/latex/invoice/invoice-temp.*
+src/latex/invoice/pdf
 wiki-cache/
 .vscode/settings.json
 stats.json
