@@ -102,8 +102,11 @@ const createInvoice = async (req, res) => {
     const child = exec(command);
     child.stdout.pipe(process.stdout);
     child.on("exit", () => {
+        const pdfDir = `${dir}/pdf`;
+        if (!fs.existsSync(pdfDir)) { fs.mkdirSync(pdfDir, { recursive: true }); }
+        
         fs.rename(`${dir}/${jobname}.pdf`, `${dir}/pdf/${jobname}.pdf`, (err) => {
-            if (err) throw err;
+            if (err) return res.status(500).send("Error creating invoice:\n" + err);
             
             if (!req.params.temp) { // Keep preview files for compilation performance
                 fs.unlink(`${dir}/${jobname}.aux`, (err) => { if (err) throw err; });
