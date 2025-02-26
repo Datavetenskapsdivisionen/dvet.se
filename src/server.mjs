@@ -124,17 +124,11 @@ app.get("/wiki-data", (req, res) => verifyCookieOrElse(req, res,
 );
 
 app.get("/styrelsen/invoice-generator", callback);
-// app.get("/styrelsen/invoice-data", verifyToken, getInvoiceData);
-// app.get("/styrelsen/invoice/:invoice", verifyToken, getInvoice);
-// app.post("/styrelsen/invoice", verifyToken, createInvoice);
-// app.post("/styrelsen/invoice/createPreview", verifyToken, createTempInvoice);
-// app.post("/styrelsen/invoice/add-customer", verifyToken, addCustomer);
-// app.delete("/styrelsen/invoice/delete-customer/:customer", verifyToken, deleteCustomer);
-app.get("/styrelsen/invoice-data", verifyToken, getInvoiceData);
-app.get("/styrelsen/invoice/:invoice", verifyToken, getInvoice);
-app.post("/styrelsen/invoice", verifyToken, createInvoice);
-app.post("/styrelsen/invoice/createPreview", verifyToken, createTempInvoice);
-app.post("/styrelsen/invoice/add-customer", verifyToken, addCustomer);
+app.get("/styrelsen/invoice-data", verifyToken, belongsToGroups(["firmatecknare", "dv_ops"]), getInvoiceData);
+app.get("/styrelsen/invoice/:invoice", verifyToken, belongsToGroups(["firmatecknare", "dv_ops"]), getInvoice);
+app.post("/styrelsen/invoice", verifyToken, belongsToGroups(["firmatecknare", "dv_ops"]), createInvoice);
+app.post("/styrelsen/invoice/createPreview", verifyToken, belongsToGroups(["firmatecknare", "dv_ops"]), createTempInvoice);
+app.post("/styrelsen/invoice/add-customer", verifyToken, belongsToGroups(["firmatecknare", "dv_ops"]), addCustomer);
 app.delete("/styrelsen/invoice/delete-customer/:customer", verifyToken, deleteCustomer);
 
 app.get("/newsfeed", newsfeed);
