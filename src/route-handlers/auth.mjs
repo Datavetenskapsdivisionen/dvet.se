@@ -1,4 +1,5 @@
 import { jwtVerify, SignJWT } from "jose";
+import { fetchUserGroups } from "./googleApi.mjs";
 import Cookies from "js-cookie";
 
 const signToken = async (content) => {
@@ -53,6 +54,12 @@ async function checkToken(token) {
     }
 }
 
+/**
+ * A cache to store user groups information.
+ * @type {Map<string, {groups: string[], last_updated: number}>}
+ */
+const USER_GROUPS_CACHE = new Map();
+
 const belongsToGroups = (groups) => {
     return async (req, res, next) => {
         const token = req.headers.authorization;
@@ -63,11 +70,21 @@ const belongsToGroups = (groups) => {
 
         const payload = await checkToken(token);
         if (payload) {
-            if (payload.userGroups.some(group => groups.includes(group.email.split("@")[0]))) {
+            const cache = USER_GROUPS_CACHE[payload.email];
+            if (!cache || (Date.now() - cache.last_updated > 1000*60*30)) {
+                USER_GROUPS_CACHE[payload.email] = { groups: await fetchUserGroups(payload.email), last_updated: Date.now() };
+                const newToken = await signToken({ ...payload, userGroups: USER_GROUPS_CACHE[payload.email].groups });
+                Cookies.set('dv-token', `Bearer ${newToken}`, { expires: 30 });
+            }
+
+            const userGroups = USER_GROUPS_CACHE[payload.email].groups;
+            if (userGroups.some(group => groups.includes(group.email.split("@")[0]))) {
                 next();
             } else {
-                res.status(403).json({ msg: `This page is only accessible by the following groups: ${groups.join(", ")}` });
+                res.status(403).json({ msg: `This resource is only accessible by the following groups: ${groups.join(", ")}` });
             }
+        } else {
+            res.status(401).json({ msg: "Invalid token" });
         }
     };
 };

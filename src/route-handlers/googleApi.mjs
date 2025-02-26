@@ -1,17 +1,18 @@
 import fs from "fs/promises";
 import path from "path";
 import process from "process";
-import { google } from "googleapis";            
-import { OAuth2Client } from "google-auth-library";
 import http from "http";
 import url from "url";
 import open from "open";
 import destroyer from "server-destroy";
+import chalk from "chalk";
+import { google } from "googleapis";            
+import { OAuth2Client } from "google-auth-library";
 import { decodeJwt } from "jose";
 import { signToken } from "./auth.mjs";
 
 // --------------- STUFF TO JUST GET THE API WORKING ---------------
-// If modifying these scopes, delete token.json.
+// README: If modifying these scopes, delete token.json.
 const SCOPES = [
     "https://www.googleapis.com/auth/drive.metadata.readonly",
     "https://www.googleapis.com/auth/spreadsheets.readonly",
@@ -26,13 +27,17 @@ const TOKEN_PATH = path.join(process.cwd(), "token.json");
 const CREDENTIALS_PATH = path.join(process.cwd(), "credentials.json");
 
 const googleLogin = async (req, res) => {
+    if (process.env.ENABLE_DRIVE !== "true") {
+        return res.status(503).json({ error: "Google API is down!", driveDisabled: true });
+    }
+
     const googleLoginJwt = req.body.credential;
     if (!googleLoginJwt) {
         res.status(401).json({ msg: "No credentials provided" });
         return;
     }
 
-    let user, userGroups;
+    let user;
     try {
         const userData = decodeJwt(googleLoginJwt);
         user = {
@@ -47,24 +52,23 @@ const googleLogin = async (req, res) => {
         return;
     }
 
-    try {
-        const oAuth2Client = await authoriseGoogleApi();
-        const admin = google.admin({version: "directory_v1", auth: oAuth2Client});
-        const allGroups = (await admin.groups.list({domain: "dvet.se"})).data.groups;
-        userGroups = (await Promise.all(allGroups.map(async group => {
-            const isMember = (await admin.members.hasMember({groupKey: group.id, memberKey: user.email})).data.isMember;
-            return isMember ? { name: group.name, email: group.email } : null;
-        }))).filter(ug => ug !== null);
-    } catch (err) {
-        userGroups = [];
-        console.error(err);
-    }
-
+    const userGroups = await fetchUserGroups(user.email);
     user = {...user, userGroups };
 
     const jwt = await signToken(user);
     res.cookie("dv-token", jwt, { maxAge: 1000*60*60*24*30 }); // Expires in 30 days (milliseconds)
     res.status(200).json({ jwt });
+};
+
+const fetchUserGroups = async (email) => {
+    try {
+        const oAuth2Client = await authoriseGoogleApi();
+        const admin = google.admin({version: "directory_v1", auth: oAuth2Client});
+        return (await admin.groups.list({userKey: email})).data.groups;
+    } catch (err) {
+        console.error(err);
+        return [];
+    }
 };
 
 /**
@@ -84,6 +88,7 @@ const loadSavedCredentialsIfExist = async () => {
         const oAuth2Client = google.auth.fromJSON(credentials);
         return oAuth2Client;
     } catch (err) {
+        console.log(chalk.red("Error loading credentials:"), err);
         return null;
     }
 };
@@ -124,6 +129,7 @@ const getAuthenticatedClient = async () => {
         // Generate the url that will be used for the consent dialog.
         const authorizeUrl = oAuth2Client.generateAuthUrl({
             access_type: 'offline',
+            prompt: 'consent',
             scope: SCOPES,
         });
   
@@ -146,7 +152,7 @@ const getAuthenticatedClient = async () => {
                 reject(e);
             }
         }).listen(3000, () => {
-            console.log(`Launching browser... Click the link below if nothing happened:\n${authorizeUrl}\n`);
+            console.log(chalk.yellow("Launching browser... Click the link below if nothing happened:") + `\n${chalk.blue(authorizeUrl)}\n`);
             // open the browser to the authorize url to start the workflow
             open(authorizeUrl, {wait: false}).then(cp => cp.unref());
         });
@@ -165,7 +171,7 @@ const authoriseGoogleApi = async () => {
         return client;
     }
 
-    console.log("Credentials not found. Fetching new client...")
+    console.log(chalk.red("Credentials not found. Fetching new client..."));
     client = await getAuthenticatedClient();
     if (client.credentials) {
         await saveCredentials(client);
@@ -174,4 +180,4 @@ const authoriseGoogleApi = async () => {
 };
 if (process.env.ENABLE_DRIVE === "true") await authoriseGoogleApi();
 
-export { authoriseGoogleApi, googleLogin };
+export { authoriseGoogleApi, googleLogin, fetchUserGroups };
