@@ -12,7 +12,8 @@ const nameFixer = name => name
     .replaceAll("/", "__").replace(".", "")
     .replaceAll("&", "___")
     .replaceAll(" ", "_").replace("(", "_")
-    .replace(")", "_");
+    .replace(")", "_")
+    .replaceAll("-", "_");
 
 const clearDist = () => {
     try {
@@ -28,13 +29,14 @@ const clearDist = () => {
 };
 
 class File {
-    constructor(name) {
+    constructor(name, dirData) {
         let splat = name.split("").reverse().join("").split(/\.(.*)/s).map(s => s.split("").reverse().join(""));
         if (splat.length == 1) {
             throw new Error("invalid file name: " + name);
         }
         this.extension = splat[0];
         this.name = splat[1];
+        this.dirData = dirData;
     }
     show(_i) {
         return "├ " + this.name;
@@ -69,8 +71,13 @@ class File {
 
     navtree(path) {
         if (this.extension == "md") {
+            if (this.name.includes("-en-")) { // Deal with english files below
+                return [`<></>`, `<></>`];
+            }
+            const englishFileName = this.dirData.find(n => n.includes(this.name + "-en-"));
+            const englishName = englishFileName ? englishFileName.split("-en-")[1].split(".md")[0] : this.name; // Default to swedish if there is no english file
             const uri = `${path.replace(" ", "_")}/${nameFixer(this.name)}`;
-            const res = `<div><Link onClick={hideNavTree} class="wiki-navtree-link" to="${uri}">{'\t'}${this.name}</Link></div>`;
+            const res = `<div><Link onClick={hideNavTree} class="wiki-navtree-link" to="${uri}">{'\t'}{isEnglish() ? "${englishName}" : "${this.name}"}</Link></div>`;
             return [res, res];
         } else {
             return [`<></>`, `<></>`];
@@ -134,7 +141,10 @@ class Directory {
         }
         const buttonId = this.path + "__button";
         const divId = this.path + "__div";
-        const actLen = this.children.filter(p => p.extension && p.extension != "hidden").length;
+        const actLen = this.children
+            .filter(p => p.extension && p.extension != "hidden")
+            .filter(p => p.name && !p.name.includes("-en-"))
+            .length;
         const hide = actLen >= 15
             ? `<button class="wiki-navtree-button" id="${buttonId}" onClick={() => hideTree("${buttonId}", "${divId}")}>${this.path} ⇓</button>`
             : "<></>";
@@ -184,6 +194,7 @@ class Directory {
     react(navtree, secretNavtree) {
         let output = `import React from "react";
 import { useParams, Link } from "react-router-dom";
+import { isEnglish } from "/src/www/util";
 const hideTree = (buttonId, divId) => {
     const button = document.getElementById(buttonId);
     const div = document.getElementById(divId);
@@ -222,11 +233,17 @@ const showNavTree = () => {
         }
         let paths = "";
         for (const name of names) {
+            if (name.includes("_en_")) { continue; } // deal with english files below
+            const englishName = names.find(n => n.includes(name + "_en_"));
+
             paths += `if (path == "${name}") {
         return <main-wiki>
             <button onClick={showNavTree} class="show-tree-button">≡ Show Tree</button>
             <div id="navtree" class="wiki-navtree-root wiki-navtree-hidden"><button onClick={hideNavTree} className="close">X</button><div class="wiki-navtree-middle">{TREE}</div></div>
-            <div className="page" dangerouslySetInnerHTML={{ __html: ${name} }}></div>
+            <div className="page">
+                { isEnglish() && ${!englishName} ? <p><em>(English version not available)</em></p> : <></> }
+                <div id="wiki-page" dangerouslySetInnerHTML={{ __html: isEnglish() && ${englishName} ? ${englishName} : ${name} }}></div>
+            </div>
         </main-wiki>;
     } else `;
         }
@@ -270,7 +287,7 @@ const readDir = (name, dir) => {
             let stat = fs.statSync(data);
 
             if (stat.isDirectory()) res.addChild(readDir(name, data));
-            else res.addChild(new File(name, dir));
+            else res.addChild(new File(name, dirData));
         }
     } catch (error) {
         console.error(error);
@@ -282,7 +299,7 @@ const main = () => {
     console.log("starting wiki builder 9000");
     console.log(` - loading wiki structure (${SOURCE_DIR})`);
     let struct = readDir("root", SOURCE_DIR);
-    struct.print();
+    // struct.print();
     console.log(` - creating/clearing output dir (${OUTPUT_DIR})`);
     clearDist();
     console.log(` - generating markdown...`);

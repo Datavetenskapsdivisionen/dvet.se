@@ -1,12 +1,11 @@
 # Utlägg
 
-För att få tillbaka pengar efter ett utlägg, fyll i nedan formulär och lämna det i Divisionens brevlåda. 
+För att få ersättning för ett utlägg, fyll i formuläret nedan och lägg det i Divisionens brevlåda.
 
-Formulären bör finnas utskrivna vid brevlådan. Om de är slut, notifiera styrelsen.
+Formulär bör finnas utskrivna vid brevlådan. Om de är slut, vänligen meddela styrelsen.
 
 <object class="pdf" 
-            data=
-"./dvd-expensesform.pdf"
+            data="./dvd-expensesform.pdf"
             width="800"
             height="500">
 </object>
