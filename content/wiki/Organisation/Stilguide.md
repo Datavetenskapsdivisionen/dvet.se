@@ -30,16 +30,14 @@ Vid intern kommunikation eller kommunikation med andra studentorganisationer är
 </div>
 
 ## Dokument
-Officiella organisationsdokument, såsom styrelsens mötesprotokoll och stämmoprotokoll, ska vara skrivna i LaTeX. En mall kan hittas 
-[här](https://github.com/Datavetenskapsdivisionen/dokument/tree/trunk/templates/latex). 
+Officiella organisationsdokument, såsom styrelsens mötesprotokoll och stämmoprotokoll, ska vara skrivna i LaTeX. [En mall kan hittas här](https://github.com/Datavetenskapsdivisionen/dokument/tree/trunk/templates/latex). 
 
-För andra dokument, såsom verksamhetsplaner som ska skickas till studentkåren, är det okej att använda en tjänst som Google Documents med denna [mall](https://docs.google.com/document/d/1WicM_XWqLPlpme1JKDc7d0DFsVsEui78ci9sD53Z3Ro/edit#heading=h.5fyyp94ui1cs). Det enklaste är att göra en kopia av dokumentet när det ska användas.
+För andra dokument, såsom verksamhetsplaner som ska skickas till studentkåren, är det okej att använda en tjänst som Google Documents med [denna mall](https://docs.google.com/document/d/1WicM_XWqLPlpme1JKDc7d0DFsVsEui78ci9sD53Z3Ro/edit#heading=h.5fyyp94ui1cs). Det enklaste är att göra en kopia av dokumentet när det ska användas.
 
 Kommittéers dokument är inte bundna till dessa mallar eftersom deras dokument primärt bara delas internt. För dokument som riktas till externa personer rekommenderas det dock att använda dessa mallar som en bas.
 
 ## Presentationer 
-Även om inga strikta riktlinjer för hur presentationer ska anpassas finns, rekommenderas det att denna 
-[mall](https://docs.google.com/presentation/d/1YJ3ERnv-nscoHu6VvuULP1GbAhcUQaTDjhtcxa1DhSg/edit?usp=sharing) används.
+Även om inga strikta riktlinjer för hur presentationer ska anpassas finns, rekommenderas det att [denna mall](https://docs.google.com/presentation/d/1YJ3ERnv-nscoHu6VvuULP1GbAhcUQaTDjhtcxa1DhSg/edit?usp=sharing) används.
 Det enklaste är att göra en kopia av mallen när den ska användas.
 
 Även kommittéer rekommenderas att använda denna mall när de håller presentationer eller deltar i möten med deltagare utanför organisationen.
@@ -47,4 +45,4 @@ Det enklaste är att göra en kopia av mallen när den ska användas.
 ## Göta Studentkår
 Eftersom Datavetenskapsdivisionen är en organisation under Göta Studentkår kan det vara nödvändigt att använda
 Göta Studentkårs visuella identitet.
-Deras riktlinjer kan hittas [här](https://wiki.gotastudentkar.se/goeta-wik/kommunikation/visuell-identitet).
+[Deras riktlinjer kan hittas här](https://gota-studentkar.gitbook.io/goeta-wik/kommunikation/visuell-identitet).
