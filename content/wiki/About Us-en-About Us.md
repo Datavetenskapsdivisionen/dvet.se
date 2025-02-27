@@ -9,5 +9,5 @@ ensure our courses maintain their quality, and more!
 The organization mostly resides in [Monaden](https://goo.gl/maps/vp7kAQRcWrZWo2Xc9),
 which is our section premises at Johanneberg, in the EDIT house at Chalmers.
 
-To join the organization, you first need to join [Göta Studentkår](https://gotastudentkar.se/sv/medlemsformaner),
+To join the organization, you first need to join [Göta Student Union](https://gotastudentkar.se/en/medlemsformaner),
 and you can download the Orbi app and apply for membership there!
