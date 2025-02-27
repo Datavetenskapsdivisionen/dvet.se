@@ -4,7 +4,7 @@ These committees all have different [purposes](https://drive.google.com/file/d/1
 
 Here is a short list of the committees and their goals:
 * [DVRK](/committees/dvrk)
-    - The committee's name is *DVRK*, which is an acronym for *Computer Science Freshmen Committee*.
+    - The committee's name is *DVRK*, which is an acronym for *Datavetenskaps recentiorskommitté* (*Computer Science Freshmen Committee*).
     - *DVRK* is the Computer Science Division's reception committee and is responsible for the association's reception of new students. The committee should plan and carry out the reception of new students to the bachelor's program and the department's master's programs at the university based on the Johanneberg campus.
 
 * [Student Educational Committee](/committees/student-educational-committee)
