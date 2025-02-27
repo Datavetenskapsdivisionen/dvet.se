@@ -8,7 +8,7 @@ A rule of thumb is that all members of the Computer Science Division should have
 
 Bookings are made using the form below. The board reserves the right to reject bookings.
 
-After the event, the person who booked Monaden is responsible for cleaning. Follow the cleaning schedule in the wiki [here](<link>).
+After the event, the person who booked Monaden is responsible for cleaning.
 
 **NOTE**: During the Introduction period, DVRK manages Monaden's bookings, and all bookings must be approved by them.
 

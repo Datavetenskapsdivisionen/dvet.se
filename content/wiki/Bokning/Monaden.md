@@ -8,7 +8,7 @@ En tumregel för bokning är att alla medlemmar i Datavetenskapsdivisionen ska h
 
 Bokning sker via formuläret nedan. Styrelsen har rätt att avslå bokningar.
 
-Efter evenemanget ansvarar __du__ som bokat för att städa. Följ städschemat i wikin <länk>.
+Efter evenemanget ansvarar __du__ som bokat för att städa.
 
 **NOTERA** att under Insparken bestämmer DVRK över Monadens bokningar och alla bokningar ska godkännas av dem.
 
