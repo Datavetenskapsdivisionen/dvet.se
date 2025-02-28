@@ -6,7 +6,7 @@ const isAuth = async () => {
         return false;
     }
 
-    return await fetch("/verify-token", { method: "POST", headers: { "Authorization": `Bearer ${Cookies.get("dv-token")}` }})
+    return await fetch("/api/verify-token", { method: "POST", headers: { "Authorization": `Bearer ${Cookies.get("dv-token")}` }})
         .then(r => r.ok)
         .catch(e => false);
 };

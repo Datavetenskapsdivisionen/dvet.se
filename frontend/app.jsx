@@ -36,7 +36,7 @@ const GoogleAuth = () => {
   // Log in with token if it exists
   React.useEffect(() => {
     if (token) {
-      fetch("/verify-token", { method: "POST", headers: { "Authorization": `Bearer ${token}` } })
+      fetch("/api/verify-token", { method: "POST", headers: { "Authorization": `Bearer ${token}` } })
         .then(res => setIsLoggedIn(res.ok))
         .catch(setIsLoggedIn(false));
     }
@@ -44,7 +44,7 @@ const GoogleAuth = () => {
 
   const onSuccess = async (res) => {
     if (res.credential) {
-      await fetch("/google-auth", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(res), referrerPolicy: 'strict-origin-when-cross-origin' })
+      await fetch("/api/google-auth", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(res), referrerPolicy: 'strict-origin-when-cross-origin' })
         .then(res => setIsLoggedIn(res.ok))
         .catch(setIsLoggedIn(false));
     }
@@ -191,7 +191,7 @@ const router = createBrowserRouter([
 
       {
         element: <GoogleAuth />, children: [
-          { path: "/info-screen/edit", element: <EditInfoScreen />, loader: async () => await fetch("/getInfoScreenSlides") },
+          { path: "/info-screen/edit", element: <EditInfoScreen />, loader: async () => await fetch("/api/info-screen") },
           { path: "/photos/host", element: <PhotoHostScreen /> },
           {
             path: "/dviki/Hemlisar", element: <WikiPage />, children: [
@@ -204,7 +204,7 @@ const router = createBrowserRouter([
     ]
   },
   { path: "/github-auth/authorised", element: <GithubAuth /> },
-  { path: "/info-screen", element: <InfoScreen />, loader: async () => await fetch("/getInfoScreenSlides") },
+  { path: "/info-screen", element: <InfoScreen />, loader: async () => await fetch("/api/info-screen") },
   { path: "/newsscreen", element: <NewsScreen /> },
   { path: "/scscreen", element: <ScheduleScreen /> },
 

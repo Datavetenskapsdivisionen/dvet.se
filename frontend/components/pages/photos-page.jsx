@@ -30,7 +30,7 @@ const VideoPlayIcon = () => (
 
 
 const fetchImageData = () => (
-    fetch("/getPhotos")
+    fetch("/api/photos")
         .then(res => res.json())
         .catch(e => ({ error: isEnglish() ? "failed to fetch images" : "kunde inte hämta bilder" }))
 );

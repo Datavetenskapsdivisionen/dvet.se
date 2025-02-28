@@ -12,7 +12,7 @@ const me = () => {
     const user = decodeJwt(Cookies.get("dv-token"));
 
     React.useEffect(() => {
-        fetch("/user/photos", { headers: { "Authorization": `Bearer ${Cookies.get("dv-token")}` } })
+        fetch("/api/user/photos", { headers: { "Authorization": `Bearer ${Cookies.get("dv-token")}` } })
         .then(r => r.json())
         .then(r => setMyPhotos(r.photos ?? null));
     }, []);
@@ -28,7 +28,7 @@ const me = () => {
         const fields = document.getElementById("photos-post-data");
         const data = new FormData(fields);
 
-        fetch("/photos/post", {
+        fetch("/api/photos/post", {
             method: "POST",
             headers: { "Authorization": `Bearer ${Cookies.get("dv-token")}` },
             body: data
@@ -64,7 +64,7 @@ const me = () => {
 
     const onDelete = (name, hash) => {
         if (window.confirm(isEnglish() ? `Are you sure you want to delete "${name}"?` : `Är du säker på att du vill radera "${name}"?`)) {
-            fetch(`/user/photos/${hash}`, {
+            fetch(`/api/user/photos/${hash}`, {
                 method: "DELETE",
                 headers: { "Authorization": `Bearer ${Cookies.get("dv-token")}` }
             })
@@ -84,7 +84,7 @@ const me = () => {
 
     return <div className="page">
         <h1>Photo host</h1>
-        <form id="photos-post-data" action="/photos/post" method="post" encType="multipart/form-data">
+        <form id="photos-post-data" action="/api/photos/post" method="post" encType="multipart/form-data">
             <label htmlFor="files" className="btn blue" style={{marginRight: "10px"}}>{isEnglish() ? "Browse photos..." : "Bläddra foton..."}</label>
             <input type="file" id="files" name="files" onChange={onInputChange} multiple accept="image/png, image/gif, image/jpeg, video/mp4" style={{display: "none"}} />
             <input onClick={onSubmitAction} type="submit" value={isUploading ? (isEnglish() ? "UPLOADING..." : "LADDAR UPP...") : (isEnglish() ? "UPLOAD" : "LADDA UPP")} disabled={isUploading || !selectedFiles} className="btn green" />

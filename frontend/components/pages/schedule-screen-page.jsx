@@ -13,7 +13,7 @@ const fetchSchedule = ({ type = Types.DEFAULT, limit = 6, title = "" }) => {
     switch (type) {
         case Types.KANDIDAT:
         case Types.MASTER:
-            return <>{t} <Schedule eventLimit={limit} eventUrl={`/getKickoffEvents?type=${type}`} /></>;
+            return <>{t} <Schedule eventLimit={limit} eventUrl={`/api/kickoff-events?type=${type}`} /></>;
         default:
             return <>{t} <Schedule eventLimit={limit} /></>;
     }

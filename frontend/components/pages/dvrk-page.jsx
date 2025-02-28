@@ -145,7 +145,7 @@ const ContentHolder = (props) => (
 const MainPage = () => {
     return (
         <ContentHolder element={
-            /* <Schedule eventUrl="/getKickOffEvents" restUrl="/committees/dvrk/schedule" /> */
+            /* <Schedule eventUrl="/api/kickoff-events" restUrl="/committees/dvrk/schedule" /> */
             <ReactMarkdown children={isEnglish() ? textEn : text} rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}></ReactMarkdown>
         } />
     );
@@ -172,8 +172,8 @@ const SchedulePage = (props) => {
                             <span>📅</span>
                         </button>
                     </h1>
-                    <CalenderSchedule full={false} eventUrl={"/getKickoffEvents" + (props.extension ?? "")} />
-                    {/* <Schedule full={true} eventUrl={"/getKickoffEvents" + (props.extension ?? "")} /> */}
+                    <CalenderSchedule full={false} eventUrl={"/api/kickoff-events" + (props.extension ?? "")} />
+                    {/* <Schedule full={true} eventUrl={"/api/kickoff-events" + (props.extension ?? "")} /> */}
                     <div style={{ height: "2em" }}></div>
                 </>
             } />

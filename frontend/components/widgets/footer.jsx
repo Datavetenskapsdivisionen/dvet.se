@@ -44,7 +44,7 @@ const footer = () => {
 
         if (status.github) {
             Cookies.remove("dv-github-user");
-            fetch("/github-auth/logout", { method: "POST" }).then(() => location.reload());
+            fetch("/api/github-auth/logout", { method: "POST" }).then(() => location.reload());
         } else {
             location.reload();
         }

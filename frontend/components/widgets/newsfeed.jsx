@@ -10,7 +10,7 @@ let userCookie = Cookies.get("dv-github-user");
 let userData = userCookie ? decodeJwt(userCookie) : null;
 
 const fetchNews = (num, page) => (
-    fetch(`/newsfeed?num=${num}&page=${page}`)
+    fetch(`/api/newsfeed?num=${num}&page=${page}`)
         .then(res => res.json())
         .catch(e => ({
             error: "failed to fetch news"
@@ -98,13 +98,13 @@ const me = (props) => {
         };
     
         const authenticateWithGithub = async () => {
-            await fetch('/github-auth', {
+            await fetch('/api/github-auth', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' }
             }).then(res => res.json()).then(data => {
                 if (!data.authenticated && data.enabled !== false) {
                     setTimerRunning(true);
-                    window.open('/github-auth', 'popup', 'width=768,height=750');
+                    window.open('/api/github-auth', 'popup', 'width=768,height=750');
                 }
             });
         };
@@ -124,7 +124,7 @@ const me = (props) => {
             setWaitingForResponse(true);
 
             const reacted = hasReacted(reaction);
-            const url = reacted ? `/newsfeed/${data.number}/react/${reacted.id}` : `/newsfeed/${data.number}/react`;
+            const url = reacted ? `/api/newsfeed/${data.number}/react/${reacted.id}` : `/api/newsfeed/${data.number}/react`;
             const method = reacted ? "DELETE" : "POST";
             fetch(url, {
                 method: method,
@@ -283,7 +283,7 @@ const me = (props) => {
             const commentText = document.querySelector(`#${postId} .comments .create-comment textarea`).value.trim();
             if (!commentText || commentText.length > 5000) return;
 
-            fetch(`/newsfeed/${data.number}/comment`, {
+            fetch(`/api/newsfeed/${data.number}/comment`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ comment: commentText })
@@ -312,7 +312,7 @@ const me = (props) => {
             const commentText = document.querySelector(`#${postId} .comments .create-comment textarea`).value.trim();
             if (!commentText || commentText.length > 5000) return;
 
-            fetch(`/newsfeed/${data.number}/comment/${commentId}`, {
+            fetch(`/api/newsfeed/${data.number}/comment/${commentId}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ comment: commentText })
@@ -336,7 +336,7 @@ const me = (props) => {
             const dialogText = isEnglish() ? "Are you sure you want to delete this comment?" : "Är du säker på att du vill ta bort denna kommentar?";
             if (!window.confirm(dialogText)) return;
             
-            fetch(`/newsfeed/${data.number}/comment/${commentId}`, {
+            fetch(`/api/newsfeed/${data.number}/comment/${commentId}`, {
                 method: "DELETE",
                 headers: { "Content-Type": "application/json" }
             }).then(res => res.json()).then(response => {
@@ -415,7 +415,7 @@ const me = (props) => {
     return <div className="news-holder">
         {liteVersion ? <></> : <h2>
             {isEnglish() ? "News" : "Nyheter"}
-            <a className="rss-button" href="/newsfeed?type=rss" target="_blank">
+            <a className="rss-button" href="/api/newsfeed?type=rss" target="_blank">
                 <img
                     src="https://wp-assets.rss.com/blog/wp-content/uploads/2019/10/10111557/social_style_3_rss-512-1.png"
                     draggable="false"

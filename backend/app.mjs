@@ -83,7 +83,7 @@ app.get("/info-screen", (req, res) => {
     serveFrontend(req, res);
 });
 app.get("/info-screen/edit", serveFrontend);
-app.put("/info-screen/update", verifyToken, updateSlides);
+app.put("/api/info-screen/update", verifyToken, updateSlides);
 app.get("/newsscreen", serveFrontend);
 app.get("/scscreen", serveFrontend);
 app.get("/about", serveFrontend);
@@ -113,7 +113,7 @@ app.get("/committees/dvrk/master", serveFrontend);
 
 app.get("/dviki", serveFrontend);
 app.get("/dviki/:path*", serveFrontend);
-app.get("/wiki-data", (req, res) => verifyCookieOrElse(req, res,
+app.get("/api/wiki-data", (req, res) => verifyCookieOrElse(req, res,
     // Ok
     (req, res) => {
         res.set("Content-Type", "application/javascript");
@@ -129,45 +129,45 @@ app.get("/wiki-data", (req, res) => verifyCookieOrElse(req, res,
 );
 
 app.get("/styrelsen/invoice-generator", serveFrontend);
-app.get("/styrelsen/invoice-data", verifyToken, getInvoiceData);
-app.get("/styrelsen/invoice/:invoice", verifyToken, getInvoice);
-app.post("/styrelsen/invoice", verifyToken, createInvoice);
-app.post("/styrelsen/invoice/createPreview", verifyToken, createTempInvoice);
-app.post("/styrelsen/invoice/add-customer", verifyToken, addCustomer);
-app.delete("/styrelsen/invoice/delete-customer/:customer", verifyToken, deleteCustomer);
+app.get("/api/styrelsen/invoice-data", verifyToken, getInvoiceData);
+app.get("/api/styrelsen/invoice/:invoice", verifyToken, getInvoice);
+app.post("/api/styrelsen/invoice", verifyToken, createInvoice);
+app.post("/api/styrelsen/invoice/createPreview", verifyToken, createTempInvoice);
+app.post("/api/styrelsen/invoice/add-customer", verifyToken, addCustomer);
+app.delete("/api/styrelsen/invoice/delete-customer/:customer", verifyToken, deleteCustomer);
 
-app.get("/newsfeed", newsfeed);
-app.post("/newsfeed/:postId/react", addReaction);
-app.delete("/newsfeed/:postId/react/:reactionId", deleteReaction);
-app.post("/newsfeed/:postId/comment", addComment);
-app.put("/newsfeed/:postId/comment/:commentId", editComment);
-app.delete("/newsfeed/:postId/comment/:commentId", deleteComment);
+app.get("/api/newsfeed", newsfeed);
+app.post("/api/newsfeed/:postId/react", addReaction);
+app.delete("/api/newsfeed/:postId/react/:reactionId", deleteReaction);
+app.post("/api/newsfeed/:postId/comment", addComment);
+app.put("/api/newsfeed/:postId/comment/:commentId", editComment);
+app.delete("/api/newsfeed/:postId/comment/:commentId", deleteComment);
 
-app.get("/getPhotos", getPhotos);
-app.get("/getInfoScreenSlides", getSlides);
+app.get("/api/photos", getPhotos);
+app.get("/api/info-screen", getSlides);
 
 app.get("/photos/host", serveFrontend);
-app.post("/photos/post", verifyToken, upload.array("files"), photoHostPost);
-app.get("/user/photos", verifyToken, getUserPhotos);
-app.delete("/user/photos/:hash", verifyToken, deleteUserPhoto);
+app.post("/api/photos/post", verifyToken, upload.array("files"), photoHostPost);
+app.get("/api/user/photos", verifyToken, getUserPhotos);
+app.delete("/api/user/photos/:hash", verifyToken, deleteUserPhoto);
 
-app.get("/getKickoffEvents", getKickOffEvents);
-app.get("/getEvents", getDVEvents);
-app.get("/github-auth", githubLogin);
+app.get("/api/kickoff-events", getKickOffEvents);
+app.get("/api/events", getDVEvents);
+app.get("/api/github-auth", githubLogin);
 app.get("/github-auth/authorised", githubCallback, serveFrontend);
-app.post("/github-auth", isAuthWithGithub);
-app.post("/github-auth/logout", githubLogout);
+app.post("/api/github-auth", isAuthWithGithub);
+app.post("/api/github-auth/logout", githubLogout);
 app.post("/postHook", postHook);
 app.post("/killerBean", killerBean);
-app.post("/google-auth", googleLogin);
-app.post("/verify-token", verifyToken, (req, res) => res.status(200).json({ ok: "ok" }));
+app.post("/api/google-auth", googleLogin);
+app.post("/api/verify-token", verifyToken, (req, res) => res.status(200).json({ ok: "ok" }));
 
 app.get("/recceform", (req, res) => res.status(301).redirect("https://dvet.se/committees/dvrk/form"));
 app.get("/recceguiden", (req, res) => servePdf(req, res, "../frontend/assets/kick-off/recceguiden.pdf"));
 app.get("/masterguide", (req, res) => servePdf(req, res, "../frontend/assets/kick-off/masterguiden.pdf"));
 
 app.get("/discord", (req, res) => res.redirect("https://discord.gg/BVyhSv4rVw"));
-app.get("/weather", getWeather);
+app.get("/api/weather", getWeather);
 
 app.get("/ping", (req, res) => res.status(200).send("pong"));
 

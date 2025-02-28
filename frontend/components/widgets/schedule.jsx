@@ -142,7 +142,7 @@ const Schedule = (props) => {
     const [calendarData, setState] = React.useState(<div className="loading"></div>);
     React.useEffect(() => {
         getEventData(
-            props.full, props.eventUrl ?? "/getEvents",
+            props.full, props.eventUrl ?? "/api/events",
             props.restUrl ?? "/schedule",
             props.eventLimit ?? 5,
             openModal, setModalData,
@@ -356,7 +356,7 @@ const CalenderSchedule = (props) => {
     const [calendarData, setState] = React.useState(<div className="loading"></div>);
     React.useEffect(() => {
         getCalenderData(
-            props.full, props.eventUrl ?? "/getEvents",
+            props.full, props.eventUrl ?? "/api/events",
             props.restUrl ?? "/schedule",
             props.eventLimit ?? 5,
             openModal, setModalData,

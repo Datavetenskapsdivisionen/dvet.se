@@ -19,7 +19,7 @@ const me = () => {
 
     const saveEdits = () => {
         const token = Cookies.get("dv-token");
-        fetch("/info-screen/update", {
+        fetch("/api/info-screen/update", {
             method: "PUT",
             headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
             body: JSON.stringify({...jsonData, slides: jsonData.slides})

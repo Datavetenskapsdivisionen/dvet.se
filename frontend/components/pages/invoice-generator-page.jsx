@@ -5,7 +5,7 @@ import { decodeJwt } from "jose";
 
 const getInvoiceData = async () => {
     const token = Cookies.get("dv-token");
-    const response = await fetch("/styrelsen/invoice-data", {
+    const response = await fetch("/api/styrelsen/invoice-data", {
         headers: { Authorization: `Bearer ${token}` }
     });
     return await response.json();
@@ -26,7 +26,7 @@ const me = () => {
     React.useEffect(() => {
         const token = Cookies.get("dv-token");
         if (token) {
-            fetch("/verify-token", { method: "POST", headers: { Authorization: `Bearer ${token}` } }).then(res => {
+            fetch("/api/verify-token", { method: "POST", headers: { Authorization: `Bearer ${token}` } }).then(res => {
                 if (res.ok) {
                     user.current = decodeJwt(token);
                 } else {
@@ -35,7 +35,7 @@ const me = () => {
                 }
             });
 
-            fetch("/styrelsen/invoice-data", { headers: { Authorization: `Bearer ${token}` } }).then(res => {
+            fetch("/api/styrelsen/invoice-data", { headers: { Authorization: `Bearer ${token}` } }).then(res => {
                 if (res.ok) {
                     setAuthorised({ok: true, msg: ""});
                 } else {
@@ -57,7 +57,7 @@ const me = () => {
 
     const createInvoice = (data, isPreview = false) => {
         setIsDisabled(true);
-        fetch(isPreview ? "/styrelsen/invoice/createPreview" : "/styrelsen/invoice", {
+        fetch(isPreview ? "/api/styrelsen/invoice/createPreview" : "/api/styrelsen/invoice", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -151,7 +151,7 @@ const me = () => {
 
         const token = Cookies.get("dv-token");
         if (token) {
-            fetch("/styrelsen/invoice/add-customer", {
+            fetch("/api/styrelsen/invoice/add-customer", {
                 method: "POST",
                 headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
                 body: JSON.stringify(invoiceForm)
@@ -182,7 +182,7 @@ const me = () => {
 
             const token = Cookies.get("dv-token");
             if (token) {
-                fetch(`/styrelsen/invoice/delete-customer/${selectedCustomer}`, {
+                fetch(`/api/styrelsen/invoice/delete-customer/${selectedCustomer}`, {
                     method: "DELETE",
                     headers: { Authorization: `Bearer ${token}` }
                 })

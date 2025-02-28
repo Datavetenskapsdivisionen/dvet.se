@@ -6,7 +6,7 @@ const me = () => {
     const [Page, setPage] = useState(<></>);
     useEffect(() => {
         const importWiki = async () => {
-            await import(/* webpackIgnore: true */"/wiki-data");
+            await import(/* webpackIgnore: true */"/api/wiki-data");
             let PageFunc = window.__hacky__wikiPage();
             setPage(<PageFunc />);
         };

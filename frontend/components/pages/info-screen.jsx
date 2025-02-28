@@ -43,7 +43,7 @@ class InfoScreen {
         if (!this.slides || this.slides.length === 0) {
             if (isOnline) {
                 try {
-                    const response = await fetch("/getInfoScreenSlides");
+                    const response = await fetch("/api/info-screen");
                     if (response.ok) {
                         const data = await response.json();
                         this.shuffle = data.shuffle;
@@ -136,7 +136,7 @@ const me = () => {
     const currentSlide = slideElems.current[flipRef.current];
 
     const createWeatherComponent = () => {
-        fetch("/weather").then(r => r.json()).then(r => {
+        fetch("/api/weather").then(r => r.json()).then(r => {
             setWeatherComponent(<>
                 <img className="big" src={r.current.weatherIcon} />
                 {r.current.temperature.toFixed(1)}°C
