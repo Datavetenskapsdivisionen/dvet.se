@@ -51,7 +51,7 @@ const me = (props) => {
             day: "2-digit",
             hour: "2-digit",
             minute: "2-digit"
-        });
+        }).replace(",", "");
     
         const [showEmojiPanel, setShowEmojiPanel] = React.useState(false);
         const [showComments, setShowComments] = React.useState(false);
