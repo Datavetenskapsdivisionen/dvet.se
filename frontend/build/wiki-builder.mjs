@@ -77,7 +77,7 @@ class File {
             const englishFileName = this.dirData.find(n => n.includes(this.name + "-en-"));
             const englishName = englishFileName ? englishFileName.split("-en-")[1].split(".md")[0] : this.name; // Default to swedish if there is no english file
             const uri = `${path.replace(" ", "_")}/${nameFixer(this.name)}`;
-            const res = `<div><Link onClick={hideNavTree} class="wiki-navtree-link" to="${uri}">{'\t'}{isEnglish() ? "${englishName}" : "${this.name}"}</Link></div>`;
+            const res = `<div><NavLink onClick={hideNavTree} className="wiki-navtree-link" to="${uri}">{'\t'}{isEnglish() ? "${englishName}" : "${this.name}"}</NavLink></div>`;
             return [res, res];
         } else {
             return [`<></>`, `<></>`];
@@ -193,7 +193,7 @@ class Directory {
     }
     react(navtree, secretNavtree) {
         let output = `import React from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, NavLink } from "react-router-dom";
 import { isEnglish } from "util";
 const hideTree = (buttonId, divId) => {
     const button = document.getElementById(buttonId);

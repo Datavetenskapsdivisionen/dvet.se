@@ -121,13 +121,15 @@ main-wiki {
         // margin-left: 8px;
 
         // padding-left: 4px;
-        padding-top: 4px;
+        padding: 10px 0;
 
-        .wiki-navtree-title {
+        .wiki-navtree-title, .wiki-navtree-button {
+            display: flex;
+            width: calc(100% - 10px);
             font-family: "Quicksand", sans-serif;
             font-weight: bold;
-            font-size: 1em;
-            padding-left: 5px;
+            font-size: 1.1em;
+            padding: 5px 0 5px 5px;
             margin-left: 5px;
         }
 
@@ -142,11 +144,11 @@ main-wiki {
             background-color: transparent;
             border-radius: 5px;
             outline: 2px transparent solid;
-            padding-left: 5px;
+            padding: 5px 0 5px 5px;
             margin-left: 5px;
         }
 
-        .wiki-navtree-link:hover {
+        .wiki-navtree-link:hover, .wiki-navtree-link.active {
             background-color: var(--component-accent-hover-color);
             outline: 2px var(--component-accent-hover-color) solid;
         }
@@ -154,11 +156,12 @@ main-wiki {
         .wiki-navtree-button {
             border: none;
             background-color: transparent;
-            font-family: "Quicksand", sans-serif;
-            font-size: 1em;
+            // font-family: "Quicksand", sans-serif;
+            // font-size: 1em;
             cursor: pointer;
-            font-weight: bold;
+            // font-weight: bold;
             padding: 0;
+            margin: 0;
         }
     }
 
