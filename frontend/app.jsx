@@ -9,7 +9,6 @@ import DVRK from "./components/pages/dvrk-page";
 import AboutPage from "./components/pages/about-page";
 import HomePage from "./components/pages/home-page";
 import CommitteesPage from "./components/pages/committees-page";
-import ToolsPage from "./components/pages/tools-page";
 import PhotosPage from "./components/pages/photos-page";
 import WikiPage from "./components/pages/wiki-page";
 import { Schedule } from "./components/widgets/schedule";
@@ -170,7 +169,6 @@ const router = createBrowserRouter([
       { path: "/contact", element: <ContactPage /> },
       { path: "/about", element: <AboutPage /> },
       { path: "/committees", element: <CommitteesPage /> },
-      { path: "/tools", element: <ToolsPage /> },
       { path: "/faq", element: <FaqPage /> },
       { path: "/photos", element: <PhotosPage /> },
       { path: "/schedule", element: <SchedulePage /> },
