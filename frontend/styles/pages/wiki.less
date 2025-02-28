@@ -49,8 +49,7 @@ main-wiki {
             display: none;
         }
 
-        font-family: "Quicksand",
-        sans-serif;
+        font-family: "Quicksand", sans-serif;
         font-size: 1.2em;
         border: 1px solid #161616;
         background-color: #161616;
@@ -63,7 +62,7 @@ main-wiki {
 
     .wiki-navtree-hidden {
         @media screen and (max-width: 766px) {
-            left: -105% !important;
+            top: -105% !important;
         }
     }
 
@@ -162,6 +161,20 @@ main-wiki {
             // font-weight: bold;
             padding: 0;
             margin: 0;
+        }
+
+        #root__div {
+            margin-top: 20px;
+        }
+
+        @media screen and (max-width: 766px) {
+            .wiki-navtree-link, .wiki-navtree-title, .wiki-navtree-button {
+                width: calc(100% - 60px);
+            }
+
+            #root__div {
+                margin-top: 40px;
+            }
         }
     }
 
