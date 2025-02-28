@@ -77,21 +77,6 @@ const fetchUserGroups = async (email) => {
  * @return {Promise<OAuth2Client|null>}
  */
 const loadSavedCredentialsIfExist = async () => {
-    try {
-        await fs.access(path.join(process.cwd(), "info-screen-slides.json"), fs.constants.F_OK).then(() => true).catch(() => false).then(exists => {
-            if (exists) {
-                fs.rename(path.join(process.cwd(), "info-screen-slides.json"), path.join(process.cwd(), "backend/info-screen-slides.json"));
-            }
-        });
-        await fs.access(path.join(process.cwd(), "invoice-data.json"), fs.constants.F_OK).then(() => true).catch(() => false).then(exists => {
-            if (exists) {
-                fs.rename(path.join(process.cwd(), "invoice-data.json"), path.join(process.cwd(), "backend/invoice-data.json"));
-            }
-        });
-    } catch {
-        console.error("Failed to move files to backend folder.");
-    }
-
     const credentialsExists = fs.access(TOKEN_PATH, fs.constants.F_OK).then(() => true).catch(() => false);
     if (!credentialsExists) {
         return null;
