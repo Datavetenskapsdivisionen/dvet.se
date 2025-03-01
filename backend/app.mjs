@@ -12,6 +12,12 @@ import frontendRoutes from "./routes/frontend-routes.mjs";
 import pdfRoutes from "./routes/pdf-routes.mjs";
 import redirectRoutes from "./routes/redirect-routes.mjs";
 
+import {execSync} from "child_process";
+try {
+    execSync("cp -R dist frontend/.");
+    execSync("cp -R dist-secret frontend/.");
+} catch {}
+
 // Check for missing environment variables
 if (!process.env.KILL_TOKEN)          console.warn(chalk.yellow("[WARNING] KILL_TOKEN was not found in .env - You won't be able to restart the server remotely."));
 if (!process.env.ENABLE_DRIVE)        console.warn(chalk.yellow("[WARNING] ENABLE_DRIVE is false or was not found in .env - Google Drive features will be disabled."));
