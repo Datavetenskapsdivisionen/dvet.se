@@ -8,27 +8,15 @@ import DvetModal from "components/widgets/dvet-modal";
 import { dateToShortDate } from "../../util";
 
 const SlideTypes = {
-    IMAGE:  isEnglish() ? "Image" : "Bild",
-    IFRAME: isEnglish() ? "Website" : "Hemsida",
-    MARKDOWN: "Markdown"
+    IMAGE: "img",
+    IFRAME: "iframe",
+    MARKDOWN: "markdown"
 };
 
-const stringToSlideType = (type) => {
-    switch (type) {
-        case "img":      return SlideTypes.IMAGE;
-        case "iframe":   return SlideTypes.IFRAME;
-        case "markdown": return SlideTypes.MARKDOWN;
-        default: return type;
-    }
-};
-
-const slideTypeToString = (slideType) => {
-    switch (slideType) {
-        case SlideTypes.IMAGE:    return "img";
-        case SlideTypes.IFRAME:   return "iframe";
-        case SlideTypes.MARKDOWN: return "markdown";
-        default: return slideType;
-    }
+const slideTypeLabels = {
+    "img": isEnglish() ? "Image" : "Bild",
+    "iframe": isEnglish() ? "Website" : "Hemsida",
+    "markdown": "Markdown"
 };
 
 const me = () => {
@@ -107,7 +95,7 @@ const me = () => {
 
     const createRow = (slide, id) => [
         slide.name,
-        stringToSlideType(slide.slide.slideType),
+        slideTypeLabels[slide.slide.slideType],
         `${slide.duration}s`,
         <>
             {slide.start && !slide.end
@@ -225,9 +213,9 @@ const me = () => {
 
                     <label htmlFor="type">{isEnglish() ? "Type" : "Typ"}:</label>
                     <select name="type" value={mv.typeValue} onChange={e => setModalValues(v => { return {...v, typeValue: e.target.value} })} required>
-                        <option value={slideTypeToString(SlideTypes.IMAGE)}>{stringToSlideType(SlideTypes.IMAGE)}</option>
-                        <option value={slideTypeToString(SlideTypes.IFRAME)}>{stringToSlideType(SlideTypes.IFRAME)}</option>
-                        <option value={slideTypeToString(SlideTypes.MARKDOWN)}>{stringToSlideType(SlideTypes.MARKDOWN)}</option>
+                        <option value={SlideTypes.IMAGE}>{slideTypeLabels[SlideTypes.IMAGE]}</option>
+                        <option value={SlideTypes.IFRAME}>{slideTypeLabels[SlideTypes.IFRAME]}</option>
+                        <option value={SlideTypes.MARKDOWN}>{slideTypeLabels[SlideTypes.MARKDOWN]}</option>
                     </select>
                 </div>
 
@@ -344,7 +332,7 @@ const me = () => {
 const getDefaultState = () => {
     return {
         nameValue: "",
-        typeValue: slideTypeToString(SlideTypes.IMAGE),
+        typeValue: SlideTypes.IMAGE,
         valueValue: "",
         durationValue: 10,
         startValue: "",
