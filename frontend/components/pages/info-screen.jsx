@@ -29,9 +29,14 @@ class InfoScreen {
                 const now = new Date();
                 const [startHour, startMinute] = timeStart.split(':').map(Number);
                 const [endHour, endMinute] = timeEnd.split(':').map(Number);
-                return now >= new Date().setHours(startHour, startMinute, 0, 0)
-                    && now <= new Date().setHours(endHour, endMinute, 0, 0);
+                const start = new Date().setHours(startHour, startMinute, 0, 0);
+                const end = new Date().setHours(endHour, endMinute, 0, 0);
+
+                return start <= end // carry over to next day
+                    ? (now >= start && now <= end)
+                    : (now >= start || now <= end);
             }
+
             return (s.active ?? true) && 
                 (s.start ? new Date().getTime() >= s.start : true) && 
                 (s.end   ? new Date().getTime() <= getEndOfDayTime(new Date(s.end)) : true) &&
