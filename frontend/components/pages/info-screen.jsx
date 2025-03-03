@@ -124,7 +124,7 @@ function createInfoScreen(infoScreen) {
                 case "iframe":   return <iframe src={s.slide.value} />;
                 case "img":      return <img src={s.slide.value} style={{backgroundColor: s.bg}} />;
                 case "markdown": return <markdown><ReactMarkdown children={s.slide.value} rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]} /></markdown>;
-                case "video":    return <video key={new Date()} src={s.slide.value} autoPlay muted loop style={{backgroundColor: s.bg}} />;
+                case "video":    return <video key={new Date()} src={s.slide.value} muted loop style={{backgroundColor: s.bg}} />;
             }
         }
     }
@@ -184,7 +184,7 @@ const me = () => {
                 setTimeout(() => {
                     slideElems.current[nextFlip()][0] = infoScreen.parseSlideData(slide);
                     slideElems.current[nextFlip()][1] = slide;
-                }, 300); // Wait for 300ms to prevent a flashing effect
+                }, 300); // Wait for 300ms to prevent flashing effect
                 
                 setPercentage(0);
                 if (slideElems.current[flipRef.current][1]) {
@@ -213,6 +213,20 @@ const me = () => {
             }
         }, 1000*60*30); // refresh page every 30 minutes
     }, []);
+
+    // Watch for videos and play them when they are visible
+    React.useEffect(() => {
+        const video = document.querySelector("video");
+        if (video) {
+            setTimeout(() => {
+                const parent = video.parentElement;
+                if (!parent) { return; }
+                const parentStyle = window.getComputedStyle(video.parentElement);
+                const isVisible = parentStyle.opacity && parentStyle.opacity === '1';
+                if (isVisible) { video.play(); }
+            }, 310); // take the flashing effect fix into account
+        }
+    }, [flipRef.current]);
 
     return <>
         <div className="info-screen">
