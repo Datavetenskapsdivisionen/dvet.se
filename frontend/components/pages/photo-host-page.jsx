@@ -47,7 +47,7 @@ const me = () => {
                     
                 });
             } else {
-                resField.innerHTML = `Error: ${r.err}`;
+                resField.innerHTML = `Error: ${r.error}`;
             }
         })
         .catch(e => resField.innerText = `Error: ${e}`)

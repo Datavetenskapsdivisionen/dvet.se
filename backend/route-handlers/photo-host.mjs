@@ -1,6 +1,23 @@
 import fs from "fs";
-import { decodeJwt } from "jose";
+import multer from "multer";
 import sharp from "sharp";
+import { decodeJwt } from "jose";
+
+const allowedTypes = ["audio/aac", "image/bmp", "text/csv", "image/gif", "image/jpeg", "video/mp4",
+    "video/mpeg", "audio/ogg", "video/ogg", "image/png", "application/pdf", "image/tiff",
+    "text/plain", "audio/wav", "audio/webm", "video/webm", "image/webp", "image/heic"];
+const upload = multer({
+    dest: "frontend/dist/uploads/",
+    limits: { fileSize: 10485760 },
+    fileFilter: (req, file, cb) => cb(null, allowedTypes.includes(file.mimetype))
+});
+
+const uploadMedia = async (req, res, next) => {
+    upload.array("files")(req, res, (err) => {
+        if (err) { return res.status(400).json({ error: err.message + " (max file size is 10MB)" }); }
+        next();
+    });
+};
 
 const compressImage = async (file, to_path) => {
     const image = sharp(file.path);
@@ -123,4 +140,4 @@ const deleteUserPhoto = async (req, res) => {
     }
 }
 
-export { photoHostPost, getUserPhotos, deleteUserPhoto };
+export { uploadMedia, photoHostPost, getUserPhotos, deleteUserPhoto };

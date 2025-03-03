@@ -1,4 +1,3 @@
-import multer from "multer";
 import path from "path";
 import { Router } from "express";
 import { fileURLToPath } from "url";
@@ -11,20 +10,11 @@ import { getInvoiceData, getInvoice, createInvoice, createTempInvoice, addCustom
 import { newsfeed, addReaction, deleteReaction, addComment, editComment, deleteComment } from "../route-handlers/newsfeed.mjs";
 import { getPhotos } from "../route-handlers/photos.mjs";
 import { getSlides } from "../route-handlers/info-screen.mjs";
-import { photoHostPost, getUserPhotos, deleteUserPhoto } from "../route-handlers/photo-host.mjs";
+import { photoHostPost, getUserPhotos, deleteUserPhoto, uploadMedia } from "../route-handlers/photo-host.mjs";
 import { getKickOffEvents, getDVEvents } from "../route-handlers/events.mjs";
 import { getWeather } from "../route-handlers/weather.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-
-const allowedTypes = ["audio/aac", "image/bmp", "text/csv", "image/gif", "image/jpeg", "video/mp4",
-    "video/mpeg", "audio/ogg", "video/ogg", "image/png", "application/pdf", "image/tiff",
-    "text/plain", "audio/wav", "audio/webm", "video/webm", "image/webp", "image/heic"];
-const upload = multer({
-    dest: "frontend/dist/uploads/",
-    limits: { fileSize: 10485760 },
-    fileFilter: (req, file, cb) => cb(null, allowedTypes.includes(file.mimetype))
-});
 
 const router = Router();
 
@@ -69,7 +59,7 @@ router.get("/api/info-screen", getSlides);
 router.put("/api/info-screen/update", verifyToken, updateSlides);
 
 router.get("/api/photos", getPhotos);
-router.post("/api/photos/post", verifyToken, upload.array("files"), photoHostPost);
+router.post("/api/photos/post", verifyToken, uploadMedia, photoHostPost);
 router.get("/api/user/photos", verifyToken, getUserPhotos);
 router.delete("/api/user/photos/:hash", verifyToken, deleteUserPhoto);
 
