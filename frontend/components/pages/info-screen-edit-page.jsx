@@ -7,6 +7,30 @@ import DraggableTable from "components/widgets/draggable-table";
 import DvetModal from "components/widgets/dvet-modal";
 import { dateToShortDate } from "../../util";
 
+const SlideTypes = {
+    IMAGE:  isEnglish() ? "Image" : "Bild",
+    IFRAME: isEnglish() ? "Website" : "Hemsida",
+    MARKDOWN: "Markdown"
+};
+
+const stringToSlideType = (type) => {
+    switch (type) {
+        case "img":      return SlideTypes.IMAGE;
+        case "iframe":   return SlideTypes.IFRAME;
+        case "markdown": return SlideTypes.MARKDOWN;
+        default: return type;
+    }
+};
+
+const slideTypeToString = (slideType) => {
+    switch (slideType) {
+        case SlideTypes.IMAGE:    return "img";
+        case SlideTypes.IFRAME:   return "iframe";
+        case SlideTypes.MARKDOWN: return "markdown";
+        default: return slideType;
+    }
+};
+
 const me = () => {
     const [jsonData, setJsonData] = React.useState(useLoaderData());
     const [selectedSlideIndex, setSelectedSlideIndex] = React.useState(null);
@@ -83,7 +107,7 @@ const me = () => {
 
     const createRow = (slide, id) => [
         slide.name,
-        slide.slide.slideType,
+        stringToSlideType(slide.slide.slideType),
         `${slide.duration}s`,
         <>
             {slide.start && !slide.end
@@ -113,11 +137,24 @@ const me = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        let errors = {};
 
+        if (mv.nameValue.length === 0) {
+            errors.name = isEnglish() ? "Name is missing" : "Namn saknas";
+        }
+
+        if (mv.valueValue.length === 0) {
+            errors.value = isEnglish() ? "URL/content is missing" : "URL/innehåll saknas";
+        }
+        
         if (mv.timeStartValue && !mv.timeEndValue) {
-            return setErrorText(isEnglish() ? "End time is missing" : "Sluttid saknas");
+            errors.end = isEnglish() ? "End time is missing" : "Sluttid saknas";
         } else if (mv.timeEndValue && !mv.timeStartValue) {
-            return setErrorText(isEnglish() ? "Start time is missing" : "Starttid saknas");
+            errors.start = isEnglish() ? "Start time is missing" : "Starttid saknas";
+        }
+
+        if (Object.keys(errors).length > 0) {
+            return setErrorText(errors);
         }
 
         const slide = {slideType: mv.typeValue, value: mv.valueValue};
@@ -188,9 +225,9 @@ const me = () => {
 
                     <label htmlFor="type">{isEnglish() ? "Type" : "Typ"}:</label>
                     <select name="type" value={mv.typeValue} onChange={e => setModalValues(v => { return {...v, typeValue: e.target.value} })} required>
-                        <option value="img">{isEnglish() ? "Image" : "Bild"}</option>
-                        <option value="iframe">{isEnglish() ? "Website" : "Hemsida"}</option>
-                        <option value="markdown">Markdown</option>
+                        <option value={slideTypeToString(SlideTypes.IMAGE)}>{stringToSlideType(SlideTypes.IMAGE)}</option>
+                        <option value={slideTypeToString(SlideTypes.IFRAME)}>{stringToSlideType(SlideTypes.IFRAME)}</option>
+                        <option value={slideTypeToString(SlideTypes.MARKDOWN)}>{stringToSlideType(SlideTypes.MARKDOWN)}</option>
                     </select>
                 </div>
 
@@ -208,7 +245,7 @@ const me = () => {
                 </div>
 
                 <div className="row full">
-                    { mv.typeValue === "markdown" ? <>
+                    { mv.typeValue === SlideTypes.MARKDOWN ? <>
                         <span>{isEnglish() ? "Content" : "Innehåll"}:</span>
                         <textarea
                             name="value"
@@ -224,7 +261,7 @@ const me = () => {
                     </> }
                 </div>
 
-                { mv.typeValue === "img" &&
+                { mv.typeValue === SlideTypes.IMAGE &&
                     <div className="row">
                         <span></span>
                         <a className="btn blue" href="/photos/host" target="_blank">{isEnglish() ? "UPLOAD IMAGE" : "LADDA UPP BILD"}</a>
@@ -254,10 +291,6 @@ const me = () => {
                                 onChange={e => setModalValues(v => { return {...v, endValue: mv.startValue ? (new Date(e.target.value) >= new Date(mv.startValue) ? dateToLocalISO(new Date(e.target.value)) : "") : e.target.value} })} />
                         </div>
 
-                        {/* <div className="row">
-                            
-                        </div> */}
-
                         <div className="row">
                             <label>{isEnglish() ? "Active time" : "Aktiv tid"}:</label>
                             <div style={{gridColumn: "span 2"}}>
@@ -275,7 +308,7 @@ const me = () => {
                             </div>
                         </div>
 
-                        { mv.typeValue === "img" &&
+                        { mv.typeValue === SlideTypes.IMAGE &&
                             <div className="row">
                                 <label htmlFor="bg">{isEnglish() ? "Colour" : "Färg"}:</label>
                                 <div style={{display: "flex", alignItems: "center"}}>
@@ -297,10 +330,12 @@ const me = () => {
                     </div>
                 </div>
 
-                <button onClick={handleSubmit} className="btn blue">
-                    {selectedSlideIndex != null ? (isEnglish() ? "UPDATE SLIDE" : "UPPDATERA SLIDE") : (isEnglish() ? "ADD SLIDE" : "LÄGG TILL")}
-                </button>
-                {errorText ? <span style={{color: "red"}}>{errorText}</span> : <></>}
+                <div className="button-row">
+                    <button onClick={handleSubmit} className="btn blue">
+                        {selectedSlideIndex != null ? (isEnglish() ? "UPDATE SLIDE" : "UPPDATERA SLIDE") : (isEnglish() ? "ADD SLIDE" : "LÄGG TILL")}
+                    </button>
+                    {errorText ? <div>{Object.values(errorText).map(error => <span style={{color: "red"}}>{error}</span>)}</div> : <></>}
+                </div>
             </form>
         </DvetModal>
     </>
@@ -309,7 +344,7 @@ const me = () => {
 const getDefaultState = () => {
     return {
         nameValue: "",
-        typeValue: "img",
+        typeValue: slideTypeToString(SlideTypes.IMAGE),
         valueValue: "",
         durationValue: 10,
         startValue: "",
