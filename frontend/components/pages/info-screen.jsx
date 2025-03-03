@@ -124,6 +124,7 @@ function createInfoScreen(infoScreen) {
                 case "iframe":   return <iframe src={s.slide.value} />;
                 case "img":      return <img src={s.slide.value} style={{backgroundColor: s.bg}} />;
                 case "markdown": return <markdown><ReactMarkdown children={s.slide.value} rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]} /></markdown>;
+                case "video":    return <video key={new Date()} src={s.slide.value} autoPlay muted loop style={{backgroundColor: s.bg}} />;
             }
         }
     }

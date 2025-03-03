@@ -10,13 +10,15 @@ import { dateToShortDate } from "../../util";
 const SlideTypes = {
     IMAGE: "img",
     IFRAME: "iframe",
-    MARKDOWN: "markdown"
+    MARKDOWN: "markdown",
+    VIDEO: "video"
 };
 
 const slideTypeLabels = {
     "img": isEnglish() ? "Image" : "Bild",
     "iframe": isEnglish() ? "Website" : "Hemsida",
-    "markdown": "Markdown"
+    "markdown": "Markdown",
+    "video": "Video"
 };
 
 const me = () => {

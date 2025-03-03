@@ -22,7 +22,7 @@ const schema = {
                     slide: {
                         type: "object",
                         properties: {
-                            slideType: { enum: ["iframe", "img", "markdown"] },
+                            slideType: { enum: ["iframe", "img", "markdown", "video"] },
                             value:     { type: "string" }
                         },
                         required: ["slideType", "value"]
