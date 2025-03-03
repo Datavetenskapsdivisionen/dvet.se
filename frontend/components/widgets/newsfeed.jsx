@@ -3,6 +3,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import Cookies from "js-cookie";
+import DvetModal from "components/widgets/dvet-modal";
 import { decodeJwt } from "jose";
 import { isEnglish, dateToPrettyTimestamp } from "util";
 
@@ -38,6 +39,7 @@ const me = (props) => {
     const data = React.useRef([]);
     const generateKey = () => new Date().getTime().toString();
     const [updateTrigger, setUpdateTrigger] = React.useState(generateKey());
+    const [previewImg, setPreviewImg] = React.useState(null);
 
     const NewsItem = (props) => {
         if (props.data === undefined) throw new Error("missing data parameter");
@@ -355,7 +357,15 @@ const me = (props) => {
                 <span>{time}</span>
             </div>
             <div className="content">
-                <ReactMarkdown children={body} rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}></ReactMarkdown>
+                <ReactMarkdown
+                    children={body}
+                    rehypePlugins={[rehypeRaw]}
+                    remarkPlugins={[remarkGfm]}
+                    components={{
+                        img(props) { return <img src={props.src} onClick={onPreview} style={{cursor: "pointer"}} alt={data.title} /> },
+                          a(props) { return <a href={props.href} target="_blank">{props.children}</a> }
+                    }}
+                ></ReactMarkdown>
             </div>
             <div className="bottom">
                 <div className="reactions">
@@ -412,6 +422,14 @@ const me = (props) => {
         setPage(p => p+1);
     };
 
+    const onPreview = (e) => {
+        setPreviewImg(e.target.src);
+    };
+
+    const onClosePreview = () => {
+        setPreviewImg(null);
+    };
+
     return <div className="news-holder">
         {liteVersion ? <></> : <h2>
             {isEnglish() ? "News" : "Nyheter"}
@@ -427,6 +445,9 @@ const me = (props) => {
         {liteVersion || !showLoadButton ? <></> : <div className="center">
             <button onClick={onOlderNewsPressed}>{isEnglish() ? "See older news" : "Se äldre nyheter"}</button>
         </div>}
+        { previewImg && <DvetModal modalIsOpen={previewImg !== undefined} onModalClose={onClosePreview}>
+            <img src={previewImg} />
+        </DvetModal> }
     </div >;
 };
 
