@@ -213,9 +213,7 @@ const me = () => {
 
                     <label htmlFor="type">{isEnglish() ? "Type" : "Typ"}:</label>
                     <select name="type" value={mv.typeValue} onChange={e => setModalValues(v => { return {...v, typeValue: e.target.value} })} required>
-                        <option value={SlideTypes.IMAGE}>{slideTypeLabels[SlideTypes.IMAGE]}</option>
-                        <option value={SlideTypes.IFRAME}>{slideTypeLabels[SlideTypes.IFRAME]}</option>
-                        <option value={SlideTypes.MARKDOWN}>{slideTypeLabels[SlideTypes.MARKDOWN]}</option>
+                        {Object.entries(slideTypeLabels).map(([k,v]) => <option key={k} value={k}>{v}</option>)}
                     </select>
                 </div>
 
