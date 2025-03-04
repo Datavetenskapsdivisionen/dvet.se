@@ -1,10 +1,29 @@
 import fs from "fs";
 import { marked } from "marked";
 import BabelCore from "@babel/core";
-
+const __dirname = import.meta.dirname;
 const OUTPUT_DIR = "frontend/wiki-cache";
 const SOURCE_DIR = "frontend/content/wiki";
 const SECRET_DIR = "frontend/Hemlisar";
+
+// READERS BEWARE! 
+// This code is pretty unreadable :)
+// To optimize for secret security and static compilation, 
+// this is a whacky wiki templating engine.
+// It generates the needed JSX and HTML for the whole Wiki.
+// This is not something JSX can do on its own as your own  
+// option when you want to do static generation in React is 
+// extremely limited.
+// 
+// To start to understand the code, start with the function main, and work backwards.
+
+const loadTemplate = (file, toReplace = {}) => {
+    let s = fs.readFileSync(file).toString();
+    for (let key of Object.keys(toReplace)) {
+        s = s.replaceAll(key, toReplace[key]);
+    }
+    return s;
+};
 
 const nameFixer = name => name
     .replaceAll("ä", "a").replaceAll("å", "a").replaceAll("ö", "o")
@@ -47,18 +66,11 @@ class File {
             const ctime = fs.statSync(source).ctime.toLocaleString();
             const input = fs.readFileSync(source).toString();
             const parsed = marked.parse(input);
-            const outputString = `
-<div>\n${parsed}</div>
-<div class="edit-page-button">
-    <a class="actual-button" href="https://github.com/Datavetenskapsdivisionen/dvet.se/blob/master/${source}" target="_blank">
-        Edit this page ✍️
-    </a>
-    <a>(last edited at ${ctime}, see 
-        <a class="actual-button" href="https://github.com/Datavetenskapsdivisionen/dvet.se/commits/master/${source}" target="_blank">
-            history
-        </a>)
-    </a>
-</div>`;
+            const outputString = loadTemplate(`${__dirname}/wiki-templates/page-base.html`, {
+                "${parsed}": parsed,
+                "${source}": source,
+                "${ctime}": ctime,
+            });
             output += `/${this.name}.html`;
             fs.writeFile(output, outputString, err => {
                 if (err) console.log(err);
@@ -192,33 +204,7 @@ class Directory {
         return [names, output, secretOutput];
     }
     react(navtree, secretNavtree) {
-        let output = `import React from "react";
-import { useParams, NavLink } from "react-router-dom";
-import { isEnglish } from "util";
-const hideTree = (buttonId, divId) => {
-    const button = document.getElementById(buttonId);
-    const div = document.getElementById(divId);
-    if (div.style.display == "block") {
-        div.style.display = "none";
-        button.innerText = button.innerText.slice(0, -1);
-        button.innerText = button.innerText + " ⇓"; 
-    } else {
-        div.style.display = "block";
-        button.innerText = button.innerText.slice(0, -1);
-        button.innerText = button.innerText + " ⇑";
-    }
-};
-
-const hideNavTree = () => {
-    const navtree = document.getElementById("navtree");
-    navtree.classList.add("wiki-navtree-hidden");
-};
-
-const showNavTree = () => {
-    const navtree = document.getElementById("navtree");
-    navtree.classList.remove("wiki-navtree-hidden");
-};
-\n\n`;
+        let output = loadTemplate(`${__dirname}/wiki-templates/base.jsx`);
         let secretOutput = output;
         output += `const TREE = ${navtree};`;
         secretOutput += `const TREE = ${secretNavtree};`;
@@ -236,44 +222,19 @@ const showNavTree = () => {
             if (name.includes("_en_")) { continue; } // deal with english files below
             const englishName = names.find(n => n.includes(name + "_en_"));
 
-            paths += `if (path == "${name}") {
-        return <main-wiki>
-            <button onClick={showNavTree} class="show-tree-button">≡ Show Tree</button>
-            <div id="navtree" class="wiki-navtree-root wiki-navtree-hidden"><button onClick={hideNavTree} className="close">X</button><div class="wiki-navtree-middle">{TREE}</div></div>
-            <div className="page">
-                { isEnglish() && ${!englishName} ? <p><em>(English version not available)</em></p> : <></> }
-                <div id="wiki-page" dangerouslySetInnerHTML={{ __html: isEnglish() && ${englishName} ? ${englishName} : ${name} }}></div>
-            </div>
-        </main-wiki>;
-    } else `;
+            paths += loadTemplate(`${__dirname}/wiki-templates/path-check.jsx`, {
+                "${!englishName}": !englishName,
+                "${englishName}": englishName,
+                "${name}": name
+            });
         }
 
-        const last = `
-const me = () => {
-    const params = useParams();
-    const isHemlis = location.pathname.includes("${SECRET_DIR}");
-    let path = "/" + params.id + "/" + params["*"];
-    path = path.replaceAll("/", "__");
-    if (path.endsWith("__")) {
-        path = path.slice(0, -2);
-    }
-    if (isHemlis) path = "__${SECRET_DIR}" + path;
-    if (path == "__undefined__undefined") path = "__About_Us";
-
-    ${paths} {
-        return <h1>404 invalid uri</h1>;
-    };
-};
-export default me;
-`;
+        const last = loadTemplate(`${__dirname}/wiki-templates/export.jsx`, {
+            "${SECRET_DIR}": SECRET_DIR,
+            "${paths}": paths
+        });
         output += last;
         secretOutput += last;
-        // fs.writeFile((OUTPUT_DIR + `/wiki.jsx`), output, err => {
-        // if (err) console.error(err);
-        // });
-        // fs.writeFile((OUTPUT_DIR + `/secret-wiki.jsx`), secretOutput, err => {
-        // if (err) console.error(err);
-        // });
         return [output, secretOutput];
     }
 }
@@ -302,7 +263,7 @@ const main = () => {
     // struct.print();
     console.log(` - creating/clearing output dir (${OUTPUT_DIR})`);
     clearDist();
-    console.log(` - generating markdown...`);
+    console.log(` - generating wiki...`);
     const [navtree, secretNavTree] = struct.navtree("/dviki");
     struct.output(SOURCE_DIR, OUTPUT_DIR);
     // struct.react(navtree, secretNavTree);
