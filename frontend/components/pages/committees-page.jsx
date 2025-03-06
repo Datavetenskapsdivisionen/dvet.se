@@ -3,7 +3,7 @@ import CommitteeBadge from "components/widgets/committee-badge";
 import { isEnglish } from "util";
 
 import DVRKLogo from "/frontend/assets/committee-logos/dvrk-logo.png";
-import ConCatsLogo from "/frontend/assets/committee-logos/concats-logo.png";
+import ConCatsLogo from "/frontend/assets/committee-logos/concats-logo.svg";
 import ConCatsText from "/frontend/assets/committee-logos/concats-text-alt.png";
 import Mega6Logo from "/frontend/assets/committee-logos/mega6-logo.png";
 import Mega7Logo from "/frontend/assets/committee-logos/mega7-logo.png";
