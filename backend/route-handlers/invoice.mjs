@@ -60,13 +60,29 @@ const createInvoice = async (req, res) => {
         ocr: createOCR(invoiceNumber)
     }
 
+    const escapeLatex = (str) => {
+        const replacements = {
+            '&': '\\&',
+            '%': '\\%',
+            '$': '\\$',
+            '#': '\\#',
+            '_': '\\_',
+            '{': '\\{',
+            '}': '\\}',
+            '~': '\\textasciitilde{}',
+            '^': '\\textasciicircum{}',
+            '\\': '\\textbackslash{}'
+        };
+        return str.replace(/[&%$#_{}~^\\]/g, match => replacements[match]);
+    };
+
     const sanitisedInvoice = Object.keys(invoice).reduce((acc, key) => {
         if (typeof invoice[key] === 'string') {
-            acc[key] = invoice[key].replace(/[\{\}\$]/g, '');
+            acc[key] = escapeLatex(invoice[key]);
         } else if (Array.isArray(invoice[key])) {
             acc[key] = invoice[key].map(item => {
-                const formattedItem = `${item.name} & ${item.price} & ${item.quantity} & ${item.total} \\\\`;
-                return formattedItem.replace(/[\{\}\$]/g, '');
+                const formattedItem = `${escapeLatex(item.name)} & ${escapeLatex(item.price)} & ${escapeLatex(item.quantity)} & ${escapeLatex(item.total)} \\\\`;
+                return formattedItem;
             }).join('\n');
         } else {
             acc[key] = invoice[key];
