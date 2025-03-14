@@ -8,6 +8,9 @@ backend/credentials.json
 backend/token.json
 backend/info-screen-slides.json
 backend/invoice-data.json
+backend/latex/dvd.cls
+backend/latex/pdf_cache.json
+backend/latex/pdf
 backend/latex/invoice/invoice-temp.*
 backend/latex/invoice/pdf
 frontend/dist/
