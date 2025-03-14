@@ -1,0 +1,42 @@
+.protocols-page {
+    display: grid;
+    grid-template-columns: 225px 1fr;
+
+    .document-browser {
+        overflow-x: scroll;
+        border-right: 1px dashed var(--component-accent-hover-color);
+
+        div {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .dir, .file {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition-duration: 0.1s;
+            font-size: 1em;
+            border-radius: 5px;
+            outline: 2px transparent solid;
+            padding: 5px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .dir:hover, .file:hover, .file:active {
+            background-color: var(--component-accent-hover-color);
+            outline: 2px var(--component-accent-hover-color) solid;
+        }
+    }
+
+    .document-viewer {
+        padding: 0 10px;
+        margin-top: -44px;
+
+        p,i,h3 {
+            margin: 0 0 1em 1em;
+        }
+    }
+}

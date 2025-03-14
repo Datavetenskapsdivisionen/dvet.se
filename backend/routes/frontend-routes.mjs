@@ -16,6 +16,7 @@ router.get("/scscreen", serveFrontend);
 router.get("/about", serveFrontend);
 router.get("/contact", serveFrontend);
 router.get("/photos", serveFrontend);
+router.get("/protocols", serveFrontend);
 router.get("/faq", serveFrontend);
 router.get("/schedule", serveFrontend);
 router.get("/privacy-policy", serveFrontend);
