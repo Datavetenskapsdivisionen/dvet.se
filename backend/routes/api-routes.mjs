@@ -11,8 +11,10 @@ import { newsfeed, addReaction, deleteReaction, addComment, editComment, deleteC
 import { getPhotos } from "../route-handlers/photos.mjs";
 import { getSlides } from "../route-handlers/info-screen.mjs";
 import { photoHostPost, getUserPhotos, deleteUserPhoto, uploadMedia } from "../route-handlers/photo-host.mjs";
+import { getBoardProtocols } from "../route-handlers/protocols.mjs";
 import { getKickOffEvents, getDVEvents } from "../route-handlers/events.mjs";
 import { getWeather } from "../route-handlers/weather.mjs";
+import { compileTexToPdf, compileTypToPdf } from "../helpers/protocols-compile.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -62,6 +64,9 @@ router.get("/api/photos", getPhotos);
 router.post("/api/photos/post", verifyToken, uploadMedia, photoHostPost);
 router.get("/api/user/photos", verifyToken, getUserPhotos);
 router.delete("/api/user/photos/:hash", verifyToken, deleteUserPhoto);
+
+router.get("/api/protocols", getBoardProtocols);
+router.post("/api/protocols/pdf", compileTexToPdf);
 
 router.get("/api/kickoff-events", getKickOffEvents);
 router.get("/api/events", getDVEvents);
