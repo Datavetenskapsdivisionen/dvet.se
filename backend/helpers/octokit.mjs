@@ -24,4 +24,14 @@ const fetchRepoTree = async (owner, repo, branch, path = "") => {
     return tree.data.tree.filter((item) => item.path.startsWith(path));
 };
 
-export { octokit, fetchName, fetchRepoTree };
+const fetchBlobData = async (owner, repo, sha) => {
+    const res = await octokit.rest.git.getBlob({
+        owner: owner,
+        repo: repo,
+        file_sha: sha,
+    });
+
+    return res.data;
+};
+
+export { octokit, fetchName, fetchRepoTree, fetchBlobData };

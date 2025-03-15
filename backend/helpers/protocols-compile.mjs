@@ -1,5 +1,5 @@
 import { exec } from 'child_process';
-import { fetchRepoTree } from './octokit.mjs';
+import { fetchBlobData, fetchRepoTree } from './octokit.mjs';
 import fs from 'fs';
 import path from 'path';
 import crypto from 'crypto';
@@ -26,7 +26,7 @@ const checkCache = (nodeId, content) => {
 };
 
 const updateCache = (nodeId, content) => {
-    if (nodeId == undefined || content == undefined) { console.log("error updating cache for node id", nodeId); return false; }
+    if (nodeId == undefined || content == undefined) { console.log("Error updating cache for node id", nodeId); return false; }
 
     const checksum = crypto.createHash('sha256').update(content).digest('hex');
     cache[nodeId] = checksum;
@@ -34,39 +34,54 @@ const updateCache = (nodeId, content) => {
     return true;
 };
 
-const setupLaTeX = () => {
+const setupLaTeX = async () => {
+    // Check if lualatex is installed
+    let isInstalled = await new Promise((resolve, reject) => {
+        const command = "which lualatex";
+        exec(command, async function(err, stdout, stderr) {
+            if (err || stderr || !stdout) { return reject("lualatex not found"); }
+            resolve();
+        });
+    })
+    .then(() => { return true; })
+    .catch(err => { console.error(err); return false });
+
+    if (!isInstalled) { return false; }
+
     // Create directories if they don't exist
     if (!fs.existsSync(dir)) { fs.mkdirSync(dir, { recursive: true }); }
     if (!fs.existsSync(pdfDir)) { fs.mkdirSync(pdfDir, { recursive: true }); }
 
-    fetchRepoTree("Datavetenskapsdivisionen", "dokument", "master", "Template/Latex/dvd.cls").then(data => {
-        if (!data) { return false; }
-
-        fetch(data[0].url).then(response => response.json()).then(json => {
+    let error = false;
+    await fetchRepoTree("Datavetenskapsdivisionen", "dokument", "master", "Template/Latex/dvd.cls").then(async data => {
+        if (!data) { error = true; return false; }
+        await fetchBlobData("Datavetenskapsdivisionen", "dokument", data[0].url.split("/").pop()).then(async blob => {
             const templatePath = path.join(dir, "dvd.cls");
-            if (!checkCache(json.node_id, json.content) || !fs.existsSync(templatePath)) {
-                fs.writeFileSync(templatePath, Buffer.from(json.content, 'base64').toString('utf-8'));
-                updateCache(json.node_id, json.content);
+            if (!checkCache(blob.node_id, blob.content) || !fs.existsSync(templatePath)) {
+                fs.writeFileSync(templatePath, Buffer.from(blob.content, 'base64').toString('utf-8'));
+                updateCache(blob.node_id, blob.content);
             }
-        }).catch(err => {console.error("Error fetching template:", err); return false;});
+        }).catch(err => {console.error("Error fetching template:", err); error = true; return false;});
     });
 
-    return true;
+    return !error;
 }
 
 const compileTexToPdf = async (req, res) => {
-    const texbase64 = req.body.content;
-    const nodeId = req.body.nodeId;
+    const blobSha = req.body.url.split("/").pop();
+    const blobData = await fetchBlobData("Datavetenskapsdivisionen", "dokument", blobSha);
+    const texbase64 = blobData.content;
+    const nodeId = blobData.node_id;
     const tex = Buffer.from(texbase64, 'base64').toString('utf-8');
     const pdfName = path.join(pdfDir, `${nodeId}.pdf`);
+    let error = false;
 
     if (checkCache(nodeId, tex) && fs.existsSync(pdfName)) {
         return sendPDF(pdfName, res);
     }
 
-    if (!setupLaTeX()) {
-        return res.status(500).send("Error setting up LaTeX environment");
-    }
+    error = await setupLaTeX().then(success => !success);
+    if (error) { return res.status(500).send("Error setting up LaTeX environment"); }
 
     // Temporary file to compile
     fs.writeFileSync(path.join(dir, "temp.tex"), tex);
@@ -80,7 +95,6 @@ const compileTexToPdf = async (req, res) => {
 
             updateCache(nodeId, tex);
             
-            let error = false;
             fs.unlink(`${dir}/temp.aux`, (err) => { if (err) error = true; });
             fs.unlink(`${dir}/temp.log`, (err) => { if (err) error = true; });
             fs.unlink(`${dir}/temp.out`, (err) => { if (err) error = true; });

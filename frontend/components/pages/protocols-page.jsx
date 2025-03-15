@@ -4,7 +4,7 @@ import { isEnglish } from "util";
 
 const me = () => {
 	const [items, setItems] = React.useState(useLoaderData());
-	const [selectedFile, setSelectedFile] = React.useState(null);
+	const [titleElem, setTitleElem] = React.useState(<p>No file has been selected</p>);
 	const [pdfBase64, setPdfBase64] = React.useState(null);
 	const openDirsRef = React.useRef(items.children && items.children.length > 0 ? { [items.children[0].path]: true } : {});
 
@@ -24,27 +24,25 @@ const me = () => {
 		}
 
 		const onFileClick = (node) => {
-			setSelectedFile(<i>Loading...</i>);
-			fetch(node.url).then((res) => res.json()).then((data) => {
-				fetch("/api/protocols/pdf", { 
-					method: "POST", 
-					headers: { "Content-Type": "application/json" },
-					body: JSON.stringify({
-						type: node.path.split(".").at(-1),
-						content: data.content,
-						nodeId: data.node_id,
-					})
+			setPdfBase64(null);
+			setTitleElem(<i>Loading...</i>);
+			fetch("/api/protocols/pdf", { 
+				method: "POST", 
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({
+					type: node.path.split(".").at(-1),
+					url: node.url,
 				})
-				.then((res) => res.json())
-				.then((res) => {
-					setSelectedFile(<h3>{node.name}</h3>);
-					const pdfBase64 = res.base64;
-					setPdfBase64(pdfBase64);
-				})
-				.catch(() => {
-					setSelectedFile(<p>Failed to fetch {node.name} from the server</p>);
-				});
-			}).catch(() => { setSelectedFile(<p>Failed to fetch document from GitHub</p>); });
+			})
+			.then((res) => res.json())
+			.then((res) => {
+				const pdfBase64 = res.base64;
+				setPdfBase64(pdfBase64);
+				setTitleElem(<h3>{node.name}</h3>);
+			})
+			.catch(() => {
+				setTitleElem(<p>Failed to fetch {node.name} from the server</p>);
+			});
 		};
 
 		const toggleDir = (e, path) => {
@@ -93,7 +91,7 @@ const me = () => {
 	const DocumentViewer = () => {
 		return (
 			<div className="document-viewer">
-				{selectedFile}
+				{titleElem}
 				{ pdfBase64 &&
 					<div className="doc">
 						<embed src={`data:application/pdf;base64,${pdfBase64}#toolbar=0`} width="100%" height="900px" />
