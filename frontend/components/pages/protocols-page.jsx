@@ -4,10 +4,34 @@ import { isEnglish } from "util";
 
 const me = () => {
 	const [items, setItems] = React.useState(useLoaderData());
+	const [selectedFile, setSelectedFile] = React.useState(null);
 	const [titleElem, setTitleElem] = React.useState(<p>No file has been selected</p>);
 	const [pdfBase64, setPdfBase64] = React.useState(null);
 	const openDirsRef = React.useRef(items.children && items.children.length > 0 ? { [items.children[0].path]: true } : {});
 
+	return (
+		<div className="page">
+			<h1>{isEnglish() ? "Protocols" : "Protokoll"}</h1>
+			<div className="protocols-page">
+				<DocumentBrowser 
+					items={items} 
+					setSelectedFile={setSelectedFile} 
+					setPdfBase64={setPdfBase64} 
+					setTitleElem={setTitleElem} 
+					openDirsRef={openDirsRef} 
+				/>
+				<DocumentViewer 
+					titleElem={titleElem} 
+					pdfBase64={pdfBase64} 
+					selectedFile={selectedFile} 
+					setTitleElem={setTitleElem} 
+				/>
+			</div>
+		</div>
+	);
+};
+
+const DocumentBrowser = ({ items, setSelectedFile, setPdfBase64, setTitleElem, openDirsRef }) => {
 	const buildDocumentBrowser = (items) => {
 		const fileExtensionFilter = [".typ", ".tex"];
 		const filterFiles = (node) => {
@@ -25,7 +49,8 @@ const me = () => {
 
 		const onFileClick = (node) => {
 			setPdfBase64(null);
-			setTitleElem(<i>Loading...</i>);
+			setSelectedFile(node);
+			setTitleElem(<i>Fetching protocol...</i>);
 			fetch("/api/protocols/pdf", { 
 				method: "POST", 
 				headers: { "Content-Type": "application/json" },
@@ -38,7 +63,7 @@ const me = () => {
 			.then((res) => {
 				const pdfBase64 = res.base64;
 				setPdfBase64(pdfBase64);
-				setTitleElem(<h3>{node.name}</h3>);
+				setTitleElem(<i>Loading PDF...</i>);
 			})
 			.catch(() => {
 				setTitleElem(<p>Failed to fetch {node.name} from the server</p>);
@@ -80,34 +105,30 @@ const me = () => {
 		return traverseTree(items.children[0]);
 	};
 
-	const DocumentBrowser = () => {
-		return (
-			<div className="document-browser">
-				{buildDocumentBrowser(items)}
-			</div>
-		);
-	};
-
-	const DocumentViewer = () => {
-		return (
-			<div className="document-viewer">
-				{titleElem}
-				{ pdfBase64 &&
-					<div className="doc">
-						<embed src={`data:application/pdf;base64,${pdfBase64}#toolbar=0`} width="100%" height="900px" />
-					</div>
-				}
-			</div>
-		);
-	};
-
 	return (
-		<div className="page">
-			<h1>{isEnglish() ? "Protocols" : "Protokoll"}</h1>
-			<div className="protocols-page">
-				<DocumentBrowser />
-				<DocumentViewer />
-			</div>
+		<div className="document-browser">
+			{buildDocumentBrowser(items)}
+		</div>
+	);
+};
+
+const DocumentViewer = ({ titleElem, pdfBase64, selectedFile, setTitleElem }) => {
+	return (
+		<div className="document-viewer">
+			{titleElem}
+			{ pdfBase64 &&
+				<div className="doc">
+					<embed
+						key={selectedFile.name}
+						type="application/pdf"
+						src={`data:application/pdf;base64,${pdfBase64}#toolbar=0`}
+						onLoad={() => setTitleElem(<h3>{selectedFile.name}</h3>)}
+						onError={() => setTitleElem(<p>Failed to load PDF</p>)}
+						width="100%"
+						height="900px"
+					/>
+				</div>
+			}
 		</div>
 	);
 };
