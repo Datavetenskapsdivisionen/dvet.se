@@ -1,5 +1,5 @@
 import React from "react";
-import { useLoaderData } from "react-router-dom";
+import { NavLink, useLoaderData } from "react-router-dom";
 import { isEnglish } from "util";
 
 const me = () => {
@@ -7,18 +7,62 @@ const me = () => {
 	const [selectedFile, setSelectedFile] = React.useState(null);
 	const [titleElem, setTitleElem] = React.useState(<p>No file has been selected</p>);
 	const [pdfBase64, setPdfBase64] = React.useState(null);
-	const openDirsRef = React.useRef(items.children && items.children.length > 0 ? { [items.children[0].path]: true } : {});
+	const openDirsRef = React.useRef(items.children ? { [items.children[0].path]: true } : {});
+
+	const loadNode = (node) => {
+		setPdfBase64(null);
+		setSelectedFile(node);
+		setTitleElem(<i>Fetching protocol...</i>);
+		fetchPDF(node).then((res) => {
+			const pdfBase64 = res.base64;
+			setPdfBase64(pdfBase64);
+			setTitleElem(<i>Loading PDF...</i>);
+		}).catch(() => {
+			setTitleElem(<p>Failed to fetch {node.name} from the server</p>);
+		});
+	};
+
+	React.useEffect(() => {
+		const requestedPath = decodeURIComponent(window.location.pathname.split("/").slice(2).join("/"));
+		if (requestedPath) {
+			const findNode = (node, path) => {
+				if (node.path === path) return node;
+				if (node.children) {
+					for (let child of node.children) {
+						const result = findNode(child, path);
+						if (result) return result;
+					}
+				}
+				return null;
+			};
+
+			const node = findNode(items, requestedPath);
+			if (!node) {
+				setTitleElem(<p>File not found</p>);
+				return;
+			};
+
+			const pathParts = node.path.split("/").map((part, i, arr) => arr.slice(0, i + 1).join("/"));
+			pathParts.forEach((part) => openDirsRef.current[part] = true);
+
+			if (node.type === "file") {
+				loadNode(node);
+			} else {
+				setSelectedFile(null);
+				setPdfBase64(null);
+				setTitleElem(<p>No file has been selected</p>);
+			}
+		}
+	}, []);
 
 	return (
 		<div className="page">
 			<h1>{isEnglish() ? "Protocols" : "Protokoll"}</h1>
 			<div className="protocols-page">
 				<DocumentBrowser 
-					items={items} 
-					setSelectedFile={setSelectedFile} 
-					setPdfBase64={setPdfBase64} 
-					setTitleElem={setTitleElem} 
-					openDirsRef={openDirsRef} 
+					items={items}
+					openDirsRef={openDirsRef}
+					loadNode={loadNode}
 				/>
 				<DocumentViewer 
 					titleElem={titleElem} 
@@ -31,7 +75,19 @@ const me = () => {
 	);
 };
 
-const DocumentBrowser = ({ items, setSelectedFile, setPdfBase64, setTitleElem, openDirsRef }) => {
+const fetchPDF = async (node) => {
+	return await fetch("/api/protocols/pdf", { 
+		method: "POST", 
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify({
+			path: node.path,
+			type: node.path.split(".").at(-1),
+			url: node.url,
+		})
+	}).then((res) => res.json());
+};
+
+const DocumentBrowser = ({ items, openDirsRef, loadNode }) => {
 	const buildDocumentBrowser = (items) => {
 		const fileExtensionFilter = [".typ", ".tex"];
 		const filterFiles = (node) => {
@@ -48,27 +104,7 @@ const DocumentBrowser = ({ items, setSelectedFile, setPdfBase64, setTitleElem, o
 		}
 
 		const onFileClick = (node) => {
-			setPdfBase64(null);
-			setSelectedFile(node);
-			setTitleElem(<i>Fetching protocol...</i>);
-			fetch("/api/protocols/pdf", { 
-				method: "POST", 
-				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify({
-					path: node.path,
-					type: node.path.split(".").at(-1),
-					url: node.url,
-				})
-			})
-			.then((res) => res.json())
-			.then((res) => {
-				const pdfBase64 = res.base64;
-				setPdfBase64(pdfBase64);
-				setTitleElem(<i>Loading PDF...</i>);
-			})
-			.catch(() => {
-				setTitleElem(<p>Failed to fetch {node.name} from the server</p>);
-			});
+			loadNode(node);
 		};
 
 		const toggleDir = (e, path) => {
@@ -80,10 +116,10 @@ const DocumentBrowser = ({ items, setSelectedFile, setPdfBase64, setTitleElem, o
 		const traverseTree = (node, indentLevel = 0) => {
 			if (!node.children || node.children.length === 0) {
 				return (
-					<span className="file" style={{ marginLeft: `${indentLevel}px` }} key={node.path} onClick={() => onFileClick(node)}>
+					<NavLink to={node.path} className="file" style={{ marginLeft: `${indentLevel}px` }} key={node.path} onClick={() => onFileClick(node)}>
 						<FileIcon height="20px" />
 						{node.name}
-					</span>
+					</NavLink>
 				);
 			}
 

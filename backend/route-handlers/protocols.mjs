@@ -14,7 +14,7 @@ const getBoardProtocols = async (req, res) => {
             dir = {
                 type: "dir",
                 name: dirName,
-                path: item.path,
+                path: item.path.split("/").slice(0, -1).join("/"),
                 sha: item.sha,
                 url: item.url,
                 children: [],

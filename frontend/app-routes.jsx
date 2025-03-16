@@ -33,7 +33,9 @@ const router = createBrowserRouter([
 		{ path: "/committees", element: <CommitteesPage /> },
 		{ path: "/faq", element: <FaqPage /> },
 		{ path: "/photos", element: <PhotosPage /> },
-		{ path: "/protocols", element: <ProtocolsPage />, loader: async () => await fetch("/api/protocols") },
+		{ path: "/protocols", element: <ProtocolsPage />, loader: async () => await fetch("/api/protocols"), children: [
+			{ path: ":id/*", element: <ProtocolsPage /> }
+		]},
 		{ path: "/schedule", element: <SchedulePage /> },
 		{ path: "/privacy-policy", element: <PrivacyPolicy /> },
 		{ path: "/dviki", element: <WikiPage />, children: [
