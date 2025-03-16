@@ -97,6 +97,9 @@ const compileTexToPdf = async (req, res) => {
     let { src: tex, nodeId } = await fetchSrcAsString(blobSha);
     const pdfPath = path.join(pdfDir, `${nodeId}.pdf`);
 
+    // Remove images due to laziness in parsing them
+    tex = tex.replace(/\\usepackage\{graphicx\}/, '\\usepackage[draft]{graphicx}');
+
     // Check if PDF exists in cache
     if (checkCache(nodeId, tex) && fs.existsSync(pdfPath)) {
         return sendPDF(pdfPath, res);
