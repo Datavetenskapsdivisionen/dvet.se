@@ -55,6 +55,7 @@ const DocumentBrowser = ({ items, setSelectedFile, setPdfBase64, setTitleElem, o
 				method: "POST", 
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify({
+					path: node.path,
 					type: node.path.split(".").at(-1),
 					url: node.url,
 				})

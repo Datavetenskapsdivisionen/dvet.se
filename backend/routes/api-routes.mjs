@@ -14,7 +14,7 @@ import { photoHostPost, getUserPhotos, deleteUserPhoto, uploadMedia } from "../r
 import { getBoardProtocols } from "../route-handlers/protocols.mjs";
 import { getKickOffEvents, getDVEvents } from "../route-handlers/events.mjs";
 import { getWeather } from "../route-handlers/weather.mjs";
-import { compileTexToPdf, compileTypToPdf } from "../helpers/protocols-compile.mjs";
+import { compileProtocol } from "../helpers/protocols-compile.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -66,7 +66,7 @@ router.get("/api/user/photos", verifyToken, getUserPhotos);
 router.delete("/api/user/photos/:hash", verifyToken, deleteUserPhoto);
 
 router.get("/api/protocols", getBoardProtocols);
-router.post("/api/protocols/pdf", compileTexToPdf);
+router.post("/api/protocols/pdf", compileProtocol);
 
 router.get("/api/kickoff-events", getKickOffEvents);
 router.get("/api/events", getDVEvents);
