@@ -8,6 +8,10 @@ backend/credentials.json
 backend/token.json
 backend/info-screen-slides.json
 backend/invoice-data.json
+
+backend/latex/Styrelseprotokoll.typ
+backend/latex/DVD.typ
+
 backend/latex/dvd.cls
 backend/latex/pdf_cache.json
 backend/latex/pdf
