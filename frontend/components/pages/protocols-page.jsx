@@ -116,8 +116,8 @@ const DocumentBrowser = ({ items, openDirsRef, loadNode }) => {
 		};
 
 		const toggleDir = (e, path) => {
-			e.target.parentElement.children[1].classList.toggle("hidden");
-			const isOpen = !e.target.parentElement.children[1].classList.contains("hidden");
+			e.currentTarget.parentElement.children[1].classList.toggle("hidden");
+			const isOpen = !e.currentTarget.parentElement.children[1].classList.contains("hidden");
 			openDirsRef.current[path] = isOpen;
 		};
 
