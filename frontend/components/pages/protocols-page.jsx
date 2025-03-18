@@ -94,6 +94,14 @@ const DocumentBrowser = ({ items, openDirsRef, loadNode }) => {
 			if (!node.children) {
 				return fileExtensionFilter.some((ext) => node.name.endsWith(ext)) ? node : null;
 			}
+
+			node.children.forEach(n => {
+				const ext = n.name.split(".").at(-1);
+				if (n.type === "file" && ext !== "url") {
+					const urlNode = node.children.find(x => x && x.name.split(".")[0] === n.name.split(".")[0] && x.name.split(".").at(-1) === "url");
+					if (urlNode) { n.scanUrlBlob = urlNode; }
+				}
+			});
 			const filteredChildren = node.children.map(filterFiles).filter(Boolean);
 			return filteredChildren.length > 0 ? { ...node, children: filteredChildren } : null;
 		};
@@ -150,16 +158,28 @@ const DocumentBrowser = ({ items, openDirsRef, loadNode }) => {
 };
 
 const DocumentViewer = ({ titleElem, pdfBase64, selectedFile, setTitleElem }) => {
+	const fetchSignedURL = async (node) => {
+		if (!node.scanUrlBlob) { return; }
+		const scanUrl = await fetch(node.scanUrlBlob.url).then((res) => res.json()).then((data) => atob(data.content));
+		window.open(scanUrl, "_blank");
+	};
+
 	return (
 		<div className="document-viewer">
-			{titleElem}
+			<div className="title-row">
+				{titleElem}
+				{selectedFile && selectedFile.scanUrlBlob && <a href="#" id="signed" className="hidden" onClick={() => fetchSignedURL(selectedFile)}>Signed ✅</a>}
+			</div>
 			{ pdfBase64 &&
 				<div className="doc">
 					<embed
 						key={selectedFile.name}
 						type="application/pdf"
 						src={`data:application/pdf;base64,${pdfBase64}#toolbar=0`}
-						onLoad={() => setTitleElem(<h3>{selectedFile.name}</h3>)}
+						onLoad={() => {
+							setTitleElem(<h3>{selectedFile.name}</h3>);
+							document.getElementById("signed")?.classList.remove("hidden");
+						}}
 						onError={() => setTitleElem(<p>Failed to load PDF</p>)}
 						width="100%"
 						height="900px"
