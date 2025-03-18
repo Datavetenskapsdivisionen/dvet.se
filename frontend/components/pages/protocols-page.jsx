@@ -5,7 +5,7 @@ import { isEnglish } from "util";
 const me = () => {
 	const [items, setItems] = React.useState(useLoaderData());
 	const [selectedFile, setSelectedFile] = React.useState(null);
-	const [titleElem, setTitleElem] = React.useState(<p>No file has been selected</p>);
+	const [titleElem, setTitleElem] = React.useState(<p>{isEnglish() ? "No protocol has been selected" : "Inget protokoll har valts"}</p>);
 	const [pdfBase64, setPdfBase64] = React.useState(null);
 	const [sortAsc, setSortAsc] = React.useState(true);
 	const openDirsRef = React.useRef(items.children ? { [items.children[0].path]: true } : {});
@@ -13,13 +13,13 @@ const me = () => {
 	const loadNode = (node) => {
 		setPdfBase64(null);
 		setSelectedFile(node);
-		setTitleElem(<i>Fetching protocol...</i>);
+		setTitleElem(<i>{isEnglish() ? "Fetching protocol..." : "Hämtar protokoll..."}</i>);
 		fetchPDF(node).then((res) => {
 			const pdfBase64 = res.base64;
 			setPdfBase64(pdfBase64);
-			setTitleElem(<i>Loading PDF...</i>);
+			setTitleElem(<i>{isEnglish() ? "Loading PDF..." : "Laddar in PDF..."}</i>);
 		}).catch(() => {
-			setTitleElem(<p>Failed to fetch {node.name} from the server</p>);
+			setTitleElem(<p>{isEnglish() ? `Failed to fetch ${node.name} from the server` : `Misslyckades med att hämta ${node.name} från servern`}</p>);
 		});
 	};
 
@@ -39,7 +39,7 @@ const me = () => {
 
 			const node = findNode(items, requestedPath);
 			if (!node) {
-				setTitleElem(<p>File not found</p>);
+				setTitleElem(<p>{isEnglish() ? "Protocol not found" : "Protokollet hittades inte"}</p>);
 				return;
 			};
 
@@ -51,7 +51,7 @@ const me = () => {
 			} else {
 				setSelectedFile(null);
 				setPdfBase64(null);
-				setTitleElem(<p>No file has been selected</p>);
+				setTitleElem(<p>{isEnglish() ? "No protocol has been selected" : "Inget protokoll har valts"}</p>);
 			}
 		}
 	}, []);
@@ -111,7 +111,7 @@ const DocumentBrowser = ({ items, openDirsRef, loadNode, sortAsc, setSortAsc }) 
 
 		items = filterFiles(items);
 		if (!items) {
-			return <span>There are no documents</span>;
+			return <span>{isEnglish() ? "There are no protocols" : "Det finns inga protokoll"}</span>;
 		}
 
 		const onFileClick = (node) => {
@@ -174,7 +174,7 @@ const DocumentViewer = ({ titleElem, pdfBase64, selectedFile, setTitleElem }) =>
 		<div className="document-viewer">
 			<div className="title-row">
 				{titleElem}
-				{selectedFile && selectedFile.scanUrlBlob && <a href="#" id="signed" className="hidden" onClick={() => fetchSignedURL(selectedFile)}>Signed ✅</a>}
+				{selectedFile && selectedFile.scanUrlBlob && <a href="#" id="signed" className="hidden" onClick={() => fetchSignedURL(selectedFile)}>{isEnglish() ? "Signed" : "Signerad"} ✅</a>}
 			</div>
 			{ pdfBase64 &&
 				<div className="doc">
@@ -186,7 +186,7 @@ const DocumentViewer = ({ titleElem, pdfBase64, selectedFile, setTitleElem }) =>
 							setTitleElem(<h3>{selectedFile.name}</h3>);
 							document.getElementById("signed")?.classList.remove("hidden");
 						}}
-						onError={() => setTitleElem(<p>Failed to load PDF</p>)}
+						onError={() => setTitleElem(<p>{isEnglish() ? "Failed to load the PDF" : "Misslyckades med att ladda in PDF:en"}</p>)}
 						width="100%"
 						height="900px"
 					/>
