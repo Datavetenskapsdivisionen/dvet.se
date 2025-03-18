@@ -145,6 +145,9 @@ const findAndFetchImages = async (compiler, blobPath, src) => {
         default: return false;
     }
 
+    const currentDir = path.dirname(blobPath);
+    const tree = await fetchRepoTree("Datavetenskapsdivisionen", "dokument", "master", `${currentDir}`);
+
     let match;
     const processedImages = new Set();
     while ((match = imageRegex.exec(src)) !== null) {
@@ -152,10 +155,9 @@ const findAndFetchImages = async (compiler, blobPath, src) => {
         if (processedImages.has(imgName)) continue;
         processedImages.add(imgName);
 
-        const currentDir = path.dirname(blobPath);
-        const tree = await fetchRepoTree("Datavetenskapsdivisionen", "dokument", "master", `${currentDir}/${imgName}`);
-        if (tree.length === 0) { return false; }
-        const imgData = await fetchBlobData("Datavetenskapsdivisionen", "dokument", tree[0].sha).then(blob => Buffer.from(blob.content, 'base64'));
+        const imgNode = tree.find(item => item.path.endsWith(imgName));
+        if (!imgNode) { return false; }
+        const imgData = await fetchBlobData("Datavetenskapsdivisionen", "dokument", imgNode.sha).then(blob => Buffer.from(blob.content, 'base64'));
 
         fs.writeFileSync(`${dir}/${imgName}`, imgData);
     }
