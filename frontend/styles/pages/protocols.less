@@ -22,15 +22,20 @@
             border-radius: 5px;
             outline: 2px transparent solid;
             padding: 5px;
-            cursor: pointer;
             user-select: none;
             color: var(--text-color);
             text-decoration: none;
         }
 
-        .dir:hover, .file:hover, .file.active {
+        .dir:hover, .file:hover, .file.active, #sort-button:hover {
             background-color: var(--component-accent-hover-color);
             outline: 2px var(--component-accent-hover-color) solid;
+            cursor: pointer;
+        }
+
+        #sort-button {
+            position: absolute;
+            left: 300px;
         }
     }
 

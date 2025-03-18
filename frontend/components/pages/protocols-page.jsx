@@ -7,6 +7,7 @@ const me = () => {
 	const [selectedFile, setSelectedFile] = React.useState(null);
 	const [titleElem, setTitleElem] = React.useState(<p>No file has been selected</p>);
 	const [pdfBase64, setPdfBase64] = React.useState(null);
+	const [sortAsc, setSortAsc] = React.useState(true);
 	const openDirsRef = React.useRef(items.children ? { [items.children[0].path]: true } : {});
 
 	const loadNode = (node) => {
@@ -63,6 +64,8 @@ const me = () => {
 					items={items}
 					openDirsRef={openDirsRef}
 					loadNode={loadNode}
+					sortAsc={sortAsc}
+					setSortAsc={setSortAsc}
 				/>
 				<DocumentViewer 
 					titleElem={titleElem} 
@@ -87,7 +90,7 @@ const fetchPDF = async (node) => {
 	}).then((res) => res.json());
 };
 
-const DocumentBrowser = ({ items, openDirsRef, loadNode }) => {
+const DocumentBrowser = ({ items, openDirsRef, loadNode, sortAsc, setSortAsc }) => {
 	const buildDocumentBrowser = (items) => {
 		const fileExtensionFilter = [".typ", ".tex"];
 		const filterFiles = (node) => {
@@ -103,7 +106,7 @@ const DocumentBrowser = ({ items, openDirsRef, loadNode }) => {
 				}
 			});
 			const filteredChildren = node.children.map(filterFiles).filter(Boolean);
-			return filteredChildren.length > 0 ? { ...node, children: filteredChildren } : null;
+			return filteredChildren.length > 0 ? { ...node, children: sortAsc ? filteredChildren : filteredChildren.reverse() } : null;
 		};
 
 		items = filterFiles(items);
@@ -146,8 +149,11 @@ const DocumentBrowser = ({ items, openDirsRef, loadNode }) => {
 				</div>
 			);
 		};
-
-		return traverseTree(items.children[0]);
+		
+		return <>
+			<AlphabeticalSortIcon id="sort-button" height="30px" sortAsc={sortAsc} onClick={() => setSortAsc(!sortAsc)} />
+			{traverseTree(items.children[0])}
+		</>;
 	};
 
 	return (
@@ -205,6 +211,26 @@ const FileIcon = (props) => (
 			<path d="M42.298 20.733H21.807a1.5 1.5 0 1 1 0-3h20.492a1.5 1.5 0 1 1-.001 3z" />
 			<path d="M48.191 55.319H21.807a1.5 1.5 0 1 1 0-3h26.385a1.5 1.5 0 1 1-.001 3z" />
 		</g>
+	</svg>
+);
+
+const AlphabeticalSortIcon = (props) => (
+	(props.sortAsc === undefined || props.sortAsc)
+	? <svg id={props.id} onClick={props.onClick} style={{ height: props.height || "35px", width: "auto" }} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+		<polyline fill="none" stroke={props.color || "var(--text-color)"} strokeWidth="2" strokeMiterlimit="10" points="12,15 12,14 9.1,6 8.9,6 6,14 6,15 "/>
+
+		<line fill="none" stroke={props.color || "var(--text-color)"} strokeWidth="2" strokeMiterlimit="10" x1="6" y1="12" x2="12" y2="12"/>
+		<polyline fill="none" stroke={props.color || "var(--text-color)"} strokeWidth="2" strokeMiterlimit="10" points="5,18 12,18 12,19 6,25 6,26 13,26 "/>
+
+		<line fill="none" stroke={props.color || "var(--text-color)"} strokeWidth="2" strokeMiterlimit="10" x1="23" y1="26.1" x2="23" y2="5"/>
+		<polyline fill="none" stroke={props.color || "var(--text-color)"} strokeWidth="2" strokeMiterlimit="10" points="18.7,21.8 23,26.1 27.3,21.8 "/>
+	</svg>
+	: <svg id={props.id} onClick={props.onClick} style={{ height: props.height || "35px", width: "auto" }} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+		<line fill="none" stroke={props.color || "var(--text-color)"} strokeWidth="2" strokeMiterlimit="10" x1="23" y1="27.1" x2="23" y2="6"/>
+		<polyline fill="none" stroke={props.color || "var(--text-color)"} strokeWidth="2" strokeMiterlimit="10" points="18.7,10.1 23,5.8 27.3,10.1"/>
+		<polyline fill="none" stroke={props.color || "var(--text-color)"} strokeWidth="2" strokeMiterlimit="10" points="12,15 12,14 9.1,6 8.9,6 6,14 6,15"/>
+		<line fill="none" stroke={props.color || "var(--text-color)"} strokeWidth="2" strokeMiterlimit="10" x1="6" y1="12" x2="12" y2="12"/>
+		<polyline fill="none" stroke={props.color || "var(--text-color)"} strokeWidth="2" strokeMiterlimit="10" points="5,18 12,18 12,19 6,25 6,26 13,26"/>
 	</svg>
 );
 
