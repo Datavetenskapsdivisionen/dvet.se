@@ -99,6 +99,12 @@
             You can also send a message on Discord (username <a><code>`kjelllare`</code></a>) 
             or on Facebook Messenger!
         </p>
+         <p>
+            Daniell can be reached by sending a mail to 
+            <a href="mailto:daniell@dvet.se">daniell@dvet.se</a>. 
+            You can also send a message on Discord (username <a><code>`mindokruvaak`</code></a>) 
+            or on Facebook Messenger!
+        </p>
     </div>
     <div class="committee-page-image">
         <div>
