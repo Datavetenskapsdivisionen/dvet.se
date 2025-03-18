@@ -74,35 +74,35 @@
             other students!
         </p>
         <p>
-            The board currently consists of Samuel Hammersberg (division chairman), Lukas Gartman (division treasurer), Tim Persson (vice-division chairman), Gustav Dalemo (secretary), and Josefin Kokkinakis (SAMO).
+            The board currently consists of Ida Vranvuk (division chairman), Hannes Carlsson (division treasurer), Ida Kjellerstedt (vice-division chairman), Nikhil Olsson Mukhopadhyay (secretary), and Daniell Cole (SAMO).
         </p>
         <h2>Contact Information</h2>
         <p>
             You can reach the whole board with: <a href="mailto:styrelsen@dvet.se">styrelsen@dvet.se</a>
         </p>
         <p>
-            Samuel can be reached by sending a mail to 
+            Ida can be reached by sending a mail to 
             <a href="mailto:ordforande@dvet.se">ordforande@dvet.se</a> or to
-            <a href="mailto:samuel@dvet.se">samuel@dvet.se</a>. 
-            You can also send a message on Discord (username <a href="https://discordapp.com/users/216650745271943168"><code>`loafey`</code></a>) 
+            <a href="mailto:ida@dvet.se">ida@dvet.se</a>. 
+            You can also send a message on Discord (username <a><code>`rashlasagna`</code></a>) 
             or on Facebook Messenger!
         </p>
         <p>
-            Lukas can be reached by sending a mail to 
-            <a href="mailto:lukas@dvet.se">lukas@dvet.se</a>. 
-            You can also send a message on Discord (username <a href="https://discordapp.com/users/137933060644667392"><code>`nilvoid`</code></a>) 
+            Hannes can be reached by sending a mail to 
+            <a href="mailto:hannes@dvet.se">hannes@dvet.se</a>. 
+            You can also send a message on Discord (username <a><code>`hannes0648`</code></a>) 
             or on Facebook Messenger!
         </p>
         <p>
-            Tim can be reached by sending a mail to 
-            <a href="mailto:tim@dvet.se">tim@dvet.se</a>. 
-            You can also send a message on Discord (username <a href="https://discordapp.com/users/170196311784685568"><code>`timheterjag`</code></a>) 
+            Ida can be reached by sending a mail to 
+            <a href="mailto:tim@dvet.se">kjellerstedt@dvet.se</a>. 
+            You can also send a message on Discord (username <a><code>`kjelllare`</code></a>) 
             or on Facebook Messenger!
         </p>
     </div>
     <div class="committee-page-image">
         <div>
-            <img src="https://dvet.se/uploads/committee-images/timp - 403ebe4936c55dd40fbef46471e67488 - DSCF0867.JPG" />
+            <img src="https://www.dvet.se/uploads/ida/IMG_0493_16f12af7de22a1c5509d56962e513562.JPG" />
         </div>
         <span>The Board</span>
     </div>
