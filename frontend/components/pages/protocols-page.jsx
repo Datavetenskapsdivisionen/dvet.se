@@ -173,8 +173,11 @@ const DocumentViewer = ({ titleElem, pdfBase64, selectedFile, setTitleElem }) =>
 	return (
 		<div className="document-viewer">
 			<div className="title-row">
-				{titleElem}
-				{selectedFile && selectedFile.scanUrlBlob && <a href="#" id="signed" className="hidden" onClick={() => fetchSignedURL(selectedFile)}>{isEnglish() ? "Signed" : "Signerad"} ✅</a>}
+				{ titleElem }
+				{ selectedFile && selectedFile.scanUrlBlob
+					? <a href="#" id="signed" className="hidden" onClick={() => fetchSignedURL(selectedFile)}>{isEnglish() ? "Signed" : "Signerad"} ✅</a>
+					: <span id="signed" className="hidden">{isEnglish() ? "Not signed" : "Ej signerad"} ❌</span>
+				}
 			</div>
 			{ pdfBase64 &&
 				<div className="doc">
