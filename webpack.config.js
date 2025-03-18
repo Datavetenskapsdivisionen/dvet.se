@@ -3,7 +3,6 @@ const path = require("path");
 const TerserPlugin = require('terser-webpack-plugin');
 const CompressionPlugin = require("compression-webpack-plugin");
 
-
 module.exports = {
   cache: {
     type: 'filesystem',
@@ -13,21 +12,21 @@ module.exports = {
     outputModule: true
   },
   entry: {
-    public: { import: "./src/www/index.js", filename: "[name].js" },
+    public: { import: "./frontend/index.js", filename: "[name].js" },
     wiki: {
-      import: "./wiki-cache/wiki.js", filename: "../dist-secret/[name].js", library: {
+      import: "./frontend/wiki-cache/wiki.js", filename: "../dist-secret/[name].js", library: {
         type: "window"
       }
     },
     secretWiki: {
-      import: "./wiki-cache/secret-wiki.js", filename: "../dist-secret/[name].js", library: {
+      import: "./frontend/wiki-cache/secret-wiki.js", filename: "../dist-secret/[name].js", library: {
         type: "window"
       }
     }
   },
   output: {
     filename: "[name].bundle.js",
-    path: path.resolve(__dirname, "dist"),
+    path: path.resolve(__dirname, "frontend/dist"),
     publicPath: "/"
   },
   mode: "development",
@@ -50,21 +49,20 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "./src/www/index.html",
-      favicon: "./assets/favicon.png",
+      template: "./frontend/index.html",
+      favicon: "./frontend/assets/favicon.png",
     }),
     new CompressionPlugin({
       deleteOriginalAssets: (name) => {
         if (name == "index.html") {
           return false;
         }
-
         return true;
       },
     })
   ],
   resolve: {
-    modules: [__dirname, "src", "node_modules"],
+    modules: [__dirname, "frontend", "node_modules"],
     extensions: ["*", ".js", ".jsx", ".tsx", ".ts"],
   },
   module: {
@@ -83,11 +81,11 @@ module.exports = {
         use: ["style-loader", "css-loader"],
       },
       {
-        test: /\.png|jpg|gif$/,
+        test: /\.(png|jpg|gif)$/,
         use: ["file-loader"],
       },
       {
-        test: /\.md|csv$/,
+        test: /\.(md|csv)$/,
         use: ["raw-loader"],
       },
       {

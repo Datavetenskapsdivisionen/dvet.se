@@ -1,0 +1,186 @@
+main-wiki {
+    flex: 1;
+    margin: 0px auto;
+    width: 100%;
+
+    @media screen and (min-width: 766px) {
+        display: grid;
+        grid-template-columns: 260px auto;
+    }
+
+    @media screen and (max-width: 766px) {
+        display: grid;
+        grid-template-rows: 2em auto;
+    }
+
+    .wiki-grid {
+        display: flex;
+        flex-wrap: wrap;
+        column-gap: 1em;
+        row-gap: 1em;
+    }
+
+    .wiki-image-holder {
+        background-color: white;
+        display: grid;
+        grid-template-rows: auto 2.5em;
+        align-items: center;
+        justify-items: center;
+        box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.5);
+
+        >img {
+            max-width: 600px;
+            max-height: 150px;
+        }
+
+        >a {
+            color: white;
+            text-align: center;
+            font-size: 0.8em;
+            padding: 12px;
+            box-shadow: 0px -15px 56px 4px rgba(255, 255, 255, 0.25);
+            font-family: "Press Start 2P";
+            background-color: #161616;
+        }
+    }
+
+    .show-tree-button {
+        @media screen and (min-width: 766px) {
+            display: none;
+        }
+
+        font-family: "Quicksand", sans-serif;
+        font-size: 1.2em;
+        border: 1px solid #161616;
+        background-color: #161616;
+        color: white;
+
+        text-align: left;
+        border-radius: 2px;
+        cursor: pointer;
+    }
+
+    .wiki-navtree-hidden {
+        @media screen and (max-width: 766px) {
+            top: -105% !important;
+        }
+    }
+
+    .wiki-navtree-root {
+        height: 100%;
+
+        padding-left: 10px;
+
+        @media screen and (min-width: 766px) {
+            position: relative;
+            border-right: var(--component-accent-hover-color) solid 2px;
+
+            .close { display: none; }
+        }
+
+        @media screen and (max-width: 766px) {
+            background-color: var(--component-color);
+            transition-duration: 0.1s;
+            position: fixed;
+            left: 0;
+            top: 0;
+            z-index: 10000;
+            width: 100%;
+            padding-top: 4px;
+            box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.5);
+
+            .close {
+                position: absolute;
+                top: 10px;
+                right: 25px;
+                border: none;
+                font-size: 1.5em;
+                padding: 0 10px;
+            }
+        }
+    }
+
+    .wiki-navtree-middle {
+        overflow: auto;
+        height: 100%;
+        width: 100%;
+
+        @media screen and (min-width: 766px) {
+            position: absolute;
+        }
+
+        @media screen and (max-width: 766px) {
+            padding-left: 10px;
+        }
+    }
+
+    .wiki-navtree {
+        // border-left: #1616162f 2px solid;
+        // border-top: #1616162f 2px solid;
+        // margin-left: 8px;
+
+        // padding-left: 4px;
+        padding: 10px 0;
+
+        .wiki-navtree-title, .wiki-navtree-button {
+            display: flex;
+            width: calc(100% - 10px);
+            font-family: "Quicksand", sans-serif;
+            font-weight: bold;
+            font-size: 1.1em;
+            padding: 5px 0 5px 5px;
+            margin-left: 5px;
+        }
+
+        .wiki-navtree-link {
+            transition-duration: 0.1s;
+            font-size: 1em;
+            color: var(--text-color);
+            text-decoration: none;
+            margin-bottom: 2px;
+            width: calc(100% - 50px);
+            display: block;
+            background-color: transparent;
+            border-radius: 5px;
+            outline: 2px transparent solid;
+            padding: 5px 0 5px 5px;
+            margin-left: 5px;
+        }
+
+        .wiki-navtree-link:hover, .wiki-navtree-link.active {
+            background-color: var(--component-accent-hover-color);
+            outline: 2px var(--component-accent-hover-color) solid;
+        }
+
+        .wiki-navtree-button {
+            border: none;
+            background-color: transparent;
+            cursor: pointer;
+            padding: 0;
+            margin: 0;
+        }
+
+        #root__div {
+            margin-top: 20px;
+        }
+
+        @media screen and (max-width: 766px) {
+            .wiki-navtree-link, .wiki-navtree-title, .wiki-navtree-button {
+                width: calc(100% - 60px);
+            }
+
+            #root__div {
+                margin-top: 40px;
+            }
+        }
+    }
+
+    .edit-page-button {
+        font-size: 0.7em;
+
+        .actual-button {
+            color: rgb(16, 171, 223);
+            text-decoration: none;
+        }
+    }
+}
