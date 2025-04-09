@@ -1,5 +1,5 @@
 # ConCats
-Concats är en växande kommitté med 6 grymma medlemmar.
+Concats är en engagerad kommitté med 5 grymma medlemmar.
 Vi har i uppgift att arbeta för att
 skapa en trivsam miljö i Monaden
 där alla känner sig välkomna och
@@ -22,5 +22,5 @@ Vill du engagera dig i studentlivet här på DV och gillar snacks,
 mat, film och spel? Då hade du
 passat i ConCats
 
-Lukas, Patrik, Alexander, Pascal, Faisal & Konstantin
+Martin, Nikhil, Vera, Owais, Daniell
 [concats@dvet.se](mailto:concats@dvet.se)
