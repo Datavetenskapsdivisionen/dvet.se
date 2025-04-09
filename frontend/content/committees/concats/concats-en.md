@@ -1,6 +1,6 @@
 # ConCats 
-ConCats is a growing committee
-with 6 awesome members. Our
+ConCats is an engaged committee
+with 5 awesome members. Our
 task is to work towards creating
 a pleasant environment in the
 Monad where everyone feels
@@ -26,5 +26,5 @@ orientation period, which will be
 held shortly after your first few
 weeks.
 
-Lukas, Patrik, Alexander, Pascal, Faisal & Konstantin
+Martin, Nikhil, Vera, Owais, Daniell
 [concats@dvet.se](mailto:concats@dvet.se)
