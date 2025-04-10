@@ -13,7 +13,9 @@ Efter evenemanget ansvarar __du__ som bokat för att städa.
 **NOTERA** att under Insparken bestämmer DVRK över Monadens bokningar och alla bokningar ska godkännas av dem.
 
 Bokningsformulär: [här](https://forms.gle/u7m5iTYhLqtQbNhe6)
-Kolla tillgänglighet innan du bokar [här](https://calendar.google.com/calendar/ical/c_23b61efa8547af53e1866a055e04261c5422116403099d5293d68264ecf9dc59%40group.calendar.google.com/public/basic.ics).
+Kolla tillgänglighet innan du bokar [här](https://calendar.google.com/calendar/embed?src=c_cd70b7365c189248ae5fce47932c65729fb3a0a4052a83b610613f1e6dcfd047%40group.calendar.google.com&ctz=Europe%2FStockholm).
+
+För automatisk synkning med egen kalender kan .ics fil hämtas [här](https://calendar.google.com/calendar/ical/c_cd70b7365c189248ae5fce47932c65729fb3a0a4052a83b610613f1e6dcfd047%40group.calendar.google.com/public/basic.ics)
 
 ## Andra föreningar
 
