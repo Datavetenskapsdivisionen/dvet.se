@@ -15,6 +15,8 @@ After the event, the person who booked Monaden is responsible for cleaning.
 Booking form: [here](https://forms.gle/u7m5iTYhLqtQbNhe6)  
 Check availability before booking: [here](https://calendar.google.com/calendar/embed?src=c_cd70b7365c189248ae5fce47932c65729fb3a0a4052a83b610613f1e6dcfd047%40group.calendar.google.com&ctz=Europe%2FStockholm).
 
+For automatic syncing with a personal calendar the .ics can be found [here](https://calendar.google.com/calendar/ical/c_cd70b7365c189248ae5fce47932c65729fb3a0a4052a83b610613f1e6dcfd047%40group.calendar.google.com/public/basic.ics)
+
 ## Other associations
 
 Are you part of another association and want to borrow Monaden? Email [styrelsen@dvet.se](mailto:styrelsen@dvet.se) with the date and event details.
