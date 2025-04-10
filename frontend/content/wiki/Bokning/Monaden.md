@@ -15,6 +15,8 @@ Efter evenemanget ansvarar __du__ som bokat för att städa.
 Bokningsformulär: [här](https://forms.gle/u7m5iTYhLqtQbNhe6)
 Kolla tillgänglighet innan du bokar [här](https://calendar.google.com/calendar/embed?src=c_cd70b7365c189248ae5fce47932c65729fb3a0a4052a83b610613f1e6dcfd047%40group.calendar.google.com&ctz=Europe%2FStockholm).
 
+För automatisk synkning med egen kalender kan .ics fil hämtas [här](https://calendar.google.com/calendar/ical/c_cd70b7365c189248ae5fce47932c65729fb3a0a4052a83b610613f1e6dcfd047%40group.calendar.google.com/public/basic.ics)
+
 ## Andra föreningar
 
 Tillhör du en annan förening och vill låna Monaden? Maila [styrelsen@dvet.se](mailto:styrelsen@dvet.se) med datum och arrangemang.
