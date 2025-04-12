@@ -6,7 +6,7 @@ import DVRKLogo from "/frontend/assets/committee-logos/dvrk-logo.png";
 import ConCatsLogo from "/frontend/assets/committee-logos/concats-logo.png";
 import ConCatsText from "/frontend/assets/committee-logos/concats-text-alt.png";
 import Mega6Logo from "/frontend/assets/committee-logos/mega6-logo.png";
-import Mega7Logo from "/frontend/assets/committee-logos/mega7-logo.png";
+import Mega7Logo from "/frontend/assets/committee-logos/mega7-new-logo.png";
 import TheBoardLogo from "/frontend/assets/committee-logos/styrelsen.png";
 import StudentEducationalCommittee from "/frontend/assets/committee-logos/student-educational-committee-logo.png";
 import FemmePPLogo from "/frontend/assets/committee-logos/femmepp-logo.png";
