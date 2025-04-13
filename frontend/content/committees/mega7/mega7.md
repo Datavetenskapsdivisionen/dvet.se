@@ -1,43 +1,55 @@
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Creepster&family=Lobster&display=swap');
-  .lobster {
-      font-family: 'Lobster', cursive;
-      font-size: 80px;
-  }
-  
-  .mega6style {
-    font-family: 'Creepster', cursive;
+  .title{
+    font-family: 'Comic Sans MS';
+    font-size: 100px;
+    -webkit-text-stroke: 2px red;
   }
   
   p {
-    font-size: 30px;
+    font-family: 'Comic Sans MS';
+    font-size: 40px;
+  }
+
+  .important {
+    font-size: 60px;
+    color: white;
+    text-decoration: underline;
+    -webkit-text-stroke: 2px blue; 
   }
   
   .supaflex {
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
     gap: 30px;
     justify-content: center;
   }
+
+  ul li {
+    font-size: 35px; 
+    font-family: 'Comic Sans MS';
+  }
 </style>
 
-
-<h1 class="lobster">💮 Mega7 ☺️ </h1>
+<h1 class="title"> MEGA7 </h1>
 
 <div class="supaflex">
-<div>
-
-Vi är bättre än <span class="mega6style">Mega6</span>
-
-🪴
-
-Vad gör Mega7? Vi kanske ansvarar för att vattna blommor i Monaden.
+  <div>
+    <p>
+        Vi är bättre än <span class="important">MEGA6</span> 
+        <img width=110px height=110px src="https://media.tenor.com/HWsUiUsSlZoAAAAj/baldi-fortnite.gif">
+    </p>
+    <p>
+      Vad gör vi i Mega7? 
+      <img width=80px height=80px src="https://media.tenor.com/BeDEX8b69LMAAAAi/gie%C3%9Fkanne-giesskanne.gif">
+    </p>
+    <ul>
+      <li>Vattnar blommor i Monaden</li>
+      <li>Ser till att innergården är hydrerad</li>
+    </ul>
+  </div>
+  <div>
+    <p>Vår älskade ordförande:</p>
+    <img width=400px height=400px src="https://media.tenor.com/eBuKPE6V1AEAAAAj/mega-man-fortnite.gif"/>
+  </div>
 </div>
-
-<div>
-<p>Vår ordförande:</p>
-
-<img width=300px height=300px src="https://www.dvet.se/uploads/committee-images/loafey%20-%20908c5917b2a46749187299212ab4449c%20-%20evil-neco.gif">
-</div>
-</div>
-
