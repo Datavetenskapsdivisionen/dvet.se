@@ -122,7 +122,12 @@ function createInfoScreen(infoScreen) {
     
             switch (s.slide.slideType) {
                 case "iframe":   return <iframe src={s.slide.value} />;
-                case "img":      return <img src={s.slide.value} style={{backgroundColor: s.bg}} />;
+                case "img":      return s.bgEffect === "colour"
+                    ? <img src={s.slide.value} style={{backgroundColor: s.bg}} />
+                    : <div className="img-blur-container">
+                        <img src={s.slide.value} className="img-blur" aria-hidden="true" />
+                        <img src={s.slide.value} />
+                    </div>
                 case "markdown": return <markdown><ReactMarkdown children={s.slide.value} rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]} /></markdown>;
                 case "video":    return <video key={new Date()} src={s.slide.value} muted loop style={{backgroundColor: s.bg}} />;
             }

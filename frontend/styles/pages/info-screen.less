@@ -70,9 +70,30 @@
             background-color: white;
         }
 
-        img {
+        .img-blur-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+          
+        .img-blur {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: blur(20px) brightness(0.7);
+            transform: scale(1.1);
+            z-index: 0;
+        }
+
+        img:not(.img-blur) {
+            position: relative;
+            z-index: 1;
             object-fit: contain;
-            background-color: @vasttrafik-bg;
+            background: transparent;
         }
 
         .duration-progress {
@@ -132,6 +153,9 @@
     
         &.full {
             grid-template-columns: 90px 1fr auto;
+        }
+        &.long-title {
+            grid-template-columns: auto auto 50px 1fr;
         }
     }
 

@@ -16,6 +16,7 @@ const schema = {
                     end:       { type: ["integer", "null"] },
                     timeStart: { type: ["string",  "null"] },
                     timeEnd:   { type: ["string",  "null"] },
+                    bgEffect:  { type: ["string",  "null"] },
                     bg:        { type: ["string",  "null"] },
                     active:    { type: "boolean" },
                     lastEdit:  { type: "string" },
