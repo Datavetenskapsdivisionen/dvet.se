@@ -173,7 +173,7 @@ const me = () => {
         const infoScreen = createInfoScreen(infoScreenData);
         
         infoScreen.on("init", (slides) => {
-            for (i in slides) {
+            for (const i in slides) {
                 slideElems.current[i][0] = infoScreen.parseSlideData(slides[i]);
                 slideElems.current[i][1] = slides[i];
             }
