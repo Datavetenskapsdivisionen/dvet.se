@@ -61,6 +61,7 @@ const me = () => {
             endValue:       s.end ? dateToLocalISO(new Date(s.end)) : "",
             timeStartValue: s.timeStart ?? "",
             timeEndValue:   s.timeEnd ?? "",
+            bgEffectValue:  s.bgEffect ?? "blur",
             bgValue:        s.bg ?? "#1e242a",
             activeValue:    s.active ?? true,
             valueValue:     s.slide.value ?? "",
@@ -156,6 +157,7 @@ const me = () => {
             end: new Date(mv.endValue).getTime(),
             timeStart: mv.timeStartValue,
             timeEnd: mv.timeEndValue,
+            bgEffect: mv.bgEffect,
             bg: mv.bgValue,
             lastEdit: mv.lastEditValue,
             slide: slide
@@ -297,8 +299,30 @@ const me = () => {
                         </div>
 
                         { mv.typeValue === SlideTypes.IMAGE &&
-                            <div className="row">
-                                <label htmlFor="bg">{isEnglish() ? "Colour" : "Färg"}:</label>
+                            <div className="row long-title">
+                                <label htmlFor="bg">{isEnglish() ? "Background" : "Bakgrund"}:</label>
+                                <div style={{ gridColumn: "span 2" }}>
+                                    <label>
+                                        <input
+                                            type="radio"
+                                            name="bgEffect"
+                                            value="blur"
+                                            checked={!mv.bgEffectValue || mv.bgEffectValue === "blur"}
+                                            onChange={() => setModalValues(v => ({ ...v, bgEffectValue: "blur" }))}
+                                        />
+                                        {isEnglish() ? "Blur" : "Oskärpa"}
+                                    </label>
+                                    <label style={{ marginLeft: "10px" }}>
+                                        <input
+                                            type="radio"
+                                            name="bgEffect"
+                                            value="colour"
+                                            checked={mv.bgEffectValue === "colour"}
+                                            onChange={() => setModalValues(v => ({ ...v, bgEffectValue: "colour" }))}
+                                        />
+                                        {isEnglish() ? "Colour" : "Färg"}
+                                    </label>
+                                </div>
                                 <div style={{display: "flex", alignItems: "center"}}>
                                     <input name="bg"
                                         type="color"
@@ -309,9 +333,6 @@ const me = () => {
                                         style={{margin: "0 10px 0 0"}}
                                         onClick={() => setModalValues(v => { return {...v, bgValue: "#1e242a"} })}>
                                     RESET</a>
-                                </div>
-                                <div style={{gridColumn: "span 2"}}>
-                                    <span>({isEnglish() ? "tip: match the image background colour" : "tips: matcha bildens bakgrundsfärg"})</span>
                                 </div>
                             </div>
                         }
@@ -339,6 +360,7 @@ const getDefaultState = () => {
         endValue: "",
         timeStartValue: "",
         timeEndValue: "",
+        bgEffect: "blur",
         bgValue: "#1e242a",
         activeValue: true,
         lastEditValue: decodeJwt(Cookies.get("dv-token")).email
