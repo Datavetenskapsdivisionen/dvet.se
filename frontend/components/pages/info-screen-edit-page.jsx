@@ -157,7 +157,7 @@ const me = () => {
             end: new Date(mv.endValue).getTime(),
             timeStart: mv.timeStartValue,
             timeEnd: mv.timeEndValue,
-            bgEffect: mv.bgEffect,
+            bgEffect: mv.bgEffectValue,
             bg: mv.bgValue,
             lastEdit: mv.lastEditValue,
             slide: slide
@@ -360,7 +360,7 @@ const getDefaultState = () => {
         endValue: "",
         timeStartValue: "",
         timeEndValue: "",
-        bgEffect: "blur",
+        bgEffectValue: "blur",
         bgValue: "#1e242a",
         activeValue: true,
         lastEditValue: decodeJwt(Cookies.get("dv-token")).email
