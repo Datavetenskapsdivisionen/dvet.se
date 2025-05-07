@@ -369,11 +369,11 @@ const CalenderSchedule = (props) => {
 };
 
 const createScheduleModal = (calendarData, modalIsOpen, onCloseModal, modalData) => {
-    [modalTitle, modalContent, modalWhen, modalWho, modalWhere] = modalData;
+    const [modalTitle, modalContent, modalWhen, modalWho, modalWhere] = modalData;
     return <div className="schedule-holder">
         {calendarData}
         <DvetModal modalIsOpen={modalIsOpen} onModalClose={onCloseModal}>
-            <h2 ref={(_subtitle) => (subtitle = _subtitle)}>{modalTitle}</h2>
+            <h2>{modalTitle}</h2>
             <p dangerouslySetInnerHTML={{ __html: modalContent }}></p>
             <p>When: {modalWhen}</p>
             <p>Where: {modalWhere}</p>
