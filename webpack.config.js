@@ -8,9 +8,6 @@ module.exports = {
     type: 'filesystem',
     allowCollectingMemory: true,
   },
-  experiments: {
-    outputModule: true
-  },
   entry: {
     public: { import: "./frontend/index.js", filename: "[name].js" },
     wiki: {
