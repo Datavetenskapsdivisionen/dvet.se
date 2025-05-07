@@ -4,7 +4,7 @@ import { fileURLToPath } from "url";
 
 import { googleLogin } from "../route-handlers/googleApi.mjs";
 import { githubLogin, isAuthWithGithub, githubLogout } from "../route-handlers/github-auth.mjs";
-import { verifyToken, verifyCookieOrElse } from "../route-handlers/auth.mjs";
+import { verifyToken, belongsToGroups, verifyCookieOrElse } from "../route-handlers/auth.mjs";
 import { updateSlides } from "../route-handlers/info-screen.mjs";
 import { getInvoiceData, getInvoice, createInvoice, createTempInvoice, addCustomer, deleteCustomer } from "../route-handlers/invoice.mjs";
 import { newsfeed, addReaction, deleteReaction, addComment, editComment, deleteComment } from "../route-handlers/newsfeed.mjs";
@@ -43,12 +43,12 @@ router.get("/api/wiki-data", (req, res) => verifyCookieOrElse(req, res,
     })
 );
 
-router.get("/api/styrelsen/invoice-data", verifyToken, getInvoiceData);
-router.get("/api/styrelsen/invoice/:invoice", verifyToken, getInvoice);
-router.post("/api/styrelsen/invoice", verifyToken, createInvoice);
-router.post("/api/styrelsen/invoice/createPreview", verifyToken, createTempInvoice);
-router.post("/api/styrelsen/invoice/add-customer", verifyToken, addCustomer);
-router.delete("/api/styrelsen/invoice/delete-customer/:customer", verifyToken, deleteCustomer);
+router.get("/api/styrelsen/invoice-data", belongsToGroups(["firmatecknare", "dv_ops"]), getInvoiceData);
+router.get("/api/styrelsen/invoice/:invoice", belongsToGroups(["firmatecknare", "dv_ops"]), getInvoice);
+router.post("/api/styrelsen/invoice", belongsToGroups(["firmatecknare", "dv_ops"]), createInvoice);
+router.post("/api/styrelsen/invoice/createPreview", belongsToGroups(["firmatecknare", "dv_ops"]), createTempInvoice);
+router.post("/api/styrelsen/invoice/add-customer", belongsToGroups(["firmatecknare", "dv_ops"]), addCustomer);
+router.delete("/api/styrelsen/invoice/delete-customer/:customer", belongsToGroups(["firmatecknare", "dv_ops"]), deleteCustomer);
 
 router.get("/api/newsfeed", newsfeed);
 router.post("/api/newsfeed/:postId/react", addReaction);
