@@ -15,9 +15,8 @@ const verifyCookieOrElse = async (req, res, ok, orElse) => {
     if (!token || !token.startsWith('Bearer ')) return orElse(req, res);
 
     try {
-        const encodedToken = new TextEncoder().encode(token.split(" ")[1]);
         const encodedSecret = new TextEncoder().encode(process.env.JWT_SECRET_KEY);
-        const jwt = await jwtVerify(encodedToken, encodedSecret);
+        const jwt = await jwtVerify(token.split(" ")[1], encodedSecret);
         //res.status(200).json(jwt);
         return ok(req, res);
     } catch (e) {
@@ -45,9 +44,8 @@ const verifyToken = async (req, res, next) => {
 
 async function checkToken(token) {
     try {
-        const encodedToken = new TextEncoder().encode(token.split(" ")[1]);
         const encodedSecret = new TextEncoder().encode(process.env.JWT_SECRET_KEY);
-        const jwt = await jwtVerify(encodedToken, encodedSecret);
+        const jwt = await jwtVerify(token.split(" ")[1], encodedSecret);
         return jwt.payload;
     } catch (e) {
         return false;
