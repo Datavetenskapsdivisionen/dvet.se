@@ -22,7 +22,7 @@ const fetchPosts = async (options = { desc: true }) => {
             direction: desc ? "desc" : "asc",
             labels: "state:published,type:post"
         });
-        
+
         if (!response.data) { return []; }
 
         // Filter out posts that are not published
@@ -44,11 +44,13 @@ const fetchPosts = async (options = { desc: true }) => {
             });
         }
 
-        allPosts = allPosts.concat(publishedPosts);
+        allPosts = publishedPosts.concat(allPosts);
         page++;
 
         if (response.data.length < MAX_FETCH) break;
     }
+
+    allPosts.sort((a, b) => { });
 
     return allPosts;
 };
@@ -90,11 +92,11 @@ const populateWithExtraData = async (post) => {
         } else {
             user.full_name = loginFullNames[user.login];
         }
-    }
+    };
 
     try {
         addFullName(post.user);
-        
+
         // Add reactions data
         if (post.reactions.total_count > 0) {
             const reactionsResponse = await octokit.rest.reactions.listForIssue({
@@ -132,7 +134,7 @@ const populateWithExtraData = async (post) => {
     }
 
     return post;
-}
+};
 
 const updatePosts = async () => {
     if (posts.length === 0) {
@@ -154,7 +156,7 @@ const updatePosts = async () => {
             posts.push(newPost);
         }
     }));
-}
+};
 
 const newsfeed = async (req, res) => {
     if (!process.env.GITHUB_TOKEN) {
@@ -189,8 +191,8 @@ const newsfeed = async (req, res) => {
         res.send(rss);
         return;
     } else {
-        const startRange = (page-1)*pageSize;
-        const endRange = pageSize+startRange;
+        const startRange = (page - 1) * pageSize;
+        const endRange = pageSize + startRange;
         const currentPagePosts = posts.slice(startRange, endRange);
 
         if (currentPagePosts.length > 0 && currentPagePosts[0].reactionData !== undefined) {
@@ -233,11 +235,11 @@ const newsPostReact = async (req, res, isAdd) => {
         } else {
             response = await userOctokit.rest.reactions.deleteForIssue({ owner: o, repo: r, issue_number: i, reaction_id: id });
         }
-        
+
         if (response) {
             const updatedPost = await octokit.rest.issues.get({ owner: o, repo: r, issue_number: i });
             if (!updatedPost.data) { return res.status(204).json({}); }
-            
+
             posts[postIndex] = await populateWithExtraData(updatedPost.data);
             res.status(200).json({ ok: true, post: posts[postIndex] });
         } else {
@@ -276,12 +278,12 @@ const newsPostComment = async (req, res, method) => {
         const userOctokit = new Octokit({ auth: req.cookies["dv-github-token"] });
         let response;
         switch (method) {
-            case "add":    response = await userOctokit.rest.issues.createComment({ owner: o, repo: r, issue_number: i, body: c }); break;
-            case "edit":   response = await userOctokit.rest.issues.updateComment({ owner: o, repo: r, comment_id: id,  body: c }); break;
+            case "add": response = await userOctokit.rest.issues.createComment({ owner: o, repo: r, issue_number: i, body: c }); break;
+            case "edit": response = await userOctokit.rest.issues.updateComment({ owner: o, repo: r, comment_id: id, body: c }); break;
             case "delete": response = await userOctokit.rest.issues.deleteComment({ owner: o, repo: r, comment_id: id }); break;
             default: throw new Error("Invalid method");
         }
-        
+
         if (response) {
             const updatedPost = await octokit.rest.issues.get({ owner: o, repo: r, issue_number: i });
             if (!updatedPost.data) { return res.status(204).json({}); }
@@ -294,7 +296,7 @@ const newsPostComment = async (req, res, method) => {
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
-}
+};
 
 const addComment = async (req, res) => {
     newsPostComment(req, res, "add");
