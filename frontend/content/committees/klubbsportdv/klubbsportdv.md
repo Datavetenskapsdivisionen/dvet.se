@@ -79,6 +79,6 @@
         <div>
             <img src="https://www.dvet.se/uploads/ida/IMG_0493_16f12af7de22a1c5509d56962e513562.JPG" />
         </div>
-        <span>Styrelsen</span>
+        <span>Klubbsport DV</span>
     </div>
 </div>
