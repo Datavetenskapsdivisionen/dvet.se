@@ -49,6 +49,7 @@ const router = createBrowserRouter([
 		{ path: "/committees/dv_ops", element: <IndividualCommitteePage committee={"dv_ops"} /> },
 		{ path: "/committees/dvarm", element: <IndividualCommitteePage committee={"dvarm"} /> },
 		{ path: "/committees/mega7", element: <IndividualCommitteePage committee={"mega7"} /> },
+		{ path: "/committees/klubbsportdv", element: <IndividualCommitteePage committee={"klubbsportdv"} /> },
 
 		{
 			element: <GoogleAuth />, children: [

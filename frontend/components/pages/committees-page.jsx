@@ -12,6 +12,7 @@ import StudentEducationalCommittee from "/frontend/assets/committee-logos/studen
 import FemmePPLogo from "/frontend/assets/committee-logos/femmepp-logo.png";
 import DV_OpsLogo from "/frontend/assets/committee-logos/dv_ops-logo.svg";
 import DVArmLogo from "/frontend/assets/committee-logos/dvarm-logo.png";
+import KlubbsportDVLogo from "/frontend/assets/committee-logos/klubbsportdv-logo.png";
 
 const me = () => (
   <div className="page">
@@ -20,11 +21,12 @@ const me = () => (
       <CommitteeBadge uri="/committees/dvrk" name="DVRK" logo={DVRKLogo} color="#1e1e1e" />
       <CommitteeBadge uri="/committees/student-educational-committee" name={isEnglish() ? "Student Educational Committee" : "Studienämnd"} fontSize={isEnglish() ? "1.1em" : "1.8em"} logo={StudentEducationalCommittee} />
       <CommitteeBadge uri="/committees/mega6" name="Mega6" logo={Mega6Logo} />
-      <CommitteeBadge uri="/committees/concats" imageText={ConCatsText} logo={ConCatsLogo} Concats={true}/>
+      <CommitteeBadge uri="/committees/concats" imageText={ConCatsText} logo={ConCatsLogo} Concats={true} />
       <CommitteeBadge uri="/committees/femmepp" name="Femme++" logo={FemmePPLogo} />
-      <CommitteeBadge uri="/committees/dv_ops" name="DV_Ops" logo={DV_OpsLogo} DVops={true} />  
-      <CommitteeBadge uri="/committees/dvarm" name="DVArm" logo={DVArmLogo} />
+      {/* <CommitteeBadge uri="/committees/dv_ops" name="DV_Ops" logo={DV_OpsLogo} DVops={true} /> */}
+      {/* <CommitteeBadge uri="/committees/dvarm" name="DVArm" logo={DVArmLogo} /> */}
       <CommitteeBadge uri="/committees/mega7" name="Mega7" logo={Mega7Logo} />
+      <CommitteeBadge uri="/committees/klubbsportdv" name="Klubbsport DV" logo={KlubbsportDVLogo} />
     </div>
   </div>
 );

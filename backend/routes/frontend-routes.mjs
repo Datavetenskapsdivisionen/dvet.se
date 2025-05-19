@@ -27,6 +27,7 @@ router.get("/dviki/:path*", serveFrontend);
 
 router.get("/committees", serveFrontend);
 router.get("/committees/the-board", serveFrontend);
+router.get("/committees/klubbsportdv", serveFrontend);
 router.get("/committees/dvrk", serveFrontend);
 router.get("/committees/dvrk/schedule", serveFrontend);
 router.get("/committees/dvrk/schedule/bachelor", serveFrontend);
