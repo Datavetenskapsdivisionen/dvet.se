@@ -248,6 +248,7 @@ nav {
         flex-direction: row;
         position: relative;
         overflow: auto;
+        text-decoration: none;
 
         #logopic {
             max-height: 80px;
@@ -267,17 +268,8 @@ nav {
             align-items: flex-start;
             justify-content: center;
 
-            a {
-                display: inline-block;
-                font-family: "Press Start 2P";
+            #header {
                 font-size: 2rem;
-                color: white;
-                font-weight: 950;
-                padding: 0.25em 0.2em 0.12em 0.25em;
-                text-transform: uppercase;
-                text-decoration: none;
-                background: @black;
-                white-space: nowrap;
 
                 @media (max-width: 640px) {
                     font-size: 1.5rem;
@@ -288,6 +280,17 @@ nav {
                 }
             }
 
+            span {
+                display: inline-block;
+                font-family: "Press Start 2P";
+                color: white;
+                font-weight: 950;
+                padding: 0.25em 0.2em 0.12em 0.25em;
+                text-transform: uppercase;
+                text-decoration: none;
+                background: @black;
+                white-space: nowrap;
+            }
         }
     }
 
