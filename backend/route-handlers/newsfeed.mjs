@@ -50,8 +50,6 @@ const fetchPosts = async (options = { desc: true }) => {
         if (response.data.length < MAX_FETCH) break;
     }
 
-    allPosts.sort((a, b) => { });
-
     return allPosts;
 };
 
