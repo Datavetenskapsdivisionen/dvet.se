@@ -202,7 +202,7 @@ const me = () => {
             </div>
         </div>
 
-        <DvetModal modalIsOpen={modalIsOpen} onModalClose={onModalClose}>
+        <DvetModal className="info-screen-modal" modalIsOpen={modalIsOpen} onModalClose={onModalClose}>
             <h2>{selectedSlideIndex != null ? (isEnglish() ? "Edit slide" : "Redigera slide") : (isEnglish() ? "Add slide" : "Lägg till slide")}</h2>
 
             <form onSubmit={handleSubmit}>

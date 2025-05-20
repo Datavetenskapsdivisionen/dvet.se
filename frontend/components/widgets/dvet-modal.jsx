@@ -32,7 +32,7 @@ const me = (props) => {
         onAfterOpen={onOpen}
         onRequestClose={onClose}
         appElement={document.getElementById("app")}
-        className="dvet-modal"
+        className={`dvet-modal ${props.className || ""}`.trim()}
         overlayClassName="dvet-modal-overlay"
     >
         {props.hideCloseButton ? null : <button onClick={onClose} className="close-button">X</button>}
