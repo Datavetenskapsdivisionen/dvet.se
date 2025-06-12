@@ -2,7 +2,7 @@
 
 **Hej!**
 
-Grattis till din antagning! Din Inspark drar igång den 19:e augusti om du är kandidat och den 30:e augusti om du är master. Under 4 veckor arrangeras massa roliga aktiviteter för att du ska kunna lära känna dina studiekamrater, bli bekant med universitetet och utforska Göteborg som studentstad!
+Grattis till din antagning! Din Inspark drar igång den 18:e augusti om du är kandidat och den 28:e augusti om du är master. Under 4 veckor arrangeras massa roliga aktiviteter för att du ska kunna lära känna dina studiekamrater, bli bekant med universitetet och utforska Göteborg som studentstad!
 
 Letar du efter Insparks-schemat så kan du antingen trycka på schema-knappen i baren eller trycka 
 [här för kandidat-schemat](/committees/dvrk/schedule/bachelor) eller [här för master-schemat](/committees/dvrk/schedule/master)!
