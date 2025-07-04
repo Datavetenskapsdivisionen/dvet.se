@@ -4,7 +4,7 @@ The bulbs are controlled over zigbee, they can change intensity, color, and warm
 They can be putt into pairing mode by switching them on and on 6 times, https://www.youtube.com/watch?v=npxOrPxVfe0. 
 
 ## Chromecast
-The Chromecast is hocked to the sound and video system in the Monad. By connecting your computer or phone to the monaden wifi, you will be able to control the Chromecast. For example, this is how to play songs from Spotify on the Chromecast:
+The Chromecast is hooked to the sound and video system in the Monad. By connecting your computer or phone to the monaden wifi, you will be able to control the Chromecast. For example, this is how to play songs from Spotify on the Chromecast:
 ![Spotify](ChromecastSpotify.png)
 
 ## RADFRI remote controller
