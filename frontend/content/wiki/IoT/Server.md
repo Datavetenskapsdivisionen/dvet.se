@@ -1,6 +1,6 @@
 # The server
 The server manages and runs the [application](https://github.com/Datavetenskapsdivisionen/monaden-iot) as well as zigbee2mqtt. The app and zigbee2mqtt communicate through mqtt, zigbee2mqtt, the dongle, and the devices communicate through zigbee. Finally, the app communicates with the Chromecast over wifi. 
-![Server set up](Server.png)
+![Server set up](https://dvet.se/uploads/kristoffer/Server_30fd423ed3e787fef63be8d382c29bb9.png)
 
 ## App service
  The python application is ran through a service such that it restarts when crashed and such. The service file can be found at /etc/systemd/system/iot.service. Here you can change the flags with with the app runs. Furthermore, if you want to restart the app you should run  ```sudo systemctl restart iot```, and ```sudo journalctl -u iot``` to view application logs.
@@ -18,7 +18,7 @@ zigbee2mqtt can be interacted with though the terminal or its web-app. The web-a
 However, by running ```ssh -nNT -L 2512:localhost:2512 site@megaserver``` on your local computer you can create a tunnel through ssh to your own computer. After witch, you can access the interface at your http://localhost:2512. 
 
 ### Pairing devices
-To connect devices over the interface first click the "Permit join (all)" button. Then head to the touch link tab, put the devices in pairing mode, the press scan. ![PairDevices![alt text](image.png)](PairDevices.png)
+To connect devices over the interface first click the "Permit join (all)" button. Then head to the touch link tab, put the devices in pairing mode, the press scan. ![PairDevices](https://www.dvet.se/uploads/kristoffer/PairDevices_8b5aa9d7bac7d047ccf9b7fe62cd23da.png)
 
 
  
