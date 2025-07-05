@@ -73,7 +73,7 @@
             Glöm inte, det finns inga omfester, bara omtentor!
         </p>
         <p>
-            Lukas, KG, Ida, Gustav & Angelika <br>
+            Angelika, Gustav, Nikhil, Ida, Vanja, Robin, Isac, Hannes, Owais <br>
             <a href="mailto:mega6@dvet.se">mega6@dvet.se</a>
         </p>
         <img src="https://media.tenor.com/C7BqqYKGuOUAAAAC/megaman-dance.gif"/>
