@@ -18,6 +18,9 @@ import 'react-dropdown/style.css';
 import { isEnglish } from "util";
 import Footer from "components/widgets/footer";
 
+import faqText from "/frontend/faq-cache/faq.html";
+import faqTextEn from "/frontend/faq-cache/faq-en.html";
+
 // Yoinked from https://stackoverflow.com/a/21742107
 const isIOS = () => {
     var userAgent = navigator.userAgent || navigator.vendor || window.opera;
@@ -143,12 +146,15 @@ const ContentHolder = (props) => (
 );
 
 const MainPage = () => {
-    return (
-        <ContentHolder element={
-            /* <Schedule eventUrl="/api/kickoff-events" restUrl="/committees/dvrk/schedule" /> */
-            <ReactMarkdown children={isEnglish() ? textEn : text} rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}></ReactMarkdown>
-        } />
-    );
+    return (<ContentHolder element={<>
+        <ReactMarkdown children={isEnglish() ? textEn : text} rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}></ReactMarkdown>
+        <h2>FAQ</h2>
+        <div
+            className="faq-page"
+            dangerouslySetInnerHTML={{ __html: isEnglish() ? faqTextEn : faqText }}>
+        </div>
+    </>
+    } />);
 };
 
 const ContactPage = () => {
