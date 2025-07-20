@@ -113,13 +113,13 @@ const IframePage = (props) => (
         </>
         :
         <>
-            <h1>{props.title}</h1>
+            {/* <h1>{props.title}</h1> */}
             <iframe
                 src={props.url}
                 frameBorder="0"
                 style={{
                     width: "100%",
-                    height: "90vh",
+                    height: "100vh",
                     overflow: "auto",
                     WebkitOverflowScrolling: "touch",
                 }}
