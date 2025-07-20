@@ -49,8 +49,8 @@ If you're looking for the Inspark schedule, you can either click on the "Schedul
         <p>
             To get information and connect with your fellow students, we recommend joining:
             <ul>
-                <li>Facebook group: (<a href="https://www.facebook.com/groups/868507685108910/">https://www.facebook.com/groups/868507685108910/</a>)</li>
-                <li>Discord channel: (<a href="https://discord.gg/UdUUhdgXk8">https://discord.gg/UdUUhdgXk8</a>)</li>
+                <li>Facebook group: (<a href="https://www.facebook.com/groups/868507685108910/">facebook.com/groups/868507685108910/</a>)</li>
+                <li>Discord channel: (<a href="https://discord.com/invite/rPWQwZ9E2z">discord.com/invite/rPWQwZ9E2z</a>)</li>
             </ul>
         </p>
     </div>
