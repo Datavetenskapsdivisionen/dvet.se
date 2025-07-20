@@ -739,7 +739,7 @@ export default [
                 <p>
                     Om du har frågor, behöver hjälp, eller råka falla illa ut, med examinatorer, tentor eller andra studenter etc,
                     så är vi här för att hjälpa dig!
-                    Du kan hitta vår kontakt information under <a href="/dviki">kontakt tabben</a>, och mer information om oss på våran
+                    Du kan hitta vår kontakt information under <a href="/contact">kontakt tabben</a>, och mer information om oss på våran
                     <a href="/dviki">wiki</a>!
                 </p>
                 `,
@@ -752,7 +752,7 @@ export default [
                 <p>
                     If you have questions, need help, or happen to find yourself in trouble with for example examinators or other students,
                     we are here to help you!
-                    You can find our contant information under the <a href="/dviki">contact tab</a>, and more information at our
+                    You can find our contant information under the <a href="/contact">contact tab</a>, and more information at our
                     <a href="/dviki">wiki</a>!
                 </p>
                 `
