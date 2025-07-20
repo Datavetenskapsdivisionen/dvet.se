@@ -581,7 +581,7 @@ export default [
                 </p>`
             },
             {
-                name: "<i>Vart</i> är min tenta?",
+                name: "Vart är min tenta?",
                 name_en: "Where is my exam?",
                 content: `
                 <p>
