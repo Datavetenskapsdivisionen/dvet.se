@@ -166,7 +166,7 @@ const monthName = i => isEnglish()
     ? ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"][i]
     : ["Januari", "Februari", "Mars", "April", "Maj", "Juni", "Juli", "Augusti", "September", "Oktober", "November", "December"][i];
 const dayName = i => isEnglish()
-    ? ["Monday", "Tuesday", "Wendesday", "Thursday", "Friday", "Saturday", "Sunday"][i]
+    ? ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"][i]
     : ["Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag", "Söndag"][i];
 const numberSuffix = i => {
     if (isEnglish()) switch (i % 10) {
