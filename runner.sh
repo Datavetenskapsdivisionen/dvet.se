@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 
 # Set up logging
 if [ -f  ".log_uri" ]; then 
