@@ -1,9 +1,9 @@
-#!/bin/zsh
+#!/bin/bash
 
 # Set up logging
 if [ -f  ".log_uri" ]; then 
     uri="$(cat ".log_uri")"
-    function send() {
+    function send () {
         data=$(echo "{\"content\": \"\`$(date): $1\`\"}"| sed -e 's/\x1b\[[0-9;]*m//g')
         curl -sS \
             -H "Accept: application/json" \
@@ -11,7 +11,7 @@ if [ -f  ".log_uri" ]; then
             -X POST --data "$data" "$uri" 2> /dev/null
     } 
 else 
-    function send() {
+    function send () {
         echo "" > /dev/null
     }
     echo "Discord logging disabled"
