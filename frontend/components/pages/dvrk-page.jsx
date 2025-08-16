@@ -1,6 +1,6 @@
 import "styles/pages/dvrk-styles.less";
 
-import React from "react";
+import React, { useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
@@ -17,6 +17,9 @@ import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 import { isEnglish } from "util";
 import Footer from "components/widgets/footer";
+
+import faqText from "/frontend/faq-cache/faq.html";
+import faqTextEn from "/frontend/faq-cache/faq-en.html";
 
 // Yoinked from https://stackoverflow.com/a/21742107
 const isIOS = () => {
@@ -113,13 +116,13 @@ const IframePage = (props) => (
         </>
         :
         <>
-            <h1>{props.title}</h1>
+            {/* <h1>{props.title}</h1> */}
             <iframe
                 src={props.url}
                 frameBorder="0"
                 style={{
                     width: "100%",
-                    height: "90vh",
+                    height: "100vh",
                     overflow: "auto",
                     WebkitOverflowScrolling: "touch",
                 }}
@@ -143,12 +146,34 @@ const ContentHolder = (props) => (
 );
 
 const MainPage = () => {
-    return (
-        <ContentHolder element={
-            /* <Schedule eventUrl="/api/kickoff-events" restUrl="/committees/dvrk/schedule" /> */
-            <ReactMarkdown children={isEnglish() ? textEn : text} rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}></ReactMarkdown>
-        } />
-    );
+    useEffect(() => {
+        const buttons = document.getElementsByClassName("faq-expand-button");
+        for (let i = 0; i < buttons.length; i++) {
+            const button = buttons.item(i);
+            const arrow = button.children.item(1);
+            // :)
+            const content = button.parentElement.nextElementSibling;
+            const max = content.scrollHeight + "px";
+            button.addEventListener('click', () => {
+                if (content.style.height == max) {
+                    content.style.height = "0";
+                    arrow.innerHTML = "▼";
+                } else {
+                    content.style.height = max;
+                    arrow.innerHTML = "▲";
+                }
+            });
+        }
+    }, []);
+    return (<ContentHolder element={<>
+        <ReactMarkdown children={isEnglish() ? textEn : text} rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}></ReactMarkdown>
+        <h2>FAQ</h2>
+        <div
+            className="faq-page"
+            dangerouslySetInnerHTML={{ __html: isEnglish() ? faqTextEn : faqText }}>
+        </div>
+    </>
+    } />);
 };
 
 const ContactPage = () => {
@@ -191,7 +216,7 @@ const MasterSchedulePage = () =>
 const FormPage = () => {
     return (
         <IframePage
-            url="https://forms.gle/yTBk3hzc1X6qwDzY6" // TODO: must have a survey in English
+            url="https://forms.gle/muuDefAv63orKjXs7" // TODO: must have a survey in English
             title={isEnglish() ? "Recentiors declaration!" : "Recentiorsdeklarationen!"}
         />
     );

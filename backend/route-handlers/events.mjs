@@ -17,17 +17,21 @@ const getCalender = async (auth, calenderId) => {
     const events = res.data.items.map(o => {
         // Get the target groups for an event
         o.group = [];
-        const groupMatch = o.summary.match(groupRegex);
-        if (groupMatch) groupMatch.map(e => o.group.push(e.slice(1, -1)));
+        if (o.summary) {
+            const groupMatch = o.summary.match(groupRegex);
+            if (groupMatch) groupMatch.map(e => o.group.push(e.slice(1, -1)));
 
-        // Get committee, default to DVD if not found
-        const summaryMatch = o.summary.match(committeeRegex);
-        o.committee = summaryMatch
-            ? summaryMatch[0].slice(1, -1)
-            : "DVD";
-        o.summary = o.summary
-            .replaceAll(committeeRegex, "")
-            .replaceAll(groupRegex, "");
+            // Get committee, default to DVD if not found
+            const summaryMatch = o.summary.match(committeeRegex);
+            o.committee = summaryMatch
+                ? summaryMatch[0].slice(1, -1)
+                : "DVD";
+            o.summary = o.summary
+                .replaceAll(committeeRegex, "")
+                .replaceAll(groupRegex, "");
+        } else {
+            o.summary = "Missing summary!";
+        }
 
         // Fix date
         o.dateData = {

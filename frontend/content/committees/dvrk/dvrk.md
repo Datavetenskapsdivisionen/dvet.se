@@ -49,7 +49,7 @@ Letar du efter Insparks-schemat så kan du antingen trycka på schema-knappen i 
         <p>
             Vi rekommenderar starkt att ni går med i vår 
             <a href="https://www.facebook.com/groups/868507685108910/?rdid=YORi62wGgLHYgWqM&amp;share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2Fqe8fWdeHw3SD8tzs%2F">Facebookgrupp</a> och vår 
-            <a href="https://discord.com/invite/UdUUhdgXk8">Discordkanal</a> 
+            <a href="https://discord.com/invite/rPWQwZ9E2z">Discordkanal</a> 
             för att hålla er uppdaterade och komma i kontakt med dina studiekamrater.
         </p>
     </div>

@@ -1,5 +1,6 @@
 node_modules/
 .env
+.log_uri
 .vscode/settings.json
 credentials.json
 token.json
