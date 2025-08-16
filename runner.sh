@@ -11,6 +11,7 @@ if [ -f  ".log_uri" ]; then
             -X POST --data "$data" "$uri" 2> /dev/null
     } 
 else 
+    # If ".log_uri" is not found, just disable logging
     function send () {
         echo "" > /dev/null
     }
