@@ -80,7 +80,7 @@
     </div>
     <div class="committee-page-image">
         <div>
-            <img src="https://dvet.se/uploads/mega6/Lukas%20Gartman%20-%20bca2b5991b6797fb77b0f21913bdecb7%20-%20Mega6.JPG" />
+            <img src="https://www.dvet.se/uploads/samuel/DSCF6778_1_4014090a898067f16dd1c458796ff18b.jpg" />
         </div>
         <span>Mega6</span>
     </div>
