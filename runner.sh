@@ -42,7 +42,7 @@ do
 
     printf -- "\n----------------- SER -------------------\n"
     # send "I be running 🏃‍♀️🏃‍♀️"
-    npm start 2> >(while IFS= read -r p; do
+    NODE_OPTIONS="--no-deprecation" npm start 2> >(while IFS= read -r p; do
         echo "$p"
         send "$p"
     done)
