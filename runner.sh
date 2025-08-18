@@ -18,7 +18,7 @@ else
     echo "Discord logging disabled"
 fi
 
-send "Starting from cold boot"
+# send "Starting from cold boot"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -41,7 +41,7 @@ do
     npm run build || true
 
     printf -- "\n----------------- SER -------------------\n"
-    send "I be running 🏃‍♀️🏃‍♀️"
+    # send "I be running 🏃‍♀️🏃‍♀️"
     npm start 2> >(while IFS= read -r p; do
         echo "$p"
         send "$p"
