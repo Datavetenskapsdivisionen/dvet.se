@@ -1,6 +1,7 @@
 # Bokning av Monaden
 
 Alla medlemmar i Datavetenskapsdivisionen kan boka Monaden. Bokning är endast tillåten efter 17:00. Om bokning sker mindre än 24 timmar i förväg, har andra medlemmar rätt att neka bokningen. Vid bokningskonflikter gäller först till kvarn.
+Generellt gäller att ingen bokning sker under tentamensperioder. Som brandsäkerhetsåtgärd gäller bör ett evenemang inte ha mer än 50 deltagare (eller 45 för en sittning).
 
 Monaden får endast bokas för allmän studentnytta. Du får inte boka Monaden för exempelvis grupparbeten, privata fester eller filmkvällar för dig och två kompisar. Du får boka Monaden för exempelvis sittningar, pluggstugor eller filmkvällar öppna för alla.
 
