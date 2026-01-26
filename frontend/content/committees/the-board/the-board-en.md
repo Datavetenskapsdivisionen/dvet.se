@@ -74,35 +74,23 @@
             other students!
         </p>
         <p>
-            The board currently consists of Ida Vranvuk (division chairman), Hannes Carlsson (division treasurer), Ida Kjellerstedt (vice-division chairman), Nikhil Olsson Mukhopadhyay (secretary), and Daniell Cole (SAMO).
+            The board currently consists of Daniell Cole (division chairperson), Owais Tabbaa (division treasurer), and Nikhil Olsson Mukhopadhyay (secretary).
         </p>
         <h2>Contact Information</h2>
         <p>
             You can reach the whole board with: <a href="mailto:styrelsen@dvet.se">styrelsen@dvet.se</a>
-        </p>
-        <p>
-            Ida can be reached by sending a mail to 
-            <a href="mailto:ordforande@dvet.se">ordforande@dvet.se</a> or to
-            <a href="mailto:ida@dvet.se">ida@dvet.se</a>. 
-            You can also send a message on Discord (username <a><code>`rashlasagna`</code></a>) 
-            or on Facebook Messenger!
-        </p>
-        <p>
-            Hannes can be reached by sending a mail to 
-            <a href="mailto:hannes@dvet.se">hannes@dvet.se</a>. 
-            You can also send a message on Discord (username <a><code>`hannes0648`</code></a>) 
-            or on Facebook Messenger!
-        </p>
-        <p>
-            Ida can be reached by sending a mail to 
-            <a href="mailto:tim@dvet.se">kjellerstedt@dvet.se</a>. 
-            You can also send a message on Discord (username <a><code>`kjelllare`</code></a>) 
-            or on Facebook Messenger!
+            The chairperson can also be reached by: <a href="mailto:ordforande@dvet.se">ordforande@dvet.se</a>
         </p>
          <p>
-            Daniell can be reached by sending a mail to 
+            Daniell can be reached by sending a mail to
             <a href="mailto:daniell@dvet.se">daniell@dvet.se</a>. 
             You can also send a message on Discord (username <a><code>`mindokruvaak`</code></a>) 
+            or on Facebook Messenger!
+        </p>
+        <p>
+            Owais can be reached by sending a mail to 
+            <a href="mailto:owais@dvet.se">owais@dvet.se</a>. 
+            You can also send a message on Discord (username <a><code>`tanggii`</code></a>) 
             or on Facebook Messenger!
         </p>
     </div>
@@ -110,6 +98,6 @@
         <div>
             <img src="https://www.dvet.se/uploads/ida/IMG_0493_16f12af7de22a1c5509d56962e513562.JPG" />
         </div>
-        <span>The Board</span>
+        <span> - The Board</span>
     </div>
 </div>
