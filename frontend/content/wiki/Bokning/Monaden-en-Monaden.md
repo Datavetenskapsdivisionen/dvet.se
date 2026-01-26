@@ -1,6 +1,7 @@
 # Booking of Monaden
 
 Members of the Computer Science Division can book Monaden. Bookings are only allowed after 17:00. If a booking is made less than 24 hours in advance, other members have the right to deny it. In case of a conflict, bookings are on a first-come, first-served basis.
+It is in general not possible to book Monaden during exam periods. As a fire safety precaution, the event should have no more than 50 attendants (or 45 for sittings).
 
 Monaden can only be booked for the general benefit of students. It cannot be booked for group work, private parties, or movie nights for a small group of friends. However, it can be booked for events such as sittings, study sessions, or movie nights open to everyone.
 
