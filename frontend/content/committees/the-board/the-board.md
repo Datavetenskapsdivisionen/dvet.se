@@ -74,30 +74,12 @@
             andra studenter!
         </p>
         <p>
-            Styrelsen består i nuläget av Ida Vranvuk (divisionsordförande), Hannes Carlsson (divisionskassör), Ida Kjellerstedt (vice-divisionsordförande), Nikhil Olsson Mukhopadhyay (sekreterare) och Daniell Cole (SAMO).
+            Styrelsen består i nuläget av Daniell Cole (divisionsordförande), Owais Tabbaa (divisionskassör) och Nikhil Olsson Mukhopadhyay (sekreterare).
         </p>
         <h2>Kontakt</h2>
         <p>
             Du kan nå hela styrelsen med: <a href="mailto:styrelsen@dvet.se">styrelsen@dvet.se</a>
-        </p>
-        <p>
-            Ida kan nås genom att skicka ett mail till 
-            <a href="mailto:ordforande@dvet.se">ordforande@dvet.se</a> (stående address) eller till
-            <a href="mailto:ida@dvet.se">ida@dvet.se</a>. 
-            Annars kan du också skicka ett meddelande på Discord (användarnamn <a><code>`rashthelasagna`</code></a>) 
-            eller på Facebook Messenger!
-        </p>
-        <p>
-            Hannes kan nås genom att skicka ett mail till 
-            <a href="mailto:hannes@dvet.se">hannes@dvet.se</a>. 
-            Går även bra att skriva på Discord (användarnamn <a><code>`hannes0648`</code></a>) 
-            eller på Facebook Messenger!
-        </p>
-        <p>
-            Ida kan nås genom att skicka ett mail till 
-            <a href="mailto:kjellerstedt@dvet.se">kjellerstedt@dvet.se</a>. 
-            Går även bra att skriva på Discord (användarnamn <a><code>`kjelllare`</code></a>) 
-            eller på Facebook Messenger!
+            Ordförande kan också nås via: <a href="mailto:ordforande@dvet.se">ordforande@dvet.se</a> (stående address)
         </p>
          <p>
             Daniell kan nås genom att skicka ett mail till 
@@ -105,11 +87,17 @@
             Går även bra att skriva på Discord (användarnamn <a><code>`mindokruvaak`</code></a>) 
             eller på Facebook Messenger!
         </p>
+         <p>
+            Owais kan nås genom att skicka ett mail till 
+            <a href="mailto:owais@dvet.se">owais@dvet.se</a>. 
+            Går även bra att skriva på Discord (användarnamn <a><code>`tanggii`</code></a>) 
+            eller på Facebook Messenger!
+        </p>
     </div>
     <div class="committee-page-image">
         <div>
             <img src="https://www.dvet.se/uploads/ida/IMG_0493_16f12af7de22a1c5509d56962e513562.JPG" />
         </div>
-        <span>Styrelsen</span>
+        <span> - Styrelsen</span>
     </div>
 </div>
