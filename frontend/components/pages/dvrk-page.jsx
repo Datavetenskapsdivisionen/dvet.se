@@ -10,7 +10,7 @@ import textEn from "/frontend/content/committees/dvrk/dvrk-en.md";
 import contactEn from "/frontend/content/committees/dvrk/dvrkcontact-en.md";
 import { CalenderSchedule, Schedule } from "components/widgets/schedule";
 import { NavLink, useNavigate } from "react-router-dom";
-import DVRKLogo from "/frontend/assets/committee-logos/dvrk-logo.png";
+import DVRKLogo from "/frontend/assets/committee-logos/dvrk26-logo.png";
 import DURKMAN from "/frontend/assets/dvrk.jpg";
 const DURKMAN_URL = "url(" + new String(DURKMAN) + ")";
 import Dropdown from 'react-dropdown';
@@ -79,7 +79,7 @@ const DVRKbar = () => {
     return <>
         <header className="dvrk-header" style={{ backgroundImage: DURKMAN_URL }}>
             <div className="header-text">
-                <img draggable="false" src={DVRKLogo} />
+                <img draggable="false" src={DVRKLogo} alt="DVRK26-loggan"/>
             </div>
         </header>
         <nav className="dvrk-nav">
