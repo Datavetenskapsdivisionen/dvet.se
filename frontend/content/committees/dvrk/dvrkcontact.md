@@ -6,6 +6,6 @@ Detta är det bästa sättet att komma i kontakt med oss! Denna mailadress går 
 ### Instagram:[@dvrk_gu](https://www.instagram.com/)
 Skicka oss ett privat meddelande så svarar vi så fort vi kan!. 
 
-### Ordförande: [halimo@dvet.se](mailto:halimo@dvet.se)
+### Ordförande: [Halimo@dvet.se](mailto:Halimo@dvet.se)
 Denna mailadress går endast till ordförande av DVRK. 
 
