@@ -11,7 +11,7 @@ import contactEn from "/frontend/content/committees/dvrk/dvrkcontact-en.md";
 import { CalenderSchedule, Schedule } from "components/widgets/schedule";
 import { NavLink, useNavigate } from "react-router-dom";
 import DVRKLogo from "/frontend/assets/committee-logos/dvrk26-logo.png";
-import DURKMAN from "frontend/assets/DVRK26.jpg";
+import DURKMAN from "frontend/assets/DVRK26-resized.jpg";
 const DURKMAN_URL = "url(" + new String(DURKMAN) + ")";
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
