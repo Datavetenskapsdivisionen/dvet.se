@@ -216,7 +216,7 @@ const MasterSchedulePage = () =>
 const FormPage = () => {
     return (
         <IframePage
-            url="https://docs.google.com/forms/d/1W4cJraJPMhkmw34u7OsLYjSo1zqfcKiO5gUnwBJSRTo/preview" // TODO: must have a survey in English
+            url="https://docs.google.com/forms/d/e/1FAIpQLSemK384CI3r9-5yQCih-oqA1mdOFfwxRfkZ-PRSL_ytY4D_Pw/viewform" // TODO: must have a survey in English
             title={isEnglish() ? "Recentiors declaration!" : "Recentiorsdeklarationen!"}
         />
     );
