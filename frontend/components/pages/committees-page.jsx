@@ -2,7 +2,7 @@ import React from "react";
 import CommitteeBadge from "components/widgets/committee-badge";
 import { isEnglish } from "util";
 
-import DVRKLogo from "/frontend/assets/committee-logos/dvrk-logo.png";
+import DVRKLogo from "/frontend/assets/committee-logos/dvrk26-logo.png";
 import ConCatsLogo from "/frontend/assets/committee-logos/concats-logo.png";
 import ConCatsText from "/frontend/assets/committee-logos/concats-text-alt.png";
 import Mega6Logo from "/frontend/assets/committee-logos/mega6-logo.png";
