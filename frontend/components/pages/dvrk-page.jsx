@@ -226,7 +226,7 @@ const BachelorPage = () => {
     return (
         <ContentHolder element={
             <IframePage
-                url="/recceguiden"
+                url="/recceguiden26"
                 title={isEnglish() ? "Reception guide for bachelor students!" : "Recceguiden för kandidater!"}
             />
         } />
@@ -237,7 +237,7 @@ const MasterPage = () => {
     return (
         <ContentHolder element={
             <IframePage
-                url="/masterguide"
+                url="/MASTERguiden26"
                 title="Receptionguide for master students!"
             />
         } />
