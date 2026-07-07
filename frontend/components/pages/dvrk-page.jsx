@@ -11,7 +11,7 @@ import contactEn from "/frontend/content/committees/dvrk/dvrkcontact-en.md";
 import { CalenderSchedule, Schedule } from "components/widgets/schedule";
 import { NavLink, useNavigate } from "react-router-dom";
 import DVRKLogo from "/frontend/assets/committee-logos/dvrk26-logo.png";
-import DURKMAN from "/frontend/assets/dvrk.jpg";
+import DURKMAN from "frontend/assets/DVRK26-version-2.png";
 const DURKMAN_URL = "url(" + new String(DURKMAN) + ")";
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
@@ -216,7 +216,7 @@ const MasterSchedulePage = () =>
 const FormPage = () => {
     return (
         <IframePage
-            url="https://forms.gle/muuDefAv63orKjXs7" // TODO: must have a survey in English
+            url="https://docs.google.com/forms/d/e/1FAIpQLSemK384CI3r9-5yQCih-oqA1mdOFfwxRfkZ-PRSL_ytY4D_Pw/viewform" // TODO: must have a survey in English
             title={isEnglish() ? "Recentiors declaration!" : "Recentiorsdeklarationen!"}
         />
     );
