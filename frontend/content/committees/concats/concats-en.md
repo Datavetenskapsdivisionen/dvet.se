@@ -26,5 +26,5 @@ orientation period, which will be
 held shortly after your first few
 weeks.
 
-Martin, Nikhil, Vera, Owais, Daniell
+Owais, Martin, Daniell, Sarah
 [concats@dvet.se](mailto:concats@dvet.se)
