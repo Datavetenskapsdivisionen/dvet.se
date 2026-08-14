@@ -22,5 +22,5 @@ Vill du engagera dig i studentlivet här på DV och gillar snacks,
 mat, film och spel? Då hade du
 passat i ConCats
 
-Martin, Nikhil, Vera, Owais, Daniell
+Owais, Martin, Daniell, Sarah
 [concats@dvet.se](mailto:concats@dvet.se)
