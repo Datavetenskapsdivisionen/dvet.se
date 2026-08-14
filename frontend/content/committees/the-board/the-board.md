@@ -74,7 +74,7 @@
             andra studenter!
         </p>
         <p>
-            Styrelsen består i nuläget av Daniell Cole (divisionsordförande), Owais Tabbaa (divisionskassör) och Nikhil Olsson Mukhopadhyay (sekreterare).
+            Styrelsen består i nuläget av Daniell Cole (divisionsordförande), Owais Tabbaa (divisionskassör).
         </p>
         <h2>Kontakt</h2>
         <p>

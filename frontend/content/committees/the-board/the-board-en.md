@@ -74,7 +74,7 @@
             other students!
         </p>
         <p>
-            The board currently consists of Daniell Cole (division chairperson), Owais Tabbaa (division treasurer), and Nikhil Olsson Mukhopadhyay (secretary).
+            The board currently consists of Daniell Cole (division chairperson), Owais Tabbaa (division treasurer).
         </p>
         <h2>Contact Information</h2>
         <p>
